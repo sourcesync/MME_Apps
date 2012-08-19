@@ -1,0 +1,518 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B3865E2015C9C1D4003CF913 /* RewardsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3865E1E15C9C1D4003CF913 /* RewardsView.m */; };
+		B3865E2115C9C1D4003CF913 /* RewardsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3865E1F15C9C1D4003CF913 /* RewardsView.xib */; };
+		B3865E2815C9D058003CF913 /* TruckFinderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3865E2615C9D058003CF913 /* TruckFinderView.m */; };
+		B3865E2915C9D058003CF913 /* TruckFinderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3865E2715C9D058003CF913 /* TruckFinderView.xib */; };
+		B3865E3815C9D5A6003CF913 /* SignupView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3865E3615C9D5A6003CF913 /* SignupView.m */; };
+		B3865E3915C9D5A6003CF913 /* SignupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3865E3715C9D5A6003CF913 /* SignupView.xib */; };
+		B3865E4A15C9DC14003CF913 /* iphone-splashscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E4515C9DC13003CF913 /* iphone-splashscreen.png */; };
+		B3865E4C15C9DC14003CF913 /* sign-up.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E4715C9DC14003CF913 /* sign-up.png */; };
+		B3865E5115C9DDE1003CF913 /* Main-Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E4E15C9DDDD003CF913 /* Main-Screen.png */; };
+		B3865E5215C9DDE1003CF913 /* Rewards.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E4F15C9DDDE003CF913 /* Rewards.png */; };
+		B3865E5315C9DDE1003CF913 /* TruckFinder.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E5015C9DDDF003CF913 /* TruckFinder.png */; };
+		B3865E6215C9EE96003CF913 /* MyAccountHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3865E6015C9EE96003CF913 /* MyAccountHomeView.m */; };
+		B3865E6315C9EE96003CF913 /* MyAccountHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3865E6115C9EE96003CF913 /* MyAccountHomeView.xib */; };
+		B3865E6915C9EFD9003CF913 /* MyAccountStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3865E6715C9EFD9003CF913 /* MyAccountStartView.m */; };
+		B3865E6A15C9EFD9003CF913 /* MyAccountStartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3865E6815C9EFD9003CF913 /* MyAccountStartView.xib */; };
+		B3865E6F15C9F022003CF913 /* TruckSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3865E6D15C9F022003CF913 /* TruckSettingsView.m */; };
+		B3865E7015C9F022003CF913 /* TruckSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3865E6E15C9F022003CF913 /* TruckSettingsView.xib */; };
+		B3865E7815C9F184003CF913 /* MyAccount-StoreLocator.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E7415C9F182003CF913 /* MyAccount-StoreLocator.png */; };
+		B3865E7D15C9F1E6003CF913 /* RestaurantSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3865E7B15C9F1E6003CF913 /* RestaurantSettingsView.m */; };
+		B3865E7E15C9F1E6003CF913 /* RestaurantSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3865E7C15C9F1E6003CF913 /* RestaurantSettingsView.xib */; };
+		B3865E8115C9FD44003CF913 /* My Account-Starting Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E7F15C9FD42003CF913 /* My Account-Starting Screen.png */; };
+		B3865E8615C9FED8003CF913 /* MyAccount-Trucklocator.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E8515C9FED7003CF913 /* MyAccount-Trucklocator.png */; };
+		B3865E8815CA09FB003CF913 /* MyAccount-Home.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E8715CA09F7003CF913 /* MyAccount-Home.png */; };
+		B3865E8A15CA111C003CF913 /* Deals.png in Resources */ = {isa = PBXBuildFile; fileRef = B3865E8915CA111B003CF913 /* Deals.png */; };
+		B3865E8F15CA113C003CF913 /* DealsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3865E8D15CA113C003CF913 /* DealsView.m */; };
+		B3865E9015CA113C003CF913 /* DealsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3865E8E15CA113C003CF913 /* DealsView.xib */; };
+		B3B2FF2D15C9B92200F45ED4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B2FF2C15C9B92200F45ED4 /* UIKit.framework */; };
+		B3B2FF2F15C9B92200F45ED4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B2FF2E15C9B92200F45ED4 /* Foundation.framework */; };
+		B3B2FF3115C9B92200F45ED4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B2FF3015C9B92200F45ED4 /* CoreGraphics.framework */; };
+		B3B2FF3715C9B92200F45ED4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B3B2FF3515C9B92200F45ED4 /* InfoPlist.strings */; };
+		B3B2FF3915C9B92200F45ED4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B2FF3815C9B92200F45ED4 /* main.m */; };
+		B3B2FF3D15C9B92200F45ED4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B2FF3C15C9B92200F45ED4 /* AppDelegate.m */; };
+		B3B2FF4015C9B92200F45ED4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B2FF3F15C9B92200F45ED4 /* ViewController.m */; };
+		B3B2FF4315C9B92300F45ED4 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B2FF4115C9B92300F45ED4 /* ViewController.xib */; };
+		B3B2FF4B15C9BC3200F45ED4 /* iphone4-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B2FF4A15C9BC3200F45ED4 /* iphone4-icon.png */; };
+		B3B2FF5315C9BDE900F45ED4 /* HomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B2FF5115C9BDE900F45ED4 /* HomeView.m */; };
+		B3B2FF5415C9BDE900F45ED4 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B2FF5215C9BDE900F45ED4 /* HomeView.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B3865E1D15C9C1D4003CF913 /* RewardsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RewardsView.h; sourceTree = "<group>"; };
+		B3865E1E15C9C1D4003CF913 /* RewardsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RewardsView.m; sourceTree = "<group>"; };
+		B3865E1F15C9C1D4003CF913 /* RewardsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RewardsView.xib; sourceTree = "<group>"; };
+		B3865E2515C9D058003CF913 /* TruckFinderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TruckFinderView.h; sourceTree = "<group>"; };
+		B3865E2615C9D058003CF913 /* TruckFinderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TruckFinderView.m; sourceTree = "<group>"; };
+		B3865E2715C9D058003CF913 /* TruckFinderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TruckFinderView.xib; sourceTree = "<group>"; };
+		B3865E3515C9D5A6003CF913 /* SignupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupView.h; sourceTree = "<group>"; };
+		B3865E3615C9D5A6003CF913 /* SignupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupView.m; sourceTree = "<group>"; };
+		B3865E3715C9D5A6003CF913 /* SignupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignupView.xib; sourceTree = "<group>"; };
+		B3865E4515C9DC13003CF913 /* iphone-splashscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-splashscreen.png"; sourceTree = "<group>"; };
+		B3865E4715C9DC14003CF913 /* sign-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sign-up.png"; sourceTree = "<group>"; };
+		B3865E4E15C9DDDD003CF913 /* Main-Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main-Screen.png"; sourceTree = "<group>"; };
+		B3865E4F15C9DDDE003CF913 /* Rewards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rewards.png; sourceTree = "<group>"; };
+		B3865E5015C9DDDF003CF913 /* TruckFinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TruckFinder.png; sourceTree = "<group>"; };
+		B3865E5F15C9EE96003CF913 /* MyAccountHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAccountHomeView.h; sourceTree = "<group>"; };
+		B3865E6015C9EE96003CF913 /* MyAccountHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountHomeView.m; sourceTree = "<group>"; };
+		B3865E6115C9EE96003CF913 /* MyAccountHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAccountHomeView.xib; sourceTree = "<group>"; };
+		B3865E6615C9EFD9003CF913 /* MyAccountStartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAccountStartView.h; sourceTree = "<group>"; };
+		B3865E6715C9EFD9003CF913 /* MyAccountStartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountStartView.m; sourceTree = "<group>"; };
+		B3865E6815C9EFD9003CF913 /* MyAccountStartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAccountStartView.xib; sourceTree = "<group>"; };
+		B3865E6C15C9F022003CF913 /* TruckSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TruckSettingsView.h; sourceTree = "<group>"; };
+		B3865E6D15C9F022003CF913 /* TruckSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TruckSettingsView.m; sourceTree = "<group>"; };
+		B3865E6E15C9F022003CF913 /* TruckSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TruckSettingsView.xib; sourceTree = "<group>"; };
+		B3865E7415C9F182003CF913 /* MyAccount-StoreLocator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MyAccount-StoreLocator.png"; sourceTree = "<group>"; };
+		B3865E7A15C9F1E6003CF913 /* RestaurantSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSettingsView.h; sourceTree = "<group>"; };
+		B3865E7B15C9F1E6003CF913 /* RestaurantSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSettingsView.m; sourceTree = "<group>"; };
+		B3865E7C15C9F1E6003CF913 /* RestaurantSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantSettingsView.xib; sourceTree = "<group>"; };
+		B3865E7F15C9FD42003CF913 /* My Account-Starting Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "My Account-Starting Screen.png"; sourceTree = "<group>"; };
+		B3865E8515C9FED7003CF913 /* MyAccount-Trucklocator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MyAccount-Trucklocator.png"; sourceTree = "<group>"; };
+		B3865E8715CA09F7003CF913 /* MyAccount-Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MyAccount-Home.png"; sourceTree = "<group>"; };
+		B3865E8915CA111B003CF913 /* Deals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Deals.png; sourceTree = "<group>"; };
+		B3865E8C15CA113C003CF913 /* DealsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealsView.h; sourceTree = "<group>"; };
+		B3865E8D15CA113C003CF913 /* DealsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealsView.m; sourceTree = "<group>"; };
+		B3865E8E15CA113C003CF913 /* DealsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DealsView.xib; sourceTree = "<group>"; };
+		B3B2FF2815C9B92200F45ED4 /* whitecastle2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whitecastle2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3B2FF2C15C9B92200F45ED4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B3B2FF2E15C9B92200F45ED4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B3B2FF3015C9B92200F45ED4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B3B2FF3415C9B92200F45ED4 /* whitecastle2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "whitecastle2-Info.plist"; sourceTree = "<group>"; };
+		B3B2FF3615C9B92200F45ED4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B3B2FF3815C9B92200F45ED4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B3B2FF3A15C9B92200F45ED4 /* whitecastle2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "whitecastle2-Prefix.pch"; sourceTree = "<group>"; };
+		B3B2FF3B15C9B92200F45ED4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B3B2FF3C15C9B92200F45ED4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B3B2FF3E15C9B92200F45ED4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B3B2FF3F15C9B92200F45ED4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B3B2FF4215C9B92300F45ED4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		B3B2FF4A15C9BC3200F45ED4 /* iphone4-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone4-icon.png"; sourceTree = "<group>"; };
+		B3B2FF5015C9BDE900F45ED4 /* HomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeView.h; sourceTree = "<group>"; };
+		B3B2FF5115C9BDE900F45ED4 /* HomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeView.m; sourceTree = "<group>"; };
+		B3B2FF5215C9BDE900F45ED4 /* HomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B3B2FF2515C9B92200F45ED4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B2FF2D15C9B92200F45ED4 /* UIKit.framework in Frameworks */,
+				B3B2FF2F15C9B92200F45ED4 /* Foundation.framework in Frameworks */,
+				B3B2FF3115C9B92200F45ED4 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B3865E1C15C9C1BE003CF913 /* rewards */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E1D15C9C1D4003CF913 /* RewardsView.h */,
+				B3865E1E15C9C1D4003CF913 /* RewardsView.m */,
+				B3865E1F15C9C1D4003CF913 /* RewardsView.xib */,
+			);
+			name = rewards;
+			sourceTree = "<group>";
+		};
+		B3865E2415C9D041003CF913 /* truckfinder */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E2515C9D058003CF913 /* TruckFinderView.h */,
+				B3865E2615C9D058003CF913 /* TruckFinderView.m */,
+				B3865E2715C9D058003CF913 /* TruckFinderView.xib */,
+			);
+			name = truckfinder;
+			sourceTree = "<group>";
+		};
+		B3865E3415C9D586003CF913 /* signup */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E3515C9D5A6003CF913 /* SignupView.h */,
+				B3865E3615C9D5A6003CF913 /* SignupView.m */,
+				B3865E3715C9D5A6003CF913 /* SignupView.xib */,
+			);
+			name = signup;
+			sourceTree = "<group>";
+		};
+		B3865E5E15C9EE6C003CF913 /* myaccount */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E7115C9F0BA003CF913 /* restaurantsettings */,
+				B3865E6B15C9F008003CF913 /* trucksettings */,
+				B3865E6515C9EFC3003CF913 /* start */,
+				B3865E6415C9EE9C003CF913 /* home */,
+			);
+			name = myaccount;
+			sourceTree = "<group>";
+		};
+		B3865E6415C9EE9C003CF913 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E5F15C9EE96003CF913 /* MyAccountHomeView.h */,
+				B3865E6015C9EE96003CF913 /* MyAccountHomeView.m */,
+				B3865E6115C9EE96003CF913 /* MyAccountHomeView.xib */,
+			);
+			name = home;
+			sourceTree = "<group>";
+		};
+		B3865E6515C9EFC3003CF913 /* start */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E6615C9EFD9003CF913 /* MyAccountStartView.h */,
+				B3865E6715C9EFD9003CF913 /* MyAccountStartView.m */,
+				B3865E6815C9EFD9003CF913 /* MyAccountStartView.xib */,
+			);
+			name = start;
+			sourceTree = "<group>";
+		};
+		B3865E6B15C9F008003CF913 /* trucksettings */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E6C15C9F022003CF913 /* TruckSettingsView.h */,
+				B3865E6D15C9F022003CF913 /* TruckSettingsView.m */,
+				B3865E6E15C9F022003CF913 /* TruckSettingsView.xib */,
+			);
+			name = trucksettings;
+			sourceTree = "<group>";
+		};
+		B3865E7115C9F0BA003CF913 /* restaurantsettings */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E7A15C9F1E6003CF913 /* RestaurantSettingsView.h */,
+				B3865E7B15C9F1E6003CF913 /* RestaurantSettingsView.m */,
+				B3865E7C15C9F1E6003CF913 /* RestaurantSettingsView.xib */,
+			);
+			name = restaurantsettings;
+			sourceTree = "<group>";
+		};
+		B3865E8B15CA1121003CF913 /* deals */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E8C15CA113C003CF913 /* DealsView.h */,
+				B3865E8D15CA113C003CF913 /* DealsView.m */,
+				B3865E8E15CA113C003CF913 /* DealsView.xib */,
+			);
+			name = deals;
+			sourceTree = "<group>";
+		};
+		B3B2FF1D15C9B92200F45ED4 = {
+			isa = PBXGroup;
+			children = (
+				B3B2FF3215C9B92200F45ED4 /* whitecastle2 */,
+				B3B2FF2B15C9B92200F45ED4 /* Frameworks */,
+				B3B2FF2915C9B92200F45ED4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B3B2FF2915C9B92200F45ED4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B3B2FF2815C9B92200F45ED4 /* whitecastle2.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B3B2FF2B15C9B92200F45ED4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3B2FF2C15C9B92200F45ED4 /* UIKit.framework */,
+				B3B2FF2E15C9B92200F45ED4 /* Foundation.framework */,
+				B3B2FF3015C9B92200F45ED4 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3B2FF3215C9B92200F45ED4 /* whitecastle2 */ = {
+			isa = PBXGroup;
+			children = (
+				B3865E8915CA111B003CF913 /* Deals.png */,
+				B3865E8715CA09F7003CF913 /* MyAccount-Home.png */,
+				B3865E8515C9FED7003CF913 /* MyAccount-Trucklocator.png */,
+				B3865E7F15C9FD42003CF913 /* My Account-Starting Screen.png */,
+				B3865E7415C9F182003CF913 /* MyAccount-StoreLocator.png */,
+				B3865E4E15C9DDDD003CF913 /* Main-Screen.png */,
+				B3865E4F15C9DDDE003CF913 /* Rewards.png */,
+				B3865E5015C9DDDF003CF913 /* TruckFinder.png */,
+				B3865E4515C9DC13003CF913 /* iphone-splashscreen.png */,
+				B3865E4715C9DC14003CF913 /* sign-up.png */,
+				B3B2FF4A15C9BC3200F45ED4 /* iphone4-icon.png */,
+				B3865E8B15CA1121003CF913 /* deals */,
+				B3865E5E15C9EE6C003CF913 /* myaccount */,
+				B3865E3415C9D586003CF913 /* signup */,
+				B3865E2415C9D041003CF913 /* truckfinder */,
+				B3865E1C15C9C1BE003CF913 /* rewards */,
+				B3B2FF4F15C9BDD400F45ED4 /* home */,
+				B3B2FF4C15C9BD1B00F45ED4 /* splash */,
+				B3B2FF4915C9BA0800F45ED4 /* main */,
+				B3B2FF3315C9B92200F45ED4 /* Supporting Files */,
+			);
+			path = whitecastle2;
+			sourceTree = "<group>";
+		};
+		B3B2FF3315C9B92200F45ED4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B3B2FF3415C9B92200F45ED4 /* whitecastle2-Info.plist */,
+				B3B2FF3515C9B92200F45ED4 /* InfoPlist.strings */,
+				B3B2FF3815C9B92200F45ED4 /* main.m */,
+				B3B2FF3A15C9B92200F45ED4 /* whitecastle2-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B3B2FF4915C9BA0800F45ED4 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				B3B2FF3B15C9B92200F45ED4 /* AppDelegate.h */,
+				B3B2FF3C15C9B92200F45ED4 /* AppDelegate.m */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
+		B3B2FF4C15C9BD1B00F45ED4 /* splash */ = {
+			isa = PBXGroup;
+			children = (
+				B3B2FF3E15C9B92200F45ED4 /* ViewController.h */,
+				B3B2FF3F15C9B92200F45ED4 /* ViewController.m */,
+				B3B2FF4115C9B92300F45ED4 /* ViewController.xib */,
+			);
+			name = splash;
+			sourceTree = "<group>";
+		};
+		B3B2FF4F15C9BDD400F45ED4 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				B3B2FF5015C9BDE900F45ED4 /* HomeView.h */,
+				B3B2FF5115C9BDE900F45ED4 /* HomeView.m */,
+				B3B2FF5215C9BDE900F45ED4 /* HomeView.xib */,
+			);
+			name = home;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B3B2FF2715C9B92200F45ED4 /* whitecastle2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3B2FF4615C9B92300F45ED4 /* Build configuration list for PBXNativeTarget "whitecastle2" */;
+			buildPhases = (
+				B3B2FF2415C9B92200F45ED4 /* Sources */,
+				B3B2FF2515C9B92200F45ED4 /* Frameworks */,
+				B3B2FF2615C9B92200F45ED4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = whitecastle2;
+			productName = whitecastle2;
+			productReference = B3B2FF2815C9B92200F45ED4 /* whitecastle2.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B3B2FF1F15C9B92200F45ED4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = B3B2FF2215C9B92200F45ED4 /* Build configuration list for PBXProject "whitecastle2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B3B2FF1D15C9B92200F45ED4;
+			productRefGroup = B3B2FF2915C9B92200F45ED4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B3B2FF2715C9B92200F45ED4 /* whitecastle2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B3B2FF2615C9B92200F45ED4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B2FF3715C9B92200F45ED4 /* InfoPlist.strings in Resources */,
+				B3B2FF4315C9B92300F45ED4 /* ViewController.xib in Resources */,
+				B3B2FF4B15C9BC3200F45ED4 /* iphone4-icon.png in Resources */,
+				B3B2FF5415C9BDE900F45ED4 /* HomeView.xib in Resources */,
+				B3865E2115C9C1D4003CF913 /* RewardsView.xib in Resources */,
+				B3865E2915C9D058003CF913 /* TruckFinderView.xib in Resources */,
+				B3865E3915C9D5A6003CF913 /* SignupView.xib in Resources */,
+				B3865E4A15C9DC14003CF913 /* iphone-splashscreen.png in Resources */,
+				B3865E4C15C9DC14003CF913 /* sign-up.png in Resources */,
+				B3865E5115C9DDE1003CF913 /* Main-Screen.png in Resources */,
+				B3865E5215C9DDE1003CF913 /* Rewards.png in Resources */,
+				B3865E5315C9DDE1003CF913 /* TruckFinder.png in Resources */,
+				B3865E6315C9EE96003CF913 /* MyAccountHomeView.xib in Resources */,
+				B3865E6A15C9EFD9003CF913 /* MyAccountStartView.xib in Resources */,
+				B3865E7015C9F022003CF913 /* TruckSettingsView.xib in Resources */,
+				B3865E7815C9F184003CF913 /* MyAccount-StoreLocator.png in Resources */,
+				B3865E7E15C9F1E6003CF913 /* RestaurantSettingsView.xib in Resources */,
+				B3865E8115C9FD44003CF913 /* My Account-Starting Screen.png in Resources */,
+				B3865E8615C9FED8003CF913 /* MyAccount-Trucklocator.png in Resources */,
+				B3865E8815CA09FB003CF913 /* MyAccount-Home.png in Resources */,
+				B3865E8A15CA111C003CF913 /* Deals.png in Resources */,
+				B3865E9015CA113C003CF913 /* DealsView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B3B2FF2415C9B92200F45ED4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B2FF3915C9B92200F45ED4 /* main.m in Sources */,
+				B3B2FF3D15C9B92200F45ED4 /* AppDelegate.m in Sources */,
+				B3B2FF4015C9B92200F45ED4 /* ViewController.m in Sources */,
+				B3B2FF5315C9BDE900F45ED4 /* HomeView.m in Sources */,
+				B3865E2015C9C1D4003CF913 /* RewardsView.m in Sources */,
+				B3865E2815C9D058003CF913 /* TruckFinderView.m in Sources */,
+				B3865E3815C9D5A6003CF913 /* SignupView.m in Sources */,
+				B3865E6215C9EE96003CF913 /* MyAccountHomeView.m in Sources */,
+				B3865E6915C9EFD9003CF913 /* MyAccountStartView.m in Sources */,
+				B3865E6F15C9F022003CF913 /* TruckSettingsView.m in Sources */,
+				B3865E7D15C9F1E6003CF913 /* RestaurantSettingsView.m in Sources */,
+				B3865E8F15CA113C003CF913 /* DealsView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B3B2FF3515C9B92200F45ED4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B3B2FF3615C9B92200F45ED4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B3B2FF4115C9B92300F45ED4 /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B3B2FF4215C9B92300F45ED4 /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B3B2FF4415C9B92300F45ED4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B3B2FF4515C9B92300F45ED4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B3B2FF4715C9B92300F45ED4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: George Williams";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: George Williams";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "whitecastle2/whitecastle2-Prefix.pch";
+				INFOPLIST_FILE = "whitecastle2/whitecastle2-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "17ECFECE-4EE0-47BD-BCD4-E199EEB8480E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "17ECFECE-4EE0-47BD-BCD4-E199EEB8480E";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		B3B2FF4815C9B92300F45ED4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: George Williams";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: George Williams";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "whitecastle2/whitecastle2-Prefix.pch";
+				INFOPLIST_FILE = "whitecastle2/whitecastle2-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "17ECFECE-4EE0-47BD-BCD4-E199EEB8480E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "17ECFECE-4EE0-47BD-BCD4-E199EEB8480E";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B3B2FF2215C9B92200F45ED4 /* Build configuration list for PBXProject "whitecastle2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3B2FF4415C9B92300F45ED4 /* Debug */,
+				B3B2FF4515C9B92300F45ED4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3B2FF4615C9B92300F45ED4 /* Build configuration list for PBXNativeTarget "whitecastle2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3B2FF4715C9B92300F45ED4 /* Debug */,
+				B3B2FF4815C9B92300F45ED4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B3B2FF1F15C9B92200F45ED4 /* Project object */;
+}

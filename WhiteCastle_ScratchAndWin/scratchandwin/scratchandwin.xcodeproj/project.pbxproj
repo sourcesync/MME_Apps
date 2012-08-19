@@ -1,0 +1,598 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B3081BE515ADF59A008D538D /* 2000.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3081BE415ADF59A008D538D /* 2000.jpg */; };
+		B376809015A98AE000A24910 /* iphone-scratchticket-scratched-cleaned.png in Resources */ = {isa = PBXBuildFile; fileRef = B376808F15A98AE000A24910 /* iphone-scratchticket-scratched-cleaned.png */; };
+		B376809315AA21C200A24910 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B376809215AA21C200A24910 /* AVFoundation.framework */; };
+		B376809515AA220600A24910 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B376809415AA220500A24910 /* CoreMedia.framework */; };
+		B376809715AA220D00A24910 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B376809615AA220D00A24910 /* CoreVideo.framework */; };
+		B376809915AA221F00A24910 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B376809815AA221F00A24910 /* ImageIO.framework */; };
+		B376809B15AA222700A24910 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B376809A15AA222700A24910 /* QuartzCore.framework */; };
+		B37A0AA315AAB82500BD832D /* iphone-splashscreen-scanbox-hole.png in Resources */ = {isa = PBXBuildFile; fileRef = B37A0AA215AAB82500BD832D /* iphone-splashscreen-scanbox-hole.png */; };
+		B37A0AA515AABC3000BD832D /* iphone-splashscreen-rescan2-hole.png in Resources */ = {isa = PBXBuildFile; fileRef = B37A0AA415AABC3000BD832D /* iphone-splashscreen-rescan2-hole.png */; };
+		B37A0AA715AC0E2B00BD832D /* iphone-not-a-winner.png in Resources */ = {isa = PBXBuildFile; fileRef = B37A0AA615AC0E2A00BD832D /* iphone-not-a-winner.png */; };
+		B37A0AA915AC0E3E00BD832D /* iphone-winner-bbq-pulled-pork.png in Resources */ = {isa = PBXBuildFile; fileRef = B37A0AA815AC0E3D00BD832D /* iphone-winner-bbq-pulled-pork.png */; };
+		B39F876A15A93D67000651F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39F876915A93D67000651F9 /* UIKit.framework */; };
+		B39F876C15A93D67000651F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39F876B15A93D67000651F9 /* Foundation.framework */; };
+		B39F876E15A93D67000651F9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39F876D15A93D67000651F9 /* CoreGraphics.framework */; };
+		B39F877415A93D67000651F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B39F877215A93D67000651F9 /* InfoPlist.strings */; };
+		B39F877615A93D67000651F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F877515A93D67000651F9 /* main.m */; };
+		B39F877A15A93D67000651F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F877915A93D67000651F9 /* AppDelegate.m */; };
+		B39F877D15A93D67000651F9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F877C15A93D67000651F9 /* ViewController.m */; };
+		B39F878015A93D67000651F9 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B39F877E15A93D67000651F9 /* ViewController.xib */; };
+		B39F878915A9484F000651F9 /* iphone-splashscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F878815A9484F000651F9 /* iphone-splashscreen.png */; };
+		B39F878E15A949E2000651F9 /* ScanViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F878C15A949E2000651F9 /* ScanViewViewController.m */; };
+		B39F878F15A949E2000651F9 /* ScanViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B39F878D15A949E2000651F9 /* ScanViewViewController.xib */; };
+		B39F879115A94FE3000651F9 /* iphone-splashscreen-scanbox.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F879015A94FE3000651F9 /* iphone-splashscreen-scanbox.png */; };
+		B39F879C15A9520D000651F9 /* DownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F879A15A9520D000651F9 /* DownloadController.m */; };
+		B39F879D15A9520D000651F9 /* DownloadController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B39F879B15A9520D000651F9 /* DownloadController.xib */; };
+		B39F879F15A95414000651F9 /* iphone-splashscreen-downloadingticket.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F879E15A95414000651F9 /* iphone-splashscreen-downloadingticket.png */; };
+		B39F87A115A95685000651F9 /* iphone-scratchticket-unscratched.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F87A015A95685000651F9 /* iphone-scratchticket-unscratched.png */; };
+		B39F87A315A9573B000651F9 /* iphone-scratchticket-unscratched-90.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F87A215A9573B000651F9 /* iphone-scratchticket-unscratched-90.png */; };
+		B39F87A815A95777000651F9 /* TicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F87A615A95777000651F9 /* TicketController.m */; };
+		B39F87A915A95777000651F9 /* TicketController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B39F87A715A95777000651F9 /* TicketController.xib */; };
+		B39F87AB15A95B51000651F9 /* iphone-scratchticket-scratched-winner-rot.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F87AA15A95B51000651F9 /* iphone-scratchticket-scratched-winner-rot.png */; };
+		B39F87B015A95DFD000651F9 /* CouponController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F87AE15A95DFD000651F9 /* CouponController.m */; };
+		B39F87B115A95DFD000651F9 /* CouponController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B39F87AF15A95DFD000651F9 /* CouponController.xib */; };
+		B39F87B615A96171000651F9 /* MyCouponsController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F87B415A96171000651F9 /* MyCouponsController.m */; };
+		B39F87B715A96171000651F9 /* MyCouponsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B39F87B515A96171000651F9 /* MyCouponsController.xib */; };
+		B39F87B915A965EF000651F9 /* iphone-myvalidcoupons.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F87B815A965EF000651F9 /* iphone-myvalidcoupons.png */; };
+		B39F87BB15A96600000651F9 /* iphone-coupon.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F87BA15A96600000651F9 /* iphone-coupon.png */; };
+		B3A4292015C0737C00CB183C /* iphone4-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B3A4291F15C0737C00CB183C /* iphone4-icon.png */; };
+		B3A4292215C073A900CB183C /* iphone-splashscreen-rescan2.png in Resources */ = {isa = PBXBuildFile; fileRef = B3A4292115C073A800CB183C /* iphone-splashscreen-rescan2.png */; };
+		B3B09ADA15AA7150002C50B7 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B09AD315AA7150002C50B7 /* libzbar.a */; };
+		B3B09ADB15AA7150002C50B7 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B09AD515AA7150002C50B7 /* zbar-back.png */; };
+		B3B09ADC15AA7150002C50B7 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = B3B09AD615AA7150002C50B7 /* zbar-help.html */; };
+		B3B09ADD15AA7150002C50B7 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B09AD715AA7150002C50B7 /* zbar-helpicons.png */; };
+		B3B09ADE15AA7150002C50B7 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B09AD815AA7150002C50B7 /* zbar-samples.png */; };
+		B3B09AE015AA7183002C50B7 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B09ADF15AA7183002C50B7 /* libiconv.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B3081BE415ADF59A008D538D /* 2000.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2000.jpg; sourceTree = "<group>"; };
+		B376808F15A98AE000A24910 /* iphone-scratchticket-scratched-cleaned.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-scratchticket-scratched-cleaned.png"; sourceTree = "<group>"; };
+		B376809215AA21C200A24910 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B376809415AA220500A24910 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		B376809615AA220D00A24910 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		B376809815AA221F00A24910 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		B376809A15AA222700A24910 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B37A0AA215AAB82500BD832D /* iphone-splashscreen-scanbox-hole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-splashscreen-scanbox-hole.png"; sourceTree = "<group>"; };
+		B37A0AA415AABC3000BD832D /* iphone-splashscreen-rescan2-hole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-splashscreen-rescan2-hole.png"; sourceTree = "<group>"; };
+		B37A0AA615AC0E2A00BD832D /* iphone-not-a-winner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-not-a-winner.png"; sourceTree = "<group>"; };
+		B37A0AA815AC0E3D00BD832D /* iphone-winner-bbq-pulled-pork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-winner-bbq-pulled-pork.png"; sourceTree = "<group>"; };
+		B39F876515A93D67000651F9 /* scratchandwin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scratchandwin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B39F876915A93D67000651F9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B39F876B15A93D67000651F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B39F876D15A93D67000651F9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B39F877115A93D67000651F9 /* scratchandwin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "scratchandwin-Info.plist"; sourceTree = "<group>"; };
+		B39F877315A93D67000651F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B39F877515A93D67000651F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B39F877715A93D67000651F9 /* scratchandwin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "scratchandwin-Prefix.pch"; sourceTree = "<group>"; };
+		B39F877815A93D67000651F9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B39F877915A93D67000651F9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B39F877B15A93D67000651F9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B39F877C15A93D67000651F9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B39F877F15A93D67000651F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		B39F878815A9484F000651F9 /* iphone-splashscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-splashscreen.png"; sourceTree = "<group>"; };
+		B39F878B15A949E2000651F9 /* ScanViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewViewController.h; sourceTree = "<group>"; };
+		B39F878C15A949E2000651F9 /* ScanViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewViewController.m; sourceTree = "<group>"; };
+		B39F878D15A949E2000651F9 /* ScanViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanViewViewController.xib; sourceTree = "<group>"; };
+		B39F879015A94FE3000651F9 /* iphone-splashscreen-scanbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-splashscreen-scanbox.png"; sourceTree = "<group>"; };
+		B39F879915A9520D000651F9 /* DownloadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadController.h; sourceTree = "<group>"; };
+		B39F879A15A9520D000651F9 /* DownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadController.m; sourceTree = "<group>"; };
+		B39F879B15A9520D000651F9 /* DownloadController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadController.xib; sourceTree = "<group>"; };
+		B39F879E15A95414000651F9 /* iphone-splashscreen-downloadingticket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-splashscreen-downloadingticket.png"; sourceTree = "<group>"; };
+		B39F87A015A95685000651F9 /* iphone-scratchticket-unscratched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-scratchticket-unscratched.png"; sourceTree = "<group>"; };
+		B39F87A215A9573B000651F9 /* iphone-scratchticket-unscratched-90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-scratchticket-unscratched-90.png"; sourceTree = "<group>"; };
+		B39F87A515A95777000651F9 /* TicketController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketController.h; sourceTree = "<group>"; };
+		B39F87A615A95777000651F9 /* TicketController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketController.m; sourceTree = "<group>"; };
+		B39F87A715A95777000651F9 /* TicketController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketController.xib; sourceTree = "<group>"; };
+		B39F87AA15A95B51000651F9 /* iphone-scratchticket-scratched-winner-rot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-scratchticket-scratched-winner-rot.png"; sourceTree = "<group>"; };
+		B39F87AD15A95DFD000651F9 /* CouponController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponController.h; sourceTree = "<group>"; };
+		B39F87AE15A95DFD000651F9 /* CouponController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponController.m; sourceTree = "<group>"; };
+		B39F87AF15A95DFD000651F9 /* CouponController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponController.xib; sourceTree = "<group>"; };
+		B39F87B315A96171000651F9 /* MyCouponsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCouponsController.h; sourceTree = "<group>"; };
+		B39F87B415A96171000651F9 /* MyCouponsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCouponsController.m; sourceTree = "<group>"; };
+		B39F87B515A96171000651F9 /* MyCouponsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCouponsController.xib; sourceTree = "<group>"; };
+		B39F87B815A965EF000651F9 /* iphone-myvalidcoupons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-myvalidcoupons.png"; sourceTree = "<group>"; };
+		B39F87BA15A96600000651F9 /* iphone-coupon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-coupon.png"; sourceTree = "<group>"; };
+		B3A4291F15C0737C00CB183C /* iphone4-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone4-icon.png"; sourceTree = "<group>"; };
+		B3A4292115C073A800CB183C /* iphone-splashscreen-rescan2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone-splashscreen-rescan2.png"; sourceTree = "<group>"; };
+		B3B09ABF15AA7150002C50B7 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
+		B3B09AC015AA7150002C50B7 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		B3B09AC115AA7150002C50B7 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		B3B09AC215AA7150002C50B7 /* ImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanner.h; sourceTree = "<group>"; };
+		B3B09AC315AA7150002C50B7 /* Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
+		B3B09AC415AA7150002C50B7 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		B3B09AC515AA7150002C50B7 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
+		B3B09AC615AA7150002C50B7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		B3B09AC715AA7150002C50B7 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		B3B09AC815AA7150002C50B7 /* zbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbar.h; sourceTree = "<group>"; };
+		B3B09AC915AA7150002C50B7 /* ZBarCameraSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCameraSimulator.h; sourceTree = "<group>"; };
+		B3B09ACA15AA7150002C50B7 /* ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCaptureReader.h; sourceTree = "<group>"; };
+		B3B09ACB15AA7150002C50B7 /* ZBarHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarHelpController.h; sourceTree = "<group>"; };
+		B3B09ACC15AA7150002C50B7 /* ZBarImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImage.h; sourceTree = "<group>"; };
+		B3B09ACD15AA7150002C50B7 /* ZBarImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImageScanner.h; sourceTree = "<group>"; };
+		B3B09ACE15AA7150002C50B7 /* ZBarReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderController.h; sourceTree = "<group>"; };
+		B3B09ACF15AA7150002C50B7 /* ZBarReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderView.h; sourceTree = "<group>"; };
+		B3B09AD015AA7150002C50B7 /* ZBarReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderViewController.h; sourceTree = "<group>"; };
+		B3B09AD115AA7150002C50B7 /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
+		B3B09AD215AA7150002C50B7 /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
+		B3B09AD315AA7150002C50B7 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
+		B3B09AD515AA7150002C50B7 /* zbar-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-back.png"; sourceTree = "<group>"; };
+		B3B09AD615AA7150002C50B7 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
+		B3B09AD715AA7150002C50B7 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
+		B3B09AD815AA7150002C50B7 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
+		B3B09ADF15AA7183002C50B7 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B39F876215A93D67000651F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B09AE015AA7183002C50B7 /* libiconv.dylib in Frameworks */,
+				B376809B15AA222700A24910 /* QuartzCore.framework in Frameworks */,
+				B376809915AA221F00A24910 /* ImageIO.framework in Frameworks */,
+				B376809715AA220D00A24910 /* CoreVideo.framework in Frameworks */,
+				B376809515AA220600A24910 /* CoreMedia.framework in Frameworks */,
+				B376809315AA21C200A24910 /* AVFoundation.framework in Frameworks */,
+				B39F876A15A93D67000651F9 /* UIKit.framework in Frameworks */,
+				B39F876C15A93D67000651F9 /* Foundation.framework in Frameworks */,
+				B39F876E15A93D67000651F9 /* CoreGraphics.framework in Frameworks */,
+				B3B09ADA15AA7150002C50B7 /* libzbar.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B39F875A15A93D67000651F9 = {
+			isa = PBXGroup;
+			children = (
+				B3B09ADF15AA7183002C50B7 /* libiconv.dylib */,
+				B376809A15AA222700A24910 /* QuartzCore.framework */,
+				B376809815AA221F00A24910 /* ImageIO.framework */,
+				B376809615AA220D00A24910 /* CoreVideo.framework */,
+				B376809415AA220500A24910 /* CoreMedia.framework */,
+				B376809215AA21C200A24910 /* AVFoundation.framework */,
+				B39F876F15A93D67000651F9 /* scratchandwin */,
+				B39F876815A93D67000651F9 /* Frameworks */,
+				B39F876615A93D67000651F9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B39F876615A93D67000651F9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B39F876515A93D67000651F9 /* scratchandwin.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B39F876815A93D67000651F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B39F876915A93D67000651F9 /* UIKit.framework */,
+				B39F876B15A93D67000651F9 /* Foundation.framework */,
+				B39F876D15A93D67000651F9 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B39F876F15A93D67000651F9 /* scratchandwin */ = {
+			isa = PBXGroup;
+			children = (
+				B3A4291F15C0737C00CB183C /* iphone4-icon.png */,
+				B3B09AB915AA7141002C50B7 /* zbar */,
+				B39F87B215A9615C000651F9 /* mycoupons */,
+				B39F87AC15A95DE7000651F9 /* coupon */,
+				B39F87A415A9574A000651F9 /* ticket */,
+				B39F879815A951AA000651F9 /* download */,
+				B39F878A15A949B1000651F9 /* scan */,
+				B39F878715A944DB000651F9 /* splash */,
+				B39F878615A944CD000651F9 /* main */,
+				B39F877015A93D67000651F9 /* Supporting Files */,
+			);
+			path = scratchandwin;
+			sourceTree = "<group>";
+		};
+		B39F877015A93D67000651F9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B39F877115A93D67000651F9 /* scratchandwin-Info.plist */,
+				B39F877215A93D67000651F9 /* InfoPlist.strings */,
+				B39F877515A93D67000651F9 /* main.m */,
+				B39F877715A93D67000651F9 /* scratchandwin-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B39F878615A944CD000651F9 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				B39F877815A93D67000651F9 /* AppDelegate.h */,
+				B39F877915A93D67000651F9 /* AppDelegate.m */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
+		B39F878715A944DB000651F9 /* splash */ = {
+			isa = PBXGroup;
+			children = (
+				B39F878815A9484F000651F9 /* iphone-splashscreen.png */,
+				B39F877B15A93D67000651F9 /* ViewController.h */,
+				B39F877C15A93D67000651F9 /* ViewController.m */,
+				B39F877E15A93D67000651F9 /* ViewController.xib */,
+			);
+			name = splash;
+			sourceTree = "<group>";
+		};
+		B39F878A15A949B1000651F9 /* scan */ = {
+			isa = PBXGroup;
+			children = (
+				B3A4292115C073A800CB183C /* iphone-splashscreen-rescan2.png */,
+				B37A0AA415AABC3000BD832D /* iphone-splashscreen-rescan2-hole.png */,
+				B37A0AA215AAB82500BD832D /* iphone-splashscreen-scanbox-hole.png */,
+				B39F879015A94FE3000651F9 /* iphone-splashscreen-scanbox.png */,
+				B39F878B15A949E2000651F9 /* ScanViewViewController.h */,
+				B39F878C15A949E2000651F9 /* ScanViewViewController.m */,
+				B39F878D15A949E2000651F9 /* ScanViewViewController.xib */,
+			);
+			name = scan;
+			sourceTree = "<group>";
+		};
+		B39F879815A951AA000651F9 /* download */ = {
+			isa = PBXGroup;
+			children = (
+				B39F879E15A95414000651F9 /* iphone-splashscreen-downloadingticket.png */,
+				B39F879915A9520D000651F9 /* DownloadController.h */,
+				B39F879A15A9520D000651F9 /* DownloadController.m */,
+				B39F879B15A9520D000651F9 /* DownloadController.xib */,
+			);
+			name = download;
+			sourceTree = "<group>";
+		};
+		B39F87A415A9574A000651F9 /* ticket */ = {
+			isa = PBXGroup;
+			children = (
+				B3081BE415ADF59A008D538D /* 2000.jpg */,
+				B37A0AA815AC0E3D00BD832D /* iphone-winner-bbq-pulled-pork.png */,
+				B37A0AA615AC0E2A00BD832D /* iphone-not-a-winner.png */,
+				B376808F15A98AE000A24910 /* iphone-scratchticket-scratched-cleaned.png */,
+				B39F87AA15A95B51000651F9 /* iphone-scratchticket-scratched-winner-rot.png */,
+				B39F87A215A9573B000651F9 /* iphone-scratchticket-unscratched-90.png */,
+				B39F87A015A95685000651F9 /* iphone-scratchticket-unscratched.png */,
+				B39F87A515A95777000651F9 /* TicketController.h */,
+				B39F87A615A95777000651F9 /* TicketController.m */,
+				B39F87A715A95777000651F9 /* TicketController.xib */,
+			);
+			name = ticket;
+			sourceTree = "<group>";
+		};
+		B39F87AC15A95DE7000651F9 /* coupon */ = {
+			isa = PBXGroup;
+			children = (
+				B39F87BA15A96600000651F9 /* iphone-coupon.png */,
+				B39F87AD15A95DFD000651F9 /* CouponController.h */,
+				B39F87AE15A95DFD000651F9 /* CouponController.m */,
+				B39F87AF15A95DFD000651F9 /* CouponController.xib */,
+			);
+			name = coupon;
+			sourceTree = "<group>";
+		};
+		B39F87B215A9615C000651F9 /* mycoupons */ = {
+			isa = PBXGroup;
+			children = (
+				B39F87B815A965EF000651F9 /* iphone-myvalidcoupons.png */,
+				B39F87B315A96171000651F9 /* MyCouponsController.h */,
+				B39F87B415A96171000651F9 /* MyCouponsController.m */,
+				B39F87B515A96171000651F9 /* MyCouponsController.xib */,
+			);
+			name = mycoupons;
+			sourceTree = "<group>";
+		};
+		B3B09AB915AA7141002C50B7 /* zbar */ = {
+			isa = PBXGroup;
+			children = (
+				B3B09ABA15AA7150002C50B7 /* ZBarSDK */,
+			);
+			name = zbar;
+			sourceTree = "<group>";
+		};
+		B3B09ABA15AA7150002C50B7 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				B3B09ABB15AA7150002C50B7 /* Headers */,
+				B3B09AD315AA7150002C50B7 /* libzbar.a */,
+				B3B09AD415AA7150002C50B7 /* Resources */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		B3B09ABB15AA7150002C50B7 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				B3B09ABC15AA7150002C50B7 /* ZBarSDK */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		B3B09ABC15AA7150002C50B7 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				B3B09ABE15AA7150002C50B7 /* zbar */,
+				B3B09AC815AA7150002C50B7 /* zbar.h */,
+				B3B09AC915AA7150002C50B7 /* ZBarCameraSimulator.h */,
+				B3B09ACA15AA7150002C50B7 /* ZBarCaptureReader.h */,
+				B3B09ACB15AA7150002C50B7 /* ZBarHelpController.h */,
+				B3B09ACC15AA7150002C50B7 /* ZBarImage.h */,
+				B3B09ACD15AA7150002C50B7 /* ZBarImageScanner.h */,
+				B3B09ACE15AA7150002C50B7 /* ZBarReaderController.h */,
+				B3B09ACF15AA7150002C50B7 /* ZBarReaderView.h */,
+				B3B09AD015AA7150002C50B7 /* ZBarReaderViewController.h */,
+				B3B09AD115AA7150002C50B7 /* ZBarSDK.h */,
+				B3B09AD215AA7150002C50B7 /* ZBarSymbol.h */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		B3B09ABE15AA7150002C50B7 /* zbar */ = {
+			isa = PBXGroup;
+			children = (
+				B3B09ABF15AA7150002C50B7 /* Decoder.h */,
+				B3B09AC015AA7150002C50B7 /* Exception.h */,
+				B3B09AC115AA7150002C50B7 /* Image.h */,
+				B3B09AC215AA7150002C50B7 /* ImageScanner.h */,
+				B3B09AC315AA7150002C50B7 /* Processor.h */,
+				B3B09AC415AA7150002C50B7 /* Scanner.h */,
+				B3B09AC515AA7150002C50B7 /* Symbol.h */,
+				B3B09AC615AA7150002C50B7 /* Video.h */,
+				B3B09AC715AA7150002C50B7 /* Window.h */,
+			);
+			path = zbar;
+			sourceTree = "<group>";
+		};
+		B3B09AD415AA7150002C50B7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B3B09AD515AA7150002C50B7 /* zbar-back.png */,
+				B3B09AD615AA7150002C50B7 /* zbar-help.html */,
+				B3B09AD715AA7150002C50B7 /* zbar-helpicons.png */,
+				B3B09AD815AA7150002C50B7 /* zbar-samples.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B39F876415A93D67000651F9 /* scratchandwin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B39F878315A93D67000651F9 /* Build configuration list for PBXNativeTarget "scratchandwin" */;
+			buildPhases = (
+				B39F876115A93D67000651F9 /* Sources */,
+				B39F876215A93D67000651F9 /* Frameworks */,
+				B39F876315A93D67000651F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = scratchandwin;
+			productName = scratchandwin;
+			productReference = B39F876515A93D67000651F9 /* scratchandwin.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B39F875C15A93D67000651F9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = B39F875F15A93D67000651F9 /* Build configuration list for PBXProject "scratchandwin" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B39F875A15A93D67000651F9;
+			productRefGroup = B39F876615A93D67000651F9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B39F876415A93D67000651F9 /* scratchandwin */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B39F876315A93D67000651F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B39F877415A93D67000651F9 /* InfoPlist.strings in Resources */,
+				B39F878015A93D67000651F9 /* ViewController.xib in Resources */,
+				B39F878915A9484F000651F9 /* iphone-splashscreen.png in Resources */,
+				B39F878F15A949E2000651F9 /* ScanViewViewController.xib in Resources */,
+				B39F879115A94FE3000651F9 /* iphone-splashscreen-scanbox.png in Resources */,
+				B39F879D15A9520D000651F9 /* DownloadController.xib in Resources */,
+				B39F879F15A95414000651F9 /* iphone-splashscreen-downloadingticket.png in Resources */,
+				B39F87A115A95685000651F9 /* iphone-scratchticket-unscratched.png in Resources */,
+				B39F87A315A9573B000651F9 /* iphone-scratchticket-unscratched-90.png in Resources */,
+				B39F87A915A95777000651F9 /* TicketController.xib in Resources */,
+				B39F87AB15A95B51000651F9 /* iphone-scratchticket-scratched-winner-rot.png in Resources */,
+				B39F87B115A95DFD000651F9 /* CouponController.xib in Resources */,
+				B39F87B715A96171000651F9 /* MyCouponsController.xib in Resources */,
+				B39F87B915A965EF000651F9 /* iphone-myvalidcoupons.png in Resources */,
+				B39F87BB15A96600000651F9 /* iphone-coupon.png in Resources */,
+				B376809015A98AE000A24910 /* iphone-scratchticket-scratched-cleaned.png in Resources */,
+				B3B09ADB15AA7150002C50B7 /* zbar-back.png in Resources */,
+				B3B09ADC15AA7150002C50B7 /* zbar-help.html in Resources */,
+				B3B09ADD15AA7150002C50B7 /* zbar-helpicons.png in Resources */,
+				B3B09ADE15AA7150002C50B7 /* zbar-samples.png in Resources */,
+				B37A0AA315AAB82500BD832D /* iphone-splashscreen-scanbox-hole.png in Resources */,
+				B37A0AA515AABC3000BD832D /* iphone-splashscreen-rescan2-hole.png in Resources */,
+				B37A0AA715AC0E2B00BD832D /* iphone-not-a-winner.png in Resources */,
+				B37A0AA915AC0E3E00BD832D /* iphone-winner-bbq-pulled-pork.png in Resources */,
+				B3081BE515ADF59A008D538D /* 2000.jpg in Resources */,
+				B3A4292015C0737C00CB183C /* iphone4-icon.png in Resources */,
+				B3A4292215C073A900CB183C /* iphone-splashscreen-rescan2.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B39F876115A93D67000651F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B39F877615A93D67000651F9 /* main.m in Sources */,
+				B39F877A15A93D67000651F9 /* AppDelegate.m in Sources */,
+				B39F877D15A93D67000651F9 /* ViewController.m in Sources */,
+				B39F878E15A949E2000651F9 /* ScanViewViewController.m in Sources */,
+				B39F879C15A9520D000651F9 /* DownloadController.m in Sources */,
+				B39F87A815A95777000651F9 /* TicketController.m in Sources */,
+				B39F87B015A95DFD000651F9 /* CouponController.m in Sources */,
+				B39F87B615A96171000651F9 /* MyCouponsController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B39F877215A93D67000651F9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B39F877315A93D67000651F9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B39F877E15A93D67000651F9 /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B39F877F15A93D67000651F9 /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B39F878115A93D67000651F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B39F878215A93D67000651F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B39F878415A93D67000651F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: George Williams";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: George Williams";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "scratchandwin/scratchandwin-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/scratchandwin/ZBarSDK/Headers/ZBarSDK\"";
+				INFOPLIST_FILE = "scratchandwin/scratchandwin-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/scratchandwin/ZBarSDK\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REZ_SEARCH_PATHS = "\"$(SRCROOT)/scratchandwin/ZBarSDK/Resources\"";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		B39F878515A93D67000651F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: George Williams";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: George Williams";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "scratchandwin/scratchandwin-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/scratchandwin/ZBarSDK/Headers/ZBarSDK\"";
+				INFOPLIST_FILE = "scratchandwin/scratchandwin-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/scratchandwin/ZBarSDK\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REZ_SEARCH_PATHS = "\"$(SRCROOT)/scratchandwin/ZBarSDK/Resources\"";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B39F875F15A93D67000651F9 /* Build configuration list for PBXProject "scratchandwin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B39F878115A93D67000651F9 /* Debug */,
+				B39F878215A93D67000651F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B39F878315A93D67000651F9 /* Build configuration list for PBXNativeTarget "scratchandwin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B39F878415A93D67000651F9 /* Debug */,
+				B39F878515A93D67000651F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B39F875C15A93D67000651F9 /* Project object */;
+}
