@@ -1,0 +1,514 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05A4DF7116EEA16C0000F470 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A4DF7016EEA16C0000F470 /* UIKit.framework */; };
+		05A4DF7316EEA16C0000F470 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A4DF7216EEA16C0000F470 /* Foundation.framework */; };
+		05A4DF7516EEA16C0000F470 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A4DF7416EEA16C0000F470 /* CoreGraphics.framework */; };
+		05A4DF7B16EEA16C0000F470 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF7916EEA16C0000F470 /* InfoPlist.strings */; };
+		05A4DF7D16EEA16C0000F470 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A4DF7C16EEA16C0000F470 /* main.m */; };
+		05A4DF8116EEA16C0000F470 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A4DF8016EEA16C0000F470 /* AppDelegate.m */; };
+		05A4DF8316EEA16C0000F470 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF8216EEA16C0000F470 /* Default.png */; };
+		05A4DF8516EEA16C0000F470 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF8416EEA16C0000F470 /* Default@2x.png */; };
+		05A4DF8716EEA16C0000F470 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF8616EEA16C0000F470 /* Default-568h@2x.png */; };
+		05A4DF8A16EEA16C0000F470 /* SignupLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A4DF8916EEA16C0000F470 /* SignupLoginViewController.m */; };
+		05A4DF8C16EEA16C0000F470 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF8B16EEA16C0000F470 /* first.png */; };
+		05A4DF8E16EEA16C0000F470 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF8D16EEA16C0000F470 /* first@2x.png */; };
+		05A4DF9116EEA16C0000F470 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A4DF9016EEA16C0000F470 /* LoginViewController.m */; };
+		05A4DF9316EEA16C0000F470 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF9216EEA16C0000F470 /* second.png */; };
+		05A4DF9516EEA16C0000F470 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF9416EEA16C0000F470 /* second@2x.png */; };
+		05A4DF9816EEA16C0000F470 /* SignupLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF9616EEA16C0000F470 /* SignupLoginViewController.xib */; };
+		05A4DF9B16EEA16C0000F470 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DF9916EEA16C0000F470 /* LoginViewController.xib */; };
+		05A4DFA616EEBB820000F470 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DFA516EEBB820000F470 /* Default-Portrait~ipad.png */; };
+		05A4DFA816EEBB880000F470 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DFA716EEBB880000F470 /* Default-Portrait@2x~ipad.png */; };
+		05A4DFAF16EEC27B0000F470 /* bg_signup_login_768_1004.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DFAD16EEC27B0000F470 /* bg_signup_login_768_1004.png */; };
+		05A4DFB016EEC27B0000F470 /* bg_signup_login_1536_2008.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DFAE16EEC27B0000F470 /* bg_signup_login_1536_2008.png */; };
+		05A4DFB516EEC6460000F470 /* login_481_90.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DFB116EEC6460000F470 /* login_481_90.png */; };
+		05A4DFB616EEC6460000F470 /* login_962_180.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DFB216EEC6460000F470 /* login_962_180.png */; };
+		05A4DFB716EEC6460000F470 /* signup_481_90.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DFB316EEC6460000F470 /* signup_481_90.png */; };
+		05A4DFB816EEC6460000F470 /* signup_962_180.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DFB416EEC6460000F470 /* signup_962_180.png */; };
+		05D88BC216EFE33100A87D62 /* btn_signin_304_44.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BC016EFE33100A87D62 /* btn_signin_304_44.png */; };
+		05D88BC316EFE33100A87D62 /* btn_signin_608_88.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BC116EFE33100A87D62 /* btn_signin_608_88.png */; };
+		05D88BCA16F0159300A87D62 /* img_brand_344_68.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BC816F0159300A87D62 /* img_brand_344_68.png */; };
+		05D88BCB16F0159300A87D62 /* img_brand_688_136.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BC916F0159300A87D62 /* img_brand_688_136.png */; };
+		05D88BCE16F0159C00A87D62 /* bg_login_gradient_768_960.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BCC16F0159C00A87D62 /* bg_login_gradient_768_960.png */; };
+		05D88BCF16F0159C00A87D62 /* bg_login_gradient_1536_1920.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BCD16F0159C00A87D62 /* bg_login_gradient_1536_1920.png */; };
+		05D88BD316F02C9100A87D62 /* SignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BD116F02C9100A87D62 /* SignupViewController.xib */; };
+		05D88BD816F02CE700A87D62 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D88BD716F02CE700A87D62 /* SignupViewController.m */; };
+		05D88BDC16F031A200A87D62 /* bg_signup_768_960.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BDA16F031A200A87D62 /* bg_signup_768_960.png */; };
+		05D88BDD16F031A200A87D62 /* bg_signup_1536_1920.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BDB16F031A200A87D62 /* bg_signup_1536_1920.png */; };
+		05D88BE016F0338900A87D62 /* btn_submit_305_47.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BDE16F0338900A87D62 /* btn_submit_305_47.png */; };
+		05D88BE116F0338900A87D62 /* btn_submit_610_94.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BDF16F0338900A87D62 /* btn_submit_610_94.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		05A4DF6D16EEA16C0000F470 /* photomationapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photomationapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		05A4DF7016EEA16C0000F470 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		05A4DF7216EEA16C0000F470 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		05A4DF7416EEA16C0000F470 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		05A4DF7816EEA16C0000F470 /* PhotomationApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PhotomationApp-Info.plist"; sourceTree = "<group>"; };
+		05A4DF7A16EEA16C0000F470 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		05A4DF7C16EEA16C0000F470 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		05A4DF7E16EEA16C0000F470 /* PhotomationApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PhotomationApp-Prefix.pch"; sourceTree = "<group>"; };
+		05A4DF7F16EEA16C0000F470 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		05A4DF8016EEA16C0000F470 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		05A4DF8216EEA16C0000F470 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		05A4DF8416EEA16C0000F470 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		05A4DF8616EEA16C0000F470 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		05A4DF8816EEA16C0000F470 /* SignupLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignupLoginViewController.h; sourceTree = "<group>"; };
+		05A4DF8916EEA16C0000F470 /* SignupLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignupLoginViewController.m; sourceTree = "<group>"; };
+		05A4DF8B16EEA16C0000F470 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
+		05A4DF8D16EEA16C0000F470 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
+		05A4DF8F16EEA16C0000F470 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		05A4DF9016EEA16C0000F470 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		05A4DF9216EEA16C0000F470 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
+		05A4DF9416EEA16C0000F470 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
+		05A4DF9716EEA16C0000F470 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SignupLoginViewController.xib; sourceTree = "<group>"; };
+		05A4DF9A16EEA16C0000F470 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LoginViewController.xib; sourceTree = "<group>"; };
+		05A4DFA516EEBB820000F470 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		05A4DFA716EEBB880000F470 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		05A4DFAD16EEC27B0000F470 /* bg_signup_login_768_1004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_signup_login_768_1004.png; sourceTree = "<group>"; };
+		05A4DFAE16EEC27B0000F470 /* bg_signup_login_1536_2008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_signup_login_1536_2008.png; sourceTree = "<group>"; };
+		05A4DFB116EEC6460000F470 /* login_481_90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_481_90.png; sourceTree = "<group>"; };
+		05A4DFB216EEC6460000F470 /* login_962_180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_962_180.png; sourceTree = "<group>"; };
+		05A4DFB316EEC6460000F470 /* signup_481_90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signup_481_90.png; sourceTree = "<group>"; };
+		05A4DFB416EEC6460000F470 /* signup_962_180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signup_962_180.png; sourceTree = "<group>"; };
+		05D88BC016EFE33100A87D62 /* btn_signin_304_44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_signin_304_44.png; sourceTree = "<group>"; };
+		05D88BC116EFE33100A87D62 /* btn_signin_608_88.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_signin_608_88.png; sourceTree = "<group>"; };
+		05D88BC816F0159300A87D62 /* img_brand_344_68.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_brand_344_68.png; sourceTree = "<group>"; };
+		05D88BC916F0159300A87D62 /* img_brand_688_136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_brand_688_136.png; sourceTree = "<group>"; };
+		05D88BCC16F0159C00A87D62 /* bg_login_gradient_768_960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login_gradient_768_960.png; sourceTree = "<group>"; };
+		05D88BCD16F0159C00A87D62 /* bg_login_gradient_1536_1920.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login_gradient_1536_1920.png; sourceTree = "<group>"; };
+		05D88BD216F02C9100A87D62 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SignupViewController.xib; sourceTree = "<group>"; };
+		05D88BD616F02CD600A87D62 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		05D88BD716F02CE700A87D62 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
+		05D88BDA16F031A200A87D62 /* bg_signup_768_960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_signup_768_960.png; sourceTree = "<group>"; };
+		05D88BDB16F031A200A87D62 /* bg_signup_1536_1920.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_signup_1536_1920.png; sourceTree = "<group>"; };
+		05D88BDE16F0338900A87D62 /* btn_submit_305_47.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_submit_305_47.png; sourceTree = "<group>"; };
+		05D88BDF16F0338900A87D62 /* btn_submit_610_94.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_submit_610_94.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		05A4DF6A16EEA16C0000F470 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05A4DF7116EEA16C0000F470 /* UIKit.framework in Frameworks */,
+				05A4DF7316EEA16C0000F470 /* Foundation.framework in Frameworks */,
+				05A4DF7516EEA16C0000F470 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		05A4DF6416EEA16C0000F470 = {
+			isa = PBXGroup;
+			children = (
+				05A4DF7616EEA16C0000F470 /* PhotomationApp */,
+				05A4DF6F16EEA16C0000F470 /* Frameworks */,
+				05A4DF6E16EEA16C0000F470 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		05A4DF6E16EEA16C0000F470 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05A4DF6D16EEA16C0000F470 /* photomationapp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		05A4DF6F16EEA16C0000F470 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05A4DF7016EEA16C0000F470 /* UIKit.framework */,
+				05A4DF7216EEA16C0000F470 /* Foundation.framework */,
+				05A4DF7416EEA16C0000F470 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		05A4DF7616EEA16C0000F470 /* PhotomationApp */ = {
+			isa = PBXGroup;
+			children = (
+				05D88BD016F02B3200A87D62 /* signup_view */,
+				05D88BBA16EFCC4F00A87D62 /* login_view */,
+				05A4DFAB16EEBF560000F470 /* tabbar */,
+				05A4DFA416EEB4350000F470 /* signup_login_view */,
+				05A4DF7716EEA16C0000F470 /* Main */,
+			);
+			path = PhotomationApp;
+			sourceTree = "<group>";
+		};
+		05A4DF7716EEA16C0000F470 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				05A4DFAA16EEBBBC0000F470 /* src */,
+				05A4DFA916EEBBA10000F470 /* res */,
+				05A4DF7816EEA16C0000F470 /* PhotomationApp-Info.plist */,
+				05A4DF7916EEA16C0000F470 /* InfoPlist.strings */,
+				05A4DF7E16EEA16C0000F470 /* PhotomationApp-Prefix.pch */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		05A4DFA416EEB4350000F470 /* signup_login_view */ = {
+			isa = PBXGroup;
+			children = (
+				05A4DFAC16EEC26A0000F470 /* res */,
+				05A4DF9616EEA16C0000F470 /* SignupLoginViewController.xib */,
+				05A4DF8816EEA16C0000F470 /* SignupLoginViewController.h */,
+				05A4DF8916EEA16C0000F470 /* SignupLoginViewController.m */,
+			);
+			name = signup_login_view;
+			sourceTree = "<group>";
+		};
+		05A4DFA916EEBBA10000F470 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				05A4DF8216EEA16C0000F470 /* Default.png */,
+				05A4DF8416EEA16C0000F470 /* Default@2x.png */,
+				05A4DF8616EEA16C0000F470 /* Default-568h@2x.png */,
+				05A4DFA716EEBB880000F470 /* Default-Portrait@2x~ipad.png */,
+				05A4DFA516EEBB820000F470 /* Default-Portrait~ipad.png */,
+			);
+			name = res;
+			sourceTree = "<group>";
+		};
+		05A4DFAA16EEBBBC0000F470 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				05A4DF7C16EEA16C0000F470 /* main.m */,
+				05A4DF7F16EEA16C0000F470 /* AppDelegate.h */,
+				05A4DF8016EEA16C0000F470 /* AppDelegate.m */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		05A4DFAB16EEBF560000F470 /* tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				05A4DF9216EEA16C0000F470 /* second.png */,
+				05A4DF9416EEA16C0000F470 /* second@2x.png */,
+				05A4DF8B16EEA16C0000F470 /* first.png */,
+				05A4DF8D16EEA16C0000F470 /* first@2x.png */,
+			);
+			name = tabbar;
+			sourceTree = "<group>";
+		};
+		05A4DFAC16EEC26A0000F470 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				05A4DFB116EEC6460000F470 /* login_481_90.png */,
+				05A4DFB216EEC6460000F470 /* login_962_180.png */,
+				05A4DFB316EEC6460000F470 /* signup_481_90.png */,
+				05A4DFB416EEC6460000F470 /* signup_962_180.png */,
+				05A4DFAD16EEC27B0000F470 /* bg_signup_login_768_1004.png */,
+				05A4DFAE16EEC27B0000F470 /* bg_signup_login_1536_2008.png */,
+			);
+			name = res;
+			sourceTree = "<group>";
+		};
+		05D88BBA16EFCC4F00A87D62 /* login_view */ = {
+			isa = PBXGroup;
+			children = (
+				05D88BBB16EFE1C200A87D62 /* res */,
+				05A4DF8F16EEA16C0000F470 /* LoginViewController.h */,
+				05A4DF9016EEA16C0000F470 /* LoginViewController.m */,
+				05A4DF9916EEA16C0000F470 /* LoginViewController.xib */,
+			);
+			name = login_view;
+			sourceTree = "<group>";
+		};
+		05D88BBB16EFE1C200A87D62 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				05D88BCC16F0159C00A87D62 /* bg_login_gradient_768_960.png */,
+				05D88BCD16F0159C00A87D62 /* bg_login_gradient_1536_1920.png */,
+				05D88BC816F0159300A87D62 /* img_brand_344_68.png */,
+				05D88BC916F0159300A87D62 /* img_brand_688_136.png */,
+				05D88BC016EFE33100A87D62 /* btn_signin_304_44.png */,
+				05D88BC116EFE33100A87D62 /* btn_signin_608_88.png */,
+			);
+			name = res;
+			sourceTree = "<group>";
+		};
+		05D88BD016F02B3200A87D62 /* signup_view */ = {
+			isa = PBXGroup;
+			children = (
+				05D88BD916F0311300A87D62 /* res */,
+				05D88BD116F02C9100A87D62 /* SignupViewController.xib */,
+				05D88BD716F02CE700A87D62 /* SignupViewController.m */,
+				05D88BD616F02CD600A87D62 /* SignupViewController.h */,
+			);
+			name = signup_view;
+			sourceTree = "<group>";
+		};
+		05D88BD916F0311300A87D62 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				05D88BDE16F0338900A87D62 /* btn_submit_305_47.png */,
+				05D88BDF16F0338900A87D62 /* btn_submit_610_94.png */,
+				05D88BDA16F031A200A87D62 /* bg_signup_768_960.png */,
+				05D88BDB16F031A200A87D62 /* bg_signup_1536_1920.png */,
+			);
+			name = res;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		05A4DF6C16EEA16C0000F470 /* photomationapp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05A4DF9E16EEA16D0000F470 /* Build configuration list for PBXNativeTarget "photomationapp" */;
+			buildPhases = (
+				05A4DF6916EEA16C0000F470 /* Sources */,
+				05A4DF6A16EEA16C0000F470 /* Frameworks */,
+				05A4DF6B16EEA16C0000F470 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = photomationapp;
+			productName = PhotomationApp;
+			productReference = 05A4DF6D16EEA16C0000F470 /* photomationapp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		05A4DF6516EEA16C0000F470 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Dev Null Enterprises, LLC";
+			};
+			buildConfigurationList = 05A4DF6816EEA16C0000F470 /* Build configuration list for PBXProject "PhotomationApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 05A4DF6416EEA16C0000F470;
+			productRefGroup = 05A4DF6E16EEA16C0000F470 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				05A4DF6C16EEA16C0000F470 /* photomationapp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		05A4DF6B16EEA16C0000F470 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05A4DF7B16EEA16C0000F470 /* InfoPlist.strings in Resources */,
+				05A4DF8316EEA16C0000F470 /* Default.png in Resources */,
+				05A4DF8516EEA16C0000F470 /* Default@2x.png in Resources */,
+				05A4DF8716EEA16C0000F470 /* Default-568h@2x.png in Resources */,
+				05A4DF8C16EEA16C0000F470 /* first.png in Resources */,
+				05A4DF8E16EEA16C0000F470 /* first@2x.png in Resources */,
+				05A4DF9316EEA16C0000F470 /* second.png in Resources */,
+				05A4DF9516EEA16C0000F470 /* second@2x.png in Resources */,
+				05A4DF9816EEA16C0000F470 /* SignupLoginViewController.xib in Resources */,
+				05A4DF9B16EEA16C0000F470 /* LoginViewController.xib in Resources */,
+				05A4DFA616EEBB820000F470 /* Default-Portrait~ipad.png in Resources */,
+				05A4DFA816EEBB880000F470 /* Default-Portrait@2x~ipad.png in Resources */,
+				05A4DFAF16EEC27B0000F470 /* bg_signup_login_768_1004.png in Resources */,
+				05A4DFB016EEC27B0000F470 /* bg_signup_login_1536_2008.png in Resources */,
+				05A4DFB516EEC6460000F470 /* login_481_90.png in Resources */,
+				05A4DFB616EEC6460000F470 /* login_962_180.png in Resources */,
+				05A4DFB716EEC6460000F470 /* signup_481_90.png in Resources */,
+				05A4DFB816EEC6460000F470 /* signup_962_180.png in Resources */,
+				05D88BC216EFE33100A87D62 /* btn_signin_304_44.png in Resources */,
+				05D88BC316EFE33100A87D62 /* btn_signin_608_88.png in Resources */,
+				05D88BCA16F0159300A87D62 /* img_brand_344_68.png in Resources */,
+				05D88BCB16F0159300A87D62 /* img_brand_688_136.png in Resources */,
+				05D88BCE16F0159C00A87D62 /* bg_login_gradient_768_960.png in Resources */,
+				05D88BCF16F0159C00A87D62 /* bg_login_gradient_1536_1920.png in Resources */,
+				05D88BD316F02C9100A87D62 /* SignupViewController.xib in Resources */,
+				05D88BDC16F031A200A87D62 /* bg_signup_768_960.png in Resources */,
+				05D88BDD16F031A200A87D62 /* bg_signup_1536_1920.png in Resources */,
+				05D88BE016F0338900A87D62 /* btn_submit_305_47.png in Resources */,
+				05D88BE116F0338900A87D62 /* btn_submit_610_94.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		05A4DF6916EEA16C0000F470 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05A4DF7D16EEA16C0000F470 /* main.m in Sources */,
+				05A4DF8116EEA16C0000F470 /* AppDelegate.m in Sources */,
+				05A4DF8A16EEA16C0000F470 /* SignupLoginViewController.m in Sources */,
+				05A4DF9116EEA16C0000F470 /* LoginViewController.m in Sources */,
+				05D88BD816F02CE700A87D62 /* SignupViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		05A4DF7916EEA16C0000F470 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05A4DF7A16EEA16C0000F470 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		05A4DF9616EEA16C0000F470 /* SignupLoginViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05A4DF9716EEA16C0000F470 /* en */,
+			);
+			name = SignupLoginViewController.xib;
+			sourceTree = "<group>";
+		};
+		05A4DF9916EEA16C0000F470 /* LoginViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05A4DF9A16EEA16C0000F470 /* en */,
+			);
+			name = LoginViewController.xib;
+			sourceTree = "<group>";
+		};
+		05D88BD116F02C9100A87D62 /* SignupViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05D88BD216F02C9100A87D62 /* en */,
+			);
+			name = SignupViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		05A4DF9C16EEA16D0000F470 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		05A4DF9D16EEA16D0000F470 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		05A4DF9F16EEA16D0000F470 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: George Williams (WQ48A2BRFJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Williams (WQ48A2BRFJ)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PhotomationApp/PhotomationApp-Prefix.pch";
+				INFOPLIST_FILE = "PhotomationApp/PhotomationApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7085D754-1767-4C6A-990C-05168FB04FBE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7085D754-1767-4C6A-990C-05168FB04FBE";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		05A4DFA016EEA16D0000F470 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: George Williams (WQ48A2BRFJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Williams (WQ48A2BRFJ)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PhotomationApp/PhotomationApp-Prefix.pch";
+				INFOPLIST_FILE = "PhotomationApp/PhotomationApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7085D754-1767-4C6A-990C-05168FB04FBE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7085D754-1767-4C6A-990C-05168FB04FBE";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		05A4DF6816EEA16C0000F470 /* Build configuration list for PBXProject "PhotomationApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05A4DF9C16EEA16D0000F470 /* Debug */,
+				05A4DF9D16EEA16D0000F470 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05A4DF9E16EEA16D0000F470 /* Build configuration list for PBXNativeTarget "photomationapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05A4DF9F16EEA16D0000F470 /* Debug */,
+				05A4DFA016EEA16D0000F470 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 05A4DF6516EEA16C0000F470 /* Project object */;
+}
