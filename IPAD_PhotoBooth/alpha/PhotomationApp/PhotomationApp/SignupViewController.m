@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Dev Null Enterprises, LLC. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "SignupViewController.h"
 
 @interface SignupViewController ()
@@ -82,5 +83,13 @@
 {
     [ self.navigationController popToRootViewControllerAnimated:YES ];
 }
+
+
+- (IBAction) btn_submit
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    [ app goto_takephoto ];
+}
+
 
 @end

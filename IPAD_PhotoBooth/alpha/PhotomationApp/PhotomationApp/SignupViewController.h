@@ -38,4 +38,7 @@
 
 - (IBAction) nav_back;
 
+
+- (IBAction) btn_submit;
+
 @end
