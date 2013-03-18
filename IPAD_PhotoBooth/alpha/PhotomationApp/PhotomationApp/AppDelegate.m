@@ -281,7 +281,7 @@
             NSDate*       first             = [first_properties  objectForKey:NSFileModificationDate];
             NSDictionary* second_properties = [[NSFileManager defaultManager] attributesOfItemAtPath:[NSString stringWithFormat:@"%@/%@", galleryPath, obj2] error:nil];
             NSDate*       second            = [second_properties objectForKey:NSFileModificationDate];
-        return [first compare:second];
+        return [second  compare:first];
         }];
     
     return filelist_sorted;

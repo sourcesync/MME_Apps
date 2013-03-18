@@ -42,16 +42,22 @@
     //  HACK: get the last 16...
     NSArray *files = [ AppDelegate getGalleryPhotos ];
     int len = [ files count ];
-    int first = MAX(0, len-16 );
-    int last = MIN(len-1, 15);
-    NSRange range = NSMakeRange( first, last+1 );
+    int first = 0;
+    int last = len-1;
+    if (len>16)
+    {
+        first = len - 16;
+    }
+    
+    NSRange range = NSMakeRange( first, last-first+1);
     self.show_files = [ files subarrayWithRange:range ];
     
     //  Load gallery images into the image views...
-    for (int i=0;i<[ self.show_files count];i++)
+    //for (int i=0;i<[ self.show_files count];i++)
+    for ( int i=0; i<= (last-first); i++ )
     {
         //  Get the name of the jpg file...
-        NSString *jpgname = (NSString *)[ self.show_files objectAtIndex:i];
+        NSString *jpgname = (NSString *)[ files objectAtIndex:i];
         
         //  Form the full path to the jpg file...
         NSString *fullpath = [ NSString stringWithFormat:@"%@/%@", gallerydir, jpgname ];
