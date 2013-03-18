@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "275"
-         endingLineNumber = "275"
+         startingLineNumber = "277"
+         endingLineNumber = "277"
          landmarkName = "-captureNow"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "306"
-         endingLineNumber = "306"
+         startingLineNumber = "308"
+         endingLineNumber = "308"
          landmarkName = "-captureNow"
          landmarkType = "5">
       </FileBreakpoint>
@@ -294,11 +294,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "204"
-         endingLineNumber = "204"
+         startingLineNumber = "206"
+         endingLineNumber = "206"
          landmarkName = "-btn_switchcam:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -307,11 +307,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "343"
-         endingLineNumber = "343"
+         startingLineNumber = "345"
+         endingLineNumber = "345"
          landmarkName = "-getready"
          landmarkType = "5">
       </FileBreakpoint>
@@ -320,11 +320,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "353"
-         endingLineNumber = "353"
+         startingLineNumber = "355"
+         endingLineNumber = "355"
          landmarkName = "-playSound:usedel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -333,11 +333,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "249"
-         endingLineNumber = "249"
+         startingLineNumber = "251"
+         endingLineNumber = "251"
          landmarkName = "-captureNow"
          landmarkType = "5">
       </FileBreakpoint>
@@ -346,11 +346,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "263"
-         endingLineNumber = "263"
+         startingLineNumber = "265"
+         endingLineNumber = "265"
          landmarkName = "-captureNow"
          landmarkType = "5">
       </FileBreakpoint>
@@ -372,11 +372,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "273"
-         endingLineNumber = "273"
+         startingLineNumber = "275"
+         endingLineNumber = "275"
          landmarkName = "-captureNow"
          landmarkType = "5">
       </FileBreakpoint>
@@ -385,11 +385,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "285"
-         endingLineNumber = "285"
+         startingLineNumber = "287"
+         endingLineNumber = "287"
          landmarkName = "-captureNow"
          landmarkType = "5">
       </FileBreakpoint>
@@ -476,11 +476,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "316"
-         endingLineNumber = "316"
+         startingLineNumber = "318"
+         endingLineNumber = "318"
          landmarkName = "-captureNow"
          landmarkType = "5">
       </FileBreakpoint>
@@ -606,11 +606,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "272"
-         endingLineNumber = "272"
+         startingLineNumber = "274"
+         endingLineNumber = "274"
          landmarkName = "-captureNow"
          landmarkType = "5">
       </FileBreakpoint>
@@ -762,11 +762,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/TakePhotoViewController.m"
-         timestampString = "385292895.601616"
+         timestampString = "385295770.896821"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "213"
-         endingLineNumber = "213"
+         startingLineNumber = "215"
+         endingLineNumber = "215"
          landmarkName = "-btn_switchcam:"
          landmarkType = "5">
       </FileBreakpoint>

@@ -22,7 +22,7 @@
 
 #import "AppDelegate.h"
 
-#define MAX_PHOTOS 1
+#define MAX_PHOTOS 4
 
 @interface TakePhotoViewController ()
 
@@ -200,6 +200,8 @@
 
 -(IBAction) btn_switchcam:(id)sender
 {
+    if (self.allow_snap) return;
+    
     [ self.session stopRunning];
     [ self.session beginConfiguration];
     

@@ -108,6 +108,6 @@
 
 -(IBAction) btn_settings:(id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    //[ AppDelegate NotImplemented:nil ];
 }
 @end
