@@ -46,6 +46,7 @@
 @property (nonatomic, assign) int state;
 
 @property (nonatomic, assign) BOOL allow_snap;
+@property (nonatomic, assign) BOOL camera_ready;
 
 //  background...
 @property (nonatomic, retain) IBOutlet UIImageView *img_bg;

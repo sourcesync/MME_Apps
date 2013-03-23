@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SelectedPhotoViewController : UIViewController
+@interface SelectedPhotoViewController : UIViewController <AVAudioPlayerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIImageView *selected;
 

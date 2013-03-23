@@ -30,6 +30,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
     //  Create signup login choose view...
@@ -146,11 +147,14 @@
 
 -(void) goto_takephoto
 {
+    //[ self stopAudio ];
     self.window.rootViewController =self.takephoto_view;
 }
 
 - (void) goto_selectfavorite:(int)count
 {
+    //[ self stopAudio ];
+    
     SelectFavoriteViewController *s = (SelectFavoriteViewController *)self.selectfavorite_view;
     s.take_count = count;
     self.window.rootViewController = s;
@@ -159,6 +163,8 @@
 
 -(void) goto_galleryselectedphoto:(NSString *)fname
 {
+    //[ self stopAudio ];
+    
     GallerySelectedPhotoViewController *s = (GallerySelectedPhotoViewController *)self.galleryselectedphoto_view;
     s.selected_fname = fname;
     self.window.rootViewController = s;
@@ -167,6 +173,8 @@
 
 -(void) goto_sharephoto:(NSString *)fname
 {
+    //[ self stopAudio ];
+    
     SharePhotoViewController *s = (SharePhotoViewController *)self.sharephoto_view;
     s.selected_fname = fname;
     self.window.rootViewController = s;
@@ -174,6 +182,8 @@
 
 -(void) goto_selectedphoto:(int)which count:(int)count
 {
+    //[ self stopAudio ];
+    
     SelectedPhotoViewController *s = (SelectedPhotoViewController *)self.selectedphoto_view;
     s.take_count = count;
     s.selected_id = which;
@@ -182,20 +192,27 @@
 
 -(void) goto_gallery
 {
+    [ self stopAudio ];
+    
     self.window.rootViewController =self.gallery_view;
 }
 
 
 - (void) playSound:(NSString *)sound delegate:(id<AVAudioPlayerDelegate>) del
 {
-    
+    if ( self.audio!=nil )
+    {
+        [self.audio stop];
+        self.audio =nil;
+        
+    }
     NSString *fileName = sound;
     
     NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"wav"];
     
-    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: path];
+    NSURL *fileURL = [[[NSURL alloc] initFileURLWithPath: path] autorelease];
     
-    self.audio =[[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:NULL];
+    self.audio = [[[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:NULL] autorelease];
     
     self.audio.delegate = del;
     
@@ -233,13 +250,13 @@
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate];
     
-    app.alert = [[UIAlertView alloc] initWithTitle:@"Info"
+    app.alert = [ [[UIAlertView alloc] initWithTitle:@"Info"
                                                         message:message
                                                        delegate:self
                                               cancelButtonTitle:@"This Feature Not Yet Implemented"
-                                              otherButtonTitles:nil];
+                                   otherButtonTitles:nil] autorelease ];
     [app.alert show];
-    [app.alert release];
+    //[app.alert release];
 }
 
 +(NSString *)getGalleryDir
@@ -343,5 +360,16 @@
         return newfname;
     }
 }
+
+- (void) stopAudio
+{
+    if ( self.audio!=nil)
+    {
+        [ self.audio stop ];
+        self.audio = nil;
+    }
+}
+
+
 
 @end

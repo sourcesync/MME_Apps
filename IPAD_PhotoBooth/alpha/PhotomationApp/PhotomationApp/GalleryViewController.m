@@ -63,7 +63,7 @@
         NSString *fullpath = [ NSString stringWithFormat:@"%@/%@", gallerydir, jpgname ];
         
         //  Load the image...
-        UIImage *image = [[ UIImage alloc ] initWithContentsOfFile:fullpath ];
+        UIImage *image = [ [[ UIImage alloc ] initWithContentsOfFile:fullpath ] autorelease ];
         
         //  Assign to the imageview and show it...
         UIImageView *v= (UIImageView *)[ self.views objectAtIndex:i ];

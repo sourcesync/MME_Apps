@@ -90,7 +90,7 @@
     }
     
     //  Create video session...
-    self.session = [[AVCaptureSession alloc] init];
+    self.session = [[[AVCaptureSession alloc] init] autorelease];
 	self.session.sessionPreset = AVCaptureSessionPresetHigh;
     self.session.sessionPreset = AVCaptureSessionPreset640x480;
     
@@ -99,7 +99,7 @@
 	CALayer *viewLayer = self.vImagePreview.layer;
 	NSLog(@"viewLayer = %@", viewLayer);
 	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer =
-        [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
+        [[[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session] autorelease];
 	captureVideoPreviewLayer.frame = self.vImagePreview.bounds;
         [self.vImagePreview.layer addSublayer:captureVideoPreviewLayer];
     
@@ -126,9 +126,9 @@
         [self.session startRunning];
     
         //  Prepare still image object...
-        self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+        self.stillImageOutput = [[[AVCaptureStillImageOutput alloc] init] autorelease];
         NSDictionary *outputSettings =
-            [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+            [[[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil] autorelease];
         [ self.stillImageOutput setOutputSettings:outputSettings];
         [ self.session addOutput:self.stillImageOutput];
         
@@ -145,7 +145,7 @@
     self.vImage.hidden = YES;
     self.vImagePreview.hidden = NO;
     self.allow_snap = YES;
-    
+    self.camera_ready = YES;
     
     [ self playSound:@"selection" usedel:NO ];
 }
@@ -162,6 +162,7 @@
     self.thumb4.hidden = YES;
     self.count = 0;
     self.state = 0;
+    self.camera_ready = NO;
 }
 
 -(void) rotatePreview: (int)degrees
@@ -200,7 +201,7 @@
 
 -(IBAction) btn_switchcam:(id)sender
 {
-    if (self.allow_snap) return;
+    if (!self.camera_ready) return;
     
     [ self.session stopRunning];
     [ self.session beginConfiguration];
@@ -280,11 +281,11 @@
                                             //orientation:UIImageOrientationLeftMirrored ];
              
              
-             image = [[UIImage alloc] initWithData:imageData];
+             image = [[[UIImage alloc] initWithData:imageData] autorelease];
          }
          else
          {
-             image = [[UIImage alloc] initWithData:imageData];
+             image = [[[UIImage alloc] initWithData:imageData] autorelease];
          }
          
          // Set the preview image...
@@ -363,7 +364,8 @@
 {
     if (self.state==1) // getready done...
     {
-        [ self.audio release ];
+        //[ self.audio release ];
+        self.audio = nil;
     
         self.state = 2;
         

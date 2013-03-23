@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<WebConfig version="1">
+
+<add key="Server" value="autolycus.mmeentertainment.com" /> 
+
+<add key="UseSendEmail" value="1" /> <!-- 0=hides the send email -->
+<add key="EmailSubject" value="Your favorite photo sent from a friend via the Buddy Media photobooth" /> <!-- email subject -->
+<add key="EmailDefaultMessage" value="Your favorite photo taken at the Buddy Media photo booth! " /> <!-- default custom msg -->
+<add key="EmailBody" value="" /> <!-- body of the email that gets sent from favorite photo (user cannot alter this) -->
+
+<add key="FacebookLike" value="buddymedia" /> <!-- fan page to like; blank=hide -->
+<add key="UseShareFacebook" value="1" /> <!-- hides the share button -->
+<add key="FacebookTitle" value="Celebrating the addition of Buddy Media to the Salesforce Marketing Cloud. Salesforce + Buddy Media = Like!" /> <!-- title of the wall post -->
+<add key="FacebookDesc" value="For more information about Buddy Media, visit us at:http://http://www.buddymedia.com/" /> <!-- facebook post desc -->
+
+<add key="UseTweet" value="1" /> <!-- hides the tweet button -->
+<add key="FollowTwitter" value="BuddyMedia" /> <!-- twitter account to follow; blank=hide -->
+<add key="TweetDefault" value="Celebrating the addition of Buddy Media to the Salesforce Marketing Cloud. Salesforce + Buddy Media = Like!" 
+/> <!-- default tweet message (tinyurl auto-attached at end) -->
+
+
+</WebConfig>

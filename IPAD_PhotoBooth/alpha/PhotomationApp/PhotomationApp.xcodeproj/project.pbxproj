@@ -748,14 +748,14 @@
 		05A4DF9F16EEA16D0000F470 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: George Williams (WQ48A2BRFJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Williams (WQ48A2BRFJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotomationApp/PhotomationApp-Prefix.pch";
 				INFOPLIST_FILE = "PhotomationApp/PhotomationApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7085D754-1767-4C6A-990C-05168FB04FBE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7085D754-1767-4C6A-990C-05168FB04FBE";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -763,14 +763,14 @@
 		05A4DFA016EEA16D0000F470 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: George Williams (WQ48A2BRFJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Williams (WQ48A2BRFJ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: George Williams";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: George Williams";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotomationApp/PhotomationApp-Prefix.pch";
 				INFOPLIST_FILE = "PhotomationApp/PhotomationApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7085D754-1767-4C6A-990C-05168FB04FBE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7085D754-1767-4C6A-990C-05168FB04FBE";
+				PROVISIONING_PROFILE = "18554FD2-D72E-48A6-9FE4-721F2BA7FF6C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "18554FD2-D72E-48A6-9FE4-721F2BA7FF6C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<EmailConfig version="1">
+<add key="subject" value="Your favorite photo taken at the Buddy Meida photobooth!" />
+<add key="from" value="noreply@buddymedia.com" />
+</EmailConfig>

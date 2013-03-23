@@ -37,9 +37,9 @@
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:jpgPath];
     if (fileExists)
     {
-        UIImage *image = [[ UIImage alloc ] initWithContentsOfFile:jpgPath ];
-        [ self.selected initWithImage:image ];
-    }
+        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:jpgPath ] autorelease];
+        self.selected.image = image;
+    } 
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,6 +57,9 @@
 
 -(IBAction) btn_save:(id)sender
 {
+    
+    [ self playSound:@"selection"];
+    
     NSString *fname = [ AppDelegate addPhotoToGallery:self.selected_id ];
     
     if ( fname != nil )
@@ -66,6 +69,18 @@
     }
 }
 
+
+- (void) playSound:(NSString *)sound
+{
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app playSound:sound delegate:self];
+}
+
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+}
 
 -(IBAction) btn_gallery:(id)sender
 {

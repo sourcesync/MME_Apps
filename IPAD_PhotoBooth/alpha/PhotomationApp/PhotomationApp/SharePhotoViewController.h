@@ -14,10 +14,10 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView *selected;
 
-
 -(IBAction) btn_settings: (id)sender;
 -(IBAction) btn_gallery: (id)sender;
 -(IBAction) btn_takephoto: (id)sender;
 -(IBAction) btn_share: (id)sender;
+-(IBAction) btn_email: (id)sender;
 
 @end

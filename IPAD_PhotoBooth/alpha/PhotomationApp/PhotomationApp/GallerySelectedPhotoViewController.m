@@ -47,8 +47,8 @@
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
     if (fileExists)
     {
-        UIImage *image = [[ UIImage alloc ] initWithContentsOfFile:fullPath ];
-        [ self.selected initWithImage:image ];
+        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:fullPath ] autorelease];
+        self.selected.image = image;
     }
 }
 

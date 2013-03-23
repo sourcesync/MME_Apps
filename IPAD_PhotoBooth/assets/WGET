@@ -1,1 +1,2 @@
-wget -r ftp://mme:Marist3397@autolycus.mmeentertainment.com/FromGeorge/PhotomationApp
+#wget -r ftp://mme:Marist3397@autolycus.mmeentertainment.com/FromGeorge/PhotomationApp
+wget -r ftp://mme:Marist3397@autolycus.mmeentertainment.com/public_html/autolycus
