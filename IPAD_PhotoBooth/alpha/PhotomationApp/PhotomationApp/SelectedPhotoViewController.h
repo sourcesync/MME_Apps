@@ -8,20 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SelectedPhotoViewController : UIViewController <AVAudioPlayerDelegate>
+@interface SelectedPhotoViewController : UIViewController
+    <AVAudioPlayerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIImageView *selected;
 
-@property (nonatomic, assign) int selected_id;
-
-@property (nonatomic, assign) int take_count;
+@property (nonatomic, assign) IBOutlet UIButton *btn_print;
 
 -(IBAction) delete_photo:(id)sender;
 
 -(IBAction) btn_save:(id)sender;
 
 -(IBAction) btn_gallery:(id)sender;
-
 
 -(IBAction) btn_efx: (id)sender;
 

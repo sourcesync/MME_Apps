@@ -38,9 +38,16 @@
     
 }
 
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+
 -(void) viewWillAppear:(BOOL)animated
 {
-    
+    [ super viewWillAppear:animated];
     
     self.nav.hidesBackButton = NO;
 }
@@ -48,6 +55,14 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ( UIInterfaceOrientationIsPortrait(interfaceOrientation) )
+        return YES;
+    else
+        return NO;
 }
 
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -44,8 +44,32 @@
     [super didReceiveMemoryWarning];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    NSUInteger orientations = UIInterfaceOrientationMaskPortrait;
+    return orientations;
+}
 
 
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ( UIInterfaceOrientationIsPortrait(interfaceOrientation) )
+        return YES;
+    else
+        return NO;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
+{
+    
+}
 
 -(IBAction) btn_signup: (id) sender
 {

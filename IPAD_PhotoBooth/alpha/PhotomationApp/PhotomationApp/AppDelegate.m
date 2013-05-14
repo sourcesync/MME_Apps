@@ -18,6 +18,17 @@
 #import "GalleryViewController.h"
 #import "GallerySelectedPhotoViewController.h"
 #import "SharePhotoViewController.h"
+#import "LoginNavController.h"
+#import "ChromaViewController.h"
+#import "SettingsLeftViewController.h"
+#import "RightViewController.h"
+#import "EmailViewController.h"
+#import "PrintViewController.h"
+#import "FacebookViewController.h"
+#import "TwitterViewController.h"
+#import "TakePhotoAutoViewController.h"
+
+#import "ChromaVideo.h"
 
 @implementation AppDelegate
 
@@ -28,9 +39,45 @@
     [super dealloc];
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    // attempt to extract a token from the url
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:self.session];
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    // FBSample logic
+    // if the app is going away, we close the session if it is open
+    // this is a good idea because things may be hanging off the session, that need
+    // releasing (completion block, etc.) and other components in the app may be awaiting
+    // close notification in order to do cleanup
+    [self.session close];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    /*
+     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     */
+    
+    // FBSample logic
+    // We need to properly handle activation of the application with regards to SSO
+    //  (e.g., returning from iOS 6.0 authorization dialog or from fast app switching).
+    [FBAppCall handleDidBecomeActiveWithSession:self.session];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.chroma_video = [ [ ChromaVideo alloc ] init ];
     
+    //  Never show status bar...
+    [[ UIApplication sharedApplication ] setStatusBarHidden:YES ];
+
+    
+    //  The one and only one window...
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
     //  Create signup login choose view...
@@ -50,14 +97,19 @@
     
     //  Create the navigation controller...
     self.navController =
-        [[[UINavigationController alloc]
-          initWithRootViewController:self.signup_login_view ] autorelease ];
+        [[ [ LoginNavController alloc ]
+            initWithRootViewController:self.signup_login_view ] autorelease ];
     
     //  Create the takephoto controller...
     self.takephoto_view = 
         [[[TakePhotoViewController alloc]
           initWithNibName:@"TakePhotoViewController" bundle:nil] autorelease];
     
+    //  take photo auto...
+    self.takephoto_auto_view =
+        [[[TakePhotoAutoViewController alloc]
+          initWithNibName:@"TakePhotoAutoViewController" bundle:nil] autorelease ];
+
     //  Create the selectfavorite controller...
     self.selectfavorite_view =
         [[[SelectFavoriteViewController alloc]
@@ -83,8 +135,64 @@
         [[[SharePhotoViewController alloc]
           initWithNibName:@"SharePhotoViewController" bundle:nil] autorelease];
     
+    //  Create the chroma controller...
+    self.chroma_view =
+        [[[ChromaViewController alloc]
+            initWithNibName:@"ChromaViewController" bundle:nil] autorelease];
+    
+    //  Create the email controller...
+    self.email_view =
+        [[[EmailViewController alloc]
+          initWithNibName:@"EmailViewController" bundle:nil] autorelease];
+    
+    //  Create the print controller...
+    self.print_view =
+        [[[PrintViewController alloc]
+          initWithNibName:@"PrintViewController" bundle:nil] autorelease];
+    
+    //  Create the print controller...
+    self.facebook_view =
+        [[[FacebookViewController alloc]
+          initWithNibName:@"FacebookViewController" bundle:nil] autorelease];
+    
+    //  Create the print controller...
+    self.twitter_view =
+        [[[TwitterViewController alloc]
+          initWithNibName:@"TwitterViewController" bundle:nil] autorelease];
+    
+    //  Settings split view...
+    SettingsLeftViewController *left =
+        [[[SettingsLeftViewController alloc]
+          initWithNibName:@"SettingsLeftViewController" bundle:nil] autorelease ];
+    UINavigationController *rootNav =
+        [[[UINavigationController alloc] initWithRootViewController:left] autorelease];
+    UINavigationController *detailNav =
+        [[[UINavigationController alloc] initWithRootViewController:self.chroma_view] autorelease];
+    self.settings_split_view =
+        [ [[UISplitViewController alloc] init ] autorelease ];
+    self.settings_split_view.viewControllers =
+        [NSArray arrayWithObjects:rootNav, detailNav, nil];
+    self.settings_split_view.delegate = left;
+    self.settings_popover = nil;
+    
     //  signup/register tabbed controllers are first...
-    self.window.rootViewController = self.navController;
+    //self.window.rootViewController = self.navController;
+    
+    //  take photo auto...
+    self.window.rootViewController = self.takephoto_auto_view;
+    
+    //  test sharing asap...
+    //self.window.rootViewController = self.sharephoto_view;
+    
+    //  test facebook asap...
+    //self.window.rootViewController = self.facebook_view;
+    
+    //  test twitter asap...
+    //self.window.rootViewController = self.twitter_view;
+    
+    //  test the pref area asap...
+    //[ self.window addSubview:self.settings_split_view.view ];
+    //[self.window setRootViewController:(UIViewController*)self.settings_split_view];
     
     //  make it go !
     [self.window makeKeyAndVisible];
@@ -109,6 +217,7 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
+/*
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -118,6 +227,7 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+ */
 
 /*
 // Optional UITabBarControllerDelegate method.
@@ -151,44 +261,90 @@
     self.window.rootViewController =self.takephoto_view;
 }
 
-- (void) goto_selectfavorite:(int)count
+
+-(void) goto_settings: (UIViewController *)back
 {
-    //[ self stopAudio ];
+    self.settingsBack = back;
     
+    //[ self.window addSubview:self.settings_split_view.view ];
+    [self.window setRootViewController:(UIViewController*)self.settings_split_view];
+}
+
+- (void) settings_go_back
+{
+    if (self.settingsBack)
+    {
+        self.window.rootViewController = self.settingsBack;
+        self.settingsBack = nil;
+    }
+}
+
+- (void) goto_selectfavorite
+{
     SelectFavoriteViewController *s = (SelectFavoriteViewController *)self.selectfavorite_view;
-    s.take_count = count;
     self.window.rootViewController = s;
 }
 
 
--(void) goto_galleryselectedphoto:(NSString *)fname
+-(void) goto_galleryselectedphoto
 {
-    //[ self stopAudio ];
-    
-    GallerySelectedPhotoViewController *s = (GallerySelectedPhotoViewController *)self.galleryselectedphoto_view;
-    s.selected_fname = fname;
+    GallerySelectedPhotoViewController *s = (GallerySelectedPhotoViewController *)
+        self.galleryselectedphoto_view;
     self.window.rootViewController = s;
 }
 
 
--(void) goto_sharephoto:(NSString *)fname
+-(void) goto_sharephoto
 {
-    //[ self stopAudio ];
-    
     SharePhotoViewController *s = (SharePhotoViewController *)self.sharephoto_view;
-    s.selected_fname = fname;
     self.window.rootViewController = s;
 }
 
--(void) goto_selectedphoto:(int)which count:(int)count
+-(void) goto_selectedphoto
 {
-    //[ self stopAudio ];
-    
-    SelectedPhotoViewController *s = (SelectedPhotoViewController *)self.selectedphoto_view;
-    s.take_count = count;
-    s.selected_id = which;
+    SelectedPhotoViewController *s =
+        (SelectedPhotoViewController *)self.selectedphoto_view;
     self.window.rootViewController = s;
 }
+
+
+-(void) goto_printview:(UIViewController *)back
+{
+    self.settingsBack = back;
+    
+    PrintViewController *s = (PrintViewController *)self.print_view;
+    self.window.rootViewController = s;
+}
+
+
+-(void) goto_emailview:(UIViewController *)back
+{
+    
+    self.settingsBack = back;
+    
+    EmailViewController *s = (EmailViewController *)self.email_view;
+    self.window.rootViewController = s;
+}
+
+
+-(void) goto_facebookview:(UIViewController *)back
+{
+    self.settingsBack = back;
+    
+    FacebookViewController *s = (FacebookViewController *)self.facebook_view;
+    self.window.rootViewController = s;
+}
+
+
+//  Goto the twitter view...
+-(void) goto_twitterview:(UIViewController *)back
+{
+    self.settingsBack = back;
+    
+    TwitterViewController *s = (TwitterViewController *)self.twitter_view;
+    self.window.rootViewController = s;
+}
+
 
 -(void) goto_gallery
 {
@@ -197,6 +353,56 @@
     self.window.rootViewController =self.gallery_view;
 }
 
++ (void) set_popover: (UIPopoverController *)popover
+{
+    AppDelegate *this = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    this.settings_popover = popover;
+    
+}
++(void) show_popover: (UIBarButtonItem *)b
+{
+    AppDelegate *this = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    if (this.settings_popover!=nil)
+    {
+        [ this.settings_popover presentPopoverFromBarButtonItem:b
+                                   permittedArrowDirections:UIPopoverArrowDirectionUnknown
+                                                   animated:YES ];
+    }
+}
+
+
++(void) select_settings_chroma
+{
+    AppDelegate *this = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    
+    UINavigationController *leftnav = (UINavigationController *)
+        [ this.settings_split_view.viewControllers objectAtIndex:0 ];
+        
+    SettingsLeftViewController *left = (SettingsLeftViewController *)
+        [ leftnav.viewControllers objectAtIndex:0 ];
+    
+    [ left select_chroma ];
+    
+}
+
++(void) show_settings_chroma
+{
+    AppDelegate *this = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    
+    UINavigationController *leftnav = (UINavigationController *)
+    [ this.settings_split_view.viewControllers objectAtIndex:0 ];
+    
+    SettingsLeftViewController *left = (SettingsLeftViewController *)
+    [ leftnav.viewControllers objectAtIndex:0 ];
+    
+    UIViewController *details = (UIViewController *)
+    [ this.settings_split_view.viewControllers objectAtIndex:1 ];
+    if ( details != this.chroma_view )
+    {
+        this.settings_split_view.viewControllers =
+        [ NSArray arrayWithObjects:left, this.chroma_view, nil ];
+    }
+}
 
 - (void) playSound:(NSString *)sound delegate:(id<AVAudioPlayerDelegate>) del
 {
@@ -318,10 +524,10 @@
     NSError *error = nil;
     
     //  Get gallery path...
-    NSString  *galleryPath = [ self getGalleryDir ];
+    //NSString  *galleryPath = [ self getGalleryDir ];
     
     //  Form path to file...
-    NSString *fullpath = [ NSString stringWithFormat:@"%@/%@", galleryPath, fname ];
+    NSString *fullpath = fname; //[ NSString stringWithFormat:@"%@/%@", galleryPath, fname ];
     
     //  Remove gallery file...
     if ( ! [[NSFileManager defaultManager] removeItemAtPath:fullpath error:&error] )

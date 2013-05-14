@@ -34,8 +34,17 @@
     self.buttons = [ self getButtonArray ];
 }
 
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+
 - (void)viewDidAppear:(BOOL)animated
 {
+    [ super viewDidAppear:animated];
+    
     //  Get the gallery directory...
     NSString *gallerydir = [ AppDelegate getGalleryDir ];
     
@@ -84,6 +93,7 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    [ super viewWillAppear:animated];
     
     //  Make all image slots invisible...
     for (int i=0;i<16;i++)
@@ -129,8 +139,14 @@
     int which = btn.tag;
     
     NSString *fname = [ self.show_files objectAtIndex:which ];
+    NSString *galleryPath = [ AppDelegate getGalleryDir ];
+    NSString *docPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, fname ];
+    //NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:docPath];
+    
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
-    [ app goto_galleryselectedphoto:fname ];
+    app.fname = docPath;
+    
+    [ app goto_galleryselectedphoto ];
     
 }
 

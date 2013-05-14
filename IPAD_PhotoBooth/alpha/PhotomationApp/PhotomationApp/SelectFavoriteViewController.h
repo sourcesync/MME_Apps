@@ -20,8 +20,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *bthird;
 @property (nonatomic, retain) IBOutlet UIButton *bfourth;
 
-@property (nonatomic, assign) int take_count;
-
 -(IBAction) photo_selected: (id)sender;
 
 -(IBAction) delete_all:(id)sender;

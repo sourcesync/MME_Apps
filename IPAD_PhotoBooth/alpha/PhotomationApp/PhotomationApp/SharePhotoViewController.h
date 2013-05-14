@@ -14,10 +14,21 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView *selected;
 
+//@property (nonatomic, retain) IBOutlet UIImageView *test;
+
+@property (nonatomic, assign) int selected_id;
+
+@property (nonatomic, assign) int take_count;
+
 -(IBAction) btn_settings: (id)sender;
 -(IBAction) btn_gallery: (id)sender;
 -(IBAction) btn_takephoto: (id)sender;
+
 -(IBAction) btn_share: (id)sender;
 -(IBAction) btn_email: (id)sender;
+-(IBAction) btn_print: (id)sender;
+
+-(IBAction) btn_tweet: (id)sender;
+-(IBAction) btn_facebook: (id)sender;
 
 @end

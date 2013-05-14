@@ -30,18 +30,45 @@
     [super viewDidLoad];
 }
 
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
-    NSString *fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",self.selected_id];
+    [ super viewWillAppear:animated];
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    NSString *fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
     NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:jpgPath];
     if (fileExists)
     {
         UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:jpgPath ] autorelease];
         self.selected.image = image;
-    } 
+    }
+    
+    if ([UIPrintInteractionController isPrintingAvailable])
+    {
+        self.btn_print.hidden = NO;
+    }
+    else
+    {
+        self.btn_print.hidden = YES;
+    }
 }
 
+
+-(IBAction) btnPrint: (id)sender
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    [ app goto_printview:self ];
+}
+  
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -51,7 +78,7 @@
 -(IBAction) delete_photo:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[[ UIApplication sharedApplication] delegate ];
-    [ app goto_selectfavorite:self.take_count ];
+    [ app goto_selectfavorite ];
 }
 
 
@@ -60,7 +87,8 @@
     
     [ self playSound:@"selection"];
     
-    NSString *fname = [ AppDelegate addPhotoToGallery:self.selected_id ];
+    AppDelegate *app = (AppDelegate *)[[ UIApplication sharedApplication] delegate ];
+    NSString *fname = [ AppDelegate addPhotoToGallery:app.selected_id ];
     
     if ( fname != nil )
     {
@@ -96,11 +124,12 @@
 
 -(IBAction) btn_share: (id)sender
 {
-    NSString *fname = [ AppDelegate addPhotoToGallery:self.selected_id ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    NSString *fname = [ AppDelegate addPhotoToGallery:app.selected_id ];
     if ( fname !=nil )
     {
         AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-        [ app goto_sharephoto:fname ];
+        [ app goto_sharephoto ];
     }
 }
 

@@ -37,6 +37,8 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
+    [ super viewWillAppear:animated];
+    
     NSMutableArray *array = [ NSMutableArray arrayWithObjects:
                              self.first, self.second, self.third, self.fourth, nil];
     NSMutableArray *barray = [ NSMutableArray arrayWithObjects:
@@ -50,8 +52,10 @@
         btn.hidden = YES;
     }
     
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    int take_count = app.take_count;
     
-    for ( int i=0;i < self.take_count; i ++)
+    for ( int i=0;i < take_count; i ++)
     {
         NSString *fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",i ];
         NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname ];
@@ -71,8 +75,17 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
+    [ super viewDidAppear:animated];
+    
     [ self playSound:@"pickfavorite" ];
 }
+
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
 
 - (void) playSound:(NSString *)sound
 {
@@ -94,8 +107,12 @@
     [ self playSound:@"selection"];
     
     AppDelegate *app = (AppDelegate *)[[ UIApplication sharedApplication] delegate ];
+    app.selected_id = tag;
+    NSString *fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg", app.selected_id ];
+    NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
+    app.fname = jpgPath;
     
-    [ app goto_selectedphoto:tag count:self.take_count];
+    [ app goto_selectedphoto ];
 }
 
 

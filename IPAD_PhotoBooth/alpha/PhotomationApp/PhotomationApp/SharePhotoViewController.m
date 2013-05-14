@@ -6,8 +6,15 @@
 //  Copyright (c) 2013 Dev Null Enterprises, LLC. All rights reserved.
 //
 
+
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
+#import <Twitter/Twitter.h>
+
 #import "AppDelegate.h"
 #import "SharePhotoViewController.h"
+#import "UIImage+SubImage.h"
+#import "UIImage+Resize.h"
 
 @interface SharePhotoViewController ()
 
@@ -29,6 +36,13 @@
     [super viewDidLoad];
 }
 
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -36,14 +50,26 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    NSString *galleryPath = [ AppDelegate getGalleryDir ];
-    NSString *fullPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, self.selected_fname ];
+    [ super viewWillAppear:animated];
+    
+    //NSString *galleryPath = [ AppDelegate getGalleryDir ];
+    //NSString *fullPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, self.selected_fname ];
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    NSString *fullPath = app.fname;
+                          
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
     if (fileExists)
     {
-        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:fullPath ] autorelease];
+        UIImage *image =
+            [[[ UIImage alloc ] initWithContentsOfFile:fullPath ] autorelease];
         self.selected.image= image;
-    } 
+    }
+    else
+    {
+        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
+        self.selected.image= test;
+    }
 }
 
 -(IBAction) btn_settings: (id)sender
@@ -71,62 +97,135 @@
     [ AppDelegate NotImplemented:nil ];
 }
 
--(void) postimage
+
+-(IBAction) btn_tweet: (id)sender
 {
-    //NSString *galleryPath = [ AppDelegate getGalleryDir ];
-    //NSString *fullPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, self.selected_fname ];
-    
-    NSData *imageData = UIImageJPEGRepresentation( self.selected.image, 1.0f );
-    NSString *urlString = [NSString stringWithFormat:@"%@ipad_app_send.php", @"http://photomation.mmeink.com/"];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    
-    
-    NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
-    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-    NSMutableData *body = [NSMutableData data];
-    
-    //  THE EVENT...
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:
-                       @"Content-Disposition: form-data; name=\"event\"\r\n\r\n"]
-                      dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithString:@"DoingourthingBoston"] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    //  THE EMAIL...
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:
-                       @"Content-Disposition: form-data; name=\"email\"\r\n\r\n"]
-                      dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithString:@"george@devnullenterprises.com"] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    //  THE FILE...
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:
-        @"Content-Disposition: form-data; name=\"photo\"; filename=\"test.jpg\"\r\n"]
-                      dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[NSData dataWithData:imageData]];
-    
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    
-    [request setHTTPBody:body];
-    
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    
-    NSLog([NSString stringWithFormat:@"Image Return String: %@", returnString]);
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    //[ app goto_twitterview:self];
+    [ self showTweetSheet ];
 }
 
+
+-(IBAction) btn_facebook: (id)sender
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_facebookview:self];
+}
+
+
+-(IBAction) btn_print: (id)sender
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_printview:self ];
+
+}
 -(IBAction) btn_email:(id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
-    //[ self postimage ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_emailview:self ];
 }
+
+
+
+-(UIImage *) processTemplate:(UIImage *)insert
+{
+    //  Load the template...
+    UIImage *template = [ UIImage imageNamed:@"email.jpg" ];
+    
+    // Resize the template to the final res...
+    CGSize sz = CGSizeMake(400,600);
+    UIImage *rsize_template = [ template
+                               resizedImage:sz interpolationQuality:kCGInterpolationHigh ];
+    
+    //  Resize the insert...
+    //CGSize isz = CGSizeMake(240, 320);
+    CGSize isz = CGSizeMake(320, 427);
+    UIImage *rsize_insert = [ insert
+                             resizedImage:isz interpolationQuality:kCGInterpolationHigh ];
+    
+    //  Place the insert...
+    //CGRect rect = CGRectMake(80, 140, 240, 320);
+    CGRect rect = CGRectMake(40, 70, 320, 427);
+    UIImage *result = [ rsize_template pasteImage:rsize_insert bounds:rect ];
+    
+    UIImage *rot = [ UIImage imageWithCGImage:result.CGImage scale:1.0 orientation:UIImageOrientationUp ];
+    
+    return rot;
+}
+
+
+- (void)showTweetSheet
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    NSString *fname = app.fname; //[ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
+    
+    UIImage *template = nil;
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
+    if (fileExists)
+    {
+        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:fname ] autorelease];
+        //self.imgview_selected.image = image;
+        
+        template = [ self processTemplate:image ];
+    }
+    else
+    {
+        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
+        //self.imgview_selected.image = test;
+        
+        template = [ self processTemplate:test ];
+    }
+    
+    //  Create an instance of the Tweet Sheet
+    SLComposeViewController *tweetSheet = [SLComposeViewController
+                                           composeViewControllerForServiceType:
+                                           SLServiceTypeTwitter];
+    
+    // Sets the completion handler.  Note that we don't know which thread the
+    // block will be called on, so we need to ensure that any UI updates occur
+    // on the main queue
+    tweetSheet.completionHandler = ^(SLComposeViewControllerResult result) {
+        switch(result) {
+                //  This means the user cancelled without sending the Tweet
+            case SLComposeViewControllerResultCancelled:
+                break;
+                //  This means the user hit 'Send'
+            case SLComposeViewControllerResultDone:
+                break;
+        }
+        
+        //  dismiss the Tweet Sheet
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:NO completion:^{
+                NSLog(@"Tweet Sheet has been dismissed.");
+            }];
+        });
+    };
+    
+    //  Set the initial body of the Tweet
+    [tweetSheet setInitialText:@"#photomation rocks"];
+    
+    //  Adds an image to the Tweet.  For demo purposes, assume we have an
+    //  image named 'larry.png' that we wish to attach
+    //if (![tweetSheet addImage:[UIImage imageNamed:@"image.jpg"]]) {
+    if (![tweetSheet addImage:template ])
+    {
+        NSLog(@"Unable to add the image!");
+    }
+    
+    /*
+    //  Add an URL to the Tweet.  You can add multiple URLs.
+    if (![tweetSheet addURL:[NSURL URLWithString:@"http://twitter.com/"]]){
+        NSLog(@"Unable to add the URL!");
+    }
+     */
+    
+    //  Presents the Tweet Sheet to the user
+    [self presentViewController:tweetSheet animated:NO completion:^{
+        NSLog(@"Tweet sheet has been presented.");
+    }];
+}
+
+
 
 @end

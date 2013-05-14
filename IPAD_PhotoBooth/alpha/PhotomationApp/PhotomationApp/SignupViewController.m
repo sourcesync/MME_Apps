@@ -38,11 +38,27 @@
     
 }
 
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+
 -(void) viewWillAppear:(BOOL)animated
 {
-    
+    [ super viewWillAppear:animated];
     
     self.nav.hidesBackButton = NO;
+}
+
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ( UIInterfaceOrientationIsPortrait(interfaceOrientation) )
+        return YES;
+    else
+        return NO;
 }
 
 - (void)didReceiveMemoryWarning

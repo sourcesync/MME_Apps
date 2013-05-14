@@ -10,7 +10,7 @@
 
 @interface GallerySelectedPhotoViewController : UIViewController
 
-@property (nonatomic,retain) NSString *selected_fname;
+//@property (nonatomic,retain) NSString *selected_fname;
 
 @property (nonatomic,retain) IBOutlet UIImageView *selected;
 
