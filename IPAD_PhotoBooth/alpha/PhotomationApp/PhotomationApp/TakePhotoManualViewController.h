@@ -1,5 +1,5 @@
 //
-//  TakePhotoAutoViewController.h
+//  TakePhotoManualViewController.h
 //  PhotomationApp
 //
 //  Created by Cuong George Williams on 5/14/13.
@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 
 #import <AVFoundation/AVFoundation.h>
 #import <AVFoundation/AVCaptureSession.h>
@@ -22,11 +23,17 @@
 #import "ChromaVideoDelegate.h"
 #import "CameraView.h"
 
-@interface TakePhotoAutoViewController : UIViewController
+@interface TakePhotoManualViewController : UIViewController
     <AVAudioPlayerDelegate,
     ChromaVideoDelegate,
     AVCaptureVideoDataOutputSampleBufferDelegate>
 
+//  state...
+@property (nonatomic, assign) int state;
+@property (nonatomic, assign) bool allow_snap;
+@property (nonatomic, assign) float zoomScale;
+@property (nonatomic, assign) bool bCancelAutoNext;
+@property (nonatomic, assign) bool AutoNextScheduled;
 
 //  preview parent...
 @property (nonatomic, retain) IBOutlet UIView *preview_parent;
@@ -45,15 +52,29 @@
 @property (nonatomic, retain) IBOutlet UIButton *btn_photobooth;
 @property (nonatomic, retain) IBOutlet UIButton *btn_settings;
 
-//  state stuff...
-@property (nonatomic, assign) int count;
-@property (nonatomic, assign) int state;
-@property (nonatomic, assign) float zoomScale;
+//  function buttons...
+@property (nonatomic, retain) IBOutlet UIButton *btn_takepic1;
+@property (nonatomic, retain) IBOutlet UIButton *btn_takepic2;
+@property (nonatomic, retain) IBOutlet UIButton *btn_swapcam;
+@property (nonatomic, retain) IBOutlet UIButton *btn_zoomin;
+@property (nonatomic, retain) IBOutlet UIButton *btn_zoomout;
+@property (nonatomic, retain) IBOutlet UIButton *btn_flash;
 
 //  audio stuff...
 @property (nonatomic, retain) AVAudioPlayer *audio;
 
 //  camera view...
 @property (nonatomic, retain) CameraView *camera_view;
+
+//  functions...
+-(IBAction) btnaction_takepic: (id)sender;
+-(IBAction) btnaction_swapcam: (id)sender;
+-(IBAction) btnaction_zoomin: (id)sender;
+-(IBAction) btnaction_zoomout: (id)sender;
+-(IBAction) btnaction_flash: (id)sender;
+
+-(IBAction) btnaction_gallery: (id)sender;
+-(IBAction) btnaction_photobooth: (id)sender;
+-(IBAction) btnaction_settings: (id)sender;
 
 @end

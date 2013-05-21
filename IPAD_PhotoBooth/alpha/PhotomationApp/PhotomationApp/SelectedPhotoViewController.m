@@ -28,12 +28,111 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication ] delegate ];
+    app.start_orientation =uiorientation;
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    NSUInteger orientations =
+    UIInterfaceOrientationMaskAll;
+    return orientations;
+}
 
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    return YES;
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ( UIInterfaceOrientationIsPortrait(interfaceOrientation) )
+    {
+        return YES;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+-(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
+    {
+        self.img_bg.image = [ UIImage imageNamed:
+                             @"05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg" ];
+        
+        CGRect rect = CGRectMake(173, 132, 422, 567);
+        self.selected.frame = rect;
+        
+        rect = CGRectMake(134, 734, 79, 59);
+        self.btn_save.frame = rect;
+        
+        rect = CGRectMake(260, 726, 112, 77);
+        self.btn_efx.frame = rect;
+        
+        rect = CGRectMake(408, 734, 97, 60);
+        self.btn_share.frame = rect;
+        
+        rect = CGRectMake(566, 733, 73, 61);
+        self.btn_trash.frame = rect;
+        
+        rect = CGRectMake(140, 819, 73, 44);
+        self.btn_print.frame = rect;
+        
+        rect = CGRectMake(185, 935, 97, 85);
+        self.btn_gallery.frame = rect;
+        
+        rect = CGRectMake(328, 939, 113, 86);
+        self.btn_photobooth.frame = rect;
+        
+        rect = CGRectMake(477, 939, 101, 178);
+        self.btn_settings.frame = rect;
+    }
+    else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
+    {
+        self.img_bg.image = [ UIImage imageNamed:
+                             @"05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg" ];
+        
+        CGRect rect = CGRectMake(344, 103, 336, 449);
+        self.selected.frame = rect;
+        
+        rect = CGRectMake(324, 573, 79, 59);
+        self.btn_save.frame = rect;
+        
+        rect = CGRectMake(428, 573, 112, 77);
+        self.btn_efx.frame = rect;
+        
+        rect = CGRectMake(529, 573, 97, 60);
+        self.btn_share.frame = rect;
+        
+        rect = CGRectMake(634, 573, 73, 61);
+        self.btn_trash.frame = rect;
+        
+        rect = CGRectMake(196, 573, 73, 44);
+        self.btn_print.frame = rect;
+        
+        rect = CGRectMake(301, 687, 97, 85);
+        self.btn_gallery.frame = rect;
+        
+        rect = CGRectMake(452, 687, 113, 86);
+        self.btn_photobooth.frame = rect;
+        
+        rect = CGRectMake(634, 692, 101, 178);
+        self.btn_settings.frame = rect;
+    }
+ 
+}
+
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+    duration:(NSTimeInterval)duration
+{
+    [ self orientElements:toInterfaceOrientation];
 }
 
 
@@ -41,13 +140,20 @@
 {
     [ super viewWillAppear:animated];
     
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
+    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    [ self orientElements:uiorientation];
+    
+
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication ] delegate ];
+    NSString *fname =
+        [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
     NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:jpgPath];
     if (fileExists)
     {
-        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:jpgPath ] autorelease];
+        UIImage *image = [[[ UIImage alloc ]
+                           initWithContentsOfFile:jpgPath ] autorelease];
         self.selected.image = image;
     }
     
@@ -62,7 +168,7 @@
 }
 
 
--(IBAction) btnPrint: (id)sender
+-(IBAction) btnaction_print: (id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
@@ -75,21 +181,20 @@
 }
 
 
--(IBAction) delete_photo:(id)sender
+-(IBAction) btnaction_delete:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[[ UIApplication sharedApplication] delegate ];
-    [ app goto_selectfavorite ];
+    [ app goto_takephoto ];
 }
 
 
--(IBAction) btn_save:(id)sender
+-(IBAction) btnaction_save:(id)sender
 {
-    
-    [ self playSound:@"selection"];
+    [ self playSelection ];
     
     AppDelegate *app = (AppDelegate *)[[ UIApplication sharedApplication] delegate ];
-    NSString *fname = [ AppDelegate addPhotoToGallery:app.selected_id ];
-    
+    NSString *fname = [ AppDelegate addPhotoToGallery:app.selected_id is_portrait:app.is_portrait];
+     
     if ( fname != nil )
     {
         AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
@@ -98,11 +203,10 @@
 }
 
 
-- (void) playSound:(NSString *)sound
+- (void) playSelection
 {
-    
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [ app playSound:sound delegate:self];
+    [ app playSound:app.config.snd_selection delegate:self];
 }
 
 
@@ -110,33 +214,51 @@
 {
 }
 
--(IBAction) btn_gallery:(id)sender
+-(IBAction) btnaction_gallery:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     [ app goto_gallery ];
 }
 
 
--(IBAction) btn_efx: (id)sender
+-(IBAction) btnaction_efx: (id)sender
 {
     [ AppDelegate NotImplemented:nil ];
 }
 
--(IBAction) btn_share: (id)sender
+-(IBAction) btnaction_share: (id)sender
 {
+    //[ AppDelegate NotImplemented:nil ];
+    
+    
+    
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = [ AppDelegate addPhotoToGallery:app.selected_id ];
+    [ app goto_sharephoto ];
+    
+    /*
+    AppDelegate *app =
+        (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    NSString *fname = [ AppDelegate 
+                       addPhotoToGallery:app.selected_id
+                       is_portrait:app.is_portrait ];
     if ( fname !=nil )
     {
         AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
         [ app goto_sharephoto ];
     }
+     */
+}
+
+-(IBAction) btnaction_settings:(id)sender
+{
+    [ AppDelegate NotImplemented:nil ];
 }
 
 
--(IBAction) btn_settings:(id)sender
+-(IBAction) btnaction_photobooth:(id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_takephoto ];
 }
 
 @end

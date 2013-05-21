@@ -27,6 +27,7 @@
 #import "FacebookViewController.h"
 #import "TwitterViewController.h"
 #import "TakePhotoAutoViewController.h"
+#import "TakePhotoManualViewController.h"
 
 #import "ChromaVideo.h"
 
@@ -71,14 +72,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.chroma_video = [ [ ChromaVideo alloc ] init ];
     
     //  Never show status bar...
     [[ UIApplication sharedApplication ] setStatusBarHidden:YES ];
 
+    //  Create the chroma video object...
+    self.chroma_video = [ [ ChromaVideo alloc ] init ];
     
-    //  The one and only one window...
+    //  Create the configuration object...
+    self.config = [ [ Configuration alloc ] init ];
+    
+    //  Create the one and only window...
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    
+    //
+    //  Initialize all the singleton view controllers...
+    //
     
     //  Create signup login choose view...
     self.signup_login_view =
@@ -109,6 +118,11 @@
     self.takephoto_auto_view =
         [[[TakePhotoAutoViewController alloc]
           initWithNibName:@"TakePhotoAutoViewController" bundle:nil] autorelease ];
+    
+    //  take photo manual...
+    self.takephoto_manual_view =
+        [[[TakePhotoManualViewController alloc]
+          initWithNibName:@"TakePhotoManualViewController" bundle:nil] autorelease ];
 
     //  Create the selectfavorite controller...
     self.selectfavorite_view =
@@ -179,7 +193,10 @@
     //self.window.rootViewController = self.navController;
     
     //  take photo auto...
-    self.window.rootViewController = self.takephoto_auto_view;
+    //self.window.rootViewController = self.takephoto_auto_view;
+    
+    //  take photo manual...
+    self.window.rootViewController = self.takephoto_manual_view;
     
     //  test sharing asap...
     //self.window.rootViewController = self.sharephoto_view;
@@ -258,7 +275,8 @@
 -(void) goto_takephoto
 {
     //[ self stopAudio ];
-    self.window.rootViewController =self.takephoto_view;
+    //self.window.rootViewController =self.takephoto_view;
+    self.window.rootViewController =self.takephoto_manual_view;
 }
 
 
@@ -404,7 +422,7 @@
     }
 }
 
-- (void) playSound:(NSString *)sound delegate:(id<AVAudioPlayerDelegate>) del
+- (void) playSound:(NSURL *)sound delegate:(id<AVAudioPlayerDelegate>) del
 {
     if ( self.audio!=nil )
     {
@@ -412,11 +430,11 @@
         self.audio =nil;
         
     }
-    NSString *fileName = sound;
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"wav"];
-    
-    NSURL *fileURL = [[[NSURL alloc] initFileURLWithPath: path] autorelease];
+    //NSString *fileName = sound;
+   // NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"wav"];
+    //NSURL *fileURL = [[[NSURL alloc] initFileURLWithPath: path] autorelease];
+    NSURL *fileURL = sound;
     
     self.audio = [[[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:NULL] autorelease];
     
@@ -541,7 +559,7 @@
     }
 }
 
-+ (NSString *)addPhotoToGallery:(int)which
++ (NSString *)addPhotoToGallery:(int)which is_portrait:(bool)is_portrait
 {
     NSError *error = nil;
     
@@ -550,7 +568,15 @@
     
     // Form path to new file...
     NSString *uuid = [AppDelegate GetUUID ];
-    NSString *newfname = [ NSString stringWithFormat:@"%@.jpg", uuid];
+    NSString *newfname;
+    if (is_portrait)
+    {
+        newfname = [ NSString stringWithFormat:@"P%@.jpg", uuid];
+    }
+    else
+    {
+        newfname = [ NSString stringWithFormat:@"L%@.jpg", uuid];
+    }
     NSString *newfpath = [ NSString stringWithFormat:@"%@/%@", galleryPath, newfname ];
 
     //  Form path to photo...

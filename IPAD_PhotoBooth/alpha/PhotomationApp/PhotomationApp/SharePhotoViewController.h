@@ -14,21 +14,35 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView *selected;
 
-//@property (nonatomic, retain) IBOutlet UIImageView *test;
-
 @property (nonatomic, assign) int selected_id;
 
 @property (nonatomic, assign) int take_count;
 
--(IBAction) btn_settings: (id)sender;
--(IBAction) btn_gallery: (id)sender;
--(IBAction) btn_takephoto: (id)sender;
+@property (nonatomic, retain) IBOutlet UIImageView *img_bg;
 
--(IBAction) btn_share: (id)sender;
--(IBAction) btn_email: (id)sender;
--(IBAction) btn_print: (id)sender;
+@property (nonatomic, retain) IBOutlet UIButton *btn_facebook;
+@property (nonatomic, retain) IBOutlet UIButton *btn_tweet;
+@property (nonatomic, retain) IBOutlet UIButton *btn_email;
+@property (nonatomic, retain) IBOutlet UIButton *btn_print;
 
--(IBAction) btn_tweet: (id)sender;
--(IBAction) btn_facebook: (id)sender;
+@property (nonatomic, retain) IBOutlet UIButton *btn_gallery;
+@property (nonatomic, retain) IBOutlet UIButton *btn_takephoto;
+@property (nonatomic, retain) IBOutlet UIButton *btn_settings;
+
+@property (nonatomic, retain) IBOutlet UIButton *btn_left;
+@property (nonatomic, retain) IBOutlet UIButton *btn_right;
+
+
+-(IBAction) btnaction_tweet: (id)sender;
+-(IBAction) btnaction_facebook: (id)sender;
+-(IBAction) btnaction_email: (id)sender;
+-(IBAction) btnaction_print: (id)sender;
+-(IBAction) btnaction_settings: (id)sender;
+-(IBAction) btnaction_gallery: (id)sender;
+-(IBAction) btnaction_takephoto: (id)sender;
+
+-(IBAction) btnaction_left:(id)sender;
+-(IBAction) btnaction_right:(id)sender;
+
 
 @end

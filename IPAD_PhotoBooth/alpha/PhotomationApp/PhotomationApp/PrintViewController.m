@@ -47,15 +47,20 @@
 {
     [ super viewWillAppear:animated];
     
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = app.fname; //[ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
+
     
-    //NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
-    //BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:jpgPath];
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication ] delegate ];
+    NSString *fname = app.fname; 
+    
+    NSString  *jpgPath =
+        [NSHomeDirectory() stringByAppendingPathComponent:fname];
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:jpgPath];
     if (fileExists)
     {
-        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:fname ] autorelease];
+        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:jpgPath ] autorelease];
+        self.selected_image = image;
         self.imgview_selected.image = image;
         
         [ self processTemplate:image ];
@@ -63,6 +68,7 @@
     else
     {
         UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
+        self.selected_image = test;
         self.imgview_selected.image = test;
         
         [ self processTemplate:test ];
@@ -78,6 +84,12 @@
         self.btn_printSelected.hidden = YES;
         self.btn_printTemplate.hidden = YES;
     }
+    
+    
+    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation]; 
+    self.start_orientation = uiorientation;
+    
+    [ self orientElements:uiorientation ];
 }
 
 
@@ -97,9 +109,30 @@
     self.btn_printTemplate.enabled = YES;
 }
 
+- (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage {
+    
+    CGImageRef maskRef = maskImage.CGImage;
+    
+    CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+                                        CGImageGetHeight(maskRef),
+                                        CGImageGetBitsPerComponent(maskRef),
+                                        CGImageGetBitsPerPixel(maskRef),
+                                        CGImageGetBytesPerRow(maskRef),
+                                        CGImageGetDataProvider(maskRef), NULL, false);
+    
+    CGImageRef masked = CGImageCreateWithMask([image CGImage], mask);
+    
+    return [UIImage imageWithCGImage:masked];
+    
+}
 
 -(void) processTemplate:(UIImage *)insert
 {
+    
+    //  Mask the insert...
+    //UIImage *watermark = [ UIImage imageNamed:@"Photomation-logo-transparent.png"];
+    //insert = [ self maskImage:insert withMask:watermark ];
+    
     //  Load the template...
     UIImage *template = [ UIImage imageNamed:@"email.jpg" ];
     
@@ -114,14 +147,21 @@
     UIImage *rsize_insert = [ insert
                              resizedImage:isz interpolationQuality:kCGInterpolationHigh ];
     
+    
     //  Place the insert...
     //CGRect rect = CGRectMake(80, 140, 240, 320);
     CGRect rect = CGRectMake(40, 70, 320, 427);
     UIImage *result = [ rsize_template pasteImage:rsize_insert bounds:rect ];
+    //UIImage *result = [ rsize_template pasteImage:watermarked_image bounds:rect ];
     
     UIImage *rot = [ UIImage imageWithCGImage:result.CGImage scale:1.0 orientation:UIImageOrientationUp ];
     
-    self.imgview_template.image = rot;
+    UIImage *watermark = [ UIImage imageNamed:@"Photomation-logo-transparent.png"];
+    
+    UIImage *watermarked_image = [ self maskImage:rot withMask:watermark ];
+    
+    self.imgview_template.image = watermarked_image;
+    self.templated_image = watermarked_image;
 }
 
 
@@ -179,6 +219,104 @@
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     [ app settings_go_back ];
+}
+
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    NSUInteger orientations =
+    UIInterfaceOrientationMaskAll;
+    return orientations;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ( UIInterfaceOrientationIsPortrait(interfaceOrientation) )
+    {
+        return YES;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+
+- (void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    
+    if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
+    {
+        self.imgview_selected.image = self.selected_image;
+        self.imgview_template.image = self.templated_image;
+        
+        //[self orientElements:toInterfaceOrientation duration:duration zoomScale:self.zoomScale];
+        CGRect rect = CGRectMake(15, 64, 320, 427);
+        self.imgview_selected.frame = rect;
+        rect = CGRectMake(355,64,400,600);
+        self.imgview_template.frame = rect;
+        rect = CGRectMake(159, 514, 73, 44);
+        self.btn_printSelected.frame = rect;
+        rect = CGRectMake(519, 691, 73, 44);
+        self.btn_printTemplate.frame = rect;
+        rect = CGRectMake(659, 935, 73, 44);
+        self.btn_done.frame = rect;
+    }
+    else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
+    {
+        if ( toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+        {
+            UIImage *selected_rot_img = [ UIImage imageWithCGImage:self.selected_image.CGImage
+                                                scale:1.0
+                                          orientation:UIImageOrientationUp];
+            self.imgview_selected.image = selected_rot_img;
+            
+            
+            UIImage *templated_rot_image = [ UIImage imageWithCGImage:self.templated_image.CGImage
+                                                                scale:1.0
+                                                          orientation:UIImageOrientationLeft];
+            self.imgview_template.image = templated_rot_image;
+
+        }
+        else if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
+        {
+                UIImage *selected_rot_img = [ UIImage imageWithCGImage:self.selected_image.CGImage
+                                                                 scale:1.0
+                                                           orientation:UIImageOrientationDown];
+                self.imgview_selected.image = selected_rot_img;
+            
+            
+            UIImage *templated_rot_image = [ UIImage imageWithCGImage:self.templated_image.CGImage
+                                                                scale:1.0
+                                                          orientation:UIImageOrientationRight];
+            self.imgview_template.image = templated_rot_image;
+
+        }
+                
+        //[self orientElements:toInterfaceOrientation duration:duration zoomScale:self.zoomScale];
+        CGRect rect = CGRectMake(31,31, 427, 320);
+        self.imgview_selected.frame = rect;
+        rect = CGRectMake(304,359,600,400);
+        self.imgview_template.frame = rect;
+        rect = CGRectMake(152,371, 73, 44);
+        self.btn_printSelected.frame = rect;
+        rect = CGRectMake(223,716, 73, 44);
+        self.btn_printTemplate.frame = rect;
+        rect = CGRectMake(921,705, 73, 44);
+        self.btn_done.frame = rect;
+    }
+}
+
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+    duration:(NSTimeInterval)duration
+{
+    [ self orientElements:toInterfaceOrientation];
 }
 
 @end

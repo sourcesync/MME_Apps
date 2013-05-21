@@ -10,20 +10,30 @@
 
 @interface GallerySelectedPhotoViewController : UIViewController
 
-//@property (nonatomic,retain) NSString *selected_fname;
-
+@property (nonatomic,retain) IBOutlet UIImageView *img_bg;
 @property (nonatomic,retain) IBOutlet UIImageView *selected;
 
--(IBAction) btn_delete:(id)sender;
 
--(IBAction) btn_goto_gallery:(id)sender;
+@property (nonatomic,retain) IBOutlet UIButton *btn_efx;
+@property (nonatomic,retain) IBOutlet UIButton *btn_share;
+@property (nonatomic,retain) IBOutlet UIButton *btn_delete;
 
--(IBAction) btn_goto_takephoto:(id)sender;
+@property (nonatomic,retain) IBOutlet UIButton *btn_gallery;
+@property (nonatomic,retain) IBOutlet UIButton *btn_photobooth;
+@property (nonatomic,retain) IBOutlet UIButton *btn_settings;
 
--(IBAction) btn_settings: (id)sender;
+@property (nonatomic,retain) IBOutlet UIButton *btn_left;
+@property (nonatomic,retain) IBOutlet UIButton *btn_right;
 
--(IBAction) btn_efx: (id)sender;
 
--(IBAction) btn_share: (id)sender;
+-(IBAction) btnaction_delete:(id)sender;
+-(IBAction) btnaction_goto_gallery:(id)sender;
+-(IBAction) btnaction_goto_takephoto:(id)sender;
+-(IBAction) btnaction_settings: (id)sender;
+-(IBAction) btnaction_efx: (id)sender;
+-(IBAction) btnaction_share: (id)sender;
+-(IBAction) btnaction_goleft: (id)sender;
+-(IBAction) btnaction_goright: (id)sender;
+
 
 @end

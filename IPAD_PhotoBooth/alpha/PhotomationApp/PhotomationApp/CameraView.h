@@ -1,12 +1,12 @@
 //
-//  TakePhotoAutoViewController.h
+//  CameraView.h
 //  PhotomationApp
 //
 //  Created by Cuong George Williams on 5/14/13.
 //  Copyright (c) 2013 Dev Null Enterprises, LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 #import <AVFoundation/AVFoundation.h>
 #import <AVFoundation/AVCaptureSession.h>
@@ -20,13 +20,8 @@
 
 #import "ChromaVideo.h"
 #import "ChromaVideoDelegate.h"
-#import "CameraView.h"
 
-@interface TakePhotoAutoViewController : UIViewController
-    <AVAudioPlayerDelegate,
-    ChromaVideoDelegate,
-    AVCaptureVideoDataOutputSampleBufferDelegate>
-
+@interface CameraView : NSObject
 
 //  preview parent...
 @property (nonatomic, retain) IBOutlet UIView *preview_parent;
@@ -37,23 +32,26 @@
 //  snapshot view stuff...
 @property (nonatomic, retain) IBOutlet UIImageView *camera_snapshot_view;
 
-//  background image...
-@property (nonatomic, retain) IBOutlet UIImageView *img_bg;
+//  capture stuff...
+@property (nonatomic, retain) AVCaptureStillImageOutput *stillImageOutput;
 
-//  tab bar buttons...
-@property (nonatomic, retain) IBOutlet UIButton *btn_gallery;
-@property (nonatomic, retain) IBOutlet UIButton *btn_photobooth;
-@property (nonatomic, retain) IBOutlet UIButton *btn_settings;
+//  chroma stuff...
+@property (nonatomic, assign) bool chroma_started;
+@property (nonatomic, assign) dispatch_queue_t chroma_queue;
 
-//  state stuff...
-@property (nonatomic, assign) int count;
-@property (nonatomic, assign) int state;
+//  zoom stuff...
 @property (nonatomic, assign) float zoomScale;
 
-//  audio stuff...
-@property (nonatomic, retain) AVAudioPlayer *audio;
+//  chroma delegate...
+@property (nonatomic, assign) id <ChromaVideoDelegate> del;
 
-//  camera view...
-@property (nonatomic, retain) CameraView *camera_view;
+//  functions...
+-(void) viewDidLoad;
+-(void) viewWillAppear;
+-(void) viewWillDisappear;
+-(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration zoomScale:(float)zoomScale;
+
+-(void) switch_cam;
 
 @end

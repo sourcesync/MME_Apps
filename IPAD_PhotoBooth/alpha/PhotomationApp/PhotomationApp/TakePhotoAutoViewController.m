@@ -19,60 +19,149 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if (self)
+    {
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
+    AppDelegate *app = ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    //  Setup from config...
+    self.img_bg.image = app.config.bg_takephoto_auto_vert;
+    
+    //
+    //  The camera view object...
+    //
+    self.camera_view = [ [ CameraView alloc] init ];
+    self.camera_view.camera_normal_view = self.camera_normal_view;
+    self.camera_snapshot_view = self.camera_snapshot_view;
+    self.camera_view.preview_parent = self.preview_parent;
+    self.camera_view.del = self;
+    [ self.camera_view viewDidLoad ];
+    
+    //  Initially orient everything portrait...
+    [ self orientElements:UIInterfaceOrientationPortrait duration:0 zoomScale:1.0];
+    
+    //  play intro sound...
+    [ self playselection ];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma more view stuff
-
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [ super viewWillAppear:animated ];
     
-    //  Turn off status...
-    [[ UIApplication sharedApplication ] setStatusBarHidden:YES ];
-    
-    //self.state = 0;
-    //self.camera_ready = NO;
-    //self.allow_rotation = YES;
-    //self.allow_settings = YES;
-    //self.chroma_started = NO;
-    //self.chromaView.hidden = YES;
-    //self.bgView.hidden = YES;
-    
-    AppDelegate *app = ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
-    
-    
-    //  Setup chroma video...
-	app.chroma_video.captureVideoPreviewLayer.frame = self.camera_normal_view.bounds;
-    [self.camera_normal_view.layer addSublayer:app.chroma_video.captureVideoPreviewLayer];
-    
-    //  Flip based on camera...
-    if (app.chroma_video.is_front)
-        self.camera_normal_view.transform = CGAffineTransformMakeScale(-1.0f, 1.0f);
-    self.zoomScale = 1.0f;
-    
-    [ app.chroma_video set_delegate:self ];
-    
     //  Delay finalization of init because it takes camera a little while to start...
+    //  TODO: should be performed via a 'done' delegate on chromavideo...
     [ self performSelector:@selector(finishInit) withObject:self afterDelay:1 ];
     
 }
+
+#pragma main funcs...
+
+
+-(void) captureNow
+{
+    //
+    //  Take the pic...
+    //
+    AppDelegate * app = ( AppDelegate *)
+        [[UIApplication sharedApplication ] delegate ];
+    [ app.chroma_video take_pic:self.count ];
+    
+}
+
+
+-(void) playselection
+{
+    self.state = 0;
+    AppDelegate * app =
+    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    [ self playSound: app.config.snd_selection usedel:NO];
+}
+
+-(void) getready
+{
+    //
+    //  Show the video preview...
+    //
+    self.camera_view.camera_normal_view.hidden = NO;
+    self.camera_view.camera_snapshot_view.hidden = YES;
+    
+    self.state = 1;
+    AppDelegate * app =
+        ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    [ self playSound: app.config.snd_getready usedel:YES];
+}
+
+-(void) countdown
+{
+    self.state = 2;
+    AppDelegate * app =
+        ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    [ self playSound: app.config.snd_countdown usedel:YES];
+}
+
+
+
+- (void) finishInit
+{
+    AppDelegate * app =
+        ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    
+    //
+    //  start the sequence...
+    //
+    self.state = 0;
+    [ self playSound:app.config.snd_selection  usedel:YES ];
+}
+
+
+
+#pragma audio
+
+
+- (void) playSound:(NSURL *)sound usedel:(BOOL)usedel
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    if (usedel)
+        [ app playSound:sound delegate:self];
+    else
+        [ app playSound:sound delegate:nil];
+}
+
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    if ( self.state==0 )
+    {
+        //  play getready...
+        [ self getready ];
+    }
+    else if (self.state==1) // getready done...
+    {
+        //  play countdown...
+        [ self countdown ];
+    }
+    else if (self.state==2) // countdown done...
+    {
+        //  snap pic...
+        [ self captureNow ];
+    }
+    
+}
+
 
 #pragma chroma stuff...
 
@@ -80,6 +169,9 @@
 -(void) PictureTaken:(NSData *)imageData
 {
     
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    //  Form uiimage from data...
     UIImage  *image= [[[UIImage alloc] initWithData:imageData] autorelease];
     
     // Set the snapshot image...
@@ -143,28 +235,28 @@
         // Write the file...
         [imageData writeToFile:jpgPath atomically:YES];
     }
+     */
     
     // Change background to just lights on...
-    self.img_bg.image = [ UIImage imageNamed:@"bg_takephoto_lightson_768_955.png"];
+    //self.img_bg.image = [ UIImage imageNamed:@"bg_takephoto_lightson_768_955.png"];
     
     // Increment count...
     self.count += 1;
     
     // Decide what to do now...
-    if (self.count== MAX_PHOTOS)
+    if (self.count== app.config.max_photos)
     {
         // Show bg with lights off...
-        self.img_bg.image = [ UIImage imageNamed:@"bg_takephoto_lightsoff_768_955.png"];
+        //self.img_bg.image = [ UIImage imageNamed:@"bg_takephoto_lightsoff_768_955.png"];
         
         // Goto select-favorite view after small delay...
-        [ self performSelector:@selector(goto_selectfavorite) withObject:self afterDelay:1 ];
+        //[ self performSelector:@selector(goto_selectfavorite) withObject:self afterDelay:1 ];
     }
     else
     {
         [ self performSelector:@selector(getready) withObject:self afterDelay:1 ];
     }
     
-     */
     
 }
 
@@ -174,9 +266,16 @@
 #pragma rotation stuff
 
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    NSUInteger orientations =
+        UIInterfaceOrientationMaskAll;
+    return orientations;
+}
+
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    return YES;
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -187,9 +286,48 @@
     }
     else
     {
-        return NO;
+        return YES;
     }
-    //return self.allow_rotation;
+}
+
+
+- (void)orientElements: (UIInterfaceOrientation)toInterfaceOrientation
+        duration:(NSTimeInterval)duration
+             zoomScale:(float)zoomScale
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
+    {
+        self.img_bg.image = app.config.bg_takephoto_auto_vert;
+        
+        [ self.camera_view willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration
+                                                  zoomScale:zoomScale];
+    }
+    else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
+    {
+        self.img_bg.image = app.config.bg_takephoto_auto_horiz;
+        
+        [ self.camera_view willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration
+                                                  zoomScale:zoomScale];
+        
+    }
+}
+
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
+                           
+{
+    
+    if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
+    {
+        [self orientElements:toInterfaceOrientation duration:duration zoomScale:self.zoomScale];
+    }
+    else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
+    {
+        [self orientElements:toInterfaceOrientation duration:duration zoomScale:self.zoomScale];
+    }
 }
 
 

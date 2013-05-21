@@ -37,12 +37,6 @@
 }
 
 
-- (BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -70,35 +64,33 @@
         UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
         self.selected.image= test;
     }
+    
+    
+    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    [ self orientElements:uiorientation];
 }
 
--(IBAction) btn_settings: (id)sender
+-(IBAction) btnaction_settings: (id)sender
 {
     [ AppDelegate NotImplemented:nil ];
 }
 
 
--(IBAction) btn_gallery: (id)sender
+-(IBAction) btnaction_gallery: (id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     [ app goto_gallery ];
 }
 
 
--(IBAction) btn_takephoto: (id)sender
+-(IBAction) btnaction_takephoto: (id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     [ app goto_takephoto ];
 }
 
 
--(IBAction) btn_share: (id)sender
-{
-    [ AppDelegate NotImplemented:nil ];
-}
-
-
--(IBAction) btn_tweet: (id)sender
+-(IBAction) btnaction_tweet: (id)sender
 {
     //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     //[ app goto_twitterview:self];
@@ -106,25 +98,35 @@
 }
 
 
--(IBAction) btn_facebook: (id)sender
+-(IBAction) btnaction_facebook: (id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     [ app goto_facebookview:self];
 }
 
 
--(IBAction) btn_print: (id)sender
+-(IBAction) btnaction_print: (id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     [ app goto_printview:self ];
 
 }
--(IBAction) btn_email:(id)sender
+-(IBAction) btnaction_email:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     [ app goto_emailview:self ];
 }
 
+
+-(IBAction) btnaction_left:(id)sender
+{
+    [ AppDelegate NotImplemented:nil ];
+}
+
+-(IBAction) btnaction_right:(id)sender
+{
+    [ AppDelegate NotImplemented:nil ];
+}
 
 
 -(UIImage *) processTemplate:(UIImage *)insert
@@ -225,6 +227,119 @@
         NSLog(@"Tweet sheet has been presented.");
     }];
 }
+
+
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    NSUInteger orientations =
+    UIInterfaceOrientationMaskAll;
+    return orientations;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ( UIInterfaceOrientationIsPortrait(interfaceOrientation) )
+    {
+        return YES;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+-(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    
+    if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
+    {
+        self.img_bg.image = [ UIImage imageNamed:
+                             @"07-Photomation-iPad-Share-Screen-Vertical.jpg" ];
+        
+        CGRect rect = CGRectMake(171,161,424,568);
+        self.selected.frame = rect;
+        
+        rect = CGRectMake(184,936,101,88);
+        self.btn_gallery.frame = rect;
+        
+        rect = CGRectMake(318,934,132,87);
+        self.btn_takephoto.frame = rect;
+        
+        
+        rect = CGRectMake(477,936,113,87);
+        self.btn_settings.frame = rect;
+        
+        rect = CGRectMake(222,744,96,67);
+        self.btn_facebook.frame = rect;
+        
+        rect = CGRectMake(336,744,96,67);
+        self.btn_tweet.frame = rect;
+        
+        rect = CGRectMake(455,745,81,66);
+        self.btn_email.frame = rect;
+        
+        rect = CGRectMake(234,833,73,44);
+        self.btn_print.frame = rect;
+        
+        rect = CGRectMake(37,407,73,44);
+        self.btn_left.frame = rect;
+        
+        rect = CGRectMake(661,407,73,44);
+        self.btn_right.frame = rect;
+        
+    }
+    else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
+    {
+        self.img_bg.image = [ UIImage imageNamed:
+                               @"07-Photomation-iPad-Share-Screen-Horizontal.jpg" ];
+        
+        CGRect rect = CGRectMake(338,91,346,464);
+        self.selected.frame = rect;
+        
+        rect = CGRectMake(300,689,73,65);
+        self.btn_gallery.frame = rect;
+        
+        rect = CGRectMake(476,689,73,65);
+        self.btn_takephoto.frame = rect;
+        
+        rect = CGRectMake(644,689,73,65);
+        self.btn_settings.frame = rect;
+        
+        rect = CGRectMake(375,574,73,65);
+        self.btn_facebook.frame = rect;
+        
+        rect = CGRectMake(476,574,73,65);
+        self.btn_tweet.frame = rect;
+        
+        rect = CGRectMake(578,574,73,65);
+        self.btn_email.frame = rect;
+        
+        rect = CGRectMake(268,574,73,65);
+        self.btn_print.frame = rect;
+        
+        rect = CGRectMake(163,311,73,65);
+        self.btn_left.frame = rect;
+        
+        rect = CGRectMake(785,311,73,65);
+        self.btn_right.frame = rect;
+    }
+     
+    
+}
+
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
+{
+    [ self orientElements:toInterfaceOrientation];
+}
+
 
 
 

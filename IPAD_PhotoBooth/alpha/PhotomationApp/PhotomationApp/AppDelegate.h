@@ -20,19 +20,26 @@
 #import <FacebookSDK/FacebookSDK.h>
 
 #import "ChromaVideo.h"
+#import "Configuration.h"
 
 @interface AppDelegate : UIResponder
     <UIApplicationDelegate, UITabBarControllerDelegate,
     UINavigationControllerDelegate, UIAlertViewDelegate>
 
+//  Various state...
 @property (nonatomic, assign) int selected_id;
-
 @property (nonatomic, assign) int take_count;
-
 @property (strong, nonatomic) NSString *fname;
+@property (nonatomic, assign) bool is_portrait;
+@property (nonatomic, assign) UIInterfaceOrientation start_orientation;
 
+//  Configuration...
+@property (nonatomic, retain) Configuration *config;
+
+//  Chroma Video...
 @property (strong, nonatomic) ChromaVideo  *chroma_video;
 
+//  The one and only window...
 @property (strong, nonatomic) UIWindow *window;
 
 //  Facebook stuff...
@@ -53,6 +60,7 @@
 //  The takephoto view...
 @property (strong, nonatomic) UIViewController *takephoto_view;
 @property (strong, nonatomic) UIViewController *takephoto_auto_view;
+@property (strong, nonatomic) UIViewController *takephoto_manual_view;
 
 //  The select favorite view...
 @property (strong, nonatomic) UIViewController *selectfavorite_view;
@@ -145,7 +153,7 @@
 
 
 //  Play a sound...
-- (void) playSound:(NSString *)sound delegate:(id<AVAudioPlayerDelegate>) del;
+- (void) playSound:(NSURL *)sound delegate:(id<AVAudioPlayerDelegate>) del;
 
 //  Get gallery photos...
 +(NSArray *) getGalleryPhotos;
@@ -154,7 +162,7 @@
 +(NSString *)getGalleryDir;
 
 //  Commit a taken photo to gallery...
-+ (NSString *)addPhotoToGallery:(int)which;
++ (NSString *)addPhotoToGallery:(int)which is_portrait:(bool)is_portrait;
 
 //  Delete a gallery photo...
 + (BOOL)deletePhotoFromGallery:(NSString *)fname;

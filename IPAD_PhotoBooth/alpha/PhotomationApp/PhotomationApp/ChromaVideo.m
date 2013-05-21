@@ -66,7 +66,7 @@
     
     //  Create video layer...
 	self.captureVideoPreviewLayer =
-    [[[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session] autorelease];
+        [[[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session] autorelease];
     //self.captureVideoPreviewLayer.frame = self.camPreview.bounds;
     //[self.camPreview.layer addSublayer:self.captureVideoPreviewLayer];
     //if ( self.is_front)
@@ -131,7 +131,7 @@
         NSError *error = nil;
         self.input = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:&error];
         
-        camPreview.transform = CGAffineTransformMakeScale(-1.0f, 1.0f);
+        //camPreview.transform = CGAffineTransformMakeScale(-1.0f, 1.0f);
         
     }
     else
@@ -142,7 +142,7 @@
         NSError *error = nil;
         self.input = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:&error];
         
-        camPreview.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+        //camPreview.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
     }
     
     if ( self.input)

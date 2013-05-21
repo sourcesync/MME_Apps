@@ -11,20 +11,34 @@
 @interface SelectedPhotoViewController : UIViewController
     <AVAudioPlayerDelegate>
 
+
+@property (nonatomic, retain) IBOutlet UIImageView *img_bg;
 @property (nonatomic, retain) IBOutlet UIImageView *selected;
 
+@property (nonatomic, assign) IBOutlet UIButton *btn_save;
+@property (nonatomic, assign) IBOutlet UIButton *btn_trash;
+@property (nonatomic, assign) IBOutlet UIButton *btn_efx;
+@property (nonatomic, assign) IBOutlet UIButton *btn_share;
 @property (nonatomic, assign) IBOutlet UIButton *btn_print;
 
--(IBAction) delete_photo:(id)sender;
+@property (nonatomic, assign) IBOutlet UIButton *btn_gallery;
+@property (nonatomic, assign) IBOutlet UIButton *btn_settings;
+@property (nonatomic, assign) IBOutlet UIButton *btn_photobooth;
 
--(IBAction) btn_save:(id)sender;
+-(IBAction) btnaction_print:(id)sender;
 
--(IBAction) btn_gallery:(id)sender;
+-(IBAction) btnaction_delete:(id)sender;
 
--(IBAction) btn_efx: (id)sender;
+-(IBAction) btnaction_save:(id)sender;
 
--(IBAction) btn_share: (id)sender;
+-(IBAction) btnaction_gallery:(id)sender;
 
--(IBAction) btn_settings:(id)sender;
+-(IBAction) btnaction_efx: (id)sender;
+
+-(IBAction) btnaction_share: (id)sender;
+
+-(IBAction) btnaction_settings:(id)sender;
+
+-(IBAction) btnaction_photobooth:(id)sender;
 
 @end
