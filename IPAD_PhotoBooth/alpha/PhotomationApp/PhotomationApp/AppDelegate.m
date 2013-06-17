@@ -239,10 +239,12 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     //self.window.rootViewController = self.twitter_view;
     //self.is_twitter = YES;
     
-    self.window.rootViewController = self.flickr_view;
-    self.is_twitter = NO;
+    //self.window.rootViewController = self.flickr_view;
+    //self.is_twitter = NO;
     
-    self.window.rootViewController = self.facebook_view;
+    //self.window.rootViewController = self.facebook_view;
+    
+    self.window.rootViewController = self.sharephoto_view;
     
     //  make it go !
     [self.window makeKeyAndVisible];
@@ -405,7 +407,7 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 
 -(void) goto_facebookview:(UIViewController *)back
 {
-    self.settingsBack = back;
+    //self.settingsBack = back;
     
     FacebookViewController *s = (FacebookViewController *)self.facebook_view;
     self.window.rootViewController = s;
@@ -415,10 +417,24 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 //  Goto the twitter view...
 -(void) goto_twitterview:(UIViewController *)back
 {
-    self.settingsBack = back;
+    //self.twitter_view = back;
     
     TwitterViewController *s = (TwitterViewController *)self.twitter_view;
     self.window.rootViewController = s;
+    
+    self.is_twitter = YES;
+}
+
+
+//  Goto the twitter view...
+-(void) goto_flickrview:(UIViewController *)back
+{
+    //self.flickrBack = back;
+    
+    self.is_twitter = NO;
+    FlickrViewController *s = (FlickrViewController *)self.flickr_view;
+    self.window.rootViewController = s;
+    
 }
 
 
@@ -785,7 +801,8 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 
 - (OFFlickrAPIRequest *)flickrRequest
 {
-	if (!flickrRequest) {
+	if (!flickrRequest)
+    {
 		flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.flickrContext];
 		flickrRequest.delegate = self;
 	}
@@ -793,28 +810,38 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 	return flickrRequest;
 }
 
+-(void) clearRequest
+{
+    [flickrRequest cancel];
+    flickrRequest.delegate = nil;
+    flickrRequest = nil;
+    flickrContext = nil;
+}
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    //return YES;
     
-    if ([self flickrRequest].sessionInfo) {
+    if ([self flickrRequest].sessionInfo)
+    {
         // already running some other request
         NSLog(@"Already running some other request");
     }
-    else {
+    else
+    {
         NSString *token = nil;
         NSString *verifier = nil;
         BOOL result = OFExtractOAuthCallback(url, [NSURL URLWithString:SRCallbackURLBaseString], &token, &verifier);
         
-        if (!result) {
+        if (!result)
+        {
             NSLog(@"Cannot obtain token/secret from URL: %@", [url absoluteString]);
             return NO;
         }
         
         [self flickrRequest].sessionInfo = kGetAccessTokenStep;
+        
         [flickrRequest fetchOAuthAccessTokenWithRequestToken:token verifier:verifier];
-        //[activityIndicator startAnimating];
-        //[viewController.view addSubview:progressView];
+        
     }
 	
     return YES;
@@ -829,9 +856,9 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 - (void)cancelAction
 {
 	[flickrRequest cancel];
-	//[activityIndicator stopAnimating];
-	//[progressView removeFromSuperview];
+    
 	[self setAndStoreFlickrAuthToken:nil secret:nil];
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:SnapAndRunShouldUpdateAuthInfoNotification object:self];
 }
 
@@ -841,9 +868,12 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     {
 		self.flickrContext.OAuthToken = nil;
         self.flickrContext.OAuthTokenSecret = nil;
+        
 		[[NSUserDefaults standardUserDefaults]
             removeObjectForKey:kStoredAuthTokenKeyName];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kStoredAuthTokenSecretKeyName];
+        
+        [[NSUserDefaults standardUserDefaults]
+            removeObjectForKey:kStoredAuthTokenSecretKeyName];
         
 	}
 	else
@@ -893,36 +923,36 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     [self setAndStoreFlickrAuthToken:inAccessToken secret:inSecret];
     self.flickrUserName = inUserName;
     
-	//[activityIndicator stopAnimating];
-	//[progressView removeFromSuperview];
 	[[NSNotificationCenter defaultCenter] postNotificationName:SnapAndRunShouldUpdateAuthInfoNotification object:self];
+    
     [self flickrRequest].sessionInfo = nil;
 }
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
-    if (inRequest.sessionInfo == kCheckTokenStep) {
+    if (inRequest.sessionInfo == kCheckTokenStep)
+    {
 		self.flickrUserName = [inResponseDictionary valueForKeyPath:@"user.username._text"];
 	}
 	
-	//[activityIndicator stopAnimating];
-	//[progressView removeFromSuperview];
 	[[NSNotificationCenter defaultCenter] postNotificationName:SnapAndRunShouldUpdateAuthInfoNotification object:self];
+    
     [self flickrRequest].sessionInfo = nil;
 }
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
-	if (inRequest.sessionInfo == kGetAccessTokenStep) {
+	if (inRequest.sessionInfo == kGetAccessTokenStep)
+    {
 	}
-	else if (inRequest.sessionInfo == kCheckTokenStep) {
+	else if (inRequest.sessionInfo == kCheckTokenStep)
+    {
 		[self setAndStoreFlickrAuthToken:nil secret:nil];
 	}
 	
-	//[activityIndicator stopAnimating];
-	//[progressView removeFromSuperview];
     
 	[[[[UIAlertView alloc] initWithTitle:@"API Failed" message:[inError description] delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] autorelease] show];
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:SnapAndRunShouldUpdateAuthInfoNotification object:self];
 }
 

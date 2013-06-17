@@ -35,7 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    //self.fld_email.delegate = self;
+    self.fld_email.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,14 +81,15 @@
                                                       vertical:YES ];
         }
         
-        //float ewidth = self.image_email.size.width;
-        //float eheight = self.image_email.size.height;
+        
         
         self.imageview_selected.image = self.image_email;
     }
     else
     {
         UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
+        self.image_email = test;
+        
         self.imageview_selected.image = test;
     }
     

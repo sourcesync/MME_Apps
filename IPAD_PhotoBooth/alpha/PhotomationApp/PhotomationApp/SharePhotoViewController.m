@@ -116,9 +116,9 @@ UIInterfaceOrientation current_orientation;
 
 -(IBAction) btnaction_tweet: (id)sender
 {
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    //[ app goto_twitterview:self];
-    [ self showTweetSheet:nil ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_twitterview:self];
+    
 }
 
 
@@ -131,18 +131,17 @@ UIInterfaceOrientation current_orientation;
 
 -(IBAction) btnaction_flickr: (id)sender
 {
-    [ AppDelegate NotImplemented:@""];
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    //[ app goto_facebookview:self];
-} 
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_flickrview:self];
+}
 
 
 -(IBAction) btnaction_hash: (id)sender
 {
-    [ self showTweetSheet: @"#photomation" ];
+    //[ self showTweetSheet: @"#photomation" ];
     
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    //[ app goto_printview:self ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_twitterview:self];
 
 }
 -(IBAction) btnaction_email:(id)sender

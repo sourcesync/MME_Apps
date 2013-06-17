@@ -628,6 +628,11 @@ void LFHRReadStreamClientCallBack(CFReadStreamRef stream, CFStreamEventType even
 - (void)cancel
 {
     [self cancelWithoutDelegateMessage];
+    
+    //gw
+    _delegate = nil;
+    //gw
+    
     if ([_delegate respondsToSelector:@selector(httpRequestDidCancel:)]) {
         [_delegate httpRequestDidCancel:self];
     }

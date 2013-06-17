@@ -40,7 +40,8 @@ UIInterfaceOrientation current_orientation;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -51,18 +52,42 @@ UIInterfaceOrientation current_orientation;
     [super viewDidLoad];
 
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(authUpdate:) name:SnapAndRunShouldUpdateAuthInfoNotification object:nil];
 }
 
 
 - (void)viewDidUnload
 {
+    [ super viewDidUnload];
+    
+    //[ self.flickrRequest cancel ];
+    
     self.flickrRequest = nil;
+    
     self.webview.delegate = nil;
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    AppDelegate *app = [ AppDelegate sharedDelegate ];
+    [ app clearRequest];
 }
+
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [ super viewDidDisappear:animated];
+    
+    [ self.flickrRequest cancel ];
+    self.flickrRequest.delegate = nil;
+    self.flickrRequest = nil;
+    
+    self.webview.delegate = nil;
+    
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    AppDelegate *app = [ AppDelegate sharedDelegate ];
+    [ app clearRequest];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -76,9 +101,9 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewWillAppear:animated];
     
+    //  Get filepath to image and set imageview...
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     NSString *fname = app.fpath;
-    
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
     if (fileExists)
     {
@@ -91,20 +116,29 @@ UIInterfaceOrientation current_orientation;
         [ self processTemplate:test ];
     }
     
-    self.webview.hidden = YES;
-    
+    //  Initialize orientation...
     UIInterfaceOrientation uiorientation =
         [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation  duration:0];
     
+    //  Init web view...
+    self.webview.hidden = YES;
+    
+    //  Init label...
+    self.lbl_message.hidden = NO;
+    self.lbl_message.text = @"Contacting Flickr...";
+    
+    //  Setup notification for auth...
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authUpdate:) name:SnapAndRunShouldUpdateAuthInfoNotification object:nil];
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [ super viewDidAppear:animated];
     
-    self.webview.hidden = NO;
-    
+    //  Launch authorization...
+    self.webview.hidden = YES;
     [ self authorizeAction];
 }
 
@@ -155,7 +189,12 @@ UIInterfaceOrientation current_orientation;
 {
     if ([[AppDelegate sharedDelegate].flickrContext.OAuthToken length])
     {
-        [ self _flickrUpload:self.imgview_template.image];
+        self.webview.hidden = YES;
+        self.lbl_message.hidden = NO;
+        self.lbl_message.text = @"Uploading photo...";
+        
+        [ self  performSelector:@selector(_flickrUpload)
+                     withObject:self afterDelay:0.01  ];
     }
     else
     {
@@ -248,6 +287,7 @@ UIInterfaceOrientation current_orientation;
     NSString *URLString = [[self.webview.request URL] absoluteString];
     NSLog(@"didfinish url--> %@", URLString);
     
+    //  access token?...
     if ([URLString rangeOfString:@"access_token="].location != NSNotFound)
     {
         NSString *accessToken = [[URLString componentsSeparatedByString:@"="] lastObject];
@@ -256,13 +296,15 @@ UIInterfaceOrientation current_orientation;
         [defaults synchronize];
     }
     
+    //  make sure webview is visible...
+    self.webview.hidden = NO;
+    
 }
 
 
-- (void)_flickrUpload:(UIImage *)image
+- (void)_flickrUpload
 {
-    //  hide auth web view...
-    self.webview.hidden = YES;
+    UIImage *image = self.imgview_template.image;
     
     NSData *JPEGData = UIImageJPEGRepresentation(image, 1.0);
     
@@ -272,7 +314,7 @@ UIInterfaceOrientation current_orientation;
 	
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	
-    //[self updateUserInterface:nil];
+    [ self done];
 }
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary

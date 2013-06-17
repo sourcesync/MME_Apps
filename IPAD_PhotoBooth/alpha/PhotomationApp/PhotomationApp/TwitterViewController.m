@@ -52,27 +52,36 @@ UIInterfaceOrientation current_orientation;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.accountStore = [[ACAccountStore alloc] init];
-    
-    //  oauth / twiter
-    
-	if ([[AppDelegate sharedDelegate].flickrContext.OAuthToken length])
-    {
-		//authorizeButton.enabled = NO;
-	}
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(authUpdate:) name:SnapAndRunShouldUpdateAuthInfoNotification object:nil];
+    	
 }
 
 - (void)viewDidUnload
 {
+    [ super viewDidUnload];
+    
     self.flickrRequest = nil;
-    //self.webview = nil;
     self.webview.delegate = nil;
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    AppDelegate *app = [ AppDelegate sharedDelegate ];
+    [ app clearRequest];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [ super viewDidDisappear:animated];
+    
+    [ self.flickrRequest cancel ];
+    self.flickrRequest.delegate = nil;
+    self.flickrRequest = nil;
+    
+    self.webview.delegate = nil;
+    
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    AppDelegate *app = [ AppDelegate sharedDelegate ];
+    [ app clearRequest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,9 +95,11 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewWillAppear:animated];
     
+    //  Get the image path...
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     NSString *fname = app.fpath;
-    
+
+    //  Load the image...
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
     if (fileExists)
     {
@@ -101,20 +112,26 @@ UIInterfaceOrientation current_orientation;
         [ self processTemplate:test ];
     }
     
-    
-    self.webview.hidden = YES;
-    
+    //  Initialize orientation...
     UIInterfaceOrientation uiorientation =
         [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation  duration:0];
     
+    //  initialize web view...
+    self.webview.hidden = YES;
+    
+    //  Initialize label...
+    self.lbl_message.text = @"Contacting Twitter...";
+    self.lbl_message.hidden = NO;
+    
+    //  Initialize notification for auth...
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authUpdate:) name:SnapAndRunShouldUpdateAuthInfoNotification object:nil];
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [ super viewDidAppear:animated];
-    
-    self.webview.hidden = NO;
     
     [ self authorizeAction];
 }
@@ -128,125 +145,6 @@ UIInterfaceOrientation current_orientation;
     [ [ AppDelegate sharedDelegate ] goto_sharephoto:nil ];
 }
 
-
-
-- (void)postImage2:(UIImage *)image withStatus:(NSString *)status
-{
-    ACAccountType *twitterType =
-    [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    SLRequestHandler requestHandler =
-    ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-        if (responseData) {
-            NSInteger statusCode = urlResponse.statusCode;
-            if (statusCode >= 200 && statusCode < 300) {
-                NSDictionary *postResponseData =
-                [NSJSONSerialization JSONObjectWithData:responseData
-                                                options:NSJSONReadingMutableContainers
-                                                  error:NULL];
-                NSLog(@"[SUCCESS!] Created Tweet with ID: %@", postResponseData[@"id_str"]);
-            }
-            else {
-                NSLog(@"[ERROR] Server responded: status code %d %@", statusCode,
-                      [NSHTTPURLResponse localizedStringForStatusCode:statusCode]);
-            }
-        }
-        else {
-            NSLog(@"[ERROR] An error occurred while posting: %@", [error localizedDescription]);
-        }
-    };
-    
-    ACAccountStoreRequestAccessCompletionHandler accountStoreHandler =
-    ^(BOOL granted, NSError *error) {
-        if (granted) {
-            NSArray *accounts = [self.accountStore accountsWithAccountType:twitterType];
-            NSURL *url = [NSURL URLWithString:@"https://api.twitter.com"
-                          @"/1.1/statuses/update_with_media.json"];
-            NSDictionary *params = @{@"status" : status};
-            SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                    requestMethod:SLRequestMethodPOST
-                                                              URL:url
-                                                       parameters:params];
-            NSData *imageData = UIImageJPEGRepresentation(image, 1.f);
-            [request addMultipartData:imageData
-                             withName:@"media[]"
-                                 type:@"image/jpeg"
-                             filename:@"image.jpg"];
-            [request setAccount:[accounts lastObject]];
-            [request performRequestWithHandler:requestHandler];
-        }
-        else {
-            NSLog(@"[ERROR] An error occurred while asking for user authorization: %@",
-                  [error localizedDescription]);
-        }
-    };
-    
-    [self.accountStore requestAccessToAccountsWithType:twitterType
-                                               options:NULL
-                                            completion:accountStoreHandler];
-}
-
-
-
-- (void)postImage:(UIImage *)image withStatus:(NSString *)status
-{
-    //[ self showTweetSheet];
-    [ self postImage2:image withStatus:status];
-    return;
-    
-    ACAccountType *twitterType =
-    [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    SLRequestHandler requestHandler =
-    ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-        if (responseData) {
-            NSInteger statusCode = urlResponse.statusCode;
-            if (statusCode >= 200 && statusCode < 300) {
-                NSDictionary *postResponseData =
-                [NSJSONSerialization JSONObjectWithData:responseData
-                                                options:NSJSONReadingMutableContainers
-                                                  error:NULL];
-                NSLog(@"[SUCCESS!] Created Tweet with ID: %@", postResponseData[@"id_str"]);
-            }
-            else {
-                NSLog(@"[ERROR] Server responded: status code %d %@", statusCode,
-                      [NSHTTPURLResponse localizedStringForStatusCode:statusCode]);
-            }
-        }
-        else {
-            NSLog(@"[ERROR] An error occurred while posting: %@", [error localizedDescription]);
-        }
-    };
-    
-    ACAccountStoreRequestAccessCompletionHandler accountStoreHandler =
-    ^(BOOL granted, NSError *error) {
-        if (granted) {
-            NSArray *accounts = [self.accountStore accountsWithAccountType:twitterType];
-            NSURL *url = [NSURL URLWithString:@"https://api.twitter.com"
-                          @"/1.1/statuses/update_with_media.json"];
-            NSDictionary *params = @{@"status" : status};
-            SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                    requestMethod:SLRequestMethodPOST
-                                                              URL:url
-                                                       parameters:params];
-            NSData *imageData = UIImageJPEGRepresentation(image, 1.f);
-            [request addMultipartData:imageData
-                             withName:@"media[]"
-                                 type:@"image/jpeg"
-                             filename:@"image.jpg"];
-            [request setAccount:[accounts lastObject]];
-            [request performRequestWithHandler:requestHandler];
-        }
-        else {
-            NSLog(@"[ERROR] An error occurred while asking for user authorization: %@",
-                  [error localizedDescription]);
-        }
-    };
-    
-    [self.accountStore requestAccessToAccountsWithType:twitterType
-                                               options:NULL
-                                            completion:accountStoreHandler];
-}
 
 
 
@@ -286,14 +184,6 @@ UIInterfaceOrientation current_orientation;
     [ self done ];
 }
 
-- (IBAction)tweetClick:(UIButton *)sender
-{
-    UIImage *img = self.imgview_template.image;
-    
-    [ self postImage:img withStatus:@"stuff"];
-}
-
-
 #pragma oauth/flickr
 
 -(void)rawTweetWithPic
@@ -302,12 +192,6 @@ UIInterfaceOrientation current_orientation;
         @"https://api.twitter.com/1.1/statuses/update_with_media.json";
     
 
-    //gw
-    //NSString *oauth_ehader = [super oAuthHeaderForMethod:@"POST"
-    //                                            andUrl:kDMPostStatusWithMediaURL
-    //                                         andParams:params
-     //                                   andTokenSecret:self.oauth_token_secret];
-    
     //gw
     oAuth = [ [ OAuth alloc] initWithConsumerKey:OBJECTIVE__TWITTER_SAMPLE_API_KEY andConsumerSecret:OBJECTIVE__TWITTER_SAMPLE_API_SHARED_SECRET ];
     oAuth.oauth_token = self.flickrRequest.context.OAuthToken;
@@ -360,8 +244,6 @@ UIInterfaceOrientation current_orientation;
     
     [request setHTTPBody:myRequestData];
     
-    
-    
     NSHTTPURLResponse *response = nil;
     NSError *error = nil;
     
@@ -372,191 +254,20 @@ UIInterfaceOrientation current_orientation;
     NSString *responseString = [[NSString alloc] initWithData:responseData
                                                      encoding:NSUTF8StringEncoding];
     NSLog(@"%@", responseString);
+    
+    [ self done];
 }
-
-/*
--(IBAction)didPressPostImage:(id)sender
-{
-    
-    NSString *url = @"http://api.twitpic.com/2/upload.json";
-    
-    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
-    [req setValue:@"https://api.twitter.com/1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
-    
-    //gw
-    oAuth = [ [ OAuth alloc] initWithConsumerKey:OBJECTIVE_FLICKR_SAMPLE_API_KEY andConsumerSecret:OBJECTIVE_FLICKR_SAMPLE_API_SHARED_SECRET ];
-    oAuth.oauth_token = self.flickrRequest.context.OAuthToken;
-    oAuth.oauth_token_secret = self.flickrRequest.context.OAuthTokenSecret;
-    
-    oAuth.oauth_token_authorized = YES;
-    NSString *header = [oAuth oAuthHeaderForMethod:@"GET"
-                                            andUrl:@"https://api.twitter.com/1/account/verify_credentials.json"
-                                         andParams:nil];
-    NSLog( @"%@", header);
-    
-    //gw
-    
-    [req setValue:[oAuth oAuthHeaderForMethod:@"GET"
-                                       andUrl:@"https://api.twitter.com/1/account/verify_credentials.json"
-                                    andParams:nil]
-            forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
-    
-    NSData *imageData = UIImageJPEGRepresentation( self.imgview_template.image, 0.8);
-    
-    [req setHTTPMethod:@"POST"];
-    
-    // Image uploading and form construction technique with NSURLRequest: http://www.cocoanetics.com/2010/02/uploading-uiimages-to-twitpic/
-    
-    // Just some random text that will never occur in the body
-    NSString *stringBoundary = @"0xKhTmLbOuNdArY---This_Is_ThE_BoUnDaRyy---pqo";
-    
-    // Header value
-    NSString *headerBoundary = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",
-                                stringBoundary];
-    
-    // Set header
-    [req addValue:headerBoundary forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableData *postBody = [NSMutableData data];
-    
-    // Twitpic API key
-    [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [postBody appendData:[@"Content-Disposition: form-data; name=\"key\"\r\n\r\n"
-                          //[NSString stringWithString:@"Content-Disposition: form-data; name=\"key\"\r\n\r\n"]
-                          dataUsingEncoding:NSUTF8StringEncoding]];
-    // Define this TWITPIC_API_KEY somewhere or replace with your own key inline right here.
-    [postBody appendData:[  @"0ff365f69c73babb350c373e8a2d701c" //gw TWITPIC_API_KEY
-                          dataUsingEncoding:NSUTF8StringEncoding]];
-    [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    // TwitPic API doc says that message is mandatory, but looks like
-    // it's actually optional in practice as of July 2010. You may or may not send it, both work.
-    
-    [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
-     [postBody appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"message\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-     [postBody appendData:[@"oh hai!!!" dataUsingEncoding:NSUTF8StringEncoding]];
-     [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    
-    // media part
-    [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [postBody appendData:[@"Content-Disposition: form-data; name=\"media\"; filename=\"dummy.jpg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    [postBody appendData:[@"Content-Type: image/jpeg\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    [postBody appendData:[@"Content-Transfer-Encoding: binary\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    // add it to body
-    [postBody appendData:imageData];
-    [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    // final boundary
-    [postBody appendData:[[NSString stringWithFormat:@"--%@--\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    [req setHTTPBody:postBody];
-    
-    NSHTTPURLResponse *response;
-    NSError *error = nil;
-    
-    NSString *responseString = [[[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:req returningResponse:&response error:&error] encoding:NSUTF8StringEncoding] autorelease];
-    
-    if (error) {
-        NSLog(@"Error from NSURLConnection: %@", error);
-    }
-    NSLog(@"Got HTTP status code from TwitPic: %d", [response statusCode]);
-    NSLog(@"Response string: %@", responseString);
-    NSDictionary *twitpicResponse = [responseString JSONValue];
-    if ( twitpicResponse==nil ) return;
-    
-    //gw textView.text = [NSString stringWithFormat:@"Posted image URL: %@", [twitpicResponse valueForKey:@"url"]];
-    
-}
-*/
-
-/*gw
-- (NSString * ) _uploadImage:(UIImage *)image withStatus:(NSString *)status
-                 accessToken:(OAToken*)_token requestType:(MGTwitterRequestType)requestType responseType:(MGTwitterResponseType)responseType
-{
-    NSURL *finalURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update_with_media.json"];
-    if (!finalURL)
-    {
-        return nil;
-    }
-    
-    OAMutableURLRequest *theRequest = [[[OAMutableURLRequest alloc] initWithURL:finalURL
-                                                                       //gw consumer:self.consumer
-                                                                       consumer:nil
-                                                                          //gw token:_accessToken
-                                        
-                                                                          token:_token
-                                                                          realm: nil
-                                                              signatureProvider:nil] autorelease];
-    NSData *imageData = UIImagePNGRepresentation(image);
-    [theRequest setHTTPMethod:@"POST"];
-    [theRequest setTimeoutInterval:120];
-    [theRequest setHTTPShouldHandleCookies:NO];
-    
-    //gw
-    // Set headers for client information, for tracking purposes at Twitter.
-    //[theRequest setValue:_clientName    forHTTPHeaderField:@"X-Twitter-Client"];
-    //[theRequest setValue:_clientVersion forHTTPHeaderField:@"X-Twitter-Client-Version"];
-    //[theRequest setValue:_clientURL     forHTTPHeaderField:@"X-Twitter-Client-URL"];
-    //gw
-    
-    NSString *boundary = @"--0246824681357ACXZabcxyz";
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [theRequest setValue:contentType forHTTPHeaderField:@"content-type"];
-    
-    // NSMutableData *body = [NSMutableData dataWithLength:0];
-    NSMutableData *body = [NSMutableData data];
-    [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    // status
-    [body appendData:[[NSString stringWithFormat:@"--%@\r\n\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"status\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"%@",status] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    // media
-    [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"media[]\"; filename=\"1.png\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    //[body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[NSData  dataWithData:imageData]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    //
-    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];    // --------------------------------------------------------------------------------
-    // modificaiton from the base clase
-    // our version "prepares" the oauth url request
-    // --------------------------------------------------------------------------------
-    [theRequest prepare];
-    
-    [theRequest setHTTPBody:body];
-    
-    NSLog(@"url is %@",theRequest.URL);
-    // Create a connection using this request, with the default timeout and caching policy,
-    // and appropriate Twitter request and response types for parsing and error reporting.
-    MGTwitterHTTPURLConnection *connection;
-    connection = [[MGTwitterHTTPURLConnection alloc] initWithRequest:theRequest
-                                                            delegate:self
-                                                         requestType:requestType
-                                                        responseType:responseType];
-    
-    if (!connection) {
-        return nil;
-    } else {
-        //[_connections setObject:connection forKey:[connection identifier]];
-        [connection release];
-    }
-    
-    return [connection identifier];
-}
- */
-
 
 - (void)authUpdate:(NSNotification *)notification
 {
     if ([[AppDelegate sharedDelegate].flickrContext.OAuthToken length])
     {
-        [ self rawTweetWithPic];
-        [ self done ];
+        self.webview.hidden = YES;
+        self.lbl_message.hidden = NO;
+        self.lbl_message.text = @"Uploading photo...";
+        
+        [ self performSelector:@selector( rawTweetWithPic ) withObject:self afterDelay:0.01 ];
+        
     }
     else
     {
@@ -661,9 +372,12 @@ UIInterfaceOrientation current_orientation;
     {
         //self.webview.hidden = YES;
     }
+    
+    //  Make sure webview is showing...
+    self.webview.hidden = NO;
 }
 
-
+/*
 - (void)_startUpload:(UIImage *)image
 {
     NSData *JPEGData = UIImageJPEGRepresentation(image, 1.0);
@@ -676,6 +390,7 @@ UIInterfaceOrientation current_orientation;
 	
     //[self updateUserInterface:nil];
 }
+ */
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {

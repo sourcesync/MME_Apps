@@ -245,5 +245,6 @@ extern NSString *SnapAndRunShouldUpdateAuthInfoNotification;
 + (AppDelegate *)sharedDelegate;
 - (void)setAndStoreFlickrAuthToken:(NSString *)inAuthToken secret:(NSString *)inSecret;
 + (bool) is_context_twitter;
+-(void) clearRequest;
 
 @end

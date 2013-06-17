@@ -27,7 +27,8 @@ UIInterfaceOrientation current_orientation;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -36,46 +37,7 @@ UIInterfaceOrientation current_orientation;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.c
-        
-    [self updateView];
     
-    //AppDelegate *appDelegate = (AppDelegate  *)[[UIApplication sharedApplication]delegate];
-    
-    /*
-    if (!appDelegate.session.isOpen)
-    {
-        // create a fresh session object
-        appDelegate.session = [[FBSession alloc] init];
-        
-        // if we don't have a cached token, a call to open here would cause UX for login to
-        // occur; we don't want that to happen unless the user clicks the login button, and so
-        // we check here to make sure we have a token before calling open
-        if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded)
-        {
-            // even though we had a cached token, we need to login to make the session usable
-            [appDelegate.session openWithCompletionHandler:^(FBSession *session,
-                                                             FBSessionState status,
-                                                             NSError *error) {
-                // we recurse here, in order to update buttons and labels
-                [self updateView];
-            }];
-        }
-    }
-     */
-
-    /*
-    // Create Login View so that the app will be granted "status_update" permission.
-    FBLoginView *loginview = [[FBLoginView alloc] init];
-    
-    loginview.frame = CGRectOffset(loginview.frame, 5, 5);
-    loginview.delegate = self;
-    
-    [self.view addSubview:loginview];
-    
-    [loginview sizeToFit];
-     */
-
     self.webview.delegate = self;
 
 }
@@ -85,6 +47,7 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewDidAppear:animated];
     
+    //  Initialize orientation...
     UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation  duration:0];
 }
@@ -94,8 +57,7 @@ UIInterfaceOrientation current_orientation;
     [ super viewWillAppear:animated];
     
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = app.fpath; 
-    
+    NSString *fname = app.fpath;
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
     if (fileExists)
     {
@@ -128,20 +90,25 @@ UIInterfaceOrientation current_orientation;
     }
     
     
+    //
+    //  Initialize orientation...
+    //
     UIInterfaceOrientation uiorientation =
         [ [ UIApplication sharedApplication] statusBarOrientation];
             [ self orientElements:uiorientation  duration:0];
     
-    //  load the login page !
+    
+    //
+    //  UIWebView init...
+    //
+    
+    //  create a facebook login request...
     NSString *urlstr =
         @"https://www.facebook.com/dialog/oauth/?client_id=452798101456639&redirect_uri=http://photomation.mmeink.com/&state=mme&response_type=token&scope=publish_actions";
-    
     NSURL *url = [ NSURL URLWithString:urlstr ];
-    
     NSURLRequest *request = [ NSURLRequest requestWithURL:url ];
     
-    
-    // Flush all cached data
+    // Prepare the web view - flush all caches/cookies
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     NSHTTPCookie *cookie;
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -149,9 +116,17 @@ UIInterfaceOrientation current_orientation;
         [storage deleteCookie:cookie];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
-     
-    self.webview.hidden = NO;
+    self.webview.hidden = YES;
+    
+    //  make the request...
+    self.webview.delegate = self;
     [ self.webview loadRequest:request ];
+    
+    //
+    //  Initialize the label...
+    //
+    self.lbl_message.text = @"Contacting Facebook...";
+    self.lbl_message.hidden = NO;
 }
 
 #pragma genera functions
@@ -161,10 +136,13 @@ UIInterfaceOrientation current_orientation;
 {
     self.webview.delegate = nil;
     
+    //if ( self.asi_request!=nil)
+    //    [ self.asi_request cancel ];
+    //self.asi_request = nil;
+    
     [ [ AppDelegate sharedDelegate ] goto_sharephoto:nil ];
 }
 
-// UIAlertView helper for post buttons
 - (void)showAlert:(NSString *)message
            result:(id)result
             error:(NSError *)error {
@@ -202,14 +180,9 @@ UIInterfaceOrientation current_orientation;
 }
 
 
-
-
 -(IBAction)cancelPressed:(id)sender
 {
     [ self done ];
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    
-    //[ app settings_go_back ];
 }
 
 
@@ -240,150 +213,17 @@ UIInterfaceOrientation current_orientation;
 }
 
 
-// Convenience method to perform some action that requires the "publish_actions" permissions.
-- (void) performPublishAction:(void (^)(void)) action
-{
-    
-    AppDelegate *appDelegate =
-        (AppDelegate  *)[[UIApplication sharedApplication]delegate];
-    
-    // we defer request for permission to post to the moment of post, then we check for the permission
-    //if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound)
-    if ([appDelegate.session.permissions indexOfObject:@"publish_actions"] == NSNotFound)
-    {
-        // if we don't already have the permission, then we request it now
-        //[FBSession.activeSession requestNewPublishPermissions:@[@"publish_actions"]
-        [appDelegate.session requestNewPublishPermissions:@[@"publish_actions"]
-                                              defaultAudience:FBSessionDefaultAudienceFriends
-                                            completionHandler:^(FBSession *session, NSError *error) {
-                                                if (!error) {
-                                                    action();
-                                                }
-                                                //For this example, ignore errors (such as if user cancels).
-                                            }];
-    }
-    else
-    {
-        action();
-    }
-    
-}
-
-/*
--(void)loginThenPost {
-    NSArray *permissions = [NSArray arrayWithObjects:@"publish_actions",
-                            @"user_photos",
-                            nil];
-    
-    [FBSession  sessionOpenWithPermissions:permissions
-                        completionHandler:^(FBSession *session,
-                                            FBSessionState status,
-                                            NSError *error) {
-                            if(error) {
-                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Problem connecting with Facebook" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                                [alert show];
-                            } else {
-                                [self postPhoto];
-                            }
-                        }];
-}
-
-////////////////////////////
-// Step 2. Post that photo to FB.
-////////////////////////////
-
--(void)postPhoto {
-    // We're going to assume you have a UIImage named image_ stored somewhere.
-    
-    FBRequestConnection *connection = [[FBRequestConnection alloc] init];
-    
-    // First request uploads the photo.
-    FBRequest *request1 = [FBRequest
-                           requestForUploadPhoto:self.imgview_template.image];
-    [connection addRequest:request1
-         completionHandler:
-     ^(FBRequestConnection *connection, id result, NSError *error) {
-         if (!error) {
-         }
-     }
-            batchEntryName:@"photopost"
-     ];
-    
-    // Second request retrieves photo information for just-created
-    // photo so we can grab its source.
-    FBRequest *request2 = [FBRequest
-                           requestForGraphPath:@"{result=photopost:$.id}"];
-    [connection addRequest:request2
-         completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-             if (!error && result) {
-                 NSString *ID = [result objectForKey:@"id"];
-                 [self postDataWithPhoto:ID];
-             }
-         }
-     ];
-    
-    [connection start];
-}
-
-////////////////////////////
-// Step 3. Post message with linked photo to the user's wall.
-// We're going to post to the open graph 'user/feed' stream.
-// Go here https://developers.facebook.com/docs/reference/api/ and do a page find for
-// '/PROFILE_ID/feed' to get extra information about the parameters accepted in this call.
-////////////////////////////
-
--(void)postDataWithPhoto:(NSString*)photoID {
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:@"I'm totally posting on my own wall!" forKey:@"message"];
-    
-    if(photoID) {
-        [params setObject:photoID forKey:@"object_attachment"];
-    }
-    
-    [FBRequest startForPostWithGraphPath:@"me/feed"
-                             graphObject:[NSDictionary dictionaryWithDictionary:params]
-                       completionHandler:
-     ^(FBRequestConnection *connection, id result, NSError *error) {
-         if (!error) {
-             [[[UIAlertView alloc] initWithTitle:@"Result"
-                                         message:@"Your update has been posted to Facebook!"
-                                        delegate:self
-                               cancelButtonTitle:@"Sweet!"
-                               otherButtonTitles:nil] show];
-         } else {
-             [[[UIAlertView alloc] initWithTitle:@"Error"
-                                         message:@"Yikes! Facebook had an error.  Please try again!"
-                                        delegate:nil
-                               cancelButtonTitle:@"Ok" 
-                               otherButtonTitles:nil] show]; 
-         }
-     }
-     ];
-}
- */
-
--(IBAction)postPhotoClick3:(UIButton *)sender
-{
-    
-    UIImage *img = self.imgview_template.image;
-    
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"message" forKey:@"message"];
-    [params setObject:img forKey:@"picture"];
-    FBRequest *request = [FBRequest requestWithGraphPath:@"me/photos" parameters:params HTTPMethod:@"POST"];
-    request = request;
-}
 
 - (void)requestStarted:(ASIHTTPRequest *)request
 {
 }
 - (void)request:(ASIHTTPRequest *)request didReceiveResponseHeaders:(NSDictionary *)responseHeaders
 {
-    
+    [ self done ];
 }
+
 - (void)request:(ASIHTTPRequest *)request willRedirectToURL:(NSURL *)newURL
 {
-    
 }
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
@@ -391,7 +231,6 @@ UIInterfaceOrientation current_orientation;
 }
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    
     NSLog( @"error: %@", [ request.error description ] );
     [ self done ];
 }
@@ -400,56 +239,33 @@ UIInterfaceOrientation current_orientation;
     
 }
 
--(void) postNow: (NSString *)access_token
+-(void) postImageNow
 {
-    /*
-    NSString *likeString;
-        NSString *filePath = nil;
-        if (_imageView.image == [UIImage imageNamed:@"angelina.jpg"]) {
-            filePath = [[NSBundle mainBundle] pathForResource:@"angelina" ofType:@"jpg"];
-            likeString = @"babe";
-        } else if (_imageView.image == [UIImage imageNamed:@"depp.jpg"]) {
-            filePath = [[NSBundle mainBundle] pathForResource:@"depp" ofType:@"jpg"];
-            likeString = @"dude";
-        } else if (_imageView.image == [UIImage imageNamed:@"maltese.jpg"]) {
-            filePath = [[NSBundle mainBundle] pathForResource:@"maltese" ofType:@"jpg"];
-            likeString = @"puppy";
-        }
-        if (filePath == nil) return;
-        
-        NSString *adjectiveString;
-        if (_segControl.selectedSegmentIndex == 0) {
-            adjectiveString = @"cute";
-        } else {
-            adjectiveString = @"ugly";
-        }
-     */
-        
-        NSString *message = [NSString stringWithFormat:@"I think this is it!"];
+    //  get the access token...
+    NSString *access_token = self.accessToken;
     
-        NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/photos"];
-        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    //  get the message...
+    NSString *message = [NSString stringWithFormat:@"Photomation Rocks!"];
     
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testphoto640x480" ofType:@"png"];
+    //  Form path to file to upload....
+    AppDelegate *app = [ AppDelegate sharedDelegate];
+    NSString *filePath = app.fpath;
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+    if (!fileExists)
+        filePath = [[NSBundle mainBundle] pathForResource:@"testphoto640x480" ofType:@"png"];
     
-        [request addFile:filePath forKey:@"file"];
-     
     
-        [request setPostValue:message forKey:@"message"];
-        [request setPostValue:access_token forKey:@"access_token"];
-     
-        
-        [request setDidFinishSelector:@selector(sendToPhotosFinished:)];
-        
-        [request setDelegate:self];
+    //  Make a form request object...
+    NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/photos"];
+    self.asi_request = [ASIFormDataRequest requestWithURL:url];
+    [self.asi_request  addFile:filePath forKey:@"file"];
+    [self.asi_request  setPostValue:message forKey:@"message"];
+    [self.asi_request  setPostValue:access_token forKey:@"access_token"];
+    [self.asi_request  setDidFinishSelector:@selector(sendToPhotosFinished:)];
+    [self.asi_request  setDelegate:self];
     
-        [request startAsynchronous];
-    
-   
-    self.webview.hidden = YES;
-        //[request   startSynchronous ];
-
-        
+    //  Make the request...
+    [self.asi_request  startSynchronous];
     
 }
 
@@ -458,261 +274,9 @@ UIInterfaceOrientation current_orientation;
     
 }
 
-- (IBAction)postPhotoClick2:(UIButton *)sender
-{
-    NSString *tok = [[NSUserDefaults standardUserDefaults] stringForKey:FBTokenInformationTokenKey];
-    [ self postNow:tok ];
-    
-    return;
-    
-    /*
-    UIImage *img = self.imgview_template.image;
-    
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"your custom message" forKey:@"message"];
-    [params setObject:UIImagePNGRepresentation(img) forKey:@"picture"];
-    
-    self.btn_post.enabled = false;
-    self.btn_loginlogout.enabled = false;
-    self.btn_done.enabled = false;
-    
-    //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    //[FBSession setActiveSession:appDelegate.session];
-    
-     //FBSessionTokenCachingStrategy *strategy =
-    
-    FBSessionManualTokenCachingStrategy *strategy =
-        [[[FBSessionManualTokenCachingStrategy alloc] initWithUserDefaultTokenInformationKeyName:nil] autorelease];
-    strategy.accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:FBTokenInformationTokenKey];         // use your own UserDefaults key
-    strategy.expirationDate = [[NSUserDefaults standardUserDefaults] objectForKey:FBTokenInformationExpirationDateKey]; // use your own UserDefaults key
-    
-    
-    FBSession *session = [[[FBSession alloc] initWithAppID:@"452798101456639"                                    // use your own appId
-                                               permissions:nil
-                                           urlSchemeSuffix:nil
-                                        tokenCacheStrategy:strategy]
-                          autorelease];
-    FBAccessTokenData *dat = [ session accessTokenData ];
-    
-    [FBSession setActiveSession:session];
-    
-    FBRequestConnection *conn = [ [ FBRequestConnection alloc ] init ];
-    
-    [FBRequestConnection startWithGraphPath:@"me/photos"
-                                 parameters:params
-                                 HTTPMethod:@"POST"
-                          completionHandler:^(FBRequestConnection *connection,
-                                              id result,
-                                              NSError *error)
-     {
-         if (error)
-         {
-             //showing an alert for failure
-             //[self alertWithTitle:@"Facebook" message:@"Unable to share the photo please try later."];
-             [self showAlert:@"Photo Post" result:result error:error];
-         }
-         else
-         {
-             //showing an alert for success
-             //[UIUtils alertWithTitle:@"Facebook" message:@"Shared the photo successfully"];
-             [ AppDelegate InfoMessage:@"Photo Posted To FaceBook!" ];
-         }
-         
-         
-         self.btn_post.enabled = true;
-         self.btn_loginlogout.enabled = true;
-         self.btn_done.enabled = true;
-         //_shareToFbBtn.enabled = YES;
-     }];
-     */
-}
-
-
-
-// Post Photo button handler
-- (IBAction)postPhotoClick:(UIButton *)sender
-{
-    //self.btn_post.enabled = false;
-    //self.btn_loginlogout.enabled = false;
-    //self.btn_done.enabled = false;
-    
-    [ self postPhotoClick2:sender ];
-    
-    //AppDelegate *appDelegate =
-    //    (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    //[ AppDelegate InfoMessage:@"Image Posted"];
-    
-    return;
-    
-    // Just use the icon image from the application itself.  A real app would have a more
-    // useful way to get an image.
-    UIImage *img = self.imgview_template.image;
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    [FBSession setActiveSession:appDelegate.session];
-    
-    [self performPublishAction:^{
-        
-        [FBRequestConnection startForUploadPhoto:img
-                               completionHandler:^(FBRequestConnection *connection, id result, NSError *error)
-                                {
-                                   //[self showAlert:@"Photo Post" result:result error:error];
-                                   //self.buttonPostPhoto.enabled = YES;
-                               }];
-        
-        //self.buttonPostPhoto.enabled = NO;
-    }];
-    
-}
-
-
-// FBSample logic
-// main helper method to update the UI to reflect the current state of the session.
-- (void)updateView
-{
-    // get the app delegate, so that we can reference the session property
-    //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    
-    //self.btn_post.hidden = NO;
-    
-    /*
-    if (appDelegate.session.isOpen)
-    {
-        //[ AppDelegate ErrorMessage:@"isopen"];
-        
-        // valid account UI is shown whenever the session is open
-        [self.btn_loginlogout setTitle:@"Log out" forState:UIControlStateNormal];
-        
-        //[self.textNoteOrLink setText:[NSString
-        // stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@",
-        // appDelegate.session.accessTokenData.accessToken]];
-        
-        self.btn_post.hidden = NO;
-        self.btn_post.frame = self.btn_loginlogout.frame;
-        self.btn_loginlogout.hidden = YES;
-    }
-    else
-    {
-        //[ AppDelegate ErrorMessage:@"is not open"];
-        // login-needed account UI is shown whenever the session is closed
-        
-        [self.btn_loginlogout setTitle:@"Log in" forState:UIControlStateNormal];
-        
-        //[self.textNoteOrLink setText:@"Login to create a link to fetch account data"];
-        
-        self.btn_post.hidden = YES;
-        self.btn_post.frame = self.btn_loginlogout.frame;
-        self.btn_loginlogout.hidden = NO;
-    }
-     */
-}
-
-
-// FBSample logic
-// handler for button click, logs sessions in or out
-- (IBAction)buttonClickHandler:(id)sender {
-    // get the app delegate so that we can access the session property
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    
-    // this button's job is to flip-flop the session from open to closed
-    if (appDelegate.session.isOpen)
-    {
-        
-        //[ AppDelegate ErrorMessage:@"close and clear"];
-        
-        // if a user logs out explicitly, we delete any cached token information, and next
-        // time they run the applicaiton they will be presented with log in UX again; most
-        // users will simply close the app or switch away, without logging out; this will
-        // cause the implicit cached-token login to occur on next launch of the application
-        [appDelegate.session closeAndClearTokenInformation];
-        
-    }
-    else
-    {
-        if (appDelegate.session.state != FBSessionStateCreated)
-        {
-            // Create a new, logged out session.
-            appDelegate.session = [[FBSession alloc] init];
-        }
-        
-        //[ AppDelegate ErrorMessage:@"open with handler now"];
-        
-        // if the session isn't open, let's open it now and present the login UX to the user
-        [appDelegate.session openWithCompletionHandler:^(FBSession *session,
-                                                         FBSessionState status,
-                                                         NSError *error) {
-            // and here we make sure to update our UX according to the new session state
-            [self updateView];
-        }];
-    }
-}
-
-
-#pragma mark - FBLoginViewDelegate
-
-- (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView
-{
-    // first get the buttons set for login mode
-    //self.buttonPostPhoto.enabled = YES;
-    //self.buttonPostStatus.enabled = YES;
-    //self.buttonPickFriends.enabled = YES;
-    //self.buttonPickPlace.enabled = YES;
-    
-    // "Post Status" available when logged on and potentially when logged off.  Differentiate in the label.
-    //[self.buttonPostStatus setTitle:@"Post Status Update (Logged On)" forState:self.buttonPostStatus.state];
-}
-
-- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
-                            user:(id<FBGraphUser>)user {
-    // here we use helper properties of FBGraphUser to dot-through to first_name and
-    // id properties of the json response from the server; alternatively we could use
-    // NSDictionary methods such as objectForKey to get values from the my json object
-    //self.labelFirstName.text = [NSString stringWithFormat:@"Hello %@!", user.first_name];
-    
-    // setting the profileID property of the FBProfilePictureView instance
-    // causes the control to fetch and display the profile picture for the user
-    //self.profilePic.profileID = user.id;
-    //self.loggedInUser = user;
-}
-
-- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-    // test to see if we can use the share dialog built into the Facebook application
-    FBShareDialogParams *p = [[FBShareDialogParams alloc] init];
-    p.link = [NSURL URLWithString:@"http://developers.facebook.com/ios"];
-#ifdef DEBUG
-    [FBSettings enableBetaFeatures:FBBetaFeaturesShareDialog];
-#endif
-    
-    //BOOL canShareFB = [FBDialogs canPresentShareDialogWithParams:p];
-    //BOOL canShareiOS6 = [FBDialogs canPresentOSIntegratedShareDialogWithSession:nil];
-    
-    //self.buttonPostStatus.enabled = canShareFB || canShareiOS6;
-    //self.buttonPostPhoto.enabled = NO;
-    //self.buttonPickFriends.enabled = NO;
-    //self.buttonPickPlace.enabled = NO;
-    
-    // "Post Status" available when logged on and potentially when logged off.  Differentiate in the label.
-    //[self.buttonPostStatus setTitle:@"Post Status Update (Logged Off)" forState:self.buttonPostStatus.state];
-    
-    //self.profilePic.profileID = nil;
-    //self.labelFirstName.text = nil;
-    //self.loggedInUser = nil;
-}
-
-- (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
-    // see https://developers.facebook.com/docs/reference/api/errors/ for general guidance on error handling for Facebook API
-    // our policy here is to let the login view handle errors, but to log the results
-    NSLog(@"FBLoginView encountered an error=%@", error);
-}
-
-#pragma mark -
-
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -726,34 +290,40 @@ UIInterfaceOrientation current_orientation;
     NSString *URLString = [ request.URL absoluteString ];
     NSLog(@"start-->%@", URLString);
     
-    if ( (URLString!=nil) && ([URLString rangeOfString:@"access_token="].location != NSNotFound))
+    //  Got access token ?
+    if ( (URLString!=nil) && ([URLString rangeOfString:@"access_token="].location
+                              != NSNotFound))
     {
-        
+     
+        //  Parse out the access token...
         NSString *accessTokenBegin =
             [[URLString componentsSeparatedByString:@"="] objectAtIndex:1];
-        
         NSString *accessToken =
-            [[accessTokenBegin componentsSeparatedByString:@"&"] objectAtIndex:0];
+        [[accessTokenBegin componentsSeparatedByString:@"&"] objectAtIndex:0];
+        self.accessToken = accessToken;
+        NSLog(@"access token=%@", accessToken);
         
+        //  Parse out the expiration date...
         int idx = [ [URLString componentsSeparatedByString:@"="] count ] - 2;
         NSString *expirationBegin =
             [[URLString componentsSeparatedByString:@"="] objectAtIndex:idx];
         NSString *expiration =
             [[expirationBegin componentsSeparatedByString:@"&"] objectAtIndex:0];
         
+        //  Store into defaults...
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:accessToken forKey:FBTokenInformationTokenKey];
         [defaults setObject:expiration forKey:FBTokenInformationExpirationDateKey];
-        
         [defaults synchronize];
         
+        //  Update the ui...
         self.webview.hidden = YES;
+        self.lbl_message.text = @"Uploading photo...";
+        self.lbl_message.hidden = NO;
         
-        NSLog(@"access token=%@", accessToken);
+        //  Schedule posting of image...
+        [ self performSelector:@selector( postImageNow ) withObject:self afterDelay:0.01];
         
-        [ self postNow:accessToken];
-        
-        //gw [self dismissModalViewControllerAnimated:YES];
     }
     
     return YES;
@@ -762,18 +332,21 @@ UIInterfaceOrientation current_orientation;
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSString *URLString = [[self.webview.request URL] absoluteString];
-    
     NSLog(@"finish--> %@", URLString);
-    if ([URLString rangeOfString:@"access_token="].location != NSNotFound) {
+    
+    //  Is there an access token ? ...
+    if ([URLString rangeOfString:@"access_token="].location != NSNotFound)
+    {
         NSString *accessToken = [[URLString componentsSeparatedByString:@"="] lastObject];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:accessToken forKey:@"access_token"];
         [defaults synchronize];
-        //gw [self dismissModalViewControllerAnimated:YES];
     }
+    
+    //  Make sure web view is visible...
+    self.webview.hidden = NO;
+    
 }
-
-
 
 #pragma rotation stuff
 

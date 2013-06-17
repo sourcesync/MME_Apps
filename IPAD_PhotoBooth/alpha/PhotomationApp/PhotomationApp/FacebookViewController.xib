@@ -41,7 +41,7 @@
 					<object class="IBUIImageView" id="298200806">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{-64, 0}, {768, 1024}}</string>
+						<string key="NSFrameSize">{768, 1024}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="232764390"/>
@@ -51,11 +51,11 @@
 					</object>
 					<object class="IBUILabel" id="232764390">
 						<reference key="NSNextResponder" ref="766721923"/>
-						<int key="NSvFlags">-2147483374</int>
-						<string key="NSFrame">{{248, 461}, {145, 21}}</string>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrame">{{227, 380}, {314, 21}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="743162955"/>
+						<reference key="NSNextKeyView" ref="566910634"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -178,7 +178,7 @@
 						<string key="NSFrame">{{-64, 544}, {447, 336}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="566910634"/>
+						<reference key="NSNextKeyView" ref="298200806"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="630430407"/>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -186,10 +186,10 @@
 						<bool key="IBUIDetectsPhoneNumbers">YES</bool>
 					</object>
 				</array>
-				<string key="NSFrameSize">{704, 1024}</string>
+				<string key="NSFrameSize">{768, 1024}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="298200806"/>
+				<reference key="NSNextKeyView" ref="743162955"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
@@ -241,6 +241,14 @@
 					<int key="connectionID">23</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lbl_message</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="232764390"/>
+					</object>
+					<int key="connectionID">26</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">cancelPressed:</string>
 						<reference key="source" ref="849776616"/>
@@ -273,12 +281,12 @@
 						<int key="objectID">2</int>
 						<reference key="object" ref="766721923"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="298200806"/>
 							<reference ref="794891150"/>
 							<reference ref="954425290"/>
 							<reference ref="849776616"/>
 							<reference ref="566910634"/>
 							<reference ref="743162955"/>
+							<reference ref="298200806"/>
 							<reference ref="232764390"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -338,7 +346,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">25</int>
+			<int key="maxID">27</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -360,6 +368,7 @@
 						<string key="btn_cancel">UIButton</string>
 						<string key="imgview_bg">UIImageView</string>
 						<string key="imgview_template">UIImageView</string>
+						<string key="lbl_message">UILabel</string>
 						<string key="webview">UIWebView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -374,6 +383,10 @@
 						<object class="IBToOneOutletInfo" key="imgview_template">
 							<string key="name">imgview_template</string>
 							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lbl_message">
+							<string key="name">lbl_message</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="webview">
 							<string key="name">webview</string>

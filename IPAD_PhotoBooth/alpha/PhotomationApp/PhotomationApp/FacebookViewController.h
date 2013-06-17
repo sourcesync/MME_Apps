@@ -9,26 +9,25 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 
+#import "ASIFormDataRequest.h"
 #import "ASIHTTPRequestDelegate.h"
 
 @interface FacebookViewController : UIViewController
     <FBLoginViewDelegate, UIWebViewDelegate, ASIHTTPRequestDelegate>
 
-//@property (nonatomic, retain) IBOutlet UIButton *btn_loginlogout;
-//@property (nonatomic, retain) IBOutlet UIButton *btn_post;
+//  controls...
 @property (nonatomic, retain) IBOutlet UIButton *btn_cancel;
-
 @property (nonatomic, retain) IBOutlet UIImageView *imgview_template;
 @property (nonatomic, retain) IBOutlet UIImageView *imgview_bg;
-
 @property (nonatomic, retain) UIImage *image_facebook;
-
 @property (nonatomic, retain) IBOutlet UIWebView *webview;
+@property (nonatomic, retain) IBOutlet UILabel *lbl_message;
 
+//  state...
+@property (nonatomic, retain) NSString *accessToken;
+@property (nonatomic, retain) ASIFormDataRequest *asi_request;
+
+//  actions...
 -(IBAction)cancelPressed:(id)sender;
-
-//- (IBAction)buttonClickHandler:(id)sender;
-
-//- (IBAction)postPhotoClick:(UIButton *)sender;
 
 @end

@@ -18,20 +18,18 @@
     UIWebView *webview;
 }
 
-//@property (nonatomic, retain) IBOutlet UIButton *btn_tweet;
+//  controls...
 @property (nonatomic, retain) IBOutlet UIButton *btn_cancel;
 @property (nonatomic, retain) IBOutlet UIImageView *imgview_bg;
 @property (nonatomic, retain) IBOutlet UIImageView *imgview_template;
+@property (nonatomic, retain) IBOutlet UIWebView *webview;
+@property (nonatomic, retain) IBOutlet UILabel *lbl_message;
 
-//  auth stuff...
+//  state...
 @property (nonatomic, retain) OFFlickrAPIRequest *flickrRequest;
 @property (nonatomic, retain) OAuth *oAuth;
 
-//  web view stuff...
-@property (nonatomic, retain) IBOutlet UIWebView *webview;
-
 //  button actions...
 -(IBAction)cancelPressed:(id)sender;
-//-(IBAction)tweetClick:(UIButton *)sender;
 
 @end
