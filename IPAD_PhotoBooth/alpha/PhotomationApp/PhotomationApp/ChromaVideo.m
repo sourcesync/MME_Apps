@@ -296,7 +296,8 @@
                                                    completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
      
-         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+         NSData *imageData =
+            [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          self.picData = imageData; 
          if (delegate!=nil)
              [ delegate PictureTaken:imageData ];

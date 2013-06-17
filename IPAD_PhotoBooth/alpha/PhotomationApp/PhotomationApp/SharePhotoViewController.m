@@ -22,6 +22,9 @@
 
 @implementation SharePhotoViewController
 
+
+UIInterfaceOrientation current_orientation;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -50,7 +53,7 @@
     //NSString *fullPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, self.selected_fname ];
     
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fullPath = app.fname;
+    NSString *fullPath = app.fpath;
                           
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
     if (fileExists)
@@ -58,6 +61,27 @@
         UIImage *image =
             [[[ UIImage alloc ] initWithContentsOfFile:fullPath ] autorelease];
         self.selected.image= image;
+        self.selected_img = image;
+        
+        //  Get the tweet image...
+        float width = image.size.width;
+        float height = image.size.height;
+        
+        if ( width > height )
+        {
+            self.image_tweet =  [ app processTemplateWatermark:image
+                                                          raw1:nil
+                                                          raw2:nil
+                                                      vertical:NO ];
+        }
+        else
+        {
+            self.image_tweet =  [ app processTemplateWatermark:image
+                                                          raw1:nil
+                                                          raw2:nil
+                                                      vertical:YES ];
+        }
+
     }
     else
     {
@@ -94,7 +118,7 @@
 {
     //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     //[ app goto_twitterview:self];
-    [ self showTweetSheet ];
+    [ self showTweetSheet:nil ];
 }
 
 
@@ -105,10 +129,20 @@
 }
 
 
--(IBAction) btnaction_print: (id)sender
+-(IBAction) btnaction_flickr: (id)sender
 {
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [ app goto_printview:self ];
+    [ AppDelegate NotImplemented:@""];
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    //[ app goto_facebookview:self];
+} 
+
+
+-(IBAction) btnaction_hash: (id)sender
+{
+    [ self showTweetSheet: @"#photomation" ];
+    
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    //[ app goto_printview:self ];
 
 }
 -(IBAction) btnaction_email:(id)sender
@@ -126,6 +160,20 @@
 -(IBAction) btnaction_right:(id)sender
 {
     [ AppDelegate NotImplemented:nil ];
+}
+
+
+-(IBAction) btnaction_back:(id)sender
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app share_go_back];
+}
+
+
+-(IBAction) btnaction_done:(id)sender
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_gallery ];
 }
 
 
@@ -156,27 +204,12 @@
 }
 
 
-- (void)showTweetSheet
+- (void)showTweetSheet: (NSString *)hash_string
 {
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = app.fname; //[ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    //NSString *fname = app.fpath; //[ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
     
-    UIImage *template = nil;
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
-    if (fileExists)
-    {
-        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:fname ] autorelease];
-        //self.imgview_selected.image = image;
-        
-        template = [ self processTemplate:image ];
-    }
-    else
-    {
-        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
-        //self.imgview_selected.image = test;
-        
-        template = [ self processTemplate:test ];
-    }
+    
     
     //  Create an instance of the Tweet Sheet
     SLComposeViewController *tweetSheet = [SLComposeViewController
@@ -205,12 +238,13 @@
     };
     
     //  Set the initial body of the Tweet
-    [tweetSheet setInitialText:@"#photomation rocks"];
+    if ( hash_string!=nil )
+    [tweetSheet setInitialText:hash_string];
     
     //  Adds an image to the Tweet.  For demo purposes, assume we have an
     //  image named 'larry.png' that we wish to attach
     //if (![tweetSheet addImage:[UIImage imageNamed:@"image.jpg"]]) {
-    if (![tweetSheet addImage:template ])
+    if (![tweetSheet addImage:self.image_tweet ])
     {
         NSLog(@"Unable to add the image!");
     }
@@ -228,13 +262,20 @@
     }];
 }
 
-
-
 - (NSUInteger)supportedInterfaceOrientations
 {
-    NSUInteger orientations =
-    UIInterfaceOrientationMaskAll;
-    return orientations;
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    if ( app.lock_orientation )
+    {
+        return app.take_pic_supported_orientations;
+    }
+    else
+    {
+        NSUInteger orientations = UIInterfaceOrientationMaskAll;
+        return orientations;
+    }
 }
 
 - (BOOL)shouldAutorotate
@@ -244,25 +285,19 @@
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if ( UIInterfaceOrientationIsPortrait(interfaceOrientation) )
-    {
-        return YES;
-    }
-    else
-    {
-        return YES;
-    }
+    return YES;
 }
 
 -(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
 {
+    current_orientation = toInterfaceOrientation;
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
         self.img_bg.image = [ UIImage imageNamed:
-                             @"07-Photomation-iPad-Share-Screen-Vertical.jpg" ];
+                             @"7-Photomation-iPad-SHARE-Photo-Screen-Vertical.jpg" ];
         
-        CGRect rect = CGRectMake(171,161,424,568);
+        CGRect rect = CGRectMake(171,131,424,568);
         self.selected.frame = rect;
         
         rect = CGRectMake(184,936,101,88);
@@ -271,35 +306,44 @@
         rect = CGRectMake(318,934,132,87);
         self.btn_takephoto.frame = rect;
         
-        
         rect = CGRectMake(477,936,113,87);
         self.btn_settings.frame = rect;
         
-        rect = CGRectMake(222,744,96,67);
+        rect = CGRectMake(121,730,73,44);
+        self.btn_hash.frame = rect;
+        
+        rect = CGRectMake(230,729,96,67);
         self.btn_facebook.frame = rect;
         
         rect = CGRectMake(336,744,96,67);
         self.btn_tweet.frame = rect;
         
-        rect = CGRectMake(455,745,81,66);
+        rect = CGRectMake(447,744,96,67);
+        self.btn_flickr.frame = rect;
+        
+        rect = CGRectMake(558,730,81,66);
         self.btn_email.frame = rect;
         
-        rect = CGRectMake(234,833,73,44);
-        self.btn_print.frame = rect;
-        
+        //
         rect = CGRectMake(37,407,73,44);
         self.btn_left.frame = rect;
         
         rect = CGRectMake(661,407,73,44);
         self.btn_right.frame = rect;
         
+        rect = CGRectMake(20,20,90,50);
+        self.btn_back.frame = rect;
+        
+        rect = CGRectMake(318,839,90,50);
+        self.btn_done.frame = rect;
+        
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
         self.img_bg.image = [ UIImage imageNamed:
-                               @"07-Photomation-iPad-Share-Screen-Horizontal.jpg" ];
+                               @"7-Photomation-iPad-SHARE-Photo-Screen-Horizontal.jpg" ];
         
-        CGRect rect = CGRectMake(338,91,346,464);
+        CGRect rect = CGRectMake(212,103,601,452);
         self.selected.frame = rect;
         
         rect = CGRectMake(300,689,73,65);
@@ -311,25 +355,60 @@
         rect = CGRectMake(644,689,73,65);
         self.btn_settings.frame = rect;
         
-        rect = CGRectMake(375,574,73,65);
+        //
+        
+        rect = CGRectMake(268,563,73,44);
+        self.btn_hash.frame = rect;
+        
+        rect = CGRectMake(375,563,73,65);
         self.btn_facebook.frame = rect;
         
-        rect = CGRectMake(476,574,73,65);
+        rect = CGRectMake(484,563,73,65);
         self.btn_tweet.frame = rect;
         
-        rect = CGRectMake(578,574,73,65);
+        rect = CGRectMake(593,563,96,67);
+        self.btn_flickr.frame = rect;
+        
+        rect = CGRectMake(697,563,73,65);
         self.btn_email.frame = rect;
         
-        rect = CGRectMake(268,574,73,65);
-        self.btn_print.frame = rect;
+        //
         
         rect = CGRectMake(163,311,73,65);
         self.btn_left.frame = rect;
         
         rect = CGRectMake(785,311,73,65);
         self.btn_right.frame = rect;
+        
+        rect = CGRectMake(14,8,90,50);
+        self.btn_back.frame = rect;
+        
+        rect = CGRectMake(861,526,90,50);
+        self.btn_done.frame = rect;
     }
-     
+    
+    //  Depending on current orientation, change the mode for the imageview
+    //  to aspect fill...
+    if ( current_orientation == UIInterfaceOrientationPortrait )
+    {
+        if ( self.selected_img.size.width > self.selected_img.size.height )
+            self.selected.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
+    {
+        if ( self.selected_img.size.height > self.selected_img.size.width )
+            self.selected.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
+    {
+        if ( self.selected_img.size.height > self.selected_img.size.width )
+            self.selected.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    else
+    {
+        self.selected.contentMode = UIViewContentModeScaleToFill;
+    }
+
     
 }
 

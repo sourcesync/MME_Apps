@@ -10,8 +10,12 @@
 
 @interface Configuration : NSObject
 
-//  max photos...
-@property (nonatomic, assign) int max_photos;
+//  max take photos...
+@property (nonatomic, assign) int max_take_photos;
+
+//  make gallery photos...
+@property (nonatomic, assign) int max_gallery_photos;
+
 
 //
 //  sounds...

@@ -7,19 +7,34 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ObjectiveFlickr.h"
+
+@class OAuth;
 
 @interface TwitterViewController : UIViewController
+    < UIWebViewDelegate, OFFlickrAPIRequestDelegate >
+{
+    OFFlickrAPIRequest *flickrRequest;
+    UIWebView *webview;
+}
 
-
+//  sso auth stuff...
 @property (nonatomic, strong) ACAccountStore *accountStore;
 
 @property (nonatomic, retain) IBOutlet UIButton *btn_tweet;
-@property (nonatomic, retain) IBOutlet UIButton *btn_done;
-
+@property (nonatomic, retain) IBOutlet UIButton *btn_cancel;
+@property (nonatomic, retain) IBOutlet UIImageView *imgview_bg;
 @property (nonatomic, retain) IBOutlet UIImageView *imgview_template;
 
--(IBAction)donePressed:(id)sender;
+//  auth stuff...
+@property (nonatomic, retain) OFFlickrAPIRequest *flickrRequest;
+@property (nonatomic, retain) OAuth *oAuth;
 
-- (IBAction)tweetClick:(UIButton *)sender;
+//  web view stuff...
+@property (nonatomic, retain) IBOutlet UIWebView *webview;
+
+//  button actions...
+-(IBAction)cancelPressed:(id)sender;
+-(IBAction)tweetClick:(UIButton *)sender;
 
 @end

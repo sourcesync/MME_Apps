@@ -28,10 +28,31 @@
 #import "TwitterViewController.h"
 #import "TakePhotoAutoViewController.h"
 #import "TakePhotoManualViewController.h"
+#import "YourPhotoViewController.h"
+#import "EFXViewController.h"
+#import "FlickrViewController.h"
 
 #import "ChromaVideo.h"
 
+#import "UIImage+Resize.h"
+#import "UIImage+SubImage.h"
+
+
+
+NSString *SnapAndRunShouldUpdateAuthInfoNotification = @"SnapAndRunShouldUpdateAuthInfoNotification";
+
+// preferably, the auth token is stored in the keychain, but since working with keychain is a pain, we use the simpler default system
+NSString *kStoredAuthTokenKeyName = @"FlickrOAuthToken";
+NSString *kStoredAuthTokenSecretKeyName = @"FlickrOAuthTokenSecret";
+
+NSString *kGetAccessTokenStep = @"kGetAccessTokenStep";
+NSString *kCheckTokenStep = @"kCheckTokenStep";
+
+NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth";
+
 @implementation AppDelegate
+
+
 
 - (void)dealloc
 {
@@ -40,6 +61,7 @@
     [super dealloc];
 }
 
+/*
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
@@ -49,6 +71,7 @@
                   sourceApplication:sourceApplication
                         withSession:self.session];
 }
+ */
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // FBSample logic
@@ -72,6 +95,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //  Initialize some members...
+    self.have_start_orientation = NO;
+    self.lock_orientation = NO;
     
     //  Never show status bar...
     [[ UIApplication sharedApplication ] setStatusBarHidden:YES ];
@@ -139,15 +165,25 @@
         [[[GalleryViewController alloc]
           initWithNibName:@"GalleryViewController" bundle:nil] autorelease];
 
-    //  Create the selectedphoto controller...
+    //  Create the galleryselected photo controller...
     self.galleryselectedphoto_view =
         [[[GallerySelectedPhotoViewController alloc]
           initWithNibName:@"GallerySelectedPhotoViewController" bundle:nil] autorelease];
     
-    //  Create the selectedphoto controller...
+    //  Create the sharephoto controller...
     self.sharephoto_view =
         [[[SharePhotoViewController alloc]
           initWithNibName:@"SharePhotoViewController" bundle:nil] autorelease];
+    
+    //  Create the yourphoto controller...
+    self.yourphoto_view =
+        [[[YourPhotoViewController alloc]
+            initWithNibName:@"YourPhotoViewController" bundle:nil] autorelease];
+    
+    //  Create the efx controller...
+    self.efx_view =
+        [[[EFXViewController alloc]
+          initWithNibName:@"EFXViewController" bundle:nil] autorelease];
     
     //  Create the chroma controller...
     self.chroma_view =
@@ -169,10 +205,15 @@
         [[[FacebookViewController alloc]
           initWithNibName:@"FacebookViewController" bundle:nil] autorelease];
     
-    //  Create the print controller...
+    //  Create the twitter controller...
     self.twitter_view =
         [[[TwitterViewController alloc]
           initWithNibName:@"TwitterViewController" bundle:nil] autorelease];
+    
+    //  Create the flickr controller...
+    self.flickr_view =
+        [[[FlickrViewController alloc]
+          initWithNibName:@"FlickrViewController" bundle:nil] autorelease];
     
     //  Settings split view...
     SettingsLeftViewController *left =
@@ -192,24 +233,16 @@
     //  signup/register tabbed controllers are first...
     //self.window.rootViewController = self.navController;
     
-    //  take photo auto...
-    //self.window.rootViewController = self.takephoto_auto_view;
-    
     //  take photo manual...
     self.window.rootViewController = self.takephoto_manual_view;
     
-    //  test sharing asap...
-    //self.window.rootViewController = self.sharephoto_view;
-    
-    //  test facebook asap...
-    //self.window.rootViewController = self.facebook_view;
-    
-    //  test twitter asap...
     //self.window.rootViewController = self.twitter_view;
+    //self.is_twitter = YES;
     
-    //  test the pref area asap...
-    //[ self.window addSubview:self.settings_split_view.view ];
-    //[self.window setRootViewController:(UIViewController*)self.settings_split_view];
+    self.window.rootViewController = self.flickr_view;
+    self.is_twitter = NO;
+    
+    //self.window.rootViewController = self.facebook_view;
     
     //  make it go !
     [self.window makeKeyAndVisible];
@@ -234,31 +267,6 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-/*
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
- */
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-}
-*/
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
-{
-}
-*/
 
 - (void) goto_login
 {
@@ -312,10 +320,43 @@
 }
 
 
--(void) goto_sharephoto
+-(void) goto_sharephoto: (UIViewController *)back
 {
     SharePhotoViewController *s = (SharePhotoViewController *)self.sharephoto_view;
+    self.shareBack = back;
     self.window.rootViewController = s;
+}
+
+- (void) share_go_back
+{
+    if (self.shareBack)
+    {
+        self.window.rootViewController = self.shareBack;
+        self.shareBack = nil;
+    }
+}
+
+
+-(void) goto_yourphoto
+{
+    YourPhotoViewController *s = (YourPhotoViewController *)self.yourphoto_view;
+    self.window.rootViewController = s;
+}
+
+-(void) goto_efx:(UIViewController *)back
+{
+    EFXViewController *s = (EFXViewController *)self.efx_view;
+    self.efxBack = back;
+    self.window.rootViewController = s;
+}
+
+- (void) efx_go_back
+{
+    if (self.efxBack)
+    {
+        self.window.rootViewController = self.efxBack;
+        self.efxBack = nil;
+    }
 }
 
 -(void) goto_selectedphoto
@@ -328,22 +369,39 @@
 
 -(void) goto_printview:(UIViewController *)back
 {
-    self.settingsBack = back;
+    self.printBack = back;
     
     PrintViewController *s = (PrintViewController *)self.print_view;
     self.window.rootViewController = s;
+}
+
+- (void) print_go_back
+{
+    if (self.printBack)
+    {
+        self.window.rootViewController = self.printBack;
+        self.printBack = nil;
+    }
 }
 
 
 -(void) goto_emailview:(UIViewController *)back
 {
     
-    self.settingsBack = back;
+    self.emailBack = back;
     
     EmailViewController *s = (EmailViewController *)self.email_view;
     self.window.rootViewController = s;
 }
 
+- (void) email_go_back
+{
+    if (self.emailBack)
+    {
+        self.window.rootViewController = self.emailBack;
+        self.emailBack = nil;
+    }
+}
 
 -(void) goto_facebookview:(UIViewController *)back
 {
@@ -431,9 +489,6 @@
         
     }
     
-    //NSString *fileName = sound;
-   // NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"wav"];
-    //NSURL *fileURL = [[[NSURL alloc] initFileURLWithPath: path] autorelease];
     NSURL *fileURL = sound;
     
     self.audio = [[[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:NULL] autorelease];
@@ -469,6 +524,15 @@
     [alertView show];
 }
 
+
++(void)InfoMessage:(NSString *)message
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Info"
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
+}
 
 +(void)NotImplemented:(NSString *)message
 {
@@ -541,11 +605,8 @@
 {
     NSError *error = nil;
     
-    //  Get gallery path...
-    //NSString  *galleryPath = [ self getGalleryDir ];
-    
     //  Form path to file...
-    NSString *fullpath = fname; //[ NSString stringWithFormat:@"%@/%@", galleryPath, fname ];
+    NSString *fullpath = fname; 
     
     //  Remove gallery file...
     if ( ! [[NSFileManager defaultManager] removeItemAtPath:fullpath error:&error] )
@@ -562,6 +623,15 @@
 + (NSString *)addPhotoToGallery:(int)which is_portrait:(bool)is_portrait
 {
     NSError *error = nil;
+    
+    //  Check if gallery is full...
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    NSArray *current_gallery = [ self getGalleryPhotos ];
+    if ( [ current_gallery count ] >= app.config.max_gallery_photos )
+    {
+        [ AppDelegate ErrorMessage:@"Gallery Is Full" ];
+        return nil;
+    }
     
     // Get gallery path...
     NSString  *galleryPath = [ self getGalleryDir ];        
@@ -602,6 +672,261 @@
     }
 }
 
+
+- (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage {
+    
+    UIImage *blended = [ image blendImage:maskImage ];
+    return blended;
+    
+}
+
+
+-(UIImage *) processTemplate:(UIImage *)insert
+{
+    //  Load the template...
+    UIImage *template = [ UIImage imageNamed:@"email.jpg" ];
+    
+    // Resize the template to the final res...
+    CGSize sz = CGSizeMake(400,600);
+    UIImage *rsize_template = [ template
+                               resizedImage:sz interpolationQuality:kCGInterpolationHigh ];
+    
+    //  Resize the insert...
+    //CGSize isz = CGSizeMake(240, 320);
+    CGSize isz = CGSizeMake(320, 427);
+    UIImage *rsize_insert = [ insert
+                             resizedImage:isz interpolationQuality:kCGInterpolationHigh ];
+    
+    //  Place the insert...
+    //CGRect rect = CGRectMake(80, 140, 240, 320);
+    CGRect rect = CGRectMake(40, 70, 320, 427);
+    UIImage *result =
+        [ rsize_template pasteImage:rsize_insert bounds:rect ];
+    
+    UIImage *rot =
+        [ UIImage imageWithCGImage:result.CGImage scale:1.0 orientation:UIImageOrientationUp ];
+    return rot;
+}
+
+
+-(UIImage *) watermarkImage:(UIImage *)original watermark:(NSString *)path
+{
+    UIImage *watermark = [ UIImage imageNamed:path ];
+    UIImage *mask = [ self maskImage:original withMask:watermark ];
+    return mask;
+}
+
+-(UIImage *) processTemplateWatermark:(UIImage *)insert
+                                 raw1:(UIImageView *)raw1
+                                 raw2:(UIImageView *)raw2
+                             vertical:(BOOL)vertical
+{
+    if (vertical)
+    {
+        //  Load the template...
+        UIImage *template = [ UIImage imageNamed:@"email_vert_1200x1800.jpg" ];
+    
+        // Resize the template to the final res...
+        CGSize sz = CGSizeMake(400,600);
+        UIImage *rsize_template = [ template
+                               resizedImage:sz interpolationQuality:kCGInterpolationHigh ];
+    
+        //  Resize the insert...
+        CGSize isz = CGSizeMake(320, 427);
+        UIImage *rsize_insert = [ insert
+                             resizedImage:isz interpolationQuality:kCGInterpolationHigh ];
+    
+        //  Place the insert...
+        CGRect rect = CGRectMake(40, 70, 320, 427);
+        UIImage *result = [ rsize_template pasteImage:rsize_insert bounds:rect ];
+    
+        //  Load the watermark...
+        UIImage *watermark = [ UIImage imageNamed:@"watermark400x600.png"];
+        
+        //  Watermark...
+        UIImage *watermarked_image = [ self maskImage:result withMask:watermark ];
+        
+        return watermarked_image;
+    }
+    else
+    {        
+        //  Load the template...
+        UIImage *template = [ UIImage imageNamed:@"email_horiz_1800x1200.png" ];
+        
+        // Resize the template to the final res...
+        CGSize sz = CGSizeMake(600,400);
+        UIImage *rsize_template = [ template
+                                   resizedImage:sz interpolationQuality:kCGInterpolationHigh ];
+    
+        
+        CGSize isz = CGSizeMake(256+128+32, 192+96+24); //427, 320);
+        UIImage *rsize_insert = [ insert
+                                 resizedImage:isz interpolationQuality:kCGInterpolationHigh ];
+        raw1.image = rsize_insert;
+        
+        //  Insert into the verticalized template...
+        //  Place the insert...
+        CGRect rect = CGRectMake(100, 50, 256+128+32, 192+96+24); //427, 320);
+        UIImage *result = [ rsize_template pasteImage:rsize_insert bounds:rect ];
+        raw2.image = result;
+       
+        //  Load the water mark...
+        UIImage *watermark = [ UIImage imageNamed:@"watermark600x400.png"];
+        
+        //  water mark the image...
+        UIImage *watermarked_image = [ self maskImage:result withMask:watermark ];
+        
+        return watermarked_image;
+    }
+}
+
+#pragma mark - auth / flickr
+
+
+- (OFFlickrAPIRequest *)flickrRequest
+{
+	if (!flickrRequest) {
+		flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.flickrContext];
+		flickrRequest.delegate = self;
+	}
+	
+	return flickrRequest;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    //return YES;
+    
+    if ([self flickrRequest].sessionInfo) {
+        // already running some other request
+        NSLog(@"Already running some other request");
+    }
+    else {
+        NSString *token = nil;
+        NSString *verifier = nil;
+        BOOL result = OFExtractOAuthCallback(url, [NSURL URLWithString:SRCallbackURLBaseString], &token, &verifier);
+        
+        if (!result) {
+            NSLog(@"Cannot obtain token/secret from URL: %@", [url absoluteString]);
+            return NO;
+        }
+        
+        [self flickrRequest].sessionInfo = kGetAccessTokenStep;
+        [flickrRequest fetchOAuthAccessTokenWithRequestToken:token verifier:verifier];
+        //[activityIndicator startAnimating];
+        //[viewController.view addSubview:progressView];
+    }
+	
+    return YES;
+}
+
+
++ (AppDelegate *)sharedDelegate
+{
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
+- (void)cancelAction
+{
+	[flickrRequest cancel];
+	//[activityIndicator stopAnimating];
+	//[progressView removeFromSuperview];
+	[self setAndStoreFlickrAuthToken:nil secret:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:SnapAndRunShouldUpdateAuthInfoNotification object:self];
+}
+
+- (void)setAndStoreFlickrAuthToken:(NSString *)inAuthToken secret:(NSString *)inSecret
+{
+	if (![inAuthToken length] || ![inSecret length])
+    {
+		self.flickrContext.OAuthToken = nil;
+        self.flickrContext.OAuthTokenSecret = nil;
+		[[NSUserDefaults standardUserDefaults]
+            removeObjectForKey:kStoredAuthTokenKeyName];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kStoredAuthTokenSecretKeyName];
+        
+	}
+	else
+    {
+		self.flickrContext.OAuthToken = inAuthToken;
+        self.flickrContext.OAuthTokenSecret = inSecret;
+		[[NSUserDefaults standardUserDefaults] setObject:inAuthToken forKey:kStoredAuthTokenKeyName];
+		[[NSUserDefaults standardUserDefaults] setObject:inSecret forKey:kStoredAuthTokenSecretKeyName];
+	}
+}
+
++ (bool) is_context_twitter
+{
+    AppDelegate *app = [ AppDelegate sharedDelegate ];
+    return app.is_twitter;
+}
+
+- (OFFlickrAPIContext *)flickrContext
+{
+    if (!flickrContext)
+    {
+        if (self.is_twitter)
+        {
+            flickrContext = [[OFFlickrAPIContext alloc] initWithAPIKey:OBJECTIVE__TWITTER_SAMPLE_API_KEY sharedSecret:OBJECTIVE__TWITTER_SAMPLE_API_SHARED_SECRET];
+            
+        }
+        else
+        {
+            flickrContext = [[OFFlickrAPIContext alloc] initWithAPIKey:OBJECTIVE__FLICKR_SAMPLE_API_KEY sharedSecret:OBJECTIVE__FLICKR_SAMPLE_API_SHARED_SECRET];
+        }
+        
+        NSString *authToken = [[NSUserDefaults standardUserDefaults] objectForKey:kStoredAuthTokenKeyName];
+        NSString *authTokenSecret = [[NSUserDefaults standardUserDefaults] objectForKey:kStoredAuthTokenSecretKeyName];
+        
+        if (([authToken length] > 0) && ([authTokenSecret length] > 0)) {
+            flickrContext.OAuthToken = authToken;
+            flickrContext.OAuthTokenSecret = authTokenSecret;
+        }
+    }
+    
+    return flickrContext;
+}
+
+#pragma mark OFFlickrAPIRequest delegate methods
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthAccessToken:(NSString *)inAccessToken secret:(NSString *)inSecret userFullName:(NSString *)inFullName userName:(NSString *)inUserName userNSID:(NSString *)inNSID
+{
+    [self setAndStoreFlickrAuthToken:inAccessToken secret:inSecret];
+    self.flickrUserName = inUserName;
+    
+	//[activityIndicator stopAnimating];
+	//[progressView removeFromSuperview];
+	[[NSNotificationCenter defaultCenter] postNotificationName:SnapAndRunShouldUpdateAuthInfoNotification object:self];
+    [self flickrRequest].sessionInfo = nil;
+}
+
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
+{
+    if (inRequest.sessionInfo == kCheckTokenStep) {
+		self.flickrUserName = [inResponseDictionary valueForKeyPath:@"user.username._text"];
+	}
+	
+	//[activityIndicator stopAnimating];
+	//[progressView removeFromSuperview];
+	[[NSNotificationCenter defaultCenter] postNotificationName:SnapAndRunShouldUpdateAuthInfoNotification object:self];
+    [self flickrRequest].sessionInfo = nil;
+}
+
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
+{
+	if (inRequest.sessionInfo == kGetAccessTokenStep) {
+	}
+	else if (inRequest.sessionInfo == kCheckTokenStep) {
+		[self setAndStoreFlickrAuthToken:nil secret:nil];
+	}
+	
+	//[activityIndicator stopAnimating];
+	//[progressView removeFromSuperview];
+    
+	[[[[UIAlertView alloc] initWithTitle:@"API Failed" message:[inError description] delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] autorelease] show];
+	[[NSNotificationCenter defaultCenter] postNotificationName:SnapAndRunShouldUpdateAuthInfoNotification object:self];
+}
+
+@synthesize flickrContext;
 
 
 @end

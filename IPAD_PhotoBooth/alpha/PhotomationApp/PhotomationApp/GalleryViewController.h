@@ -24,6 +24,10 @@
 @property (nonatomic, retain) IBOutlet UIImageView *ten;
 @property (nonatomic, retain) IBOutlet UIImageView *eleven;
 @property (nonatomic, retain) IBOutlet UIImageView *twelve;
+@property (nonatomic, retain) IBOutlet UIImageView *thirteen;
+@property (nonatomic, retain) IBOutlet UIImageView *fourteen;
+@property (nonatomic, retain) IBOutlet UIImageView *fifteen;
+@property (nonatomic, retain) IBOutlet UIImageView *sixteen;
 
 @property (nonatomic, retain) IBOutlet UIButton *bone;
 @property (nonatomic, retain) IBOutlet UIButton *btwo;
@@ -37,6 +41,10 @@
 @property (nonatomic, retain) IBOutlet UIButton *bten;
 @property (nonatomic, retain) IBOutlet UIButton *beleven;
 @property (nonatomic, retain) IBOutlet UIButton *btwelve;
+@property (nonatomic, retain) IBOutlet UIButton *bthirteen;
+@property (nonatomic, retain) IBOutlet UIButton *bfourteen;
+@property (nonatomic, retain) IBOutlet UIButton *bfifteen;
+@property (nonatomic, retain) IBOutlet UIButton *bsixteen;
 
 @property (nonatomic, retain) IBOutlet UIButton *btn_gallery;
 @property (nonatomic, retain) IBOutlet UIButton *btn_takephoto;

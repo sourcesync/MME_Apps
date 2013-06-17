@@ -244,7 +244,7 @@
     self.count += 1;
     
     // Decide what to do now...
-    if (self.count== app.config.max_photos)
+    if (self.count== app.config.max_take_photos)
     {
         // Show bg with lights off...
         //self.img_bg.image = [ UIImage imageNamed:@"bg_takephoto_lightsoff_768_955.png"];

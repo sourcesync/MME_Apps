@@ -19,4 +19,12 @@
 - (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
                                   bounds:(CGSize)bounds
                     interpolationQuality:(CGInterpolationQuality)quality;
+
+
+- (CGAffineTransform)my_transformForOrientation:(CGSize)newSize;
+
+- (UIImage *)my_resizedImage:(CGSize)newSize
+                transform:(CGAffineTransform)transform
+           drawTransposed:(BOOL)transpose
+     interpolationQuality:(CGInterpolationQuality)quality;
 @end

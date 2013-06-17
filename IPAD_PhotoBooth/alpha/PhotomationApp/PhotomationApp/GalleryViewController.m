@@ -15,6 +15,8 @@
 
 @implementation GalleryViewController
 
+UIInterfaceOrientation current_orientation;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -38,44 +40,7 @@
 {
     [ super viewDidAppear:animated];
     
-    //  Get the gallery directory...
-    NSString *gallerydir = [ AppDelegate getGalleryDir ];
     
-    //  HACK: get the last 12...
-    NSArray *files = [ AppDelegate getGalleryPhotos ];
-    int len = [ files count ];
-    int first = 0;
-    int last = len-1;
-    if (len>12)
-    {
-        first = len - 12;
-    }
-    
-    NSRange range = NSMakeRange( first, last-first+1);
-    self.show_files = [ files subarrayWithRange:range ];
-    
-    //  Load gallery images into the image views...
-    //for (int i=0;i<[ self.show_files count];i++)
-    for ( int i=0; i<= (last-first); i++ )
-    {
-        //  Get the name of the jpg file...
-        NSString *jpgname = (NSString *)[ files objectAtIndex:i];
-        
-        //  Form the full path to the jpg file...
-        NSString *fullpath = [ NSString stringWithFormat:@"%@/%@", gallerydir, jpgname ];
-        
-        //  Load the image...
-        UIImage *image = [ [[ UIImage alloc ] initWithContentsOfFile:fullpath ] autorelease ];
-        
-        //  Assign to the imageview and show it...
-        UIImageView *v= (UIImageView *)[ self.views objectAtIndex:i ];
-        v.image = image;
-        v.hidden = NO;
-        
-        //  Show the button...
-        UIButton *b = (UIButton *)[ self.buttons objectAtIndex:i ];
-        b.hidden = NO;
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,10 +54,11 @@
     [ super viewWillAppear:animated];
     
     //  Make all image slots invisible...
-    for (int i=0;i<12;i++)
+    for (int i=0;i<16;i++)
     {
         UIImageView *v= (UIImageView *)[ self.views objectAtIndex:i ];
         v.hidden = YES;
+        v.backgroundColor = [ UIColor blackColor];
         
         UIButton *b = (UIButton *)[ self.buttons objectAtIndex:i ];
         b.hidden = YES;
@@ -102,6 +68,10 @@
     
     UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation];
+    
+    //  Reset locked orientation if any...
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    app.lock_orientation = NO;
 }
 
 - (NSArray *) getImageArray
@@ -109,7 +79,9 @@
     return [ NSArray arrayWithObjects:
             self.one,self.two,self.three,self.four,
             self.five,self.six,self.seven,self.eight,
-            self.nine,self.ten,self.eleven,self.twelve, nil ];
+            self.nine,self.ten,self.eleven,self.twelve,
+            self.thirteen,self.fourteen,self.fifteen,self.sixteen,
+            nil ];
 }
 
 - (NSArray *) getButtonArray
@@ -117,7 +89,9 @@
     return [ NSArray arrayWithObjects:
             self.bone,self.btwo,self.bthree,self.bfour,
             self.bfive,self.bsix,self.bseven,self.beight,
-            self.bnine,self.bten,self.beleven,self.btwelve, nil ];
+            self.bnine,self.bten,self.beleven,self.btwelve,
+            self.bthirteen,self.bfourteen,self.bfifteen,self.bsixteen,
+            nil ];
 }
 
 
@@ -138,8 +112,10 @@
     NSString *docPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, fname ];
     //NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:docPath];
     
+    //  Set global path of selected photo...
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
-    app.fname = docPath;
+    app.fpath = docPath;
+    app.gname = fname;
     
     [ app goto_galleryselectedphoto ];
     
@@ -191,10 +167,14 @@
 
 -(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
 {
+    int page_size = 12;
+    
+    current_orientation = toInterfaceOrientation;
+    
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
         self.img_bg.image = [ UIImage imageNamed:
-                             @"06-Photomation-iPad-Gallery-Main-Screen-Vertical.jpg" ];
+                             @"8-Photomation-iPad-Gallery-Main-Screen-Vertical.jpg" ];
         
         CGRect rect = CGRectMake(119,171, 117,156);
         self.one.frame = rect;
@@ -244,6 +224,22 @@
         self.twelve.frame = rect;
         self.btwelve.frame = rect;
         
+        rect = CGRectMake(677, 434,139,105);
+        self.thirteen.hidden = YES;
+        self.bthirteen.hidden = YES;
+        
+        rect = CGRectMake(677, 434,139,105);
+        self.fourteen.hidden = YES;
+        self.bfourteen.hidden = YES;
+        
+        rect = CGRectMake(677, 434,139,105);
+        self.fifteen.hidden = YES;
+        self.bfifteen.hidden = YES;
+        
+        rect = CGRectMake(677, 434,139,105);
+        self.sixteen.hidden = YES;
+        self.bsixteen.hidden = YES;
+        
         //
         rect = CGRectMake(200,944, 73,72);
         self.btn_gallery.frame = rect;
@@ -260,59 +256,84 @@
         rect = CGRectMake(675, 394, 73,72);
         self.btn_right.frame = rect;
         
+        page_size = 12;
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
         self.img_bg.image = [ UIImage imageNamed:
-                             @"06-Photomation-iPad-Gallery-Main-Screen-Horizontal.jpg" ];
+                             @"8-Photomation-iPad-Gallery-Main-Screen-Horizontal.jpg" ];
         
-        CGRect rect = CGRectMake(276,109, 104,143);
+        CGRect rect = CGRectMake(209,124, 139,105);
         self.one.frame = rect;
         self.bone.frame = rect;
         
-        rect = CGRectMake(399,109, 104,143);
+        rect = CGRectMake(364,124, 139,105);
         self.two.frame = rect;
         self.btwo.frame = rect;
         
-        rect = CGRectMake(523, 109, 104,143);
+        rect = CGRectMake(521, 124, 139,105);
         self.three.frame = rect;
         self.bthree.frame = rect;
         
-        rect = CGRectMake(645, 109, 104,143);
+        rect = CGRectMake(677, 124, 139,105);
         self.four.frame = rect;
         self.bfour.frame = rect;
         
-        rect = CGRectMake(276, 272, 104,143);
+        rect = CGRectMake(209, 243, 139,105);
         self.five.frame = rect;
         self.bfive.frame = rect;
         
-        rect = CGRectMake(399, 272, 104,143);
+        rect = CGRectMake(364, 243, 139,105);
         self.six.frame = rect;
         self.bsix.frame = rect;
         
-        rect = CGRectMake(523, 272, 104,143);
+        rect = CGRectMake(521, 243, 139,105);
         self.seven.frame = rect;
         self.bseven.frame = rect;
         
-        rect = CGRectMake(645, 272, 104,143);
+        rect = CGRectMake(677, 243, 139,105);
         self.eight.frame = rect;
         self.beight.frame = rect;
         
-        rect = CGRectMake(276, 434, 104,143);
+        rect = CGRectMake(209, 362, 139,105);
         self.nine.frame = rect;
         self.bnine.frame = rect;
         
-        rect = CGRectMake(399, 434, 104,143);
+        rect = CGRectMake(364, 362, 139,105);
         self.ten.frame = rect;
         self.bten.frame = rect;
         
-        rect = CGRectMake(523, 434, 104,143);
+        rect = CGRectMake(521, 362,139,105);
         self.eleven.frame = rect;
         self.beleven.frame = rect;
         
-        rect = CGRectMake(645, 434, 104,143);
+        rect = CGRectMake(677, 362,139,105);
         self.twelve.frame = rect;
         self.btwelve.frame = rect;
+        
+        rect = CGRectMake(209, 482,139,105);
+        self.thirteen.frame = rect;
+        self.thirteen.hidden = NO;
+        self.bthirteen.frame = rect;
+        self.bthirteen.hidden = NO;
+        
+        rect = CGRectMake(364, 482,139,105);
+        self.fourteen.frame = rect;
+        self.fourteen.hidden = NO;
+        self.bfourteen.frame = rect;
+        self.bfourteen.hidden = NO;
+        
+        rect = CGRectMake(521, 482,139,105);
+        self.fifteen.hidden = NO;
+        self.fifteen.frame = rect;
+        self.bfifteen.hidden = NO;
+        self.bfifteen.frame = rect;
+        
+        rect = CGRectMake(677, 482,139,105);
+        self.sixteen.hidden = NO;
+        self.sixteen.frame = rect;
+        self.bsixteen.hidden = NO;
+        self.bsixteen.frame = rect;
         
         //
         rect = CGRectMake(302,689, 73,72);
@@ -329,6 +350,80 @@
         
         rect = CGRectMake(789, 308, 73,72);
         self.btn_right.frame = rect;
+        
+        page_size = 16;
+    }
+    
+    //  Get the gallery directory...
+    NSString *gallerydir = [ AppDelegate getGalleryDir ];
+    
+    //  HACK: get the last page_size...
+    NSArray *files = [ AppDelegate getGalleryPhotos ];
+    int len = [ files count ];
+    int first = 0;
+    int last = len-1;
+    if (len>page_size)
+    {
+        first = len - page_size;
+    }
+    
+    NSRange range = NSMakeRange( first, last-first+1);
+    self.show_files = [ files subarrayWithRange:range ];
+    
+    //  Hide all first and set default aspect to scale fill...
+    for ( int i=0; i< 16; i++ )
+    {
+        UIImageView *v= (UIImageView *)[ self.views objectAtIndex:i ];
+        v.hidden = YES;
+        v.contentMode = UIViewContentModeScaleToFill;
+        
+        //  Show the button...
+        UIButton *b = (UIButton *)[ self.buttons objectAtIndex:i ];
+        b.hidden = YES;
+    }
+    
+    //  Load gallery images into the image views...
+    //for (int i=0;i<[ self.show_files count];i++)
+    for ( int i=0; i<= (last-first); i++ )
+    {
+        //  Get the name of the jpg file...
+        NSString *jpgname = (NSString *)[ files objectAtIndex:i];
+        
+        //  Form the full path to the jpg file...
+        NSString *fullpath =
+        [ NSString stringWithFormat:@"%@/%@", gallerydir, jpgname ];
+        
+        //  Load the image...
+        UIImage *image = [ [[ UIImage alloc ]
+                            initWithContentsOfFile:fullpath ] autorelease ];
+        
+        //  Assign to the imageview and show it...
+        UIImageView *v= (UIImageView *)[ self.views objectAtIndex:i ];
+        v.image = image;
+        v.hidden = NO;
+        
+        //  Depending on current orientation, change the mode for the imageview
+        //  to aspect fill...
+        if ( current_orientation == UIInterfaceOrientationPortrait )
+        {
+            if ( image.size.width > image.size.height )
+                v.contentMode = UIViewContentModeScaleAspectFit;
+        }
+        else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
+        {
+            if ( image.size.height > image.size.width )
+                v.contentMode = UIViewContentModeScaleAspectFit;
+        }
+        else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
+        {
+            if ( image.size.height > image.size.width )
+                v.contentMode = UIViewContentModeScaleAspectFit;
+        }
+        
+        
+        //  Show the button...
+        UIButton *b = (UIButton *)[ self.buttons objectAtIndex:i ];
+        b.hidden = NO;
     }
     
 }

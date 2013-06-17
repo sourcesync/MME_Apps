@@ -18,7 +18,10 @@
     //
     
     //  max photo...
-    self.max_photos = 2;
+    self.max_take_photos = 1;
+    
+    //  max gallery photos...
+    self.max_gallery_photos = 16;
     
     //  sounds...
     self.snd_getready =  [ self default_sound: @"getready" ];

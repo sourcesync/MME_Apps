@@ -9,14 +9,20 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 
+#import "ASIHTTPRequestDelegate.h"
+
 @interface FacebookViewController : UIViewController
-    <FBLoginViewDelegate>
+    <FBLoginViewDelegate, UIWebViewDelegate, ASIHTTPRequestDelegate>
 
 @property (nonatomic, retain) IBOutlet UIButton *btn_loginlogout;
 @property (nonatomic, retain) IBOutlet UIButton *btn_post;
 @property (nonatomic, retain) IBOutlet UIButton *btn_done;
 
 @property (nonatomic, retain) IBOutlet UIImageView *imgview_template;
+
+@property (nonatomic, retain) UIImage *image_facebook;
+
+@property (nonatomic, retain) IBOutlet UIWebView *webview;
 
 -(IBAction)donePressed:(id)sender;
 

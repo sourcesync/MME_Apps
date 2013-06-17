@@ -16,6 +16,9 @@
 
 @implementation GallerySelectedPhotoViewController
 
+
+UIInterfaceOrientation current_orientation;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -54,7 +57,7 @@
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     //NSString *fullPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, app.fname ];
-    NSString *docPath = app.fname;
+    NSString *docPath = app.fpath;
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:docPath];
     if (fileExists)
@@ -62,14 +65,26 @@
         UIImage *image =
             [[[ UIImage alloc ] initWithContentsOfFile:docPath ] autorelease];
         self.selected.image = image;
+        self.selected_img = image;
     }
+    
+    
+    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    [ self orientElements:uiorientation];
 }
 
+-(IBAction) btnaction_print:(id)sender
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_printview:self];
+    
+    //[ AppDelegate NotImplemented:@"" ];
+}
 
 -(IBAction) btnaction_delete:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    if ( [ AppDelegate deletePhotoFromGallery:app.fname ] )
+    if ( [ AppDelegate deletePhotoFromGallery:app.fpath ] )
     {
         AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
         [ app goto_gallery ];
@@ -97,16 +112,14 @@
 
 -(IBAction) btnaction_efx: (id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_efx:self ];
 }
 
 -(IBAction) btnaction_share: (id)sender
 {
-    //[ AppDelegate NotImplemented:nil ];
-    
-    
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [ app goto_sharephoto ];
+    [ app goto_sharephoto:self ];
      
 }
 
@@ -122,12 +135,11 @@
 }
 
 
-
-
 - (NSUInteger)supportedInterfaceOrientations
 {
+    
     NSUInteger orientations =
-    UIInterfaceOrientationMaskAll;
+        UIInterfaceOrientationMaskAll;
     return orientations;
 }
 
@@ -150,27 +162,27 @@
 
 -(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
 {
+    current_orientation = toInterfaceOrientation;
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
         self.img_bg.image = [ UIImage imageNamed:
-                             @"gallery_single.jpg" ];
+                             @"8-Photomation-iPad-Gallery-Single-Pic-Screen-Vertical.jpg" ];
         
         CGRect rect = CGRectMake(173,161,423,568);
         self.selected.frame = rect;
+                
+        rect = CGRectMake(159,748,77,65);
+        self.btn_print.frame = rect;
         
-        //rect = CGRectMake(134, 734, 79, 59);
-        //self.btn_save.frame = rect;
-        
-        rect = CGRectMake(145,759,101,88);
+        rect = CGRectMake(260,748,110,65);
         self.btn_efx.frame = rect;
         
-        rect = CGRectMake(342,759,132,87);
+        rect = CGRectMake(402,748,91,65);
         self.btn_share.frame = rect;
         
-        rect = CGRectMake(542, 759,113,87);
+        rect = CGRectMake(534, 748,77,65);
         self.btn_delete.frame = rect;
-        
         
         rect = CGRectMake(37, 408, 73,72);
         self.btn_left.frame = rect;
@@ -178,44 +190,41 @@
         rect = CGRectMake(659, 409, 73,72);
         self.btn_right.frame = rect;
         
-        
-        rect = CGRectMake(145, 759, 97, 85);
+        rect = CGRectMake(184, 931, 97, 85);
         self.btn_gallery.frame = rect;
         
-        rect = CGRectMake(342, 759, 113, 86);
+        rect = CGRectMake(313, 936, 113, 86);
         self.btn_photobooth.frame = rect;
         
-        rect = CGRectMake(542, 759, 101, 178);
+        rect = CGRectMake(463, 931, 101, 178);
         self.btn_settings.frame = rect;
         
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
         self.img_bg.image = [ UIImage imageNamed:
-                             @"gallery_single_horizontal.jpg" ];
+                             @"8-Photomation-iPad-Gallery-Single-Pic-Screen-Horizontal.jpg" ];
         
-        CGRect rect = CGRectMake(337,91,349,465);
+        CGRect rect = CGRectMake(280,151,464,346);
         self.selected.frame = rect;
         
-        //rect = CGRectMake(324, 573, 79, 59);
-        //self.btn_save.frame = rect;
+        rect = CGRectMake(321, 522, 73, 44);
+        self.btn_print.frame = rect;
         
-        rect = CGRectMake(337, 573, 112, 77);
+        rect = CGRectMake(416, 522, 73, 44);
         self.btn_efx.frame = rect;
         
-        rect = CGRectMake(476, 573, 97, 60);
+        rect = CGRectMake(515, 522, 104, 44);
         self.btn_share.frame = rect;
         
-        rect = CGRectMake(633, 573, 73, 61);
+        rect = CGRectMake(637, 522, 73, 44);
         self.btn_delete.frame = rect;
-        
         
         rect = CGRectMake(162, 320, 73,72);
         self.btn_left.frame = rect;
         
         rect = CGRectMake(789, 320, 73,72);
         self.btn_right.frame = rect;
-        
         
         rect = CGRectMake(296, 687, 97, 85);
         self.btn_gallery.frame = rect;
@@ -227,6 +236,29 @@
         self.btn_settings.frame = rect;
     }
     
+    
+    //  Depending on current orientation, change the mode for the imageview
+    //  to aspect fill...
+    if ( current_orientation == UIInterfaceOrientationPortrait )
+    {
+        if ( self.selected_img.size.width > self.selected_img.size.height )
+            self.selected.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
+    {
+        if ( self.selected_img.size.height > self.selected_img.size.width )
+            self.selected.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
+    {
+        if ( self.selected_img.size.height > self.selected_img.size.width )
+            self.selected.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    else
+    {
+        self.selected.contentMode = UIViewContentModeScaleToFill;
+    }
+
     
 }
 

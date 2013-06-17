@@ -154,6 +154,9 @@
     {
         UIImage *image = [[[ UIImage alloc ]
                            initWithContentsOfFile:jpgPath ] autorelease];
+        //float width = image.size.width;
+        //float height = image.size.height;
+        
         self.selected.image = image;
     }
     
@@ -233,7 +236,7 @@
     
     
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [ app goto_sharephoto ];
+    [ app goto_sharephoto:self ];
     
     /*
     AppDelegate *app =

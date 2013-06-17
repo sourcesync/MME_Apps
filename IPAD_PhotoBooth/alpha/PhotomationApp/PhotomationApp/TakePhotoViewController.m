@@ -299,6 +299,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     [ super viewWillAppear:animated ];
     
+    //  Reset a bunch of vars...
     self.view_preview_parent.hidden = YES;
     self.vImage.hidden = YES;
     self.vImagePreview.hidden = YES;
@@ -316,19 +317,20 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     self.chromaView.hidden = YES;
     self.bgView.hidden = YES;
     
-    
+    //  Allow rotation again...
     AppDelegate * app = ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    app.lock_orientation = NO;
     
     //  Setup chroma video...
 	app.chroma_video.captureVideoPreviewLayer.frame = self.vImagePreview.bounds;
     [self.vImagePreview.layer addSublayer:app.chroma_video.captureVideoPreviewLayer];
     
-    //  Flip based on camera...
+    //  Flip based on camera and initialize zoom factor...
     if (app.chroma_video.is_front)
         self.vImagePreview.transform = CGAffineTransformMakeScale(-1.0f, 1.0f);
     self.zoomScale = 1.0f;
     
-    
+    //  Initialize chroma video...
     [ app.chroma_video set_delegate:self ];    
     
     //  Delay finalization of init because it takes camera a little while to start...
@@ -594,10 +596,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 - (void) playSound:(NSString *)sound usedel:(BOOL)usedel
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    NSURL *url = [ NSURL URLWithString:sound];
+    
     if (usedel)
-        [ app playSound:sound delegate:self];
+        [ app playSound:url delegate:self];
     else
-        [ app playSound:sound delegate:nil];
+        [ app playSound:url delegate:nil];
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag

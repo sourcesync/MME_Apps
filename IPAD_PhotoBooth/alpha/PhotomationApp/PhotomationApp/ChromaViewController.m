@@ -1159,7 +1159,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         return;
     }
     
-    [ app playSound:@"camera-shutter-click-01" delegate:nil];
+    NSURL *url = [ NSURL URLWithString:@"camera-shutter-click-01"];
+    
+    [ app playSound:url delegate:nil];
     
     if ( !self.chroma_started )
     {

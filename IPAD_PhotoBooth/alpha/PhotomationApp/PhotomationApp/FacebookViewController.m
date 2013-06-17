@@ -11,6 +11,13 @@
 #import "UIImage+SubImage.h"
 #import "UIImage+Resize.h"
 
+#import <FacebookSDK/FBSessionTokenCachingStrategy.h>
+#import <FacebookSDK/FBSession.h>
+#import <FacebookSDK/FBAccessTokenData.h>
+#import "FBSessionManualTokenCachingStrategy.h"
+
+#import "ASIFormDataRequest.h"
+
 @interface FacebookViewController ()
 
 @end
@@ -67,7 +74,18 @@
     
     [loginview sizeToFit];
      */
+
+    self.webview.delegate = self;
+
+}
+
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [ super viewDidAppear:animated];
     
+    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    [ self orientElements:uiorientation  duration:0];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -75,68 +93,61 @@
     [ super viewWillAppear:animated];
     
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = app.fname; //[ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
-   
+    NSString *fname = app.fpath; 
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
     if (fileExists)
     {
-        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:fname ] autorelease];
-        //self.imgview_selected.image = image;
+        UIImage *image =
+            [[[ UIImage alloc ] initWithContentsOfFile:fname ] autorelease];
+        float width = image.size.width;
+        float height = image.size.height;
         
-        [ self processTemplate:image ];
-    }
-    else
-    {
-        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
-        //self.imgview_selected.image = test;
-        
-        [ self processTemplate:test ];
-    }
-    //[ self updateView];
-    /*
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    
-    if (!appDelegate.session.isOpen)
-    {
-        
-        [ AppDelegate ErrorMessage:@"vwa is not Open"];
-        //[ AppDelegate ErrorMessage:@"vwa isOpen"];
-        
-        // create a fresh session object
-        appDelegate.session = [[FBSession alloc] init];
-        
-        // if we don't have a cached token, a call to open here would cause UX for login to
-        // occur; we don't want that to happen unless the user clicks the login button, and so
-        // we check here to make sure we have a token before calling open
-        if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded)
+        if ( width > height )
         {
-            [ AppDelegate ErrorMessage:@"tokenloaded"];
-            
-            // even though we had a cached token, we need to login to make the session usable
-            [appDelegate.session openWithCompletionHandler:^(FBSession *session,
-                                                             FBSessionState status,
-                                                             NSError *error) {
-                // we recurse here, in order to update buttons and labels
-                [self updateView];
-            }];
+            self.image_facebook =  [ app processTemplateWatermark:image
+                                                          raw1:nil
+                                                          raw2:nil
+                                                      vertical:NO ];
         }
         else
         {
-            [ AppDelegate ErrorMessage:@"!tokenloaded"];
-            
-            [self.btn_loginlogout setTitle:@"Log out" forState:UIControlStateNormal];
+            self.image_facebook =  [ app processTemplateWatermark:image
+                                                          raw1:nil
+                                                          raw2:nil
+                                                      vertical:YES ];
         }
+        self.imgview_template.image = self.image_facebook;
+
     }
     else
     {
-        [ AppDelegate ErrorMessage:@"vwa isOpen"];
-        
-        [self.btn_loginlogout setTitle:@"Log out" forState:UIControlStateNormal];
+        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];        
+        [ self processTemplate:test ];
     }
-     */
     
-    //[ self updateView];
+    //b363dc52a740dc1a76878db6df1f86fc
+    
+    //  load the login page !
+    NSString *urlstr =
+        @"https://www.facebook.com/dialog/oauth/?client_id=452798101456639&redirect_uri=http://photomation.mmeink.com/&state=mme&response_type=token&scope=publish_actions";
+    
+    NSURL *url = [ NSURL URLWithString:urlstr ];
+    
+    NSURLRequest *request = [ NSURLRequest requestWithURL:url ];
+    
+    
+    // Flush all cached data
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies]) {
+        [storage deleteCookie:cookie];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+     
+    
+    [ self.webview loadRequest:request ];
 }
 
 
@@ -345,10 +356,96 @@
     [params setObject:@"message" forKey:@"message"];
     [params setObject:img forKey:@"picture"];
     FBRequest *request = [FBRequest requestWithGraphPath:@"me/photos" parameters:params HTTPMethod:@"POST"];
+    request = request;
+}
+
+- (void)requestStarted:(ASIHTTPRequest *)request
+{
+}
+- (void)request:(ASIHTTPRequest *)request didReceiveResponseHeaders:(NSDictionary *)responseHeaders
+{
+    
+}
+- (void)request:(ASIHTTPRequest *)request willRedirectToURL:(NSURL *)newURL
+{
+    
+}
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    
+}
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    
+}
+- (void)requestRedirected:(ASIHTTPRequest *)request
+{
+    
+}
+
+-(void) postNow: (NSString *)access_token
+{
+    /*
+    NSString *likeString;
+        NSString *filePath = nil;
+        if (_imageView.image == [UIImage imageNamed:@"angelina.jpg"]) {
+            filePath = [[NSBundle mainBundle] pathForResource:@"angelina" ofType:@"jpg"];
+            likeString = @"babe";
+        } else if (_imageView.image == [UIImage imageNamed:@"depp.jpg"]) {
+            filePath = [[NSBundle mainBundle] pathForResource:@"depp" ofType:@"jpg"];
+            likeString = @"dude";
+        } else if (_imageView.image == [UIImage imageNamed:@"maltese.jpg"]) {
+            filePath = [[NSBundle mainBundle] pathForResource:@"maltese" ofType:@"jpg"];
+            likeString = @"puppy";
+        }
+        if (filePath == nil) return;
+        
+        NSString *adjectiveString;
+        if (_segControl.selectedSegmentIndex == 0) {
+            adjectiveString = @"cute";
+        } else {
+            adjectiveString = @"ugly";
+        }
+     */
+        
+        NSString *message = [NSString stringWithFormat:@"I think this is it!"];
+    
+        NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/photos"];
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testphoto640x480" ofType:@"png"];
+    
+        [request addFile:filePath forKey:@"file"];
+     
+    
+        [request setPostValue:message forKey:@"message"];
+        [request setPostValue:access_token forKey:@"access_token"];
+     
+        
+        [request setDidFinishSelector:@selector(sendToPhotosFinished:)];
+        
+        [request setDelegate:self];
+        //[request startAsynchronous];
+    
+        [request   startSynchronous ];
+
+        
+    
+}
+
+-(void)sendToPhotosFinished
+{
+    
 }
 
 - (IBAction)postPhotoClick2:(UIButton *)sender
 {
+    NSString *tok = [[NSUserDefaults standardUserDefaults] stringForKey:FBTokenInformationTokenKey];
+    [ self postNow:tok ];
+    
+    return;
+    
+    /*
     UIImage *img = self.imgview_template.image;
     
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
@@ -359,9 +456,27 @@
     self.btn_loginlogout.enabled = false;
     self.btn_done.enabled = false;
     
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    [FBSession setActiveSession:appDelegate.session];
+    //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    //[FBSession setActiveSession:appDelegate.session];
     
+     //FBSessionTokenCachingStrategy *strategy =
+    
+    FBSessionManualTokenCachingStrategy *strategy =
+        [[[FBSessionManualTokenCachingStrategy alloc] initWithUserDefaultTokenInformationKeyName:nil] autorelease];
+    strategy.accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:FBTokenInformationTokenKey];         // use your own UserDefaults key
+    strategy.expirationDate = [[NSUserDefaults standardUserDefaults] objectForKey:FBTokenInformationExpirationDateKey]; // use your own UserDefaults key
+    
+    
+    FBSession *session = [[[FBSession alloc] initWithAppID:@"452798101456639"                                    // use your own appId
+                                               permissions:nil
+                                           urlSchemeSuffix:nil
+                                        tokenCacheStrategy:strategy]
+                          autorelease];
+    FBAccessTokenData *dat = [ session accessTokenData ];
+    
+    [FBSession setActiveSession:session];
+    
+    FBRequestConnection *conn = [ [ FBRequestConnection alloc ] init ];
     
     [FBRequestConnection startWithGraphPath:@"me/photos"
                                  parameters:params
@@ -380,6 +495,7 @@
          {
              //showing an alert for success
              //[UIUtils alertWithTitle:@"Facebook" message:@"Shared the photo successfully"];
+             [ AppDelegate InfoMessage:@"Photo Posted To FaceBook!" ];
          }
          
          
@@ -388,6 +504,7 @@
          self.btn_done.enabled = true;
          //_shareToFbBtn.enabled = YES;
      }];
+     */
 }
 
 
@@ -395,7 +512,16 @@
 // Post Photo button handler
 - (IBAction)postPhotoClick:(UIButton *)sender
 {
+    self.btn_post.enabled = false;
+    self.btn_loginlogout.enabled = false;
+    self.btn_done.enabled = false;
+    
     [ self postPhotoClick2:sender ];
+    
+    //AppDelegate *appDelegate =
+    //    (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    //[ AppDelegate InfoMessage:@"Image Posted"];
+    
     return;
     
     // Just use the icon image from the application itself.  A real app would have a more
@@ -416,41 +542,49 @@
         
         //self.buttonPostPhoto.enabled = NO;
     }];
-     
+    
 }
 
 
 // FBSample logic
 // main helper method to update the UI to reflect the current state of the session.
-- (void)updateView {
+- (void)updateView
+{
     // get the app delegate, so that we can reference the session property
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    self.btn_post.hidden = NO;
+    
+    /*
     if (appDelegate.session.isOpen)
     {
-        
         //[ AppDelegate ErrorMessage:@"isopen"];
         
         // valid account UI is shown whenever the session is open
         [self.btn_loginlogout setTitle:@"Log out" forState:UIControlStateNormal];
         
         //[self.textNoteOrLink setText:[NSString
-            //stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@",
-                //                      appDelegate.session.accessTokenData.accessToken]];
-        self.btn_post.hidden = NO;
+        // stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@",
+        // appDelegate.session.accessTokenData.accessToken]];
         
+        self.btn_post.hidden = NO;
+        self.btn_post.frame = self.btn_loginlogout.frame;
+        self.btn_loginlogout.hidden = YES;
     }
     else
     {
-        
         //[ AppDelegate ErrorMessage:@"is not open"];
-        
         // login-needed account UI is shown whenever the session is closed
+        
         [self.btn_loginlogout setTitle:@"Log in" forState:UIControlStateNormal];
         
         //[self.textNoteOrLink setText:@"Login to create a link to fetch account data"];
         
         self.btn_post.hidden = YES;
+        self.btn_post.frame = self.btn_loginlogout.frame;
+        self.btn_loginlogout.hidden = NO;
     }
+     */
 }
 
 
@@ -528,8 +662,9 @@
 #ifdef DEBUG
     [FBSettings enableBetaFeatures:FBBetaFeaturesShareDialog];
 #endif
-    BOOL canShareFB = [FBDialogs canPresentShareDialogWithParams:p];
-    BOOL canShareiOS6 = [FBDialogs canPresentOSIntegratedShareDialogWithSession:nil];
+    
+    //BOOL canShareFB = [FBDialogs canPresentShareDialogWithParams:p];
+    //BOOL canShareiOS6 = [FBDialogs canPresentOSIntegratedShareDialogWithSession:nil];
     
     //self.buttonPostStatus.enabled = canShareFB || canShareiOS6;
     //self.buttonPostPhoto.enabled = NO;
@@ -559,5 +694,178 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma oauth/sdk stuff
+
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:
+    (NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    
+    NSString *URLString = [ request.URL absoluteString ];
+    NSLog(@"start-->%@", URLString);
+    
+    if ( (URLString!=nil) && ([URLString rangeOfString:@"access_token="].location != NSNotFound))
+    {
+        
+        NSString *accessTokenBegin =
+            [[URLString componentsSeparatedByString:@"="] objectAtIndex:1];
+        
+        NSString *accessToken =
+            [[accessTokenBegin componentsSeparatedByString:@"&"] objectAtIndex:0];
+        
+        int idx = [ [URLString componentsSeparatedByString:@"="] count ] - 2;
+        NSString *expirationBegin =
+            [[URLString componentsSeparatedByString:@"="] objectAtIndex:idx];
+        NSString *expiration =
+            [[expirationBegin componentsSeparatedByString:@"&"] objectAtIndex:0];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:accessToken forKey:FBTokenInformationTokenKey];
+        [defaults setObject:expiration forKey:FBTokenInformationExpirationDateKey];
+        
+        [defaults synchronize];
+        //gw [self dismissModalViewControllerAnimated:YES];
+    }
+    
+    return YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSString *URLString = [[self.webview.request URL] absoluteString];
+    
+    NSLog(@"finish--> %@", URLString);
+    if ([URLString rangeOfString:@"access_token="].location != NSNotFound) {
+        NSString *accessToken = [[URLString componentsSeparatedByString:@"="] lastObject];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:accessToken forKey:@"access_token"];
+        [defaults synchronize];
+        //gw [self dismissModalViewControllerAnimated:YES];
+    }
+}
+
+
+
+#pragma rotation stuff
+
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    //if ( app.lock_orientation )
+    //{
+    //    return app.take_pic_supported_orientations;
+    //}
+    //else
+    {
+        NSUInteger orientations = UIInterfaceOrientationMaskAll;
+        return orientations;
+    }
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+    
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
+- (void) reposition: (UIButton*)btn : (CGPoint)pt
+{
+    CGRect rect = CGRectMake( pt.x, pt.y, btn.frame.size.width, btn.frame.size.height );
+    btn.frame = rect;
+}
+
+- (void)orientElements: (UIInterfaceOrientation)toInterfaceOrientation
+              duration:(NSTimeInterval)duration
+
+{
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    //current_orientation = toInterfaceOrientation;
+    float width = self.image_facebook.size.width;
+    float height = self.image_facebook.size.height;
+    
+    if ( width > height )
+    {
+        self.imgview_template.frame =
+            CGRectMake(170, 15, 640, 480);
+    }
+    else
+    {
+        self.imgview_template.frame =
+            CGRectMake(170, 15, 480, 640);
+    }
+    
+    /*
+     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
+     {
+     if ( self.image_email.size.width > self.image_email.size.height )
+     {
+     self.imageview_selected.frame =
+     CGRectMake(0, 0, 640, 480);
+     }
+     }
+     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
+     {
+     if ( self.image_email.size.width > self.image_email.size.height )
+     {
+     self.imageview_selected.frame =
+     CGRectMake(0, 0, 640, 480);
+     }
+     }
+     */
+    
+    /*
+     //  Depending on current orientation, change the mode for the imageview
+     //  to aspect fill...
+     if ( current_orientation == UIInterfaceOrientationPortrait )
+     {
+     if ( self.selected_img.size.width > self.selected_img.size.height )
+     self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
+     }
+     else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
+     {
+     if ( self.selected_img.size.height > self.selected_img.size.width )
+     self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
+     }
+     else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
+     {
+     if ( self.selected_img.size.height > self.selected_img.size.width )
+     self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
+     }
+     else
+     {
+     self.img_taken.contentMode = UIViewContentModeScaleToFill;
+     }
+     */
+}
+
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
+{
+    
+    if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
+    {
+        [self orientElements:toInterfaceOrientation duration:duration ];
+    }
+    else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
+    {
+        [self orientElements:toInterfaceOrientation duration:duration ];
+    }
+}
+
+
+
+
+
 
 @end

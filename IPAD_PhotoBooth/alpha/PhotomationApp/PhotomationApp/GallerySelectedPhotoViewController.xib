@@ -47,7 +47,7 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">gallery_single.jpg</string>
+							<string key="NSResourceName">8-Photomation-iPad-Gallery-Single-Pic-Screen-Vertical.jpg</string>
 						</object>
 					</object>
 					<object class="IBUIImageView" id="903510087">
@@ -65,7 +65,7 @@
 					<object class="IBUIButton" id="209947135">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{542, 753}, {85, 64}}</string>
+						<string key="NSFrame">{{534, 749}, {85, 64}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="1063430841"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -157,7 +157,7 @@
 					<object class="IBUIButton" id="839895977">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{342, 758}, {91, 65}}</string>
+						<string key="NSFrame">{{402, 748}, {91, 65}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="209947135"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -177,7 +177,7 @@
 					<object class="IBUIButton" id="21208391">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{145, 759}, {110, 64}}</string>
+						<string key="NSFrame">{{260, 749}, {110, 64}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="839895977"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -218,6 +218,26 @@
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{659, 409}, {73, 44}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSNextKeyView" ref="535752777"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<reference key="IBUIHighlightedTitleColor" ref="330543233"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="393626435"/>
+						<reference key="IBUIFontDescription" ref="1050774568"/>
+						<reference key="IBUIFont" ref="396114075"/>
+					</object>
+					<object class="IBUIButton" id="535752777">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{159, 748}, {77, 65}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="21208391"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -340,6 +360,14 @@
 					<int key="connectionID">73</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">btn_print</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="535752777"/>
+					</object>
+					<int key="connectionID">76</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">btnaction_delete:</string>
 						<reference key="source" ref="209947135"/>
@@ -411,6 +439,15 @@
 					</object>
 					<int key="connectionID">59</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">btnaction_print:</string>
+						<reference key="source" ref="535752777"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">77</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -435,16 +472,17 @@
 						<int key="objectID">2</int>
 						<reference key="object" ref="766721923"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="602922672"/>
 							<reference ref="903510087"/>
-							<reference ref="21208391"/>
-							<reference ref="839895977"/>
-							<reference ref="209947135"/>
-							<reference ref="1063430841"/>
 							<reference ref="997977902"/>
 							<reference ref="859151049"/>
 							<reference ref="458229494"/>
 							<reference ref="259577699"/>
+							<reference ref="1063430841"/>
+							<reference ref="839895977"/>
+							<reference ref="21208391"/>
+							<reference ref="209947135"/>
+							<reference ref="535752777"/>
+							<reference ref="602922672"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -511,6 +549,12 @@
 						<reference key="parent" ref="766721923"/>
 						<string key="objectName">btn_goright</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">75</int>
+						<reference key="object" ref="535752777"/>
+						<reference key="parent" ref="766721923"/>
+						<string key="objectName">btn_print</string>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -529,12 +573,13 @@
 				<string key="50.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="53.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="75.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">74</int>
+			<int key="maxID">77</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
@@ -542,7 +587,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">gallery_single.jpg</string>
+			<string key="NS.key.0">8-Photomation-iPad-Gallery-Single-Pic-Screen-Vertical.jpg</string>
 			<string key="NS.object.0">{1536, 2048}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

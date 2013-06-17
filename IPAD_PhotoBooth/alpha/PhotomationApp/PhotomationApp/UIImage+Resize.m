@@ -9,11 +9,8 @@
 
 // Private helper methods
 @interface UIImage ()
-- (UIImage *)resizedImage:(CGSize)newSize
-                transform:(CGAffineTransform)transform
-           drawTransposed:(BOOL)transpose
-     interpolationQuality:(CGInterpolationQuality)quality;
-- (CGAffineTransform)transformForOrientation:(CGSize)newSize;
+
+
 @end
 
 @implementation UIImage (Resize)
@@ -33,7 +30,8 @@
 - (UIImage *)thumbnailImage:(NSInteger)thumbnailSize
           transparentBorder:(NSUInteger)borderSize
                cornerRadius:(NSUInteger)cornerRadius
-       interpolationQuality:(CGInterpolationQuality)quality {
+       interpolationQuality:(CGInterpolationQuality)quality
+{
     UIImage *resizedImage = [self resizedImageWithContentMode:UIViewContentModeScaleAspectFill
                                                        bounds:CGSizeMake(thumbnailSize, thumbnailSize)
                                          interpolationQuality:quality];
@@ -54,7 +52,11 @@
 
 // Returns a rescaled copy of the image, taking into account its orientation
 // The image will be scaled disproportionately if necessary to fit the bounds specified by the parameter
-- (UIImage *)resizedImage:(CGSize)newSize interpolationQuality:(CGInterpolationQuality)quality {
+
+
+- (UIImage *)resizedImage:(CGSize)newSize
+     interpolationQuality:(CGInterpolationQuality)quality
+{
     BOOL drawTransposed;
     
     switch (self.imageOrientation) {
@@ -69,8 +71,8 @@
             drawTransposed = NO;
     }
     
-    return [self resizedImage:newSize
-                    transform:[self transformForOrientation:newSize]
+    return [self my_resizedImage:newSize
+                    transform:[self my_transformForOrientation:newSize]
                drawTransposed:drawTransposed
          interpolationQuality:quality];
 }
@@ -107,10 +109,11 @@
 // Returns a copy of the image that has been transformed using the given affine transform and scaled to the new size
 // The new image's orientation will be UIImageOrientationUp, regardless of the current image's orientation
 // If the new size is not integral, it will be rounded up
-- (UIImage *)resizedImage:(CGSize)newSize
+- (UIImage *)my_resizedImage:(CGSize)newSize
                 transform:(CGAffineTransform)transform
            drawTransposed:(BOOL)transpose
-     interpolationQuality:(CGInterpolationQuality)quality {
+     interpolationQuality:(CGInterpolationQuality)quality
+{
     CGRect newRect = CGRectIntegral(CGRectMake(0, 0, newSize.width, newSize.height));
     CGRect transposedRect = CGRectMake(0, 0, newRect.size.height, newRect.size.width);
     CGImageRef imageRef = self.CGImage;
@@ -145,7 +148,7 @@
 }
 
 // Returns an affine transform that takes into account the image orientation when drawing a scaled image
-- (CGAffineTransform)transformForOrientation:(CGSize)newSize {
+- (CGAffineTransform) my_transformForOrientation:(CGSize)newSize {
     CGAffineTransform transform = CGAffineTransformIdentity;
     
     switch (self.imageOrientation) {
@@ -166,6 +169,8 @@
             transform = CGAffineTransformTranslate(transform, 0, newSize.height);
             transform = CGAffineTransformRotate(transform, -M_PI_2);
             break;
+        default:
+            break;
     }
     
     switch (self.imageOrientation) {
@@ -179,6 +184,8 @@
         case UIImageOrientationRightMirrored:  // EXIF = 7
             transform = CGAffineTransformTranslate(transform, newSize.height, 0);
             transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        default:
             break;
     }
     

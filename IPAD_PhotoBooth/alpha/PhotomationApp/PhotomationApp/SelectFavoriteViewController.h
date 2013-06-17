@@ -10,6 +10,8 @@
 
 @interface SelectFavoriteViewController : UIViewController <AVAudioPlayerDelegate>
 
+@property (nonatomic, retain) IBOutlet UIImageView *img_bg;
+
 @property (nonatomic, retain) IBOutlet UIImageView *first;
 @property (nonatomic, retain) IBOutlet UIImageView *second;
 @property (nonatomic, retain) IBOutlet UIImageView *third;

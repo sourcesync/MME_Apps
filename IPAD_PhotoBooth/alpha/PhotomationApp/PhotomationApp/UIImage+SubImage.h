@@ -12,4 +12,6 @@
 
 - (UIImage *)pasteImage:(UIImage *)insert bounds:(CGRect)bounds;
 
+- (UIImage *)blendImage:(UIImage *)insert;
+ 
 @end

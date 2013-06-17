@@ -22,16 +22,33 @@
 #import "ChromaVideo.h"
 #import "Configuration.h"
 
+#import "ObjectiveFlickr.h"
+
 @interface AppDelegate : UIResponder
     <UIApplicationDelegate, UITabBarControllerDelegate,
-    UINavigationControllerDelegate, UIAlertViewDelegate>
+    UINavigationControllerDelegate, UIAlertViewDelegate,
+    OFFlickrAPIRequestDelegate>
+{
+    OFFlickrAPIContext *flickrContext;
+	OFFlickrAPIRequest *flickrRequest;
+    
+}
 
 //  Various state...
 @property (nonatomic, assign) int selected_id;
 @property (nonatomic, assign) int take_count;
-@property (strong, nonatomic) NSString *fname;
+@property (strong, nonatomic) NSString *fpath;
+@property (strong, nonatomic) NSString *gname;
+
 @property (nonatomic, assign) bool is_portrait;
+
+@property (nonatomic, assign) bool lock_orientation;
+@property (nonatomic, assign) UIInterfaceOrientation taken_pic_orientation;
+@property (nonatomic, assign) NSUInteger take_pic_supported_orientations;
+
+@property (nonatomic, assign) bool have_start_orientation;
 @property (nonatomic, assign) UIInterfaceOrientation start_orientation;
+@property (nonatomic, assign) NSUInteger start_orientation_mask;
 
 //  Configuration...
 @property (nonatomic, retain) Configuration *config;
@@ -57,13 +74,20 @@
 //  The login view...
 @property (strong, nonatomic) UIViewController *login_view;
 
-//  The takephoto view...
+//  The takephoto view(s)...
 @property (strong, nonatomic) UIViewController *takephoto_view;
 @property (strong, nonatomic) UIViewController *takephoto_auto_view;
 @property (strong, nonatomic) UIViewController *takephoto_manual_view;
 
 //  The select favorite view...
 @property (strong, nonatomic) UIViewController *selectfavorite_view;
+
+//  The select favorite view...
+@property (strong, nonatomic) UIViewController *yourphoto_view;
+
+//  The efx view...
+@property (strong, nonatomic) UIViewController *efx_view;
+@property (strong, nonatomic) UIViewController *efxBack;
 
 //  The selected photo view...
 @property (strong, nonatomic) UIViewController *selectedphoto_view;
@@ -76,15 +100,22 @@
 
 //  The share photo view...
 @property (strong, nonatomic) UIViewController *sharephoto_view;
+@property (strong, nonatomic) UIViewController *shareBack;
 
 //  The chroma view...
 @property (strong, nonatomic) UIViewController *chroma_view;
 
 //  The email view...
 @property (strong, nonatomic) UIViewController *email_view;
+@property (strong, nonatomic) UIViewController *emailBack;
+
+//  The flickr view...
+@property (strong, nonatomic) UIViewController *flickr_view;
+@property (strong, nonatomic) UIViewController *flickrBack;
 
 //  The print view...
 @property (strong, nonatomic) UIViewController *print_view;
+@property (strong, nonatomic) UIViewController *printBack;
 
 //  The facebook view...
 @property (strong, nonatomic) UIViewController *facebook_view;
@@ -104,6 +135,13 @@
 //  back controller from settings...
 @property (strong, nonatomic) UIViewController *settingsBack;
 
+//  oauth/flickr/twitter stuff...
+@property (nonatomic, readonly) OFFlickrAPIContext *flickrContext;
+@property (nonatomic, retain) NSString *flickrUserName;
+extern NSString *SRCallbackURLBaseString;
+extern NSString *SnapAndRunShouldUpdateAuthInfoNotification;
+@property (nonatomic, assign) bool is_twitter;
+
 //  Goto the login view...
 -(void) goto_login;
 
@@ -112,6 +150,13 @@
 
 //  Goto the takephoto view...
 -(void) goto_takephoto;
+
+//  Goto the yourphoto view...
+-(void) goto_yourphoto;
+
+//  Goto the efx view...
+-(void) goto_efx:(UIViewController *)back;
+-(void) efx_go_back;
 
 //  Goto the select favorite view...
 -(void) goto_selectfavorite;
@@ -127,22 +172,28 @@
 
 //  Goto the settings...
 -(void) goto_settings:(UIViewController *)back;
-- (void) settings_go_back;
+-(void) settings_go_back;
 
 //  Goto the share photo view...
--(void) goto_sharephoto;
+-(void) goto_sharephoto:(UIViewController *)back;
+-(void) share_go_back;
 
 //  Goto the print view...
 -(void) goto_printview:(UIViewController *)back;
+-(void) print_go_back;
 
 //  Goto the email view...
 -(void) goto_emailview:(UIViewController *)back;
+-(void) email_go_back;
 
 //  Goto the facebook view...
 -(void) goto_facebookview:(UIViewController *)back;
 
 //  Goto the twitter view...
 -(void) goto_twitterview:(UIViewController *)back;
+
+//  Goto the flickr view...
+-(void) goto_flickrview:(UIViewController *)back;
 
 //  Select chroma settings...
 //+ (void) show_popover;
@@ -170,10 +221,29 @@
 //  Error message display...
 +(void)ErrorMessage:(NSString *)message;
 
+//  Info message display...
++(void)InfoMessage:(NSString *)message;
+
 //  Not implemented warning...
 +(void)NotImplemented:(NSString *)message;
 
 
+-(UIImage *) processTemplate:(UIImage *)insert;
+-(UIImage *) processTemplateWatermark:(UIImage *)insert
+                                 raw1:(UIImageView *)raw1
+                                 raw2:(UIImageView *)raw2
+                             vertical:(BOOL)vertical;
+-(UIImage *) watermarkImage:(UIImage *)original watermark:(NSString *)path;
+-(UIImage *) sanitize:(UIImage *)insert;
+
+-(void) saveTakenPhoto:(NSData *)data orientation:(UIInterfaceOrientation)orientation;
+
 + (NSString *)GetUUID;
+
+//  OAUTH / Flickr / Twitter stuff
+
++ (AppDelegate *)sharedDelegate;
+- (void)setAndStoreFlickrAuthToken:(NSString *)inAuthToken secret:(NSString *)inSecret;
++ (bool) is_context_twitter;
 
 @end

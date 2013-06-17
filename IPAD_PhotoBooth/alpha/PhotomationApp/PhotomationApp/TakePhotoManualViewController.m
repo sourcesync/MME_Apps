@@ -68,13 +68,13 @@ UIInterfaceOrientation current_orientation;
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [ self.camera_view viewWillAppear];
     
     //  Initialize ui...
     self.preview_parent.hidden = YES;
     self.camera_normal_view.hidden = YES;
     self.camera_snapshot_view.hidden = YES;
     
-    [ self.camera_view viewWillAppear];
     
     /*
     [[UIApplication sharedApplication] status
@@ -88,6 +88,25 @@ UIInterfaceOrientation current_orientation;
     */
     UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation duration:0 zoomScale:self.zoomScale];
+    
+    //  Reset start orientation...
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    if ( !app.have_start_orientation )
+    {
+        app.start_orientation = uiorientation;
+        
+        if (uiorientation==UIInterfaceOrientationPortrait)
+            app.start_orientation_mask = UIInterfaceOrientationMaskPortrait;
+        else if (uiorientation==UIInterfaceOrientationLandscapeLeft)
+            app.start_orientation_mask = UIInterfaceOrientationMaskLandscapeLeft;
+        else if ( uiorientation==UIInterfaceOrientationLandscapeRight)
+            app.start_orientation_mask = UIInterfaceOrientationMaskLandscapeRight;
+        else
+            app.start_orientation_mask = UIInterfaceOrientationMaskPortrait;
+    }
+    
+    //  Allow rotations again...
+    app.lock_orientation = NO;
     
     //  Delay finalization of init because it takes camera a little while to start...
     //  TODO: should be performed via a 'done' delegate on chromavideo...
@@ -121,12 +140,32 @@ UIInterfaceOrientation current_orientation;
 {
     if (!self.allow_snap) return;
     
+    //  Lock the orientation to current one...
+    AppDelegate *app =
+        ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    app.lock_orientation = YES;
+    app.taken_pic_orientation = current_orientation;
+    if ( current_orientation == UIInterfaceOrientationPortrait )
+        app.take_pic_supported_orientations = UIInterfaceOrientationMaskPortrait;
+    else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
+        app.take_pic_supported_orientations = UIInterfaceOrientationMaskLandscapeLeft;
+    else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
+        app.take_pic_supported_orientations = UIInterfaceOrientationMaskLandscapeRight;
+    else
+        app.take_pic_supported_orientations = UIInterfaceOrientationMaskAll;
+    
+    //  Cancel any currently scheduled activity to automatically goto next view...
     [ self cancelAutoNext ];
     
+    //  Show the preview, hide the snapshot...
     self.camera_snapshot_view.hidden = YES;
     self.camera_normal_view.hidden = NO;
     
-    [ self getready ];
+    //  Take the pic...
+    [ self captureNow ];
+    
+    //  Play get-ready, and initiate the take pic sequence...
+    // [ self getready ];
 }
 
 -(IBAction) btnaction_swapcam: (id)sender
@@ -228,8 +267,9 @@ UIInterfaceOrientation current_orientation;
     }
 }
 
--(void) goto_sharephoto
+-(void) goto_yourphoto
 {
+    //  Check that this operation has been canceled...
     if ( self.bCancelAutoNext )
     {
         self.bCancelAutoNext = NO;
@@ -237,10 +277,11 @@ UIInterfaceOrientation current_orientation;
         return;
     }
     
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [app goto_selectedphoto ];
-    
     self.AutoNextScheduled = NO;
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [app goto_yourphoto ];
+    
 }
 
 
@@ -364,6 +405,10 @@ UIInterfaceOrientation current_orientation;
     //  Possibly deal with rotation...
     NSString *fname;
     bool is_portrait;
+    NSString  *jpgPath;
+    NSString *tname;
+    NSString *tPath;
+    
     if ( UIInterfaceOrientationIsLandscape(current_orientation) )
     {
         //  front camera...
@@ -403,6 +448,11 @@ UIInterfaceOrientation current_orientation;
         
         // Identify the home directory and file name
         fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",0];
+        jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
+        
+        tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",0];
+        tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
+        
         is_portrait = NO;
     }
     else
@@ -410,15 +460,23 @@ UIInterfaceOrientation current_orientation;
         
         // Identify the home directory and file name
         fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",0];
+        jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
+        
+        tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",0];
+        tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
+        
         is_portrait = YES;
     }
     
-    
-    NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
-    
+    // Identify the home directory and file name
+    //fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",0];
+    //jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
+    //is_portrait = YES;
     
     //  Possibly deal with scaling...
-    if (self.zoomScale!=1.0)
+    //if (self.zoomScale!=1.0)
+    
+    //  The following code will save out the picture in the current and right orientation
     {
          int width = image.size.width;
          int rwidth = width * self.zoomScale;
@@ -445,19 +503,19 @@ UIInterfaceOrientation current_orientation;
      
          image = subImage;
     }
-    else
-    {
+    //else
+    //{
          //  Set the thumbnail...
          //thumb.hidden = NO;
          //thumb.image = image;
      
          // Write the file...
-         [imageData writeToFile:jpgPath atomically:YES];
-    }
+         //[imageData writeToFile:jpgPath atomically:YES];
+    //}
     
     //  Globally set the selected photo (and path)...
     app.selected_id = 0;
-    app.fname = fname;
+    app.fpath = jpgPath;
     app.is_portrait = is_portrait;
     
     // Set the snapshot image...
@@ -486,7 +544,7 @@ UIInterfaceOrientation current_orientation;
     }
     */
     
-    [ self performSelector:@selector(goto_sharephoto) withObject:self afterDelay:2 ];
+    [ self performSelector:@selector(goto_yourphoto) withObject:self afterDelay:2 ];
     self.AutoNextScheduled = YES;
     
     self.allow_snap = YES;
@@ -502,31 +560,26 @@ UIInterfaceOrientation current_orientation;
 - (NSUInteger)supportedInterfaceOrientations
 {
     NSUInteger orientations =
-    UIInterfaceOrientationMaskAll;
+        UIInterfaceOrientationMaskAll;
     return orientations;
 }
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    if ( app.lock_orientation) return NO;
+    else return YES;
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if ( UIInterfaceOrientationIsPortrait(interfaceOrientation) )
-    {
-        return YES;
-    }
-    else
-    {
-        return YES;
-    }
+    return YES;
 }
 
 - (void) reposition: (UIButton*)btn : (CGPoint)pt
 {
     CGRect rect = CGRectMake( pt.x, pt.y, btn.frame.size.width, btn.frame.size.height );
-    
     btn.frame = rect;
 }
 

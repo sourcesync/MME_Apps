@@ -43,35 +43,73 @@
 }
 
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [ super viewDidAppear:animated];
+    
+    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    [ self orientElements:uiorientation  ];
+}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [ super viewWillAppear:animated];
     
-
-    
     AppDelegate *app = (AppDelegate *)
         [ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = app.fname; 
+    NSString *fname = app.fpath;
     
-    NSString  *jpgPath =
-        [NSHomeDirectory() stringByAppendingPathComponent:fname];
+    
+    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+        
+    NSString  *jpgPath = fname;
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:jpgPath];
     if (fileExists)
     {
-        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:jpgPath ] autorelease];
-        self.selected_image = image;
-        self.imgview_selected.image = image;
+        UIImage *image =
+            [[[ UIImage alloc ] initWithContentsOfFile:jpgPath ] autorelease];
         
-        [ self processTemplate:image ];
+        self.img_selected = image;
+        
+        float width = image.size.width;
+        float height = image.size.height;
+        
+        if ( width > height )
+        {
+            self.img_template =  [ app processTemplateWatermark:image
+                                                          raw1:nil
+                                                          raw2:nil
+                                                      vertical:NO ];
+        }
+        else
+        {
+            self.img_template =  [ app processTemplateWatermark:image
+                                                          raw1:nil
+                                                          raw2:nil
+                                                      vertical:YES ];
+        }
+        
+        //float ewidth = self.image_email.size.width;
+        //float eheight = self.image_email.size.height;
+        
+        self.imgview_template_watermark.image = self.img_template;
+        self.imgview_selected_watermark.image = self.img_selected;
+        
+        
     }
     else
     {
+        /*
         UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
-        self.selected_image = test;
+        //self.selected_image = test;
         self.imgview_selected.image = test;
         
-        [ self processTemplate:test ];
+        UIImage *template = [ app processTemplateWatermark:test ];
+        self.imgview_template.image = template;
+        //self.templated_image = template;
+         */
     }
     
     if ([UIPrintInteractionController isPrintingAvailable])
@@ -86,8 +124,6 @@
     }
     
     
-    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation]; 
-    self.start_orientation = uiorientation;
     
     [ self orientElements:uiorientation ];
 }
@@ -108,6 +144,8 @@
     self.btn_printSelected.enabled = YES;
     self.btn_printTemplate.enabled = YES;
 }
+
+/*
 
 - (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage {
     
@@ -154,7 +192,8 @@
     UIImage *result = [ rsize_template pasteImage:rsize_insert bounds:rect ];
     //UIImage *result = [ rsize_template pasteImage:watermarked_image bounds:rect ];
     
-    UIImage *rot = [ UIImage imageWithCGImage:result.CGImage scale:1.0 orientation:UIImageOrientationUp ];
+    UIImage *rot =
+        [ UIImage imageWithCGImage:result.CGImage scale:1.0 orientation:UIImageOrientationUp ];
     
     UIImage *watermark = [ UIImage imageNamed:@"Photomation-logo-transparent.png"];
     
@@ -163,7 +202,7 @@
     self.imgview_template.image = watermarked_image;
     self.templated_image = watermarked_image;
 }
-
+*/
 
 
 -(void) printImage:(UIImage *)img
@@ -199,26 +238,26 @@
 
 }
 
-- (IBAction)printSelected:(id)sender
+- (IBAction)btn_printSelected:(id)sender
 {
-    UIImage *img = self.imgview_selected.image;
+    UIImage *img = self.imgview_selected_watermark.image;
         
     [ self printImage: img ];
 }
 
 
-- (IBAction)printTemplate:(id)sender
+- (IBAction)btn_printTemplate:(id)sender
 {
-    UIImage *img = self.imgview_template.image;
+    UIImage *img = self.imgview_template_watermark.image;
     
     [ self printImage: img ];
 }
 
--(IBAction)donePressed:(id)sender
+-(IBAction)btn_donePressed:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
-    [ app settings_go_back ];
+    [ app print_go_back ];
 }
 
 
@@ -252,14 +291,31 @@
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.imgview_selected.image = self.selected_image;
-        self.imgview_template.image = self.templated_image;
+        //self.imgview_selected.image = self.selected_image;
+        //self.imgview_template.image = self.templated_image;
+        
+
+        //self.imgview_selected.image = self.vert_pic;
+        //self.imgview_template.image = self.vert_template;
         
         //[self orientElements:toInterfaceOrientation duration:duration zoomScale:self.zoomScale];
+        
+        if ( self.img_selected.size.width > self.img_selected.size.height )
+        {
+            self.imgview_selected_watermark.contentMode = UIViewContentModeScaleAspectFit;
+            self.imgview_template_watermark.contentMode = UIViewContentModeScaleAspectFit;
+        }
+        else
+        {
+            self.imgview_selected_watermark.contentMode = UIViewContentModeScaleToFill;
+            self.imgview_template_watermark.contentMode = UIViewContentModeScaleToFill;
+        }
+        
+        
         CGRect rect = CGRectMake(15, 64, 320, 427);
-        self.imgview_selected.frame = rect;
+        self.imgview_selected_watermark.frame = rect;
         rect = CGRectMake(355,64,400,600);
-        self.imgview_template.frame = rect;
+        self.imgview_template_watermark.frame = rect;
         rect = CGRectMake(159, 514, 73, 44);
         self.btn_printSelected.frame = rect;
         rect = CGRectMake(519, 691, 73, 44);
@@ -269,40 +325,24 @@
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        if ( toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+        if ( self.img_selected.size.height > self.img_selected.size.width )
         {
-            UIImage *selected_rot_img = [ UIImage imageWithCGImage:self.selected_image.CGImage
-                                                scale:1.0
-                                          orientation:UIImageOrientationUp];
-            self.imgview_selected.image = selected_rot_img;
-            
-            
-            UIImage *templated_rot_image = [ UIImage imageWithCGImage:self.templated_image.CGImage
-                                                                scale:1.0
-                                                          orientation:UIImageOrientationLeft];
-            self.imgview_template.image = templated_rot_image;
-
+            self.imgview_selected_watermark.contentMode = UIViewContentModeScaleAspectFit;
+            self.imgview_template_watermark.contentMode = UIViewContentModeScaleAspectFit;
         }
-        else if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
+        else
         {
-                UIImage *selected_rot_img = [ UIImage imageWithCGImage:self.selected_image.CGImage
-                                                                 scale:1.0
-                                                           orientation:UIImageOrientationDown];
-                self.imgview_selected.image = selected_rot_img;
-            
-            
-            UIImage *templated_rot_image = [ UIImage imageWithCGImage:self.templated_image.CGImage
-                                                                scale:1.0
-                                                          orientation:UIImageOrientationRight];
-            self.imgview_template.image = templated_rot_image;
-
+            self.imgview_selected_watermark.contentMode = UIViewContentModeScaleToFill;
+            self.imgview_template_watermark.contentMode = UIViewContentModeScaleToFill;
         }
-                
         //[self orientElements:toInterfaceOrientation duration:duration zoomScale:self.zoomScale];
         CGRect rect = CGRectMake(31,31, 427, 320);
-        self.imgview_selected.frame = rect;
+        self.imgview_selected_watermark.frame = rect;
+        
         rect = CGRectMake(304,359,600,400);
-        self.imgview_template.frame = rect;
+        self.imgview_template_watermark.frame = rect;
+        //self.imgview_template.backgroundColor = [ UIColor redColor];
+        
         rect = CGRectMake(152,371, 73, 44);
         self.btn_printSelected.frame = rect;
         rect = CGRectMake(223,716, 73, 44);

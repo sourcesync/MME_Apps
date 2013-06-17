@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>UIApplicationExitsOnSuspend</key>
-	<true/>
+	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -27,7 +27,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb452798101456639</string>
+				<string>photomation</string>
 			</array>
 		</dict>
 	</array>
