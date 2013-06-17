@@ -18,9 +18,9 @@
 
 #import "ASIFormDataRequest.h"
 
-@interface FacebookViewController ()
 
-@end
+UIInterfaceOrientation current_orientation;
+
 
 @implementation FacebookViewController
 
@@ -40,8 +40,9 @@
         
     [self updateView];
     
-    AppDelegate *appDelegate = (AppDelegate  *)[[UIApplication sharedApplication]delegate];
+    //AppDelegate *appDelegate = (AppDelegate  *)[[UIApplication sharedApplication]delegate];
     
+    /*
     if (!appDelegate.session.isOpen)
     {
         // create a fresh session object
@@ -61,7 +62,7 @@
             }];
         }
     }
-
+     */
 
     /*
     // Create Login View so that the app will be granted "status_update" permission.
@@ -126,7 +127,10 @@
         [ self processTemplate:test ];
     }
     
-    //b363dc52a740dc1a76878db6df1f86fc
+    
+    UIInterfaceOrientation uiorientation =
+        [ [ UIApplication sharedApplication] statusBarOrientation];
+            [ self orientElements:uiorientation  duration:0];
     
     //  load the login page !
     NSString *urlstr =
@@ -146,10 +150,19 @@
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
      
-    
+    self.webview.hidden = NO;
     [ self.webview loadRequest:request ];
 }
 
+#pragma genera functions
+
+
+-(void) done
+{
+    self.webview.delegate = nil;
+    
+    [ [ AppDelegate sharedDelegate ] goto_sharephoto:nil ];
+}
 
 // UIAlertView helper for post buttons
 - (void)showAlert:(NSString *)message
@@ -191,11 +204,12 @@
 
 
 
--(IBAction)donePressed:(id)sender
+-(IBAction)cancelPressed:(id)sender
 {
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ self done ];
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
-    [ app settings_go_back ];
+    //[ app settings_go_back ];
 }
 
 
@@ -230,7 +244,8 @@
 - (void) performPublishAction:(void (^)(void)) action
 {
     
-    AppDelegate *appDelegate = (AppDelegate  *)[[UIApplication sharedApplication]delegate];
+    AppDelegate *appDelegate =
+        (AppDelegate  *)[[UIApplication sharedApplication]delegate];
     
     // we defer request for permission to post to the moment of post, then we check for the permission
     //if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound)
@@ -372,11 +387,13 @@
 }
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    
+    [ self done ];
 }
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     
+    NSLog( @"error: %@", [ request.error description ] );
+    [ self done ];
 }
 - (void)requestRedirected:(ASIHTTPRequest *)request
 {
@@ -413,7 +430,7 @@
         NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/photos"];
         ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testphoto640x480" ofType:@"png"];
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testphoto640x480" ofType:@"png"];
     
         [request addFile:filePath forKey:@"file"];
      
@@ -425,9 +442,12 @@
         [request setDidFinishSelector:@selector(sendToPhotosFinished:)];
         
         [request setDelegate:self];
-        //[request startAsynchronous];
     
-        [request   startSynchronous ];
+        [request startAsynchronous];
+    
+   
+    self.webview.hidden = YES;
+        //[request   startSynchronous ];
 
         
     
@@ -512,9 +532,9 @@
 // Post Photo button handler
 - (IBAction)postPhotoClick:(UIButton *)sender
 {
-    self.btn_post.enabled = false;
-    self.btn_loginlogout.enabled = false;
-    self.btn_done.enabled = false;
+    //self.btn_post.enabled = false;
+    //self.btn_loginlogout.enabled = false;
+    //self.btn_done.enabled = false;
     
     [ self postPhotoClick2:sender ];
     
@@ -553,7 +573,7 @@
     // get the app delegate, so that we can reference the session property
     //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     
-    self.btn_post.hidden = NO;
+    //self.btn_post.hidden = NO;
     
     /*
     if (appDelegate.session.isOpen)
@@ -726,6 +746,13 @@
         [defaults setObject:expiration forKey:FBTokenInformationExpirationDateKey];
         
         [defaults synchronize];
+        
+        self.webview.hidden = YES;
+        
+        NSLog(@"access token=%@", accessToken);
+        
+        [ self postNow:accessToken];
+        
         //gw [self dismissModalViewControllerAnimated:YES];
     }
     
@@ -751,16 +778,17 @@
 #pragma rotation stuff
 
 
+
 - (NSUInteger)supportedInterfaceOrientations
 {
     
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
-    //if ( app.lock_orientation )
-    //{
-    //    return app.take_pic_supported_orientations;
-    //}
-    //else
+    if ( app.lock_orientation )
+    {
+        return app.take_pic_supported_orientations;
+    }
+    else
     {
         NSUInteger orientations = UIInterfaceOrientationMaskAll;
         return orientations;
@@ -789,63 +817,47 @@
 
 {
     //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    //current_orientation = toInterfaceOrientation;
-    float width = self.image_facebook.size.width;
-    float height = self.image_facebook.size.height;
     
-    if ( width > height )
+    current_orientation = toInterfaceOrientation;
+    
+    
+    if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.imgview_template.frame =
-            CGRectMake(170, 15, 640, 480);
+        self.imgview_bg.image = [ UIImage imageNamed:
+                                 @"7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg" ];
+        
+        self.webview.frame = CGRectMake(44, 216, 680, 711);
+        
+        self.btn_cancel.frame = CGRectMake( 651, 953, 73, 44 );
+        
+    }
+    else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
+    {
+        self.imgview_bg.image = [ UIImage imageNamed:
+                                 @"07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg" ];
+        
+        self.webview.frame = CGRectMake(46, 136, 931, 561);
+        
+        
+        self.btn_cancel.frame = CGRectMake( 904, 713, 73, 44 );
+        
+    }
+    
+    
+    //  Depending on current orientation, change the mode for the imageview
+    //  to aspect fill...
+    if ( current_orientation == UIInterfaceOrientationPortrait )
+    {
+    }
+    else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
+    {
+    }
+    else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
+    {
     }
     else
     {
-        self.imgview_template.frame =
-            CGRectMake(170, 15, 480, 640);
     }
-    
-    /*
-     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
-     {
-     if ( self.image_email.size.width > self.image_email.size.height )
-     {
-     self.imageview_selected.frame =
-     CGRectMake(0, 0, 640, 480);
-     }
-     }
-     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
-     {
-     if ( self.image_email.size.width > self.image_email.size.height )
-     {
-     self.imageview_selected.frame =
-     CGRectMake(0, 0, 640, 480);
-     }
-     }
-     */
-    
-    /*
-     //  Depending on current orientation, change the mode for the imageview
-     //  to aspect fill...
-     if ( current_orientation == UIInterfaceOrientationPortrait )
-     {
-     if ( self.selected_img.size.width > self.selected_img.size.height )
-     self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
-     }
-     else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
-     {
-     if ( self.selected_img.size.height > self.selected_img.size.width )
-     self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
-     }
-     else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
-     {
-     if ( self.selected_img.size.height > self.selected_img.size.width )
-     self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
-     }
-     else
-     {
-     self.img_taken.contentMode = UIViewContentModeScaleToFill;
-     }
-     */
 }
 
 
@@ -862,7 +874,6 @@
         [self orientElements:toInterfaceOrientation duration:duration ];
     }
 }
-
 
 
 

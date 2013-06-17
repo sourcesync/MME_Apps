@@ -242,7 +242,7 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     self.window.rootViewController = self.flickr_view;
     self.is_twitter = NO;
     
-    //self.window.rootViewController = self.facebook_view;
+    self.window.rootViewController = self.facebook_view;
     
     //  make it go !
     [self.window makeKeyAndVisible];

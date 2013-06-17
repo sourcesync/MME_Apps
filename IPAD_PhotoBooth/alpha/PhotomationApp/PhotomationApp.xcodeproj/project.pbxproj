@@ -124,6 +124,8 @@
 		B3885ECE172A383D0018429B /* TwitterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3885ECC172A383D0018429B /* TwitterViewController.m */; };
 		B3885ECF172A383D0018429B /* TwitterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3885ECD172A383D0018429B /* TwitterViewController.xib */; };
 		B3885ED1172A460B0018429B /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3885ED0172A46090018429B /* Twitter.framework */; };
+		B38AA5BB176E93030035D5ED /* 07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B38AA5BA176E93030035D5ED /* 07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg */; };
+		B38AA5BD176E93190035D5ED /* 7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B38AA5BC176E93190035D5ED /* 7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg */; };
 		B38ACAEF17430694001AA678 /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B38ACAEE17430694001AA678 /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg */; };
 		B38ACAF217432B2B001AA678 /* takephoto_horiz_practice.xib in Resources */ = {isa = PBXBuildFile; fileRef = B38ACAF117432B2B001AA678 /* takephoto_horiz_practice.xib */; };
 		B38ACAF617435E97001AA678 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = B38ACAF517435E97001AA678 /* CameraView.m */; };
@@ -394,6 +396,8 @@
 		B3885ECC172A383D0018429B /* TwitterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterViewController.m; sourceTree = "<group>"; };
 		B3885ECD172A383D0018429B /* TwitterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterViewController.xib; sourceTree = "<group>"; };
 		B3885ED0172A46090018429B /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		B38AA5BA176E93030035D5ED /* 07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/horizontalscreens-series/output/07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg"; sourceTree = "<group>"; };
+		B38AA5BC176E93190035D5ED /* 7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/verticalscreens-series/output/7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg"; sourceTree = "<group>"; };
 		B38ACAEE17430694001AA678 /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
 		B38ACAF117432B2B001AA678 /* takephoto_horiz_practice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = takephoto_horiz_practice.xib; sourceTree = "<group>"; };
 		B38ACAF417435E97001AA678 /* CameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraView.h; sourceTree = "<group>"; };
@@ -1173,6 +1177,7 @@
 		B3885EBA172A00D70018429B /* facebook_view */ = {
 			isa = PBXGroup;
 			children = (
+				B38AA5B9176E92BC0035D5ED /* res */,
 				B3856AC9176BD9C20038FCDD /* asihttprequest */,
 				B3B9B891176BBE4E00DDA96A /* FBSessionManualTokenCachingStrategy.h */,
 				B3B9B892176BBE4E00DDA96A /* FBSessionManualTokenCachingStrategy.m */,
@@ -1193,6 +1198,15 @@
 				B3885ECD172A383D0018429B /* TwitterViewController.xib */,
 			);
 			name = twitter_view;
+			sourceTree = "<group>";
+		};
+		B38AA5B9176E92BC0035D5ED /* res */ = {
+			isa = PBXGroup;
+			children = (
+				B38AA5BC176E93190035D5ED /* 7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg */,
+				B38AA5BA176E93030035D5ED /* 07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg */,
+			);
+			name = res;
 			sourceTree = "<group>";
 		};
 		B38ACAF0174314EC001AA678 /* horiz_practice */ = {
@@ -1893,6 +1907,8 @@
 				B3482C68176E751D001D8E81 /* FlickrViewController.xib in Resources */,
 				B3482C6B176E7590001D8E81 /* 07c-Photomation-iPad-Enter-Flickr-Login-Horizontal.jpg in Resources */,
 				B3482C6D176E75AA001D8E81 /* 7c-Photomation-iPad-Enter-Flickr-Login-Screen-Vertical.jpg in Resources */,
+				B38AA5BB176E93030035D5ED /* 07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg in Resources */,
+				B38AA5BD176E93190035D5ED /* 7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
