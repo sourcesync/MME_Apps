@@ -539,7 +539,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NS.key.0">05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg</string>
-			<string key="NS.object.0">{1536, 2048}</string>
+			<string key="NS.object.0">{16, 16}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

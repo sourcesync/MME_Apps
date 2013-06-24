@@ -83,16 +83,23 @@ UIInterfaceOrientation current_orientation;
 -(IBAction) btnaction_goto_efx: (id)sender
 {
     AppDelegate *app = (AppDelegate *)
-    [ [ UIApplication sharedApplication ] delegate ];
+        [ [ UIApplication sharedApplication ] delegate ];
     
-    //  Set taken photo as current photo...
+    //  Set taken photo as current photo globally...
     NSString *fname =
         [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
     NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
-    app.fpath = jpgPath;
-    app.gname = fname;
+    app.current_photo_path = jpgPath;
+    app.file_name = fname;
+    app.current_filtered_path = nil;
+    app.active_photo_is_original = YES;
+    [ AppDelegate DeleteCurrentFilteredPhoto];
     
-    [ app goto_efx:self ];
+    //  Save it to the gallery..
+    [ AppDelegate AddPhotoToGallery:self.selected_img];
+    
+    //  Next screen is efx ( the back button should take you to take photo )...
+    [ app goto_efx: app.takephoto_manual_view ];
 }
 
 

@@ -42,35 +42,19 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewWillAppear:animated];
     
-    self.selected.image = nil;
+    UIImage *img = [ AppDelegate GetActivePhoto ];
+    self.selected.image = img;
+    self.selected_img = img;
     
-    
-    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    //  Initialize orientation...
+    UIInterfaceOrientation uiorientation =
+        [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation];
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [ super viewDidAppear:animated ];
-    
-    //NSString *galleryPath = [ AppDelegate getGalleryDir ];
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    
-    //NSString *fullPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, app.fname ];
-    NSString *docPath = app.fpath;
-    
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:docPath];
-    if (fileExists)
-    {
-        UIImage *image =
-            [[[ UIImage alloc ] initWithContentsOfFile:docPath ] autorelease];
-        self.selected.image = image;
-        self.selected_img = image;
-    }
-    
-    
-    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
-    [ self orientElements:uiorientation];
 }
 
 -(IBAction) btnaction_print:(id)sender
@@ -84,7 +68,7 @@ UIInterfaceOrientation current_orientation;
 -(IBAction) btnaction_delete:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    if ( [ AppDelegate deletePhotoFromGallery:app.fpath ] )
+    if ( [ AppDelegate DeletePhotoFromGallery:app.current_photo_path ] )
     {
         AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
         [ app goto_gallery ];

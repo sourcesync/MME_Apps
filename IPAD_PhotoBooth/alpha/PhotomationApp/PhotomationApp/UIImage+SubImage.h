@@ -13,5 +13,8 @@
 - (UIImage *)pasteImage:(UIImage *)insert bounds:(CGRect)bounds;
 
 - (UIImage *)blendImage:(UIImage *)insert;
- 
+
+- (UIImage *)filterImageBlackAndWhite;
+- (UIImage *)filterImageSepia;
+
 @end

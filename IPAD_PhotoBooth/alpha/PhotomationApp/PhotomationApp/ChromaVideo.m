@@ -43,7 +43,9 @@
     }
     
     //  We need both cameras...
-    if ( !self.backCamera || !self.frontCamera )
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication] delegate];
+    if ( (!self.backCamera || !self.frontCamera )  && ( ! app.is_simulator ) )
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
                                                             message:@"Front and Back cameras are required"
@@ -75,14 +77,17 @@
     //  Create the input...
 	NSError *error = nil;
 	self.input = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:&error];
-	if (!self.input)
+	if (!self.input  )
     {
+        if (!app.is_simulator)
+        {
 		// Handle the error appropriately.
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
                                                             message:@"Cannot set device input"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
+        }
 	}
     else
     {
@@ -118,7 +123,6 @@
 
 - (void) switch_cam: (UIView *)camPreview
 {
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     [ self.session stopRunning];
     [ self.session beginConfiguration];
@@ -277,33 +281,47 @@
 
 -(void) take_pic: (int)idx
 {
-   
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in self.stillImageOutput.connections)
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate];
+    if ( app.is_simulator)
     {
-        for (AVCaptureInputPort *port in [connection inputPorts])
-        {
-            if ([[port mediaType] isEqual:AVMediaTypeVideo] )
-            {
-                videoConnection = connection;
-                break;
-            }
-        }
-        if (videoConnection) { break; }
+        UIImage *photo = [ UIImage imageNamed:@"testphoto640x480.png" ];
+        
+        NSData *imageData = UIImagePNGRepresentation(photo);
+        
+        if (delegate!=nil)
+            [ delegate PictureTaken:imageData ];
+        
     }
+    else
+    {
+    
+        AVCaptureConnection *videoConnection = nil;
+        for (AVCaptureConnection *connection in self.stillImageOutput.connections)
+        {
+            for (AVCaptureInputPort *port in [connection inputPorts])
+            {
+                if ([[port mediaType] isEqual:AVMediaTypeVideo] )
+                {
+                    videoConnection = connection;
+                    break;
+                }
+            }
+            if (videoConnection) { break; }
+        }
 
-    [self.stillImageOutput  captureStillImageAsynchronouslyFromConnection:videoConnection
+        [self.stillImageOutput  captureStillImageAsynchronouslyFromConnection:videoConnection
                                                    completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
-     {
+            {
      
-         NSData *imageData =
-            [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-         self.picData = imageData; 
-         if (delegate!=nil)
-             [ delegate PictureTaken:imageData ];
-     }
-     ];
-     
+             NSData *imageData =
+             [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+             self.picData = imageData; 
+             if (delegate!=nil)
+                 [ delegate PictureTaken:imageData ];
+            }
+         ];
+    }
+    
 }
 
 

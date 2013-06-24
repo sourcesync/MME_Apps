@@ -29,7 +29,8 @@
 {
     [super viewDidLoad];
     
-    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation uiorientation =
+        [ [ UIApplication sharedApplication] statusBarOrientation];
     AppDelegate *app = (AppDelegate *)
         [ [ UIApplication sharedApplication ] delegate ];
     app.start_orientation =uiorientation;
@@ -140,25 +141,15 @@
 {
     [ super viewWillAppear:animated];
     
-    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    //  Set current orientation..
+    UIInterfaceOrientation uiorientation =
+        [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation];
     
-
-    AppDelegate *app = (AppDelegate *)
-        [ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname =
-        [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
-    NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:jpgPath];
-    if (fileExists)
-    {
-        UIImage *image = [[[ UIImage alloc ]
-                           initWithContentsOfFile:jpgPath ] autorelease];
-        //float width = image.size.width;
-        //float height = image.size.height;
-        
-        self.selected.image = image;
-    }
+    //  Get and show active photo...
+    UIImage *img = [ AppDelegate GetActivePhoto ];
+    self.selected.image = img;
+    
     
     if ([UIPrintInteractionController isPrintingAvailable])
     {
@@ -196,7 +187,8 @@
     [ self playSelection ];
     
     AppDelegate *app = (AppDelegate *)[[ UIApplication sharedApplication] delegate ];
-    NSString *fname = [ AppDelegate addPhotoToGallery:app.selected_id is_portrait:app.is_portrait];
+    NSString *fname =
+        [ AppDelegate AddPhotoToGallery:app.selected_id is_portrait:app.is_portrait];
      
     if ( fname != nil )
     {

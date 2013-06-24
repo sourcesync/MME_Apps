@@ -95,22 +95,8 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewWillAppear:animated];
     
-    //  Get the image path...
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = app.fpath;
-
-    //  Load the image...
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
-    if (fileExists)
-    {
-        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:fname ] autorelease];
-        [ self processTemplate:image ];
-    }
-    else
-    {
-        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
-        [ self processTemplate:test ];
-    }
+    UIImage *img = [ AppDelegate GetActivePhoto ];
+    self.imgview_template.image = img;
     
     //  Initialize orientation...
     UIInterfaceOrientation uiorientation =
@@ -375,6 +361,9 @@ UIInterfaceOrientation current_orientation;
     
     //  Make sure webview is showing...
     self.webview.hidden = NO;
+    
+    //  Make sure lbl is hidden...
+    self.lbl_message.hidden = YES;
 }
 
 /*
@@ -504,6 +493,11 @@ UIInterfaceOrientation current_orientation;
         
         self.btn_cancel.frame = CGRectMake( 651, 953, 73, 44 );
         
+        
+        self.lbl_message.frame =
+            CGRectMake( 295, 401, 179, 21 );
+
+        
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
@@ -515,6 +509,9 @@ UIInterfaceOrientation current_orientation;
         
         self.btn_cancel.frame = CGRectMake( 904, 713, 73, 44 );
         
+        
+        self.lbl_message.frame =
+            CGRectMake( 423, 237, 179, 21 );
     }
     
     

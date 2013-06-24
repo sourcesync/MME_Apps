@@ -1,3 +1,4 @@
+
 //
 //  GalleryViewController.m
 //  PhotomationApp
@@ -53,6 +54,22 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewWillAppear:animated];
     
+    /*
+    //  Make sure there is at least one image for debugging purposes...
+    NSArray *arr = [AppDelegate GetGalleryPhotos ];
+    if ( [ arr count] ==0 )
+    {
+        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
+        NSString *path = [ AppDelegate AddPhotoToGallery:test ];
+        
+        AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate];
+        app.current_photo_path = path;
+        app.current_filtered_path = nil;
+        app.active_photo_is_original = YES;
+    }
+     */
+    
+    
     //  Make all image slots invisible...
     for (int i=0;i<16;i++)
     {
@@ -107,15 +124,33 @@ UIInterfaceOrientation current_orientation;
     UIButton *btn = (UIButton *)sender;
     int which = btn.tag;
     
-    NSString *fname = [ self.show_files objectAtIndex:which ];
-    NSString *galleryPath = [ AppDelegate getGalleryDir ];
-    NSString *docPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, fname ];
-    //NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:docPath];
-    
-    //  Set global path of selected photo...
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
-    app.fpath = docPath;
-    app.gname = fname;
+    
+    
+    //  Get the photo pair...
+    NSArray *pair = (NSArray *)[ self.show_files objectAtIndex:which ];
+    NSString *original = [ pair objectAtIndex:0 ];
+    NSString *filtered = [ pair objectAtIndex:1 ];
+    
+    //  Form full path to original...
+    NSString *galleryPath = [ AppDelegate GetGalleryDir ];
+    NSString *original_fullpath =
+    [ NSString stringWithFormat:@"%@/%@", galleryPath, original ];
+    app.current_photo_path = original_fullpath;
+    app.active_photo_is_original = YES;
+    app.file_name = original;
+    app.current_filtered_path = nil;
+    
+    //  Form full path to filtered if its a file...
+    if ( [ filtered compare:@""] != NSOrderedSame )
+    {
+        NSString *filterPath = [ AppDelegate GetFilterDir ];
+        NSString *filter_fullpath =
+            [ NSString stringWithFormat:@"%@/%@", filterPath, filtered ];
+        app.current_filtered_path = filter_fullpath;
+        app.active_photo_is_original = NO;
+    }
+      
     
     [ app goto_galleryselectedphoto ];
     
@@ -354,12 +389,13 @@ UIInterfaceOrientation current_orientation;
         page_size = 16;
     }
     
-    //  Get the gallery directory...
-    NSString *gallerydir = [ AppDelegate getGalleryDir ];
+    //  Get global directories...
+    NSString *gallerydir = [ AppDelegate GetGalleryDir ];
+    NSString *filtereddir = [ AppDelegate GetFilterDir ];
     
     //  HACK: get the last page_size...
-    NSArray *files = [ AppDelegate getGalleryPhotos ];
-    int len = [ files count ];
+    NSArray *pairs = [ AppDelegate GetGalleryPairs ];
+    int len = [ pairs count ];
     int first = 0;
     int last = len-1;
     if (len>page_size)
@@ -368,7 +404,7 @@ UIInterfaceOrientation current_orientation;
     }
     
     NSRange range = NSMakeRange( first, last-first+1);
-    self.show_files = [ files subarrayWithRange:range ];
+    self.show_files = [ pairs subarrayWithRange:range ];
     
     //  Hide all first and set default aspect to scale fill...
     for ( int i=0; i< 16; i++ )
@@ -387,11 +423,23 @@ UIInterfaceOrientation current_orientation;
     for ( int i=0; i<= (last-first); i++ )
     {
         //  Get the name of the jpg file...
-        NSString *jpgname = (NSString *)[ files objectAtIndex:i];
+        NSArray *pair = (NSArray *)
+            [ pairs objectAtIndex:i];
         
-        //  Form the full path to the jpg file...
+        //  Form path to original file...
+        NSString *original =
+            (NSString *)[ pair objectAtIndex:0];
         NSString *fullpath =
-        [ NSString stringWithFormat:@"%@/%@", gallerydir, jpgname ];
+            [ NSString stringWithFormat:@"%@/%@", gallerydir, original ];
+        
+        
+        //  Is there a filterd version ?  The use it instead !
+        NSString *filtered =
+            (NSString *)[ pair objectAtIndex:1];
+        if ( [ filtered compare:@""] != NSOrderedSame )
+        {
+            fullpath = [ NSString stringWithFormat:@"%@/%@", filtereddir, original ];
+        }
         
         //  Load the image...
         UIImage *image = [ [[ UIImage alloc ]

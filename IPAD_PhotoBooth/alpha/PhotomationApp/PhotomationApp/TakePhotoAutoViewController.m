@@ -10,9 +10,6 @@
 
 #import "AppDelegate.h"
 
-@interface TakePhotoAutoViewController ()
-
-@end
 
 @implementation TakePhotoAutoViewController
 
@@ -27,13 +24,10 @@
 
 - (void)viewDidLoad
 {
-    AppDelegate *app = ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    //AppDelegate *app = ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
 
     [super viewDidLoad];
-    
-    //  Setup from config...
-    self.img_bg.image = app.config.bg_takephoto_auto_vert;
-    
+
     //
     //  The camera view object...
     //
@@ -44,11 +38,9 @@
     self.camera_view.del = self;
     [ self.camera_view viewDidLoad ];
     
-    //  Initially orient everything portrait...
-    [ self orientElements:UIInterfaceOrientationPortrait duration:0 zoomScale:1.0];
     
     //  play intro sound...
-    [ self playselection ];
+    //[ self playselection ];
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,6 +53,13 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [ super viewWillAppear:animated ];
+    
+    
+    //  Position everything...
+    UIInterfaceOrientation uiorientation =
+        [ [ UIApplication sharedApplication] statusBarOrientation];
+    [ self orientElements:uiorientation duration:0 zoomScale:1.0];
+    
     
     //  Delay finalization of init because it takes camera a little while to start...
     //  TODO: should be performed via a 'done' delegate on chromavideo...
@@ -86,9 +85,8 @@
 -(void) playselection
 {
     self.state = 0;
-    AppDelegate * app =
-    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
-    [ self playSound: app.config.snd_selection usedel:NO];
+    
+    [ self playSound: @"selection" usedel:NO];
 }
 
 -(void) getready
@@ -100,31 +98,28 @@
     self.camera_view.camera_snapshot_view.hidden = YES;
     
     self.state = 1;
-    AppDelegate * app =
-        ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
-    [ self playSound: app.config.snd_getready usedel:YES];
+    
+    [ self playSound: @"getready" usedel:YES];
 }
 
 -(void) countdown
 {
     self.state = 2;
-    AppDelegate * app =
-        ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
-    [ self playSound: app.config.snd_countdown usedel:YES];
+    
+    [ self playSound: @"countdown" usedel:YES];
 }
 
 
 
 - (void) finishInit
 {
-    AppDelegate * app =
-        ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
     
     //
     //  start the sequence...
     //
     self.state = 0;
-    [ self playSound:app.config.snd_selection  usedel:YES ];
+    //[ self playSound:@"getready"  usedel:YES ];
+    [ self getready ];
 }
 
 
@@ -132,13 +127,13 @@
 #pragma audio
 
 
-- (void) playSound:(NSURL *)sound usedel:(BOOL)usedel
+- (void) playSound:(NSString *)name usedel:(BOOL)usedel
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     if (usedel)
-        [ app playSound:sound delegate:self];
+        [ app.config PlaySound:name del:self ];
     else
-        [ app playSound:sound delegate:nil];
+        [ app.config PlaySound:name del:nil];
 }
 
 
@@ -165,6 +160,11 @@
 
 #pragma chroma stuff...
 
+-(void) goto_selectfavorite:(id)obj
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app goto_selectfavorite ];
+}
 
 -(void) PictureTaken:(NSData *)imageData
 {
@@ -250,7 +250,7 @@
         //self.img_bg.image = [ UIImage imageNamed:@"bg_takephoto_lightsoff_768_955.png"];
         
         // Goto select-favorite view after small delay...
-        //[ self performSelector:@selector(goto_selectfavorite) withObject:self afterDelay:1 ];
+        [ self performSelector:@selector(goto_selectfavorite:) withObject:self afterDelay:1 ];
     }
     else
     {
@@ -299,16 +299,31 @@
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.img_bg.image = app.config.bg_takephoto_auto_vert;
+        self.img_bg.image = [ app.config GetImage:@"take_ap"];
         
-        [ self.camera_view willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration
+        self.preview_parent.frame = CGRectMake(202, 228, 366, 430);
+        self.camera_normal_view.frame = CGRectMake(0, 0, 366, 430);
+        self.camera_snapshot_view.frame = CGRectMake(0, 0, 366, 430);
+        
+        
+        [ self.camera_view
+            willRotateToInterfaceOrientation:toInterfaceOrientation
+                                            duration:duration
                                                   zoomScale:zoomScale];
+         
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        self.img_bg.image = app.config.bg_takephoto_auto_horiz;
+        self.img_bg.image = [ app.config GetImage:@"take_al"];
         
-        [ self.camera_view willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration
+        self.preview_parent.frame = CGRectMake(269, 136, 485, 396);
+        self.camera_normal_view.frame = CGRectMake(0, 0, 485, 396);
+        self.camera_snapshot_view.frame = CGRectMake(0, 0, 485, 396);
+        
+        
+        [ self.camera_view
+            willRotateToInterfaceOrientation:toInterfaceOrientation
+                                            duration:duration
                                                   zoomScale:zoomScale];
         
     }

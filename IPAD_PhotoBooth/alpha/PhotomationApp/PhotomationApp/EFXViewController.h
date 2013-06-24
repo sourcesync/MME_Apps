@@ -10,10 +10,15 @@
 
 @interface EFXViewController : UIViewController
 
+//  state...
+@property (nonatomic, assign) BOOL use_original;
+@property (nonatomic, retain) UIImage *original_img;
+@property (nonatomic, retain) UIImage *filtered_img;
+
+//  controls...
 @property (nonatomic, retain) IBOutlet UIImageView *img_bg;
 @property (nonatomic, retain) IBOutlet UIImageView *img_taken;
 
-@property (nonatomic, retain) UIImage *selected_img;
 
 @property (nonatomic, retain) IBOutlet UIButton *btn_back;
 @property (nonatomic, retain) IBOutlet UIButton *btn_goback;
@@ -29,7 +34,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *btn_photobooth;
 @property (nonatomic, retain) IBOutlet UIButton *btn_settings;
 
-
+//  actions...
 -(IBAction) btnaction_gallery:(id)sender;
 -(IBAction) btnaction_photobooth:(id)sender;
 -(IBAction) btnaction_settings:(id)sender;
@@ -37,5 +42,10 @@
 -(IBAction) btnaction_filter: (id)sender;
 -(IBAction) btnaction_back: (id)sender;
 -(IBAction) btnaction_ilikeit: (id)sender;
+-(IBAction) btnaction_one: (id)sender;
+-(IBAction) btnaction_two: (id)sender;
+-(IBAction) btnaction_three: (id)sender;
+
+
 
 @end

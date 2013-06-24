@@ -57,12 +57,21 @@ UIInterfaceOrientation current_orientation;
     [ super viewWillAppear:animated];
     
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = app.fpath;
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
+    NSString *fullPath = nil;
+    if ( app.current_photo_path && app.current_filtered_path )
+    {
+        fullPath = app.current_filtered_path;
+    }
+    else if (app.current_photo_path )
+    {
+        fullPath = app.current_photo_path;
+    }
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
     if (fileExists)
     {
         UIImage *image =
-            [[[ UIImage alloc ] initWithContentsOfFile:fname ] autorelease];
+            [[[ UIImage alloc ] initWithContentsOfFile:fullPath ] autorelease];
         float width = image.size.width;
         float height = image.size.height;
         
@@ -83,11 +92,7 @@ UIInterfaceOrientation current_orientation;
         self.imgview_template.image = self.image_facebook;
 
     }
-    else
-    {
-        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];        
-        [ self processTemplate:test ];
-    }
+    
     
     
     //
@@ -248,17 +253,23 @@ UIInterfaceOrientation current_orientation;
     NSString *message = [NSString stringWithFormat:@"Photomation Rocks!"];
     
     //  Form path to file to upload....
-    AppDelegate *app = [ AppDelegate sharedDelegate];
-    NSString *filePath = app.fpath;
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-    if (!fileExists)
-        filePath = [[NSBundle mainBundle] pathForResource:@"testphoto640x480" ofType:@"png"];
+    NSString *fullPath = nil;
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    if ( app.current_photo_path && app.current_filtered_path )
+    {
+        fullPath = app.current_filtered_path;
+    }
+    else if (app.current_photo_path )
+    {
+        fullPath = app.current_photo_path;
+    }
     
     
     //  Make a form request object...
     NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/photos"];
     self.asi_request = [ASIFormDataRequest requestWithURL:url];
-    [self.asi_request  addFile:filePath forKey:@"file"];
+    [self.asi_request  addFile:fullPath forKey:@"file"];
     [self.asi_request  setPostValue:message forKey:@"message"];
     [self.asi_request  setPostValue:access_token forKey:@"access_token"];
     [self.asi_request  setDidFinishSelector:@selector(sendToPhotosFinished:)];
@@ -403,6 +414,10 @@ UIInterfaceOrientation current_orientation;
         
         self.btn_cancel.frame = CGRectMake( 651, 953, 73, 44 );
         
+        
+        self.lbl_message.frame =
+            CGRectMake( 295, 401, 179, 21 );
+        
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
@@ -414,6 +429,9 @@ UIInterfaceOrientation current_orientation;
         
         self.btn_cancel.frame = CGRectMake( 904, 713, 73, 44 );
         
+        
+        self.lbl_message.frame =
+            CGRectMake( 423, 237, 179, 21 );
     }
     
     

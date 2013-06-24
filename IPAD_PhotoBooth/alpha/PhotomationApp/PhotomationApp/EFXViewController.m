@@ -9,10 +9,8 @@
 #import "EFXViewController.h"
 
 #import "AppDelegate.h"
-
-@interface EFXViewController ()
-
-@end
+#import "UIImage+SubImage.h"
+#import "UIImage+Resize.h"
 
 @implementation EFXViewController
 
@@ -45,31 +43,74 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewWillAppear:animated];
     
-    AppDelegate *app = (AppDelegate *)
-        [ [ UIApplication sharedApplication ] delegate ];
-    //NSString *fname =
-    //    [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
-    //NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
-    NSString *jpgPath = app.fpath;
+    //  Get original file/image...
+    self.original_img = [ AppDelegate GetCurrentOriginalPhoto ];
     
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:jpgPath];
-    if (fileExists)
-    {
-        UIImage *image = [[[ UIImage alloc ]
-                           initWithContentsOfFile:jpgPath ] autorelease];
-        //float width = image.size.width;
-        //float height = image.size.height;
-        
-        self.img_taken.image = image;
-        self.selected_img = image;
-    }
+    //  Get (any) filtered version that is active...
+    self.filtered_img = [ AppDelegate GetCurrentFilteredPhoto ];
     
-    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    //  Is active image original or filtered ?...
+    AppDelegate *app = (AppDelegate *) [ [ UIApplication sharedApplication ] delegate ];
+    self.use_original = app.active_photo_is_original;
+    
+    //  Display...
+    if (self.use_original)
+        self.img_taken.image = self.original_img;
+    else
+        self.img_taken.image = self.filtered_img;
+    
+    //  Initialize orientation...
+    UIInterfaceOrientation uiorientation =
+        [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation  duration:0];
     
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [ super viewWillDisappear:animated];
     
+    if (self.use_original)
+    {
+        //  Make sure any filtered version is deleted...
+        [ AppDelegate DeleteCurrentFilteredPhoto];
+    }
     
 }
+
+#pragma general funcs
+
+
+-(UIImage *) processTemplate:(UIImage *)insert
+{
+    //  Load the template...
+    UIImage *template = [ UIImage imageNamed:@"email.jpg" ];
+    
+    // Resize the template to the final res...
+    CGSize sz = CGSizeMake(400,600);
+    UIImage *rsize_template = [ template
+                               resizedImage:sz interpolationQuality:kCGInterpolationHigh ];
+    
+    //  Resize the insert...
+    //CGSize isz = CGSizeMake(240, 320);
+    CGSize isz = CGSizeMake(320, 427);
+    UIImage *rsize_insert = [ insert
+                             resizedImage:isz interpolationQuality:kCGInterpolationHigh ];
+    
+    //  Place the insert...
+    //CGRect rect = CGRectMake(80, 140, 240, 320);
+    CGRect rect = CGRectMake(40, 70, 320, 427);
+    UIImage *result = [ rsize_template pasteImage:rsize_insert bounds:rect ];
+    
+    UIImage *rot = [ UIImage imageWithCGImage:result.CGImage scale:1.0 orientation:UIImageOrientationUp ];
+    
+    self.img_taken.image = rot;
+    
+    return rot;
+}
+
+
 
 #pragma buttons
 
@@ -123,17 +164,57 @@ UIInterfaceOrientation current_orientation;
 {
     AppDelegate *app = (AppDelegate *)
         [ [ UIApplication sharedApplication ] delegate ];
+    [ app efx_go_back];
     
-    //  Save to gallery in app mode, because we got here from take-pic and we
-    //  haven't saved to gallery yet...
-    NSString *fname = [ AppDelegate addPhotoToGallery:0
-                                          is_portrait:app.is_portrait];
-    if (fname!=nil)
-    {
-        //  In app mode, go to share photo now...
-        [ app goto_sharephoto:self ];
-    }
 }
+
+
+-(IBAction) btnaction_one: (id)sender
+{
+    //  Show original...
+    self.img_taken.image = self.original_img;
+    
+    //  Set it globally...
+    self.use_original = YES;
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication ] delegate ];
+    app.active_photo_is_original = YES;
+}
+
+
+-(IBAction) btnaction_two: (id)sender
+{
+    //  Filter the original...
+    UIImage *filtered = [ self.original_img filterImageBlackAndWhite ];
+    
+    //  Show the filtered image...
+    self.img_taken.image = filtered;
+    
+    //  Set it globally...
+    [ AppDelegate SetCurrentFilteredPhoto:filtered];
+    self.use_original = NO;
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication ] delegate ];
+    app.active_photo_is_original = NO;
+}
+
+
+-(IBAction) btnaction_three: (id)sender
+{
+    //  Filter the original...
+    UIImage *filtered = [ self.original_img filterImageSepia ];
+    
+    //  Show the filtered image...
+    self.img_taken.image = filtered;
+    
+    //  Set it globally...
+    [ AppDelegate SetCurrentFilteredPhoto:filtered];
+    self.use_original = NO;
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication ] delegate ];
+    app.active_photo_is_original = NO;
+}
+
 
 
 #pragma rotation stuff
@@ -212,7 +293,7 @@ UIInterfaceOrientation current_orientation;
         
         self.img_taken.frame = CGRectMake(235, 82, 554, 415);
         
-        self.btn_back.frame = CGRectMake(2,11, 129, 44);
+        self.btn_back.frame = CGRectMake(13,9, 129, 44);
         
         self.btn_goback.frame = CGRectMake(358,609, 129, 44);
         self.btn_ilikeit.frame = CGRectMake(524,609, 129, 44);
@@ -234,17 +315,17 @@ UIInterfaceOrientation current_orientation;
     //  to aspect fill...
     if ( current_orientation == UIInterfaceOrientationPortrait )
     {
-        if ( self.selected_img.size.width > self.selected_img.size.height )
+        if ( self.original_img.size.width > self.original_img.size.height )
             self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
     }
     else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
     {
-        if ( self.selected_img.size.height > self.selected_img.size.width )
+        if ( self.original_img.size.height > self.original_img.size.width )
             self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
     }
     else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
     {
-        if ( self.selected_img.size.height > self.selected_img.size.width )
+        if ( self.original_img.size.height > self.original_img.size.width )
             self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
     }
     else

@@ -11,9 +11,6 @@
 #import "AppDelegate.h"
 #import "UIImage+Resize.h"
 
-@interface TakePhotoManualViewController ()
-
-@end
 
 @implementation TakePhotoManualViewController
 
@@ -33,7 +30,6 @@ UIInterfaceOrientation current_orientation;
 {
     [super viewDidLoad];
 
-    AppDelegate *app = ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
 
     //  Initialize state...
     self.allow_snap = NO;
@@ -47,9 +43,6 @@ UIInterfaceOrientation current_orientation;
     self.camera_normal_view.hidden = YES;
     self.camera_snapshot_view.hidden = YES;
     
-    
-    //  Setup from config...
-    self.img_bg.image = app.config.bg_takephoto_manual_vert;
     
     //
     //  The camera view object...
@@ -68,24 +61,16 @@ UIInterfaceOrientation current_orientation;
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [ self.camera_view viewWillAppear];
+    [ super viewWillAppear:animated];
     
+    //  setup camera view
+    [ self.camera_view viewWillAppear];
+   
     //  Initialize ui...
     self.preview_parent.hidden = YES;
     self.camera_normal_view.hidden = YES;
     self.camera_snapshot_view.hidden = YES;
     
-    
-    /*
-    [[UIApplication sharedApplication] status
-    //  Initially orient everything portrait..
-    UIInterfaceOrientation uiorientation = UIInterfaceOrientationPortrait;
-    UIDeviceOrientation orientation = [ [ UIDevice currentDevice] orientation ];
-    if ( orientation == UIDeviceOrientationLandscapeLeft )
-        uiorientation = UIInterfaceOrientationLandscapeLeft;
-    else if ( orientation == UIDeviceOrientationLandscapeRight )
-        uiorientation = UIInterfaceOrientationLandscapeRight;
-    */
     UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation duration:0 zoomScale:self.zoomScale];
     
@@ -105,7 +90,7 @@ UIInterfaceOrientation current_orientation;
             app.start_orientation_mask = UIInterfaceOrientationMaskPortrait;
     }
     
-    //  Allow rotations again...
+    //  Make sure to allow rotations again...
     app.lock_orientation = NO;
     
     //  Delay finalization of init because it takes camera a little while to start...
@@ -122,8 +107,6 @@ UIInterfaceOrientation current_orientation;
     
     //[self.vImagePreview.layer addSublayer:app.captureVideoPreviewLayer];
     //[ self stopChroma ];
-    
-    
     //[ self.session stopRunning ];
 }
 
@@ -143,29 +126,41 @@ UIInterfaceOrientation current_orientation;
     //  Lock the orientation to current one...
     AppDelegate *app =
         ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
-    app.lock_orientation = YES;
-    app.taken_pic_orientation = current_orientation;
-    if ( current_orientation == UIInterfaceOrientationPortrait )
-        app.take_pic_supported_orientations = UIInterfaceOrientationMaskPortrait;
-    else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
-        app.take_pic_supported_orientations = UIInterfaceOrientationMaskLandscapeLeft;
-    else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
-        app.take_pic_supported_orientations = UIInterfaceOrientationMaskLandscapeRight;
+    
+    //  If simulator then fake it...
+    if ( app.is_simulator)
+    {
+        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
+        self.fake_data = UIImageJPEGRepresentation(test, 1.0f);
+        [ self PictureTaken:self.fake_data];
+    }
     else
-        app.take_pic_supported_orientations = UIInterfaceOrientationMaskAll;
+    {
     
-    //  Cancel any currently scheduled activity to automatically goto next view...
-    [ self cancelAutoNext ];
+        app.lock_orientation = YES;
+        app.taken_pic_orientation = current_orientation;
+        if ( current_orientation == UIInterfaceOrientationPortrait )
+            app.take_pic_supported_orientations = UIInterfaceOrientationMaskPortrait;
+        else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
+            app.take_pic_supported_orientations = UIInterfaceOrientationMaskLandscapeLeft;
+        else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
+            app.take_pic_supported_orientations = UIInterfaceOrientationMaskLandscapeRight;
+        else
+            app.take_pic_supported_orientations = UIInterfaceOrientationMaskAll;
     
-    //  Show the preview, hide the snapshot...
-    self.camera_snapshot_view.hidden = YES;
-    self.camera_normal_view.hidden = NO;
+        //  Cancel any currently scheduled activity to automatically goto next view...
+        [ self cancelAutoNext ];
     
-    //  Take the pic...
-    [ self captureNow ];
+        //  Show the preview, hide the snapshot...
+        self.camera_snapshot_view.hidden = YES;
+        self.camera_normal_view.hidden = NO;
     
-    //  Play get-ready, and initiate the take pic sequence...
-    // [ self getready ];
+        //  Take the pic...
+        [ self captureNow ];
+    
+        //  Play get-ready, and initiate the take pic sequence...
+        // [ self getready ];
+    }
 }
 
 -(IBAction) btnaction_swapcam: (id)sender
@@ -468,11 +463,6 @@ UIInterfaceOrientation current_orientation;
         is_portrait = YES;
     }
     
-    // Identify the home directory and file name
-    //fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",0];
-    //jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
-    //is_portrait = YES;
-    
     //  Possibly deal with scaling...
     //if (self.zoomScale!=1.0)
     
@@ -503,20 +493,14 @@ UIInterfaceOrientation current_orientation;
      
          image = subImage;
     }
-    //else
-    //{
-         //  Set the thumbnail...
-         //thumb.hidden = NO;
-         //thumb.image = image;
-     
-         // Write the file...
-         //[imageData writeToFile:jpgPath atomically:YES];
-    //}
     
     //  Globally set the selected photo (and path)...
     app.selected_id = 0;
-    app.fpath = jpgPath;
+    app.current_photo_path = jpgPath;
+    app.current_filtered_path = nil;
     app.is_portrait = is_portrait;
+    [ AppDelegate DeleteCurrentFilteredPhoto];
+    
     
     // Set the snapshot image...
     self.camera_snapshot_view.image = image;
@@ -593,7 +577,8 @@ UIInterfaceOrientation current_orientation;
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.img_bg.image = app.config.bg_takephoto_manual_vert;
+        self.img_bg.image = [ app.config GetImage:@"take_mp"];
+        
         
         [ self reposition:self.btn_flash : app.config.pt_btn_flash_vert ];
         [ self reposition:self.btn_swapcam : app.config.pt_btn_swapcam_vert ];
@@ -614,7 +599,8 @@ UIInterfaceOrientation current_orientation;
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        self.img_bg.image = app.config.bg_takephoto_manual_horiz;
+        self.img_bg.image = [ app.config GetImage:@"take_ml"];
+        
         
         [ self reposition:self.btn_flash : app.config.pt_btn_flash_horiz ];
         [ self reposition:self.btn_swapcam : app.config.pt_btn_swapcam_horiz ];

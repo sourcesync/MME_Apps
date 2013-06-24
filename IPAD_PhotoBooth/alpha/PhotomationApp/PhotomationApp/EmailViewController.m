@@ -12,11 +12,6 @@
 #import "UIImage+Resize.h"
 #import "UIImage+SubImage.h"
 
-/*
-@interface EmailViewController ()
-
-@end
-*/
 
 @implementation EmailViewController
 
@@ -25,7 +20,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        // Custom initialization
     }
     return self;
 }
@@ -33,15 +27,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
+    //  one time init for field...
     self.fld_email.delegate = self;
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -49,15 +43,9 @@
 {
     [ super viewWillAppear:animated];
     
-    self.fld_email.frame =
-        CGRectMake( self.fld_email.frame.origin.x, self.fld_email.frame.origin.y,
-                   self.fld_email.frame.size.width, 40 );
-    //NSString *galleryPath = [ AppDelegate getGalleryDir ];
-    //NSString *fullPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, self.selected_fname ];
-    
+    //  Get the file/image to display...
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fullPath = app.fpath;
-    
+    NSString *fullPath = app.current_photo_path;
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
     if (fileExists)
     {
@@ -80,9 +68,6 @@
                                                           raw2:nil
                                                       vertical:YES ];
         }
-        
-        
-        
         self.imageview_selected.image = self.image_email;
     }
     else
@@ -93,17 +78,71 @@
         self.imageview_selected.image = test;
     }
     
+    //  Initialize the text field...
     self.fld_email.text = @"";
+    self.fld_email.frame =
+    CGRectMake( self.fld_email.frame.origin.x, self.fld_email.frame.origin.y,
+               self.fld_email.frame.size.width, 40 );
+    
+    //  Initialize the message label...
+    self.lbl_message.hidden = YES;
+    
+    //  Initialize orientation and control positions...
+    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    [ self orientElements:uiorientation  duration:0];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [ super viewDidAppear:animated];
     
-    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
-    [ self orientElements:uiorientation  duration:0];
-    
+    //  This will popup the keyboard..
     [ self.fld_email becomeFirstResponder ];
+    
+    //  In experience mode, start the timer...
+    [ self restartTimer ];
+
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [ super viewWillDisappear:animated];
+    
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+#pragma actions
+
+-(void) restartTimer
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    //  we only do timer stuff in experience mode...
+    if ( app.config.mode == 1) return;
+    
+    //  kill the current timer, if any...
+    if (self.timer!=nil) [self.timer invalidate];
+    self.timer = nil;
+    
+    //  start the new timer...
+    int timeout = app.config.startview_timeout;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:timeout
+                                                  target:self
+                                                selector:@selector(timerExpired:)
+                                                userInfo:nil
+                                                 repeats:NO];
+}
+
+-(void) timerExpired: (id)obj
+{
+    //  If got here, and we are the primary view
+    //  then go back to start
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    if (app.window.rootViewController == self)
+    {
+        [ app goto_start ];
+    }
 }
 
 
@@ -112,19 +151,18 @@
     self.fld_email.text = @"george@devnullenterprises.com";
 }
 
--(BOOL) postimage:(NSString *)email
++(BOOL) postimage:(NSString *)email image:(UIImage *)image
 {
-    
-    
     //  Write out to file as png to preserve transparency...
+    //NSData *imageData =
+    //    UIImageJPEGRepresentation(self.image_email, 1.0);
     NSData *imageData =
-        UIImageJPEGRepresentation(self.image_email, 1.0);
+        UIImageJPEGRepresentation(image, 1.0);
     if ( !imageData )
     {
         [ AppDelegate ErrorMessage:@"Cannot Get Image Data"];
         return false;
     }
-    
     
     NSString *urlString = [NSString stringWithFormat:@"%@ipad_app_send.php", @"http://photomation.mmeink.com/"];
  
@@ -216,39 +254,6 @@
 }
  
 
-/*
--(IBAction) btn_send:(id)sender
-{
-    NSString *email = self.fld_email.text;
-    if ([ email rangeOfString:@"@"].location == NSNotFound)
-    {
-        [ AppDelegate ErrorMessage:@"Invalid email address" ];
-    }
-    else
-    {
-        self.btn_cancel.enabled = NO;
-    
-        if ( ![ self postimage: email ])
-        {
-            [ AppDelegate InfoMessage:@"Email Sent"];
-        
-        self.btn_cancel.enabled = YES;
-       
-    }
-}
- */
-
-
-/*
--(IBAction)donePressed:(id)sender
-{
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    
-    [ app email_go_back ];
-}
- */
- 
-
 -(IBAction) btn_cancel:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
@@ -313,6 +318,13 @@
             self.imageview_selected.frame =
                 CGRectMake(231, 223, 306, 409);
         }
+        
+        self.lbl_message.frame =
+            CGRectMake( 295, 401, 179, 21 );
+        
+        
+        //  NOTE: THIS MIGHT BE YOUR PROBLEM !!
+        self.imageview_selected.hidden = YES;
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
@@ -332,32 +344,16 @@
             self.imageview_selected.frame =
                 CGRectMake(439, 131, 146, 194);
         }
+        
+        self.lbl_message.frame =
+            CGRectMake( 423, 237, 179, 21 );
+        
+        
+        //  NOTE: THIS MIGHT BE YOUR PROBLEM !!
+        self.imageview_selected.hidden = YES;
     }
      
     
-    /*
-    //  Depending on current orientation, change the mode for the imageview
-    //  to aspect fill...
-    if ( current_orientation == UIInterfaceOrientationPortrait )
-    {
-        if ( self.selected_img.size.width > self.selected_img.size.height )
-            self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
-    }
-    else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
-    {
-        if ( self.selected_img.size.height > self.selected_img.size.width )
-            self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
-    }
-    else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
-    {
-        if ( self.selected_img.size.height > self.selected_img.size.width )
-            self.img_taken.contentMode = UIViewContentModeScaleAspectFit;
-    }
-    else
-    {
-        self.img_taken.contentMode = UIViewContentModeScaleToFill;
-    }
-     */
 }
 
 
@@ -377,8 +373,42 @@
 
 #pragma text field stuff
 
+- (void) doIt
+{
+    AppDelegate *app =
+    (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    NSString *email = self.fld_email.text;
+    
+    //  In experience mode, we stash the email for sending later...
+    if ( app.config.mode==1)
+    {
+        app.current_email = email;
+        [ app goto_takephoto ];
+    }
+    else // In app/manual mode, send now...
+    {
+
+        if ( ![ EmailViewController postimage:email  image:self.image_email ] )
+        {
+            [ AppDelegate InfoMessage:@"Error Sending Email"];
+        }
+        else
+        {
+            [ app email_go_back ];
+        }
+        
+        self.btn_cancel.enabled = YES;
+    }
+    
+}
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    //  restart the timer...
+    [ self restartTimer ];
+    
+    //  get the email...
     NSString *email = self.fld_email.text;
     if ([ email rangeOfString:@"@"].location == NSNotFound)
     {
@@ -387,22 +417,37 @@
     }
     else
     {
+        AppDelegate *app =
+        (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+        if ( app.config.mode==0) // manual mode, do some ui stuff...
+        {
+            self.imageview_selected.hidden = YES;
+            self.lbl_message.hidden = NO;
+            self.lbl_message.text = @"Sending...";
+        }
+        
+        [ self performSelector:@selector( doIt ) withObject:self afterDelay:0.01];
+        
         self.btn_cancel.enabled = NO;
-        
-        if ( ![ self postimage: email ] )
-        {
-            [ AppDelegate InfoMessage:@"Error Sending Email"];
-        }
-        else
-        {
-            AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-            [ app email_go_back ];
-        }
-        
-        self.btn_cancel.enabled = YES;
-        
+                
         return YES;
     }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    //  Restart the timer...
+    [ self restartTimer ];
+    
+    NSLog( @"did begin editing");
+}
+
+-(BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    //  Restart the timer...
+    [ self restartTimer ];
+    
+    return YES;
 }
 
 /*

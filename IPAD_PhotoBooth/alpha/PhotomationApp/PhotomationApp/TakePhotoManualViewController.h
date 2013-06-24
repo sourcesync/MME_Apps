@@ -26,7 +26,8 @@
 @interface TakePhotoManualViewController : UIViewController
     <AVAudioPlayerDelegate,
     ChromaVideoDelegate,
-    AVCaptureVideoDataOutputSampleBufferDelegate>
+    AVCaptureVideoDataOutputSampleBufferDelegate,
+    NSURLConnectionDelegate>
 
 //  state...
 @property (nonatomic, assign) int state;
@@ -34,6 +35,7 @@
 @property (nonatomic, assign) float zoomScale;
 @property (nonatomic, assign) bool bCancelAutoNext;
 @property (nonatomic, assign) bool AutoNextScheduled;
+@property (nonatomic, retain) NSData *fake_data;
 
 //  preview parent...
 @property (nonatomic, retain) IBOutlet UIView *preview_parent;
@@ -47,6 +49,8 @@
 //  background image...
 @property (nonatomic, retain) IBOutlet UIImageView *img_bg;
 
+//  test
+@property (nonatomic, retain) IBOutlet UIImageView *test;
 //  tab bar buttons...
 @property (nonatomic, retain) IBOutlet UIButton *btn_gallery;
 @property (nonatomic, retain) IBOutlet UIButton *btn_photobooth;

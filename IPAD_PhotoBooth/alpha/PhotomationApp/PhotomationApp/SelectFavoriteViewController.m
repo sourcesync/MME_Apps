@@ -116,7 +116,7 @@
     app.selected_id = tag;
     NSString *fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg", app.selected_id ];
     NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
-    app.fpath = jpgPath;
+    app.current_photo_path = jpgPath;
     
     //  Show selected photo screen...
     [ app goto_selectedphoto ];
@@ -160,12 +160,14 @@
 
 -(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
 {
+    AppDelegate *app = (AppDelegate *)[[ UIApplication sharedApplication] delegate ];
+    
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        /*
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"8-Photomation-iPad-Gallery-Main-Screen-Vertical.jpg" ];
         
+        self.img_bg.image = [ app.config GetImage:@"your_mp" ];
+        
+        /*
         CGRect rect = CGRectMake(119,171, 117,156);
         self.one.frame = rect;
         self.bone.frame = rect;
@@ -213,8 +215,9 @@
         rect = CGRectMake(532, 534, 117,156);
         self.twelve.frame = rect;
         self.btwelve.frame = rect;
+         */
         
-        //
+        /*
         rect = CGRectMake(200,944, 73,72);
         self.btn_gallery.frame = rect;
         
@@ -233,6 +236,8 @@
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
+        
+        self.img_bg.image = [ app.config GetImage:@"your_ml" ];
         /*
         self.img_bg.image = [ UIImage imageNamed:
                              @"8-Photomation-iPad-Gallery-Main-Screen-Horizontal.jpg" ];

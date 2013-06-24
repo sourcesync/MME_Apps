@@ -49,12 +49,22 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewWillAppear:animated];
     
-    //NSString *galleryPath = [ AppDelegate getGalleryDir ];
-    //NSString *fullPath = [ NSString stringWithFormat:@"%@/%@", galleryPath, self.selected_fname ];
-    
+    //
+    //  Get photo to share/display...
+    //
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fullPath = app.fpath;
-                          
+    
+    //  Try first filtered image...
+    NSString *fullPath = nil;
+    if ( app.current_photo_path && app.current_filtered_path )
+    {
+        fullPath = app.current_filtered_path;
+    }
+    else if (app.current_photo_path )
+    {
+        fullPath = app.current_photo_path;
+    }
+    
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
     if (fileExists)
     {
@@ -62,35 +72,12 @@ UIInterfaceOrientation current_orientation;
             [[[ UIImage alloc ] initWithContentsOfFile:fullPath ] autorelease];
         self.selected.image= image;
         self.selected_img = image;
-        
-        //  Get the tweet image...
-        float width = image.size.width;
-        float height = image.size.height;
-        
-        if ( width > height )
-        {
-            self.image_tweet =  [ app processTemplateWatermark:image
-                                                          raw1:nil
-                                                          raw2:nil
-                                                      vertical:NO ];
-        }
-        else
-        {
-            self.image_tweet =  [ app processTemplateWatermark:image
-                                                          raw1:nil
-                                                          raw2:nil
-                                                      vertical:YES ];
-        }
 
     }
-    else
-    {
-        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
-        self.selected.image= test;
-    }
     
     
-    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation uiorientation =
+        [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation];
 }
 

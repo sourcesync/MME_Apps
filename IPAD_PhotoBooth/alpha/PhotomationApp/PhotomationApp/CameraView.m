@@ -79,7 +79,7 @@ float zoomScale=1.0;
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {        
-        self.preview_parent.frame = app.config.rect_preview_vert;
+        //gw self.preview_parent.frame = app.config.rect_preview_vert;
         
         self.camera_normal_view.transform = CGAffineTransformIdentity;
         
@@ -100,7 +100,7 @@ float zoomScale=1.0;
             (int)(app.config.rect_preview_size_vert.size.height/2.0f);
             
             //self.camera_normal_view.frame = app.config.rect_preview_size_vert;
-            self.camera_normal_view.frame = rec;
+            //GW self.camera_normal_view.frame = rec;
         }
         else
         {
@@ -119,7 +119,7 @@ float zoomScale=1.0;
             (int)(app.config.rect_preview_size_vert.size.height/2.0f);
         
             //self.camera_normal_view.frame = app.config.rect_preview_size_vert;
-            self.camera_normal_view.frame = rec;
+            //GW self.camera_normal_view.frame = rec;
         }
         
         app.chroma_video.captureVideoPreviewLayer.bounds = app.config.rect_preview_size_vert;
@@ -130,7 +130,7 @@ float zoomScale=1.0;
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
         
-        self.preview_parent.frame = app.config.rect_preview_horiz;
+        //gw self.preview_parent.frame = app.config.rect_preview_horiz;
         
         self.camera_normal_view.transform = CGAffineTransformIdentity;
         
@@ -150,6 +150,7 @@ float zoomScale=1.0;
             if ( toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft)
             {
                 
+                
                 rec = app.config.rect_preview_size_horiz;
                 int new_width = app.config.rect_preview_size_horiz.size.width * zoomScale;
                 rec.origin.x = rec.origin.x -
@@ -160,6 +161,7 @@ float zoomScale=1.0;
                 rec.origin.y = rec.origin.y -
                 (int)(new_height/2.0f) +
                 (int)(app.config.rect_preview_size_horiz.size.height/2.0f);
+                 
             }
             else if ( toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
             {
@@ -177,7 +179,8 @@ float zoomScale=1.0;
             }
             
             //self.camera_normal_view.frame = app.config.rect_preview_size_horiz;
-            self.camera_normal_view.frame = rec;
+            
+            //GW self.camera_normal_view.frame = rec;
         }
         else
         {
@@ -210,6 +213,8 @@ float zoomScale=1.0;
             {
                 rec = app.config.rect_preview_size_horiz;
                 
+                
+                
                 int new_width = app.config.rect_preview_size_horiz.size.width * zoomScale;
                 rec.origin.x = rec.origin.x -
                 (int)(new_width/2.0f) +
@@ -222,7 +227,8 @@ float zoomScale=1.0;
             }
             
             //self.camera_normal_view.frame = app.config.rect_preview_size_horiz;
-            self.camera_normal_view.frame = rec;
+            
+            //GW self.camera_normal_view.frame = rec;
         }
         
         

@@ -101,20 +101,8 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewWillAppear:animated];
     
-    //  Get filepath to image and set imageview...
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = app.fpath;
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fname];
-    if (fileExists)
-    {
-        UIImage *image = [[[ UIImage alloc ] initWithContentsOfFile:fname ] autorelease];
-        [ self processTemplate:image ];
-    }
-    else
-    {
-        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
-        [ self processTemplate:test ];
-    }
+    UIImage *img = [ AppDelegate GetActivePhoto ];
+    self.imgview_template.image = img;
     
     //  Initialize orientation...
     UIInterfaceOrientation uiorientation =
@@ -299,6 +287,9 @@ UIInterfaceOrientation current_orientation;
     //  make sure webview is visible...
     self.webview.hidden = NO;
     
+    //  make sure label is hidden...
+    self.lbl_message.hidden = YES;
+    
 }
 
 
@@ -314,7 +305,7 @@ UIInterfaceOrientation current_orientation;
 	
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	
-    [ self done];
+    //[ self done];
 }
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
@@ -444,6 +435,10 @@ UIInterfaceOrientation current_orientation;
         
         self.btn_cancel.frame = CGRectMake( 651, 953, 73, 44 );
         
+        
+        self.lbl_message.frame =
+            CGRectMake( 295, 401, 179, 21 );
+        
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
@@ -455,6 +450,9 @@ UIInterfaceOrientation current_orientation;
         
         self.btn_cancel.frame = CGRectMake( 904, 713, 73, 44 );
         
+        
+        self.lbl_message.frame =
+            CGRectMake( 423, 237, 179, 21 );
     }
     
     

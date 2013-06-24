@@ -58,10 +58,11 @@
     
     AppDelegate *app = (AppDelegate *)
         [ [ UIApplication sharedApplication ] delegate ];
-    NSString *fname = app.fpath;
+    NSString *fname = app.current_photo_path;
     
     
-    UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation uiorientation =
+        [ [ UIApplication sharedApplication] statusBarOrientation];
         
     NSString  *jpgPath = fname;
     

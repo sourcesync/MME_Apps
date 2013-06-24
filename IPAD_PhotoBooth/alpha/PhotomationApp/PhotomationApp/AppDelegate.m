@@ -31,13 +31,15 @@
 #import "YourPhotoViewController.h"
 #import "EFXViewController.h"
 #import "FlickrViewController.h"
+#import "ThanksViewController.h"
+#import "StartViewController.h"
 
 #import "ChromaVideo.h"
 
 #import "UIImage+Resize.h"
 #import "UIImage+SubImage.h"
 
-
+#include "TargetConditionals.h"
 
 NSString *SnapAndRunShouldUpdateAuthInfoNotification = @"SnapAndRunShouldUpdateAuthInfoNotification";
 
@@ -61,36 +63,14 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     [super dealloc];
 }
 
-/*
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    // attempt to extract a token from the url
-    return [FBAppCall handleOpenURL:url
-                  sourceApplication:sourceApplication
-                        withSession:self.session];
-}
- */
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // FBSample logic
-    // if the app is going away, we close the session if it is open
-    // this is a good idea because things may be hanging off the session, that need
-    // releasing (completion block, etc.) and other components in the app may be awaiting
-    // close notification in order to do cleanup
-    [self.session close];
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+- (void)applicationWillTerminate:(UIApplication *)application
+{
     
-    // FBSample logic
-    // We need to properly handle activation of the application with regards to SSO
-    //  (e.g., returning from iOS 6.0 authorization dialog or from fast app switching).
-    [FBAppCall handleDidBecomeActiveWithSession:self.session];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -98,6 +78,15 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     //  Initialize some members...
     self.have_start_orientation = NO;
     self.lock_orientation = NO;
+    self.current_filtered_path = nil;
+    self.current_photo_path = nil;
+    self.active_photo_is_original = YES;
+    
+#if (TARGET_IPHONE_SIMULATOR)
+    self.is_simulator = YES;
+#else
+    self.is_simulator = NO;
+#endif
     
     //  Never show status bar...
     [[ UIApplication sharedApplication ] setStatusBarHidden:YES ];
@@ -107,6 +96,7 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     
     //  Create the configuration object...
     self.config = [ [ Configuration alloc ] init ];
+    [ self.config DownloadConfiguration ];
     
     //  Create the one and only window...
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
@@ -215,6 +205,16 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
         [[[FlickrViewController alloc]
           initWithNibName:@"FlickrViewController" bundle:nil] autorelease];
     
+    //  Create the thanks controller...
+    self.thanks_view =
+        [[[ThanksViewController alloc]
+          initWithNibName:@"ThanksViewController" bundle:nil] autorelease];
+    
+    //  Create the start controller...
+    self.start_view =
+        [[[StartViewController alloc]
+          initWithNibName:@"StartViewController" bundle:nil] autorelease];
+    
     //  Settings split view...
     SettingsLeftViewController *left =
         [[[SettingsLeftViewController alloc]
@@ -222,7 +222,8 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     UINavigationController *rootNav =
         [[[UINavigationController alloc] initWithRootViewController:left] autorelease];
     UINavigationController *detailNav =
-        [[[UINavigationController alloc] initWithRootViewController:self.chroma_view] autorelease];
+        [[[UINavigationController alloc]
+            initWithRootViewController:self.chroma_view] autorelease];
     self.settings_split_view =
         [ [[UISplitViewController alloc] init ] autorelease ];
     self.settings_split_view.viewControllers =
@@ -234,7 +235,8 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     //self.window.rootViewController = self.navController;
     
     //  take photo manual...
-    self.window.rootViewController = self.takephoto_manual_view;
+    //self.window.rootViewController = self.galleryselectedphoto_view;
+    //self.window.rootViewController = self.gallery_view;
     
     //self.window.rootViewController = self.twitter_view;
     //self.is_twitter = YES;
@@ -242,9 +244,13 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     //self.window.rootViewController = self.flickr_view;
     //self.is_twitter = NO;
     
+    //self.window.rootViewController = self.efx_view;
+    
     //self.window.rootViewController = self.facebook_view;
     
-    self.window.rootViewController = self.sharephoto_view;
+    //self.window.rootViewController = self.sharephoto_view;
+    
+    self.window.rootViewController = self.start_view;
     
     //  make it go !
     [self.window makeKeyAndVisible];
@@ -254,19 +260,17 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+   
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
 }
 
 
@@ -284,9 +288,14 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 
 -(void) goto_takephoto
 {
-    //[ self stopAudio ];
-    //self.window.rootViewController =self.takephoto_view;
-    self.window.rootViewController =self.takephoto_manual_view;
+    if (self.config.mode==1) // experience mode
+    {
+        self.window.rootViewController =self.takephoto_auto_view;
+    }
+    else // app/manual
+    {
+        self.window.rootViewController =self.takephoto_manual_view;
+    }
 }
 
 
@@ -294,7 +303,6 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 {
     self.settingsBack = back;
     
-    //[ self.window addSubview:self.settings_split_view.view ];
     [self.window setRootViewController:(UIViewController*)self.settings_split_view];
 }
 
@@ -417,8 +425,6 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 //  Goto the twitter view...
 -(void) goto_twitterview:(UIViewController *)back
 {
-    //self.twitter_view = back;
-    
     TwitterViewController *s = (TwitterViewController *)self.twitter_view;
     self.window.rootViewController = s;
     
@@ -428,13 +434,10 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 
 //  Goto the twitter view...
 -(void) goto_flickrview:(UIViewController *)back
-{
-    //self.flickrBack = back;
-    
+{    
     self.is_twitter = NO;
     FlickrViewController *s = (FlickrViewController *)self.flickr_view;
     self.window.rootViewController = s;
-    
 }
 
 
@@ -443,6 +446,11 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     [ self stopAudio ];
     
     self.window.rootViewController =self.gallery_view;
+}
+
+-(void) goto_start
+{
+    self.window.rootViewController = self.start_view;
 }
 
 + (void) set_popover: (UIPopoverController *)popover
@@ -563,7 +571,32 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     //[app.alert release];
 }
 
-+(NSString *)getGalleryDir
++(NSString *)GetFilterDir
+{
+    NSError *error = nil;
+    
+    NSString *gallerysubdir = [ NSString stringWithFormat:@"Documents/Filter"];
+    NSString  *galleryPath =
+        [NSHomeDirectory() stringByAppendingPathComponent:gallerysubdir];
+    
+    BOOL isdir = NO;
+    BOOL exists = [ [ NSFileManager defaultManager] fileExistsAtPath:galleryPath isDirectory:&isdir];
+    if ( !exists )
+    {
+        if (![[NSFileManager defaultManager] createDirectoryAtPath:galleryPath
+                                       withIntermediateDirectories:YES
+                                                        attributes:nil
+                                                             error:&error])
+        {
+            [ AppDelegate ErrorMessage:@"Cannot create gallery directory."];
+            return nil;
+        }
+    }
+    
+    return galleryPath;
+}
+
++(NSString *)GetGalleryDir
 {
     NSError *error = nil;
     
@@ -587,11 +620,11 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     return galleryPath;
 }
 
-+(NSArray *) getGalleryPhotos
++(NSArray *) GetGalleryPhotos
 {
     NSError *error = nil;
     
-    NSString  *galleryPath = [ AppDelegate getGalleryDir ];
+    NSString  *galleryPath = [ AppDelegate GetGalleryDir ];
     
     NSArray *filelist_raw = [ [ NSFileManager defaultManager]
                              contentsOfDirectoryAtPath:galleryPath
@@ -608,6 +641,37 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     return filelist_sorted;
 }
 
++(NSArray *) GetGalleryPairs
+{
+    NSArray *photos = [ AppDelegate GetGalleryPhotos ];
+    
+    NSMutableArray *pairs = [ [ NSMutableArray alloc ] init ];
+    
+    int count = [ photos count ];
+    for ( int i=0; i<count; i++)
+    {
+        NSString *original = (NSString *)[ photos objectAtIndex:i];
+        
+        NSString *gallery_dir = [ AppDelegate GetGalleryDir];
+        NSString *fpath = [ NSString stringWithFormat:@"%@/%@",
+                           gallery_dir, original];
+        
+        NSString *filtered = [ AppDelegate FindFilteredVersion:fpath ];
+        if (filtered)
+            filtered = [ filtered lastPathComponent ];
+        else
+            filtered = @"";
+        
+        NSMutableArray *pair = [ [ NSMutableArray alloc ] init ];
+        [ pair addObject: original ];
+        [ pair addObject: filtered ];
+        [ pairs addObject:pair ];
+    }
+    
+    return pairs;
+}
+
+
 + (NSString *)GetUUID
 {
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
@@ -617,7 +681,7 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 }
 
 
-+ (BOOL)deletePhotoFromGallery:(NSString *)fname
++ (BOOL) DeletePhotoFromGallery:(NSString *)fname
 {
     NSError *error = nil;
     
@@ -636,13 +700,13 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     }
 }
 
-+ (NSString *)addPhotoToGallery:(int)which is_portrait:(bool)is_portrait
++ (NSString *)AddPhotoToGallery:(int)which is_portrait:(bool)is_portrait
 {
     NSError *error = nil;
     
     //  Check if gallery is full...
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
-    NSArray *current_gallery = [ self getGalleryPhotos ];
+    NSArray *current_gallery = [ self GetGalleryPhotos ];
     if ( [ current_gallery count ] >= app.config.max_gallery_photos )
     {
         [ AppDelegate ErrorMessage:@"Gallery Is Full" ];
@@ -650,7 +714,7 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     }
     
     // Get gallery path...
-    NSString  *galleryPath = [ self getGalleryDir ];        
+    NSString  *galleryPath = [ self GetGalleryDir ];
     
     // Form path to new file...
     NSString *uuid = [AppDelegate GetUUID ];
@@ -678,6 +742,241 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
         return newfname;
     }
 }
+
+
++ (NSString *)AddPhotoToGallery:(UIImage *)img
+{
+    
+    //  Check if gallery is full...
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    NSArray *current_gallery = [ self GetGalleryPhotos ];
+    if ( [ current_gallery count ] >= app.config.max_gallery_photos )
+    {
+        [ AppDelegate ErrorMessage:@"Gallery Is Full" ];
+        return nil;
+    }
+    
+    // Get gallery path...
+    NSString  *galleryPath = [ self GetGalleryDir ];
+    
+    //  Choose a random file name...
+    NSString *fname = [ NSString stringWithFormat:@"%@.jpg", [AppDelegate GetUUID ] ];
+    
+    //  Create full path...
+    NSString *full_path = [ NSString stringWithFormat:@"%@/%@", galleryPath, fname ];
+    
+    //  Save the image data out...
+    NSData *data = UIImageJPEGRepresentation(img, 1.0f);
+    [ data writeToFile:full_path atomically:YES ];
+    
+    return full_path;
+}
+
++ (NSString *) FindFilteredVersion: (NSString *)path
+{
+    
+    //  Get the file name for the original...
+    NSString *file_name = [ path lastPathComponent ];
+    
+    //  Filtered photo dir...
+    NSString *filtered_dir = [ AppDelegate GetFilterDir ];
+    
+    //  Form full path...
+    NSString *full_path = [ NSString stringWithFormat:@"%@/%@",
+                           filtered_dir, file_name ];
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:full_path];
+    if (fileExists)
+        return full_path;
+    else
+        return nil;
+}
+
+
+
++ (BOOL)DeleteCurrentFilteredPhoto
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    NSString *original = app.current_photo_path;
+    
+    //  Get the file name for the original...
+    NSString *file_name = [ original lastPathComponent ];
+    
+    //  Filtered photo dir...
+    NSString *filtered_dir = [ AppDelegate GetFilterDir ];
+    
+    //  Form full path...
+    NSString *full_path = [ NSString stringWithFormat:@"%@/%@",
+                           filtered_dir, file_name ];
+    
+    //  Remove gallery file...
+    NSError *error = nil;
+    if ( ! [[NSFileManager defaultManager] removeItemAtPath:full_path error:&error] )
+    {
+        //[ AppDelegate ErrorMessage:@"Cannot delete gallery file."];
+        return false;
+    }
+        
+    app.active_photo_is_original = YES;
+    app.current_filtered_path = nil;
+    
+    return true;
+}
+
+
+
++ (BOOL)SetCurrentFilteredPhoto:(UIImage *)img
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    NSString *original = app.current_photo_path;
+    
+    //  Get the file name for the original...
+    NSString *file_name = [ original lastPathComponent ];
+    
+    //  Filtered photo dir...
+    NSString *filtered_dir = [ AppDelegate GetFilterDir ];
+    
+    //  Form full path...
+    NSString *full_path = [ NSString stringWithFormat:@"%@/%@",
+                           filtered_dir, file_name ];
+    
+    //  Get image data...
+    NSData * data = UIImageJPEGRepresentation(img, 1.0f);
+    
+    app.active_photo_is_original = NO;
+    app.current_filtered_path = full_path;
+    
+    //  Save it out...
+    return [ data  writeToFile:full_path atomically:YES];
+    
+}
+
+
+
+/*
++ (void) SetCurrentFilteredImage: (UIImage *)img
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    if ( img==nil)
+    {
+        app.current_filtered_path = nil;
+    }
+    else
+    {
+        //  Form path to filtered photo...
+        NSString *fname = [ NSString stringWithFormat:@"Documents/FilteredPhoto.jpg" ];
+        NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
+        app.current_filtered_path = jpgPath;
+    
+        NSData *data = UIImageJPEGRepresentation(img, 1.0);
+        [ data writeToFile:jpgPath atomically:YES];
+    }
+    
+}
+ */
+
+
++ (void) chooseCurrentImage: (UIImage *)img : (int)idx
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    if ( img==nil)
+    {
+        app.current_photo_path = nil;
+    }
+    else
+    {
+        //  Form path to filtered photo...
+        NSString *fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",idx];
+        NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
+        app.current_photo_path = jpgPath;
+        app.selected_id = idx;
+    
+        NSData *data = UIImageJPEGRepresentation(img, 1.0);
+        [ data writeToFile:jpgPath atomically:YES];
+    }
+    
+}
+
++(UIImage *) GetCurrentOriginalPhoto
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    UIImage *image =
+        [[[ UIImage alloc ]
+          initWithContentsOfFile:app.current_photo_path ] autorelease];
+    return image;
+}
+
+
++(UIImage *) GetCurrentFilteredPhoto
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    UIImage *image =
+    [[[ UIImage alloc ]
+      initWithContentsOfFile:app.current_filtered_path ] autorelease];
+    return image;
+}
+
++(UIImage *) GetActivePhoto
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    if ( app.active_photo_is_original && app.current_photo_path )
+    {
+        UIImage *image =
+            [[[ UIImage alloc ]
+              initWithContentsOfFile:app.current_photo_path ] autorelease];
+        return image;
+    }
+    else if ( app.current_filtered_path )
+    {
+        UIImage *image =
+            [[[ UIImage alloc ]
+                initWithContentsOfFile:app.current_filtered_path ] autorelease];
+        return image;
+    }
+    else // Make sure there is an image globally...
+    {
+        return nil;
+    }
+    
+    /*
+    //  First try filtered photo...
+    NSString *docPath = app.current_filtered_path;
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:docPath];
+    if (fileExists)
+    {
+        UIImage *image =
+            [[[ UIImage alloc ] initWithContentsOfFile:docPath ] autorelease];
+        return image;
+    }
+    else // Next try the original photo...
+    {
+        app.current_filtered_path = nil;
+        
+        docPath = app.current_photo_path;
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:docPath];
+        if (fileExists)
+        {
+            UIImage *image =
+                [[[ UIImage alloc ] initWithContentsOfFile:docPath ] autorelease];
+            return image;
+        }
+        else
+        {
+            app.current_photo_path = nil;
+            
+            return nil;
+        }
+    }
+     */
+}
+
 
 - (void) stopAudio
 {
