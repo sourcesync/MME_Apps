@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1109"
-         endingLineNumber = "1109"
+         startingLineNumber = "1110"
+         endingLineNumber = "1110"
          landmarkName = "-flickrRequest"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1095"
-         endingLineNumber = "1095"
+         startingLineNumber = "1096"
+         endingLineNumber = "1096"
          landmarkName = "-processTemplateWatermark:raw1:raw2:vertical:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1159"
-         endingLineNumber = "1159"
+         startingLineNumber = "1160"
+         endingLineNumber = "1160"
          landmarkName = "+sharedDelegate"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1107"
-         endingLineNumber = "1107"
+         startingLineNumber = "1108"
+         endingLineNumber = "1108"
          landmarkName = "@implementation AppDelegate"
          landmarkType = "3">
       </FileBreakpoint>
@@ -281,11 +281,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1215"
-         endingLineNumber = "1215"
+         startingLineNumber = "1216"
+         endingLineNumber = "1216"
          landmarkName = "-flickrContext"
          landmarkType = "5">
       </FileBreakpoint>
@@ -294,11 +294,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1225"
-         endingLineNumber = "1225"
+         startingLineNumber = "1226"
+         endingLineNumber = "1226"
          landmarkName = "-flickrContext"
          landmarkType = "5">
       </FileBreakpoint>
@@ -307,11 +307,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1237"
-         endingLineNumber = "1237"
+         startingLineNumber = "1238"
+         endingLineNumber = "1238"
          landmarkName = "@implementation AppDelegate"
          landmarkType = "3">
       </FileBreakpoint>
@@ -320,11 +320,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1150"
-         endingLineNumber = "1150"
+         startingLineNumber = "1151"
+         endingLineNumber = "1151"
          landmarkName = "-application:openURL:sourceApplication:annotation:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -333,11 +333,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1135"
-         endingLineNumber = "1135"
+         startingLineNumber = "1136"
+         endingLineNumber = "1136"
          landmarkName = "-application:openURL:sourceApplication:annotation:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -450,11 +450,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
-         timestampString = "400306643.633976"
+         timestampString = "400318790.079166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "452"
-         endingLineNumber = "452"
+         startingLineNumber = "454"
+         endingLineNumber = "454"
          landmarkName = "-textFieldShouldReturn:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -541,11 +541,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "836"
-         endingLineNumber = "836"
+         startingLineNumber = "837"
+         endingLineNumber = "837"
          landmarkName = "+SetCurrentFilteredPhoto:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -554,11 +554,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "646"
-         endingLineNumber = "646"
+         startingLineNumber = "647"
+         endingLineNumber = "647"
          landmarkName = "+GetGalleryPhotos"
          landmarkType = "5">
       </FileBreakpoint>
@@ -567,11 +567,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "656"
-         endingLineNumber = "656"
+         startingLineNumber = "657"
+         endingLineNumber = "657"
          landmarkName = "+GetGalleryPairs"
          landmarkType = "5">
       </FileBreakpoint>
@@ -580,11 +580,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "671"
-         endingLineNumber = "671"
+         startingLineNumber = "672"
+         endingLineNumber = "672"
          landmarkName = "+GetGalleryPairs"
          landmarkType = "5">
       </FileBreakpoint>
@@ -619,11 +619,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "831"
-         endingLineNumber = "831"
+         startingLineNumber = "832"
+         endingLineNumber = "832"
          landmarkName = "@implementation AppDelegate"
          landmarkType = "3">
       </FileBreakpoint>
@@ -671,11 +671,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "929"
-         endingLineNumber = "929"
+         startingLineNumber = "930"
+         endingLineNumber = "930"
          landmarkName = "+GetActivePhoto"
          landmarkType = "5">
       </FileBreakpoint>
@@ -697,11 +697,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "945"
-         endingLineNumber = "945"
+         startingLineNumber = "946"
+         endingLineNumber = "946"
          landmarkName = "+GetActivePhoto"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1295,11 +1295,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "243"
-         endingLineNumber = "243"
+         startingLineNumber = "244"
+         endingLineNumber = "244"
          landmarkName = "-application:didFinishLaunchingWithOptions:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1360,11 +1360,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "444"
-         endingLineNumber = "444"
+         startingLineNumber = "445"
+         endingLineNumber = "445"
          landmarkName = "-goto_start"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1412,11 +1412,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "282"
-         endingLineNumber = "282"
+         startingLineNumber = "283"
+         endingLineNumber = "283"
          landmarkName = "-goto_takephoto"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1438,11 +1438,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
-         timestampString = "400306643.633976"
+         timestampString = "400318790.079166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "426"
-         endingLineNumber = "426"
+         startingLineNumber = "428"
+         endingLineNumber = "428"
          landmarkName = "-doIt"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1451,11 +1451,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
-         timestampString = "400306643.633976"
+         timestampString = "400318790.079166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "425"
-         endingLineNumber = "425"
+         startingLineNumber = "427"
+         endingLineNumber = "427"
          landmarkName = "-doIt"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1633,11 +1633,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "311"
-         endingLineNumber = "311"
+         startingLineNumber = "312"
+         endingLineNumber = "312"
          landmarkName = "-goto_selectfavorite"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2270,11 +2270,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
-         timestampString = "400306643.633976"
+         timestampString = "400318790.079166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "290"
-         endingLineNumber = "290"
+         startingLineNumber = "292"
+         endingLineNumber = "292"
          landmarkName = "-btn_cancel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2608,11 +2608,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
-         timestampString = "400306643.633976"
+         timestampString = "400318790.079166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "431"
-         endingLineNumber = "431"
+         startingLineNumber = "433"
+         endingLineNumber = "433"
          landmarkName = "-doIt"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2621,20 +2621,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
-         timestampString = "400306643.633976"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "422"
-         endingLineNumber = "422"
-         landmarkName = "-doIt"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "PhotomationApp/EmailViewController.m"
-         timestampString = "400306643.633976"
+         timestampString = "400318790.079166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "424"
@@ -2643,15 +2630,28 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
-         timestampString = "400306643.633976"
+         timestampString = "400318790.079166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "277"
-         endingLineNumber = "277"
+         startingLineNumber = "426"
+         endingLineNumber = "426"
+         landmarkName = "-doIt"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotomationApp/EmailViewController.m"
+         timestampString = "400318790.079166"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "279"
+         endingLineNumber = "279"
          landmarkName = "+postimage:image:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3063,11 +3063,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "219"
-         endingLineNumber = "219"
+         startingLineNumber = "220"
+         endingLineNumber = "220"
          landmarkName = "-application:didFinishLaunchingWithOptions:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3076,11 +3076,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/AppDelegate.m"
-         timestampString = "400287484.805346"
+         timestampString = "400315751.516298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "244"
-         endingLineNumber = "244"
+         startingLineNumber = "245"
+         endingLineNumber = "245"
          landmarkName = "-application:didFinishLaunchingWithOptions:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3089,7 +3089,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "63"
@@ -3102,11 +3102,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "109"
-         endingLineNumber = "109"
+         startingLineNumber = "124"
+         endingLineNumber = "124"
          landmarkName = "-numberOfSectionsInTableView:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3115,11 +3115,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
+         startingLineNumber = "129"
+         endingLineNumber = "129"
          landmarkName = "-tableView:numberOfRowsInSection:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3128,11 +3128,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "120"
-         endingLineNumber = "120"
+         startingLineNumber = "135"
+         endingLineNumber = "135"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3141,11 +3141,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "121"
-         endingLineNumber = "121"
+         startingLineNumber = "136"
+         endingLineNumber = "136"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3154,11 +3154,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "140"
-         endingLineNumber = "140"
+         startingLineNumber = "155"
+         endingLineNumber = "155"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3180,11 +3180,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "134"
-         endingLineNumber = "134"
+         startingLineNumber = "149"
+         endingLineNumber = "149"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3193,11 +3193,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "78"
-         endingLineNumber = "78"
+         startingLineNumber = "81"
+         endingLineNumber = "81"
          landmarkName = "-ContentStatusChanged"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3258,11 +3258,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "85"
-         endingLineNumber = "85"
+         startingLineNumber = "88"
+         endingLineNumber = "88"
          landmarkName = "-ContentStatusChanged"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3271,11 +3271,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "198"
-         endingLineNumber = "198"
+         startingLineNumber = "213"
+         endingLineNumber = "213"
          landmarkName = "-btn_sync_update"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3297,29 +3297,16 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/LoginViewController.m"
-         timestampString = "400287425.745329"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
+         startingLineNumber = "132"
+         endingLineNumber = "132"
          landmarkName = "-btn_submit"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "PhotomationApp/LoginViewController.m"
-         timestampString = "400287462.284428"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "117"
-         endingLineNumber = "117"
-         landmarkName = "-btn_submit"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
@@ -3466,11 +3453,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "102"
-         endingLineNumber = "102"
+         startingLineNumber = "117"
+         endingLineNumber = "117"
          landmarkName = "-ContentConfigChanged"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3479,37 +3466,37 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400304830.973215"
+         timestampString = "400318269.042476"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "237"
+         endingLineNumber = "237"
+         landmarkName = "-btn_action_launch:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotomationApp/CMSViewController.m"
+         timestampString = "400318269.042476"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "233"
+         endingLineNumber = "233"
+         landmarkName = "-btn_action_launch:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotomationApp/CMSViewController.m"
+         timestampString = "400318269.042476"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "222"
          endingLineNumber = "222"
-         landmarkName = "-btn_action_launch:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400305018.904064"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "218"
-         endingLineNumber = "218"
-         landmarkName = "-btn_action_launch:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "PhotomationApp/CMSViewController.m"
-         timestampString = "400305023.145041"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "207"
-         endingLineNumber = "207"
          landmarkName = "-btn_action_sync:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3579,7 +3566,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
@@ -3592,16 +3579,42 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotomationApp/EmailViewController.m"
-         timestampString = "400306623.663526"
+         timestampString = "400318790.079166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "225"
-         endingLineNumber = "225"
+         startingLineNumber = "226"
+         endingLineNumber = "226"
          landmarkName = "+postimage:image:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotomationApp/LoginViewController.m"
+         timestampString = "400315784.425077"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "54"
+         endingLineNumber = "54"
+         landmarkName = "-viewWillAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotomationApp/SharePhotoViewController.m"
+         timestampString = "400318980.660494"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "245"
+         endingLineNumber = "245"
+         landmarkName = "-btnaction_done:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -50,6 +50,11 @@
     [ super viewWillAppear:animated];
     
     self.nav.hidesBackButton = NO;
+    
+    self.activity.hidden = YES;
+    [ self.activity stopAnimating];
+    
+    self.logging_in = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,6 +103,17 @@
     [ self.navigationController popToRootViewControllerAnimated:YES ];
 }
 
+-(void) next:(id)obj
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    
+    //  Create the configuration objects here...
+    app.config = [ [ Configuration alloc ] init ];
+    app.cm = [ [ ContentManager alloc ] init:app.login_name ];
+    
+    //  Goto to cms/skin config screen...
+    [ app goto_cms ];
+}
 
 - (IBAction) btn_submit
 {
@@ -107,18 +123,19 @@
     if ( ( self.field_name.text == nil ) || 
         ( [ self.field_name.text compare:@"" ] == NSOrderedSame ) )
     {
-        return;
+        [ AppDelegate ErrorMessage:@"Invalid Login" ];
     }
-    else
+    else if (! self.logging_in)
     {
+        self.logging_in = YES;
+        
         app.login_name =self.field_name.text;
         
-        //  Create the configuration objects here...
-        app.config = [ [ Configuration alloc ] init ];
-        app.cm = [ [ ContentManager alloc ] init:app.login_name ];
         
-        //  Goto to cms/skin config screen...
-        [ app goto_cms ];
+        self.activity.hidden = NO;
+        [self.activity startAnimating];
+        
+        [ self performSelector:@selector(next:) withObject:nil afterDelay:1];
     }
 }
 

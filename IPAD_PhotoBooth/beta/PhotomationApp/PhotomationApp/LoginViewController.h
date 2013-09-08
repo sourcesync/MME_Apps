@@ -28,7 +28,10 @@
 //  Nav item..
 @property (strong, nonatomic) IBOutlet UINavigationItem *nav;
 
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activity;
 
+
+@property (assign) bool logging_in;
 
 - (IBAction) nav_back;
 

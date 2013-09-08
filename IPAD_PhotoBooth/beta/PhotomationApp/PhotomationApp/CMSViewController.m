@@ -61,6 +61,9 @@
     [ self ContentStatusChanged ];
     
     [self.tv reloadData];
+    
+    self.activity.hidden = YES;
+    [ self.activity stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,6 +86,18 @@
     
     //  Change sync button based on status...
     [ self btn_sync_update ];
+    
+    //  change activity...
+    if ( ( self.cm.sstatus == SyncingConfig ) || ( self.cm.sstatus == SyncingSettings ) )
+    {
+        self.activity.hidden = NO;
+        [ self.activity startAnimating ];
+    }
+    else
+    {
+        self.activity.hidden = YES;
+        [ self.activity stopAnimating ];
+    }
     
     [ self.tv reloadData ];
 }

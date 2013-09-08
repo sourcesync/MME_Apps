@@ -25,6 +25,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *lbl_skin;
 @property (nonatomic, retain) IBOutlet UIButton *btn_sync;
 @property (nonatomic, retain) IBOutlet UIButton *btn_launch;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activity;
 
 -(IBAction) btn_action_sync: (id)sender;
 

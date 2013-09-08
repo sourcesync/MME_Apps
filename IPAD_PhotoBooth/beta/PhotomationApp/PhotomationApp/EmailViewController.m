@@ -222,11 +222,13 @@
                        stringWithFormat:
                        @"Content-Disposition: form-data; name=\"event\"\r\n\r\n"]
                       dataUsingEncoding:NSUTF8StringEncoding]];
+    NSString *event = [ NSString stringWithFormat:@"ipad_%@", app.login_name];
     [body appendData:[//[NSString
                     //stringWithString:
                       //@"Photomation"
-                      @"ipad_mme"
+                      //@"ipad_mme"
                       //]
+                      event
                       dataUsingEncoding:NSUTF8StringEncoding]];
  
     //  THE EMAIL...

@@ -92,6 +92,7 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     //  Never show status bar...
     [[ UIApplication sharedApplication ] setStatusBarHidden:YES ];
 
+    
     //  Create the chroma video object...
     self.chroma_video = [ [ ChromaVideo alloc ] init ];
     
