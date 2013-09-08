@@ -8,28 +8,30 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EFXViewController : UIViewController
+#import <AVFoundation/AVAudioPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
+@interface EFXViewController : UIViewController
+    <AVAudioPlayerDelegate>
+ 
 //  state...
 @property (nonatomic, assign) BOOL use_original;
 @property (nonatomic, retain) UIImage *original_img;
 @property (nonatomic, retain) UIImage *filtered_img;
+@property (nonatomic, assign) BOOL audio_done;
+@property (nonatomic, retain) NSTimer *timer;
 
 //  controls...
 @property (nonatomic, retain) IBOutlet UIImageView *img_bg;
 @property (nonatomic, retain) IBOutlet UIImageView *img_taken;
-
-
 @property (nonatomic, retain) IBOutlet UIButton *btn_back;
 @property (nonatomic, retain) IBOutlet UIButton *btn_goback;
 @property (nonatomic, retain) IBOutlet UIButton *btn_ilikeit;
-
 @property (nonatomic, retain) IBOutlet UIButton *btn_one;
 @property (nonatomic, retain) IBOutlet UIButton *btn_two;
 @property (nonatomic, retain) IBOutlet UIButton *btn_three;
 @property (nonatomic, retain) IBOutlet UIButton *btn_four;
 @property (nonatomic, retain) IBOutlet UIButton *btn_five;
-
 @property (nonatomic, retain) IBOutlet UIButton *btn_gallery;
 @property (nonatomic, retain) IBOutlet UIButton *btn_photobooth;
 @property (nonatomic, retain) IBOutlet UIButton *btn_settings;

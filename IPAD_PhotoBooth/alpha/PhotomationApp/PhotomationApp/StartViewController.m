@@ -47,7 +47,8 @@
     
     //  play the audio...
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate];
-    [ app.config PlaySound:@"start" del:self ];
+    [ app.config PlaySound:@"snd_welcome" del:self ];
+    self.audio_done = NO;
     
     //  orient elements...
     UIInterfaceOrientation uiorientation =
@@ -61,15 +62,19 @@
     
     //  unset delegates...
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate];
-    [ app.config SetSoundDelegate:@"start" del:nil];
+    [ app.config SetSoundDelegate:@"snd_welcome" del:nil];
+    [ app.config StopSound:@"snd_welcome"];
 }
 
 #pragma actions
 
 - (void)singleTapGestureCaptured:(UITapGestureRecognizer *)gesture
 {
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate];
-    [ app goto_emailview:self ];
+    //if (self.audio_done)
+    {
+        AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate];
+        [ app goto_emailview:self ];
+    }
 }
 
 
@@ -77,6 +82,7 @@
 
 -(void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
+    self.audio_done = YES;
 }
 
 

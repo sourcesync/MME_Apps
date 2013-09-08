@@ -30,17 +30,8 @@
 		05A4DFB816EEC6460000F470 /* signup_962_180.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A4DFB416EEC6460000F470 /* signup_962_180.png */; };
 		05B6EF0016F5682600146842 /* btn_swap_camera_76_40.png in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EEFE16F5682600146842 /* btn_swap_camera_76_40.png */; };
 		05B6EF0116F5682600146842 /* btn_swap_camera_152_80.png in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EEFF16F5682600146842 /* btn_swap_camera_152_80.png */; };
-		05B6EF0616F5930D00146842 /* bg_takephoto_lightsoff_768_955.png in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF0216F5930D00146842 /* bg_takephoto_lightsoff_768_955.png */; };
-		05B6EF0716F5930D00146842 /* bg_takephoto_lightsoff_1536_1910.png in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF0316F5930D00146842 /* bg_takephoto_lightsoff_1536_1910.png */; };
-		05B6EF0816F5930D00146842 /* bg_takephoto_lightson_768_955.png in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF0416F5930D00146842 /* bg_takephoto_lightson_768_955.png */; };
-		05B6EF0916F5930D00146842 /* bg_takephoto_lightson_1536_1910.png in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF0516F5930D00146842 /* bg_takephoto_lightson_1536_1910.png */; };
-		05B6EF0C16F5943600146842 /* bg_takephoto_lightsfull_768_955.png in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF0A16F5943600146842 /* bg_takephoto_lightsfull_768_955.png */; };
-		05B6EF0D16F5943600146842 /* bg_takephoto_lightsfull_1536_1910.png in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF0B16F5943600146842 /* bg_takephoto_lightsfull_1536_1910.png */; };
-		05B6EF0F16F5961C00146842 /* getready.wav in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF0E16F5961C00146842 /* getready.wav */; };
-		05B6EF1116F5963400146842 /* countdown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF1016F5963400146842 /* countdown.wav */; };
 		05B6EF1316F5A02300146842 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B6EF1216F5A02300146842 /* CoreImage.framework */; };
 		05B6EF1616F6B2D800146842 /* selection.wav in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF1516F6B2D800146842 /* selection.wav */; };
-		05B6EF1816F6B63100146842 /* pickfavorite.wav in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF1716F6B63100146842 /* pickfavorite.wav */; };
 		05B6EF1D16F6BA5E00146842 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B6EF1B16F6BA5E00146842 /* GalleryViewController.m */; };
 		05B6EF1E16F6BA5E00146842 /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EF1C16F6BA5E00146842 /* GalleryViewController.xib */; };
 		05B6EF2816F7040400146842 /* GallerySelectedPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B6EF2616F7040400146842 /* GallerySelectedPhotoViewController.m */; };
@@ -61,9 +52,6 @@
 		05D88BE116F0338900A87D62 /* btn_submit_610_94.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BDF16F0338900A87D62 /* btn_submit_610_94.png */; };
 		05D88BE416F18D9D00A87D62 /* TakePhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BE316F18D9D00A87D62 /* TakePhotoViewController.xib */; };
 		05D88BE716F18DDE00A87D62 /* TakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D88BE616F18DDE00A87D62 /* TakePhotoViewController.m */; };
-		05D88BEB16F1917100A87D62 /* takephoto_768_955.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BE916F1917100A87D62 /* takephoto_768_955.png */; };
-		05D88BEC16F1917100A87D62 /* takephoto_1536_1910.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BEA16F1917100A87D62 /* takephoto_1536_1910.png */; };
-		05D88BF616F1B7CE00A87D62 /* tabbar_768_87.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88BF516F1B7CD00A87D62 /* tabbar_768_87.png */; };
 		05D88BF816F2956B00A87D62 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D88BF716F2956B00A87D62 /* ImageIO.framework */; };
 		05D88BFA16F2957300A87D62 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D88BF916F2957300A87D62 /* AVFoundation.framework */; };
 		05D88BFC16F2957E00A87D62 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D88BFB16F2957E00A87D62 /* CoreVideo.framework */; };
@@ -73,8 +61,6 @@
 		05D88C0616F2B74E00A87D62 /* SelectFavoriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05D88C0416F2B74E00A87D62 /* SelectFavoriteViewController.xib */; };
 		05D88C1216F30B1D00A87D62 /* SelectedPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D88C1016F30B1D00A87D62 /* SelectedPhotoViewController.m */; };
 		05D88C1316F30B1D00A87D62 /* SelectedPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05D88C1116F30B1D00A87D62 /* SelectedPhotoViewController.xib */; };
-		05D88C1716F30BB900A87D62 /* bg_selectedphoto_768_955.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88C1516F30BB900A87D62 /* bg_selectedphoto_768_955.png */; };
-		05D88C1816F30BB900A87D62 /* bg_selectedphoto_1536_1910.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D88C1616F30BB900A87D62 /* bg_selectedphoto_1536_1910.png */; };
 		B300154A1762853900B7E48D /* 03-Photomation-iPad-Enter-Email-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B30015491762853900B7E48D /* 03-Photomation-iPad-Enter-Email-Screen-Vertical.jpg */; };
 		B300154C1762856700B7E48D /* 03-Photomation-iPad-Entyer-Email-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B300154B1762856700B7E48D /* 03-Photomation-iPad-Entyer-Email-Horizontal.jpg */; };
 		B300154F1762C60A00B7E48D /* EmailHorizView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B300154E1762C60A00B7E48D /* EmailHorizView.xib */; };
@@ -84,9 +70,6 @@
 		B32D1AAB16FE10060069B416 /* LoginNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = B32D1AAA16FE10060069B416 /* LoginNavController.m */; };
 		B32D1ABB16FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B32D1AB916FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.m */; };
 		B32D1ABC16FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B32D1ABA16FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.xib */; };
-		B32D1AC316FE2BA50069B416 /* tabbar_horiz_1024_86.png in Resources */ = {isa = PBXBuildFile; fileRef = B32D1AC116FE2BA50069B416 /* tabbar_horiz_1024_86.png */; };
-		B32D1AC416FE2BA50069B416 /* tabbar_horiz_2048_172.png in Resources */ = {isa = PBXBuildFile; fileRef = B32D1AC216FE2BA50069B416 /* tabbar_horiz_2048_172.png */; };
-		B32D1AC616FE2C950069B416 /* bg_takephoto_horiz_lightsoff_1024_748.png in Resources */ = {isa = PBXBuildFile; fileRef = B32D1AC516FE2C950069B416 /* bg_takephoto_horiz_lightsoff_1024_748.png */; };
 		B3482C5B176E5FD0001D8E81 /* 7a-Photomation-iPad-Enter-Twitter-Login-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3482C5A176E5FD0001D8E81 /* 7a-Photomation-iPad-Enter-Twitter-Login-Screen-Vertical.jpg */; };
 		B3482C5D176E6352001D8E81 /* 07a-Photomation-iPad-Enter-Twitter-Login-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3482C5C176E6352001D8E81 /* 07a-Photomation-iPad-Enter-Twitter-Login-Horizontal.jpg */; };
 		B3482C60176E6817001D8E81 /* TwitterHorizView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3482C5F176E6817001D8E81 /* TwitterHorizView.xib */; };
@@ -94,10 +77,28 @@
 		B3482C68176E751D001D8E81 /* FlickrViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3482C66176E751D001D8E81 /* FlickrViewController.xib */; };
 		B3482C6B176E7590001D8E81 /* 07c-Photomation-iPad-Enter-Flickr-Login-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3482C6A176E7590001D8E81 /* 07c-Photomation-iPad-Enter-Flickr-Login-Horizontal.jpg */; };
 		B3482C6D176E75AA001D8E81 /* 7c-Photomation-iPad-Enter-Flickr-Login-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3482C6C176E75AA001D8E81 /* 7c-Photomation-iPad-Enter-Flickr-Login-Screen-Vertical.jpg */; };
+		B373ECBC17795D4B00B1AEC1 /* enteremail.wav in Resources */ = {isa = PBXBuildFile; fileRef = B373ECBB17795D4B00B1AEC1 /* enteremail.wav */; };
+		B37460661778C05A00B4A32F /* camera-shutter-click-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460621778C05A00B4A32F /* camera-shutter-click-01.wav */; };
+		B37460671778C05A00B4A32F /* countdown.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460631778C05A00B4A32F /* countdown.wav */; };
+		B37460681778C05A00B4A32F /* getready.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460641778C05A00B4A32F /* getready.wav */; };
+		B37460691778C05A00B4A32F /* pickfavorite.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460651778C05A00B4A32F /* pickfavorite.wav */; };
+		B374606F1778EB2F00B4A32F /* SelectFavoriteHorizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B374606D1778EB2F00B4A32F /* SelectFavoriteHorizViewController.m */; };
+		B37460701778EB2F00B4A32F /* SelectFavoriteHorizViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B374606E1778EB2F00B4A32F /* SelectFavoriteHorizViewController.xib */; };
+		B37460721779016C00B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B37460711779016C00B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg */; };
+		B3746076177908C800B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3746075177908C800B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical2.jpg */; };
 		B37B373217423015002C4BEE /* TakePhotoAutoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B373017423015002C4BEE /* TakePhotoAutoViewController.m */; };
 		B37B373317423015002C4BEE /* TakePhotoAutoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B37B373117423015002C4BEE /* TakePhotoAutoViewController.xib */; };
-		B37B373617423536002C4BEE /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B37B373517423536002C4BEE /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical.jpg */; };
 		B37B373A1742ED1A002C4BEE /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B37391742ED1A002C4BEE /* Configuration.m */; };
+		B382FB071777E44100F46DE2 /* ThanksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B382FB051777E44100F46DE2 /* ThanksViewController.m */; };
+		B382FB081777E44100F46DE2 /* ThanksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B382FB061777E44100F46DE2 /* ThanksViewController.xib */; };
+		B382FB0B1777E49F00F46DE2 /* 9-Photomation-iPad-Thank-You-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B382FB0A1777E49F00F46DE2 /* 9-Photomation-iPad-Thank-You-Vertical.jpg */; };
+		B382FB0D1777E4B800F46DE2 /* 9-Photomation-iPad-Thank-You-Screen-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B382FB0C1777E4B800F46DE2 /* 9-Photomation-iPad-Thank-You-Screen-Horizontal.jpg */; };
+		B382FB141777EC9000F46DE2 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B382FB121777EC9000F46DE2 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg */; };
+		B382FB191777EC9900F46DE2 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B382FB171777EC9900F46DE2 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg */; };
+		B382FB1E1777F0BB00F46DE2 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B382FB1C1777F0BB00F46DE2 /* StartViewController.m */; };
+		B382FB1F1777F0BB00F46DE2 /* StartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B382FB1D1777F0BB00F46DE2 /* StartViewController.xib */; };
+		B382FB221777F16500F46DE2 /* 00-Photomation-iPad-Start-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B382FB211777F16500F46DE2 /* 00-Photomation-iPad-Start-Screen-Vertical.jpg */; };
+		B382FB241777F17100F46DE2 /* 00-Photomation-iPad-Start-Screen-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B382FB231777F17100F46DE2 /* 00-Photomation-iPad-Start-Screen-Horizontal.jpg */; };
 		B3856ADE176BDA5A0038FCDD /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3856AD4176BD9D40038FCDD /* ASIFormDataRequest.m */; };
 		B3856AF1176BDAED0038FCDD /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3856AF0176BDACB0038FCDD /* Reachability.m */; };
 		B3856AF4176BDB0B0038FCDD /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B3856ACB176BD9D40038FCDD /* ASIAuthenticationDialog.m */; };
@@ -126,14 +127,11 @@
 		B3885ED1172A460B0018429B /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3885ED0172A46090018429B /* Twitter.framework */; };
 		B38AA5BB176E93030035D5ED /* 07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B38AA5BA176E93030035D5ED /* 07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg */; };
 		B38AA5BD176E93190035D5ED /* 7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B38AA5BC176E93190035D5ED /* 7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg */; };
-		B38ACAEF17430694001AA678 /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B38ACAEE17430694001AA678 /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg */; };
 		B38ACAF217432B2B001AA678 /* takephoto_horiz_practice.xib in Resources */ = {isa = PBXBuildFile; fileRef = B38ACAF117432B2B001AA678 /* takephoto_horiz_practice.xib */; };
 		B38ACAF617435E97001AA678 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = B38ACAF517435E97001AA678 /* CameraView.m */; };
 		B38ACB041743694D001AA678 /* TakePhotoManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B38ACB021743694D001AA678 /* TakePhotoManualViewController.m */; };
 		B38ACB051743694D001AA678 /* TakePhotoManualViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B38ACB031743694D001AA678 /* TakePhotoManualViewController.xib */; };
 		B38ACB0D17437F48001AA678 /* HorizPracticeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B38ACB0C17437F48001AA678 /* HorizPracticeView.xib */; };
-		B38ACB11174480AB001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B38ACB10174480AB001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg */; };
-		B38ACB13174480D6001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B38ACB12174480D6001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg */; };
 		B38ACB1B1744C845001AA678 /* PrintHorizView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B38ACB1A1744C845001AA678 /* PrintHorizView.xib */; };
 		B38ACB1E1744D93E001AA678 /* SelectedPhotoHorizView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B38ACB1D1744D93E001AA678 /* SelectedPhotoHorizView.xib */; };
 		B38ACB211744ED9E001AA678 /* Photomation-logo-transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = B38ACB201744ED9E001AA678 /* Photomation-logo-transparent.png */; };
@@ -231,8 +229,12 @@
 		B3DB444D17595CFE00C8A0F8 /* EFXPortraitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3DB444C17595CFE00C8A0F8 /* EFXPortraitView.xib */; };
 		B3DB444F17596DB800C8A0F8 /* 7-Photomation-iPad-SHARE-Photo-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3DB444E17596DB800C8A0F8 /* 7-Photomation-iPad-SHARE-Photo-Screen-Vertical.jpg */; };
 		B3DB445117596DC500C8A0F8 /* 7-Photomation-iPad-SHARE-Photo-Screen-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3DB445017596DC500C8A0F8 /* 7-Photomation-iPad-SHARE-Photo-Screen-Horizontal.jpg */; };
-		B3DB44531759EB1500C8A0F8 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3DB44521759EB1500C8A0F8 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg */; };
-		B3DB44551759EB2700C8A0F8 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3DB44541759EB2700C8A0F8 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg */; };
+		B3EB394C17792E7F005924BD /* developingpleasewait.wav in Resources */ = {isa = PBXBuildFile; fileRef = B3EB394B17792E7F005924BD /* developingpleasewait.wav */; };
+		B3EB394E17792E8D005924BD /* picked.wav in Resources */ = {isa = PBXBuildFile; fileRef = B3EB394D17792E8D005924BD /* picked.wav */; };
+		B3EB395017792E9E005924BD /* pickupphotos.wav in Resources */ = {isa = PBXBuildFile; fileRef = B3EB394F17792E9E005924BD /* pickupphotos.wav */; };
+		B3EB395217792EAA005924BD /* thanks.wav in Resources */ = {isa = PBXBuildFile; fileRef = B3EB395117792EAA005924BD /* thanks.wav */; };
+		B3EB395417792F7C005924BD /* welcome.wav in Resources */ = {isa = PBXBuildFile; fileRef = B3EB395317792F7C005924BD /* welcome.wav */; };
+		B3EB395817794478005924BD /* selectphototype.wav in Resources */ = {isa = PBXBuildFile; fileRef = B3EB395717794478005924BD /* selectphototype.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -265,17 +267,8 @@
 		05A4DFB416EEC6460000F470 /* signup_962_180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signup_962_180.png; sourceTree = "<group>"; };
 		05B6EEFE16F5682600146842 /* btn_swap_camera_76_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_swap_camera_76_40.png; sourceTree = "<group>"; };
 		05B6EEFF16F5682600146842 /* btn_swap_camera_152_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_swap_camera_152_80.png; sourceTree = "<group>"; };
-		05B6EF0216F5930D00146842 /* bg_takephoto_lightsoff_768_955.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_takephoto_lightsoff_768_955.png; sourceTree = "<group>"; };
-		05B6EF0316F5930D00146842 /* bg_takephoto_lightsoff_1536_1910.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_takephoto_lightsoff_1536_1910.png; sourceTree = "<group>"; };
-		05B6EF0416F5930D00146842 /* bg_takephoto_lightson_768_955.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_takephoto_lightson_768_955.png; sourceTree = "<group>"; };
-		05B6EF0516F5930D00146842 /* bg_takephoto_lightson_1536_1910.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_takephoto_lightson_1536_1910.png; sourceTree = "<group>"; };
-		05B6EF0A16F5943600146842 /* bg_takephoto_lightsfull_768_955.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_takephoto_lightsfull_768_955.png; sourceTree = "<group>"; };
-		05B6EF0B16F5943600146842 /* bg_takephoto_lightsfull_1536_1910.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_takephoto_lightsfull_1536_1910.png; sourceTree = "<group>"; };
-		05B6EF0E16F5961C00146842 /* getready.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = getready.wav; sourceTree = "<group>"; };
-		05B6EF1016F5963400146842 /* countdown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = countdown.wav; sourceTree = "<group>"; };
 		05B6EF1216F5A02300146842 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		05B6EF1516F6B2D800146842 /* selection.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = selection.wav; sourceTree = "<group>"; };
-		05B6EF1716F6B63100146842 /* pickfavorite.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickfavorite.wav; sourceTree = "<group>"; };
 		05B6EF1A16F6BA5E00146842 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
 		05B6EF1B16F6BA5E00146842 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		05B6EF1C16F6BA5E00146842 /* GalleryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryViewController.xib; sourceTree = "<group>"; };
@@ -301,9 +294,6 @@
 		05D88BE316F18D9D00A87D62 /* TakePhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TakePhotoViewController.xib; sourceTree = "<group>"; };
 		05D88BE516F18DDE00A87D62 /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoViewController.h; sourceTree = "<group>"; };
 		05D88BE616F18DDE00A87D62 /* TakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoViewController.m; sourceTree = "<group>"; };
-		05D88BE916F1917100A87D62 /* takephoto_768_955.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = takephoto_768_955.png; sourceTree = "<group>"; };
-		05D88BEA16F1917100A87D62 /* takephoto_1536_1910.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = takephoto_1536_1910.png; sourceTree = "<group>"; };
-		05D88BF516F1B7CD00A87D62 /* tabbar_768_87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_768_87.png; sourceTree = "<group>"; };
 		05D88BF716F2956B00A87D62 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		05D88BF916F2957300A87D62 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		05D88BFB16F2957E00A87D62 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -315,8 +305,6 @@
 		05D88C0F16F30B1D00A87D62 /* SelectedPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedPhotoViewController.h; sourceTree = "<group>"; };
 		05D88C1016F30B1D00A87D62 /* SelectedPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedPhotoViewController.m; sourceTree = "<group>"; };
 		05D88C1116F30B1D00A87D62 /* SelectedPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedPhotoViewController.xib; sourceTree = "<group>"; };
-		05D88C1516F30BB900A87D62 /* bg_selectedphoto_768_955.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_selectedphoto_768_955.png; sourceTree = "<group>"; };
-		05D88C1616F30BB900A87D62 /* bg_selectedphoto_1536_1910.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_selectedphoto_1536_1910.png; sourceTree = "<group>"; };
 		B30015491762853900B7E48D /* 03-Photomation-iPad-Enter-Email-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "03-Photomation-iPad-Enter-Email-Screen-Vertical.jpg"; sourceTree = "<group>"; };
 		B300154B1762856700B7E48D /* 03-Photomation-iPad-Entyer-Email-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "03-Photomation-iPad-Entyer-Email-Horizontal.jpg"; sourceTree = "<group>"; };
 		B300154E1762C60A00B7E48D /* EmailHorizView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailHorizView.xib; sourceTree = "<group>"; };
@@ -328,9 +316,6 @@
 		B32D1AB816FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoSimulatedLandscapeViewController.h; sourceTree = "<group>"; };
 		B32D1AB916FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoSimulatedLandscapeViewController.m; sourceTree = "<group>"; };
 		B32D1ABA16FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TakePhotoSimulatedLandscapeViewController.xib; sourceTree = "<group>"; };
-		B32D1AC116FE2BA50069B416 /* tabbar_horiz_1024_86.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_horiz_1024_86.png; sourceTree = "<group>"; };
-		B32D1AC216FE2BA50069B416 /* tabbar_horiz_2048_172.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_horiz_2048_172.png; sourceTree = "<group>"; };
-		B32D1AC516FE2C950069B416 /* bg_takephoto_horiz_lightsoff_1024_748.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_takephoto_horiz_lightsoff_1024_748.png; sourceTree = "<group>"; };
 		B3482C5A176E5FD0001D8E81 /* 7a-Photomation-iPad-Enter-Twitter-Login-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "7a-Photomation-iPad-Enter-Twitter-Login-Screen-Vertical.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/verticalscreens-series/output/7a-Photomation-iPad-Enter-Twitter-Login-Screen-Vertical.jpg"; sourceTree = "<group>"; };
 		B3482C5C176E6352001D8E81 /* 07a-Photomation-iPad-Enter-Twitter-Login-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "07a-Photomation-iPad-Enter-Twitter-Login-Horizontal.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/horizontalscreens-series/output/07a-Photomation-iPad-Enter-Twitter-Login-Horizontal.jpg"; sourceTree = "<group>"; };
 		B3482C5F176E6817001D8E81 /* TwitterHorizView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterHorizView.xib; sourceTree = "<group>"; };
@@ -339,12 +324,34 @@
 		B3482C66176E751D001D8E81 /* FlickrViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlickrViewController.xib; sourceTree = "<group>"; };
 		B3482C6A176E7590001D8E81 /* 07c-Photomation-iPad-Enter-Flickr-Login-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "07c-Photomation-iPad-Enter-Flickr-Login-Horizontal.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/horizontalscreens-series/output/07c-Photomation-iPad-Enter-Flickr-Login-Horizontal.jpg"; sourceTree = "<group>"; };
 		B3482C6C176E75AA001D8E81 /* 7c-Photomation-iPad-Enter-Flickr-Login-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "7c-Photomation-iPad-Enter-Flickr-Login-Screen-Vertical.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/verticalscreens-series/output/7c-Photomation-iPad-Enter-Flickr-Login-Screen-Vertical.jpg"; sourceTree = "<group>"; };
+		B373ECBB17795D4B00B1AEC1 /* enteremail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = enteremail.wav; sourceTree = "<group>"; };
+		B37460621778C05A00B4A32F /* camera-shutter-click-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "camera-shutter-click-01.wav"; sourceTree = "<group>"; };
+		B37460631778C05A00B4A32F /* countdown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = countdown.wav; sourceTree = "<group>"; };
+		B37460641778C05A00B4A32F /* getready.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = getready.wav; sourceTree = "<group>"; };
+		B37460651778C05A00B4A32F /* pickfavorite.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickfavorite.wav; sourceTree = "<group>"; };
+		B374606C1778EB2F00B4A32F /* SelectFavoriteHorizViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectFavoriteHorizViewController.h; sourceTree = "<group>"; };
+		B374606D1778EB2F00B4A32F /* SelectFavoriteHorizViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFavoriteHorizViewController.m; sourceTree = "<group>"; };
+		B374606E1778EB2F00B4A32F /* SelectFavoriteHorizViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectFavoriteHorizViewController.xib; sourceTree = "<group>"; };
+		B37460711779016C00B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
+		B3746075177908C800B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical2.jpg"; sourceTree = "<group>"; };
 		B37B372F17423015002C4BEE /* TakePhotoAutoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoAutoViewController.h; sourceTree = "<group>"; };
 		B37B373017423015002C4BEE /* TakePhotoAutoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoAutoViewController.m; sourceTree = "<group>"; };
 		B37B373117423015002C4BEE /* TakePhotoAutoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TakePhotoAutoViewController.xib; sourceTree = "<group>"; };
-		B37B373517423536002C4BEE /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical.jpg"; sourceTree = "<group>"; };
 		B37B37381742ED1A002C4BEE /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		B37B37391742ED1A002C4BEE /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
+		B382FAFF177667B100F46DE2 /* ConfigurationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationDelegate.h; sourceTree = "<group>"; };
+		B382FB041777E44100F46DE2 /* ThanksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThanksViewController.h; sourceTree = "<group>"; };
+		B382FB051777E44100F46DE2 /* ThanksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThanksViewController.m; sourceTree = "<group>"; };
+		B382FB061777E44100F46DE2 /* ThanksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThanksViewController.xib; sourceTree = "<group>"; };
+		B382FB0A1777E49F00F46DE2 /* 9-Photomation-iPad-Thank-You-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "9-Photomation-iPad-Thank-You-Vertical.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/verticalscreens-series/output/9-Photomation-iPad-Thank-You-Vertical.jpg"; sourceTree = "<group>"; };
+		B382FB0C1777E4B800F46DE2 /* 9-Photomation-iPad-Thank-You-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "9-Photomation-iPad-Thank-You-Screen-Horizontal.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/horizontalscreens-series/output/9-Photomation-iPad-Thank-You-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
+		B382FB121777EC9000F46DE2 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg"; sourceTree = "<group>"; };
+		B382FB171777EC9900F46DE2 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
+		B382FB1B1777F0BB00F46DE2 /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
+		B382FB1C1777F0BB00F46DE2 /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
+		B382FB1D1777F0BB00F46DE2 /* StartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartViewController.xib; sourceTree = "<group>"; };
+		B382FB211777F16500F46DE2 /* 00-Photomation-iPad-Start-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "00-Photomation-iPad-Start-Screen-Vertical.jpg"; sourceTree = "<group>"; };
+		B382FB231777F17100F46DE2 /* 00-Photomation-iPad-Start-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "00-Photomation-iPad-Start-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
 		B3856ACA176BD9D40038FCDD /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		B3856ACB176BD9D40038FCDD /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		B3856ACC176BD9D40038FCDD /* ASICacheDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -398,7 +405,6 @@
 		B3885ED0172A46090018429B /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		B38AA5BA176E93030035D5ED /* 07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/horizontalscreens-series/output/07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg"; sourceTree = "<group>"; };
 		B38AA5BC176E93190035D5ED /* 7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg"; path = "../../../assets/autolycus.mmeentertainment.com/FromGeorge/PhotomationApp/NewAssets-6-4-13/verticalscreens-series/output/7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg"; sourceTree = "<group>"; };
-		B38ACAEE17430694001AA678 /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
 		B38ACAF117432B2B001AA678 /* takephoto_horiz_practice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = takephoto_horiz_practice.xib; sourceTree = "<group>"; };
 		B38ACAF417435E97001AA678 /* CameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraView.h; sourceTree = "<group>"; };
 		B38ACAF517435E97001AA678 /* CameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraView.m; sourceTree = "<group>"; };
@@ -406,8 +412,6 @@
 		B38ACB021743694D001AA678 /* TakePhotoManualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoManualViewController.m; sourceTree = "<group>"; };
 		B38ACB031743694D001AA678 /* TakePhotoManualViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TakePhotoManualViewController.xib; sourceTree = "<group>"; };
 		B38ACB0C17437F48001AA678 /* HorizPracticeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizPracticeView.xib; sourceTree = "<group>"; };
-		B38ACB10174480AB001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg"; sourceTree = "<group>"; };
-		B38ACB12174480D6001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
 		B38ACB1A1744C845001AA678 /* PrintHorizView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintHorizView.xib; sourceTree = "<group>"; };
 		B38ACB1D1744D93E001AA678 /* SelectedPhotoHorizView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedPhotoHorizView.xib; sourceTree = "<group>"; };
 		B38ACB201744ED9E001AA678 /* Photomation-logo-transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Photomation-logo-transparent.png"; sourceTree = "<group>"; };
@@ -588,10 +592,8 @@
 		B3AB068117584A8B0068236B /* 8-Photomation-iPad-Gallery-Main-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "8-Photomation-iPad-Gallery-Main-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
 		B3AB068317584B5C0068236B /* 8-Photomation-iPad-Gallery-Single-Pic-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "8-Photomation-iPad-Gallery-Single-Pic-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
 		B3AB068517584B680068236B /* 8-Photomation-iPad-Gallery-Single-Pic-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "8-Photomation-iPad-Gallery-Single-Pic-Screen-Vertical.jpg"; sourceTree = "<group>"; };
-		B3AB068717584D080068236B /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg"; sourceTree = "<group>"; };
 		B3AB068817584D080068236B /* 5b-Photomation-iPad-Your-Photo-Screen-Manual-4Up-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5b-Photomation-iPad-Your-Photo-Screen-Manual-4Up-Vertical.jpg"; sourceTree = "<group>"; };
 		B3AB068B17584D280068236B /* 05-Photomation-iPad-Select-Photo-Screen-Manual-4up-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "05-Photomation-iPad-Select-Photo-Screen-Manual-4up-Horizontal.jpg"; sourceTree = "<group>"; };
-		B3AB068C17584D280068236B /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
 		B3AB069217588F400068236B /* YourPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YourPhotoViewController.h; sourceTree = "<group>"; };
 		B3AB069317588F400068236B /* YourPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YourPhotoViewController.m; sourceTree = "<group>"; };
 		B3AB069417588F400068236B /* YourPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YourPhotoViewController.xib; sourceTree = "<group>"; };
@@ -603,8 +605,12 @@
 		B3DB444C17595CFE00C8A0F8 /* EFXPortraitView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EFXPortraitView.xib; sourceTree = "<group>"; };
 		B3DB444E17596DB800C8A0F8 /* 7-Photomation-iPad-SHARE-Photo-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7-Photomation-iPad-SHARE-Photo-Screen-Vertical.jpg"; sourceTree = "<group>"; };
 		B3DB445017596DC500C8A0F8 /* 7-Photomation-iPad-SHARE-Photo-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7-Photomation-iPad-SHARE-Photo-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
-		B3DB44521759EB1500C8A0F8 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg"; sourceTree = "<group>"; };
-		B3DB44541759EB2700C8A0F8 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg"; sourceTree = "<group>"; };
+		B3EB394B17792E7F005924BD /* developingpleasewait.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = developingpleasewait.wav; sourceTree = "<group>"; };
+		B3EB394D17792E8D005924BD /* picked.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = picked.wav; sourceTree = "<group>"; };
+		B3EB394F17792E9E005924BD /* pickupphotos.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickupphotos.wav; sourceTree = "<group>"; };
+		B3EB395117792EAA005924BD /* thanks.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = thanks.wav; sourceTree = "<group>"; };
+		B3EB395317792F7C005924BD /* welcome.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = welcome.wav; sourceTree = "<group>"; };
+		B3EB395717794478005924BD /* selectphototype.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = selectphototype.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -694,7 +700,6 @@
 				B3AB067A17583BE60068236B /* objects */,
 				B3AB067917583B900068236B /* views */,
 				B3AB067817583B300068236B /* viewcontrollers */,
-				B37B372D17422BE8002C4BEE /* delete_me */,
 				05B6EF1416F6B2CE00146842 /* res */,
 				05A4DF7716EEA16C0000F470 /* Main */,
 			);
@@ -762,6 +767,7 @@
 		05B6EF1416F6B2CE00146842 /* res */ = {
 			isa = PBXGroup;
 			children = (
+				B374606A1778C07200B4A32F /* audio */,
 				B3AB0672174CB86D0068236B /* watermark600x400_vert.png */,
 				B3AB0670174CB7B30068236B /* email_horiz_vert.png */,
 				B3AB066E174C9FD30068236B /* email_horiz_1800x1200.png */,
@@ -904,8 +910,6 @@
 				B32D1AAE16FE122A0069B416 /* buttons */,
 				B32D1AAD16FE11FE0069B416 /* horizontal */,
 				B32D1AAC16FE11DB0069B416 /* vertical */,
-				05B6EF1016F5963400146842 /* countdown.wav */,
-				05B6EF0E16F5961C00146842 /* getready.wav */,
 			);
 			name = res;
 			sourceTree = "<group>";
@@ -913,6 +917,7 @@
 		05D88C0116F2B72900A87D62 /* selectfavorite_view */ = {
 			isa = PBXGroup;
 			children = (
+				B374606B1778EB0A00B4A32F /* horizpractice */,
 				05D88C0716F2B7E900A87D62 /* res */,
 				05D88C0216F2B74E00A87D62 /* SelectFavoriteViewController.h */,
 				05D88C0316F2B74E00A87D62 /* SelectFavoriteViewController.m */,
@@ -925,10 +930,7 @@
 			isa = PBXGroup;
 			children = (
 				B3AB068B17584D280068236B /* 05-Photomation-iPad-Select-Photo-Screen-Manual-4up-Horizontal.jpg */,
-				B3AB068C17584D280068236B /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg */,
-				B3AB068717584D080068236B /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg */,
 				B3AB068817584D080068236B /* 5b-Photomation-iPad-Your-Photo-Screen-Manual-4Up-Vertical.jpg */,
-				05B6EF1716F6B63100146842 /* pickfavorite.wav */,
 			);
 			name = res;
 			sourceTree = "<group>";
@@ -948,10 +950,6 @@
 		05D88C1416F30BA400A87D62 /* res */ = {
 			isa = PBXGroup;
 			children = (
-				B38ACB12174480D6001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg */,
-				B38ACB10174480AB001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg */,
-				05D88C1516F30BB900A87D62 /* bg_selectedphoto_768_955.png */,
-				05D88C1616F30BB900A87D62 /* bg_selectedphoto_1536_1910.png */,
 			);
 			name = res;
 			sourceTree = "<group>";
@@ -1005,15 +1003,6 @@
 		B32D1AAC16FE11DB0069B416 /* vertical */ = {
 			isa = PBXGroup;
 			children = (
-				05D88BE916F1917100A87D62 /* takephoto_768_955.png */,
-				05D88BEA16F1917100A87D62 /* takephoto_1536_1910.png */,
-				05D88BF516F1B7CD00A87D62 /* tabbar_768_87.png */,
-				05B6EF0A16F5943600146842 /* bg_takephoto_lightsfull_768_955.png */,
-				05B6EF0B16F5943600146842 /* bg_takephoto_lightsfull_1536_1910.png */,
-				05B6EF0216F5930D00146842 /* bg_takephoto_lightsoff_768_955.png */,
-				05B6EF0316F5930D00146842 /* bg_takephoto_lightsoff_1536_1910.png */,
-				05B6EF0416F5930D00146842 /* bg_takephoto_lightson_768_955.png */,
-				05B6EF0516F5930D00146842 /* bg_takephoto_lightson_1536_1910.png */,
 			);
 			name = vertical;
 			sourceTree = "<group>";
@@ -1021,9 +1010,6 @@
 		B32D1AAD16FE11FE0069B416 /* horizontal */ = {
 			isa = PBXGroup;
 			children = (
-				B32D1AC516FE2C950069B416 /* bg_takephoto_horiz_lightsoff_1024_748.png */,
-				B32D1AC116FE2BA50069B416 /* tabbar_horiz_1024_86.png */,
-				B32D1AC216FE2BA50069B416 /* tabbar_horiz_2048_172.png */,
 			);
 			name = horizontal;
 			sourceTree = "<group>";
@@ -1084,11 +1070,32 @@
 			name = res;
 			sourceTree = "<group>";
 		};
-		B37B372D17422BE8002C4BEE /* delete_me */ = {
+		B374606A1778C07200B4A32F /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				B373ECBB17795D4B00B1AEC1 /* enteremail.wav */,
+				B3EB395717794478005924BD /* selectphototype.wav */,
+				B3EB395317792F7C005924BD /* welcome.wav */,
+				B3EB395117792EAA005924BD /* thanks.wav */,
+				B3EB394F17792E9E005924BD /* pickupphotos.wav */,
+				B3EB394D17792E8D005924BD /* picked.wav */,
+				B3EB394B17792E7F005924BD /* developingpleasewait.wav */,
+				B37460621778C05A00B4A32F /* camera-shutter-click-01.wav */,
+				B37460631778C05A00B4A32F /* countdown.wav */,
+				B37460641778C05A00B4A32F /* getready.wav */,
+				B37460651778C05A00B4A32F /* pickfavorite.wav */,
 			);
-			name = delete_me;
+			name = audio;
+			sourceTree = "<group>";
+		};
+		B374606B1778EB0A00B4A32F /* horizpractice */ = {
+			isa = PBXGroup;
+			children = (
+				B374606C1778EB2F00B4A32F /* SelectFavoriteHorizViewController.h */,
+				B374606D1778EB2F00B4A32F /* SelectFavoriteHorizViewController.m */,
+				B374606E1778EB2F00B4A32F /* SelectFavoriteHorizViewController.xib */,
+			);
+			name = horizpractice;
 			sourceTree = "<group>";
 		};
 		B37B372E17422FB6002C4BEE /* takephoto_auto_view */ = {
@@ -1106,8 +1113,8 @@
 		B37B37341742351D002C4BEE /* res */ = {
 			isa = PBXGroup;
 			children = (
-				B38ACAEE17430694001AA678 /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg */,
-				B37B373517423536002C4BEE /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical.jpg */,
+				B3746075177908C800B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical2.jpg */,
+				B37460711779016C00B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg */,
 			);
 			name = res;
 			sourceTree = "<group>";
@@ -1117,8 +1124,49 @@
 			children = (
 				B37B37381742ED1A002C4BEE /* Configuration.h */,
 				B37B37391742ED1A002C4BEE /* Configuration.m */,
+				B382FAFF177667B100F46DE2 /* ConfigurationDelegate.h */,
 			);
 			name = configuration;
+			sourceTree = "<group>";
+		};
+		B382FB001777E3F600F46DE2 /* thanks_view */ = {
+			isa = PBXGroup;
+			children = (
+				B382FB091777E45600F46DE2 /* res */,
+				B382FB041777E44100F46DE2 /* ThanksViewController.h */,
+				B382FB051777E44100F46DE2 /* ThanksViewController.m */,
+				B382FB061777E44100F46DE2 /* ThanksViewController.xib */,
+			);
+			name = thanks_view;
+			sourceTree = "<group>";
+		};
+		B382FB091777E45600F46DE2 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				B382FB0C1777E4B800F46DE2 /* 9-Photomation-iPad-Thank-You-Screen-Horizontal.jpg */,
+				B382FB0A1777E49F00F46DE2 /* 9-Photomation-iPad-Thank-You-Vertical.jpg */,
+			);
+			name = res;
+			sourceTree = "<group>";
+		};
+		B382FB1A1777EDC500F46DE2 /* start_view */ = {
+			isa = PBXGroup;
+			children = (
+				B382FB201777F14A00F46DE2 /* res */,
+				B382FB1B1777F0BB00F46DE2 /* StartViewController.h */,
+				B382FB1C1777F0BB00F46DE2 /* StartViewController.m */,
+				B382FB1D1777F0BB00F46DE2 /* StartViewController.xib */,
+			);
+			name = start_view;
+			sourceTree = "<group>";
+		};
+		B382FB201777F14A00F46DE2 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				B382FB231777F17100F46DE2 /* 00-Photomation-iPad-Start-Screen-Horizontal.jpg */,
+				B382FB211777F16500F46DE2 /* 00-Photomation-iPad-Start-Screen-Vertical.jpg */,
+			);
+			name = res;
 			sourceTree = "<group>";
 		};
 		B3856AC9176BD9C20038FCDD /* asihttprequest */ = {
@@ -1649,9 +1697,11 @@
 				05B6EF3316F71BF500146842 /* sharephoto_view */,
 				05A4DFA416EEB4350000F470 /* signup_login_view */,
 				05D88BD016F02B3200A87D62 /* signup_view */,
+				B382FB1A1777EDC500F46DE2 /* start_view */,
 				B37B372E17422FB6002C4BEE /* takephoto_auto_view */,
 				B38ACB0017436937001AA678 /* takephoto_manual_view */,
 				05D88BE216F18D5400A87D62 /* takephoto_view */,
+				B382FB001777E3F600F46DE2 /* thanks_view */,
 				B3885ECA172A38250018429B /* twitter_view */,
 				B3AB068F175854FF0068236B /* yourphoto_view */,
 			);
@@ -1693,8 +1743,8 @@
 		B3AB069717588FF70068236B /* res */ = {
 			isa = PBXGroup;
 			children = (
-				B3DB44541759EB2700C8A0F8 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg */,
-				B3DB44521759EB1500C8A0F8 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg */,
+				B382FB171777EC9900F46DE2 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg */,
+				B382FB121777EC9000F46DE2 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg */,
 			);
 			name = res;
 			sourceTree = "<group>";
@@ -1801,32 +1851,15 @@
 				05D88BE016F0338900A87D62 /* btn_submit_305_47.png in Resources */,
 				05D88BE116F0338900A87D62 /* btn_submit_610_94.png in Resources */,
 				05D88BE416F18D9D00A87D62 /* TakePhotoViewController.xib in Resources */,
-				05D88BEB16F1917100A87D62 /* takephoto_768_955.png in Resources */,
-				05D88BEC16F1917100A87D62 /* takephoto_1536_1910.png in Resources */,
-				05D88BF616F1B7CE00A87D62 /* tabbar_768_87.png in Resources */,
 				05D88C0616F2B74E00A87D62 /* SelectFavoriteViewController.xib in Resources */,
 				05D88C1316F30B1D00A87D62 /* SelectedPhotoViewController.xib in Resources */,
-				05D88C1716F30BB900A87D62 /* bg_selectedphoto_768_955.png in Resources */,
-				05D88C1816F30BB900A87D62 /* bg_selectedphoto_1536_1910.png in Resources */,
 				05B6EF0016F5682600146842 /* btn_swap_camera_76_40.png in Resources */,
 				05B6EF0116F5682600146842 /* btn_swap_camera_152_80.png in Resources */,
-				05B6EF0616F5930D00146842 /* bg_takephoto_lightsoff_768_955.png in Resources */,
-				05B6EF0716F5930D00146842 /* bg_takephoto_lightsoff_1536_1910.png in Resources */,
-				05B6EF0816F5930D00146842 /* bg_takephoto_lightson_768_955.png in Resources */,
-				05B6EF0916F5930D00146842 /* bg_takephoto_lightson_1536_1910.png in Resources */,
-				05B6EF0C16F5943600146842 /* bg_takephoto_lightsfull_768_955.png in Resources */,
-				05B6EF0D16F5943600146842 /* bg_takephoto_lightsfull_1536_1910.png in Resources */,
-				05B6EF0F16F5961C00146842 /* getready.wav in Resources */,
-				05B6EF1116F5963400146842 /* countdown.wav in Resources */,
 				05B6EF1616F6B2D800146842 /* selection.wav in Resources */,
-				05B6EF1816F6B63100146842 /* pickfavorite.wav in Resources */,
 				05B6EF1E16F6BA5E00146842 /* GalleryViewController.xib in Resources */,
 				05B6EF2916F7040400146842 /* GallerySelectedPhotoViewController.xib in Resources */,
 				05B6EF3816F71C0C00146842 /* SharePhotoViewController.xib in Resources */,
 				B32D1ABC16FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.xib in Resources */,
-				B32D1AC316FE2BA50069B416 /* tabbar_horiz_1024_86.png in Resources */,
-				B32D1AC416FE2BA50069B416 /* tabbar_horiz_2048_172.png in Resources */,
-				B32D1AC616FE2C950069B416 /* bg_takephoto_horiz_lightsoff_1024_748.png in Resources */,
 				B38FF826170A39FE00D80409 /* ChromaViewController.xib in Resources */,
 				B38FF82E170AA99800D80409 /* SettingsLeftViewController.xib in Resources */,
 				B38FF839170AC06C00D80409 /* RightViewController.xib in Resources */,
@@ -1849,13 +1882,9 @@
 				B3885EBF172A01060018429B /* FacebookViewController.xib in Resources */,
 				B3885ECF172A383D0018429B /* TwitterViewController.xib in Resources */,
 				B37B373317423015002C4BEE /* TakePhotoAutoViewController.xib in Resources */,
-				B37B373617423536002C4BEE /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical.jpg in Resources */,
-				B38ACAEF17430694001AA678 /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg in Resources */,
 				B38ACAF217432B2B001AA678 /* takephoto_horiz_practice.xib in Resources */,
 				B38ACB051743694D001AA678 /* TakePhotoManualViewController.xib in Resources */,
 				B38ACB0D17437F48001AA678 /* HorizPracticeView.xib in Resources */,
-				B38ACB11174480AB001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg in Resources */,
-				B38ACB13174480D6001AA678 /* 05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg in Resources */,
 				B38ACB1B1744C845001AA678 /* PrintHorizView.xib in Resources */,
 				B38ACB1E1744D93E001AA678 /* SelectedPhotoHorizView.xib in Resources */,
 				B38ACB211744ED9E001AA678 /* Photomation-logo-transparent.png in Resources */,
@@ -1885,8 +1914,6 @@
 				B3DB444D17595CFE00C8A0F8 /* EFXPortraitView.xib in Resources */,
 				B3DB444F17596DB800C8A0F8 /* 7-Photomation-iPad-SHARE-Photo-Screen-Vertical.jpg in Resources */,
 				B3DB445117596DC500C8A0F8 /* 7-Photomation-iPad-SHARE-Photo-Screen-Horizontal.jpg in Resources */,
-				B3DB44531759EB1500C8A0F8 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg in Resources */,
-				B3DB44551759EB2700C8A0F8 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg in Resources */,
 				B300154A1762853900B7E48D /* 03-Photomation-iPad-Enter-Email-Screen-Vertical.jpg in Resources */,
 				B300154C1762856700B7E48D /* 03-Photomation-iPad-Entyer-Email-Horizontal.jpg in Resources */,
 				B300154F1762C60A00B7E48D /* EmailHorizView.xib in Resources */,
@@ -1909,6 +1936,28 @@
 				B3482C6D176E75AA001D8E81 /* 7c-Photomation-iPad-Enter-Flickr-Login-Screen-Vertical.jpg in Resources */,
 				B38AA5BB176E93030035D5ED /* 07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg in Resources */,
 				B38AA5BD176E93190035D5ED /* 7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg in Resources */,
+				B382FB081777E44100F46DE2 /* ThanksViewController.xib in Resources */,
+				B382FB0B1777E49F00F46DE2 /* 9-Photomation-iPad-Thank-You-Vertical.jpg in Resources */,
+				B382FB0D1777E4B800F46DE2 /* 9-Photomation-iPad-Thank-You-Screen-Horizontal.jpg in Resources */,
+				B382FB141777EC9000F46DE2 /* 5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg in Resources */,
+				B382FB191777EC9900F46DE2 /* 5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg in Resources */,
+				B382FB1F1777F0BB00F46DE2 /* StartViewController.xib in Resources */,
+				B382FB221777F16500F46DE2 /* 00-Photomation-iPad-Start-Screen-Vertical.jpg in Resources */,
+				B382FB241777F17100F46DE2 /* 00-Photomation-iPad-Start-Screen-Horizontal.jpg in Resources */,
+				B37460661778C05A00B4A32F /* camera-shutter-click-01.wav in Resources */,
+				B37460671778C05A00B4A32F /* countdown.wav in Resources */,
+				B37460681778C05A00B4A32F /* getready.wav in Resources */,
+				B37460691778C05A00B4A32F /* pickfavorite.wav in Resources */,
+				B37460701778EB2F00B4A32F /* SelectFavoriteHorizViewController.xib in Resources */,
+				B37460721779016C00B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Horizontal.jpg in Resources */,
+				B3746076177908C800B4A32F /* 04-Photomation-iPad-TakePhoto-Auto-Screen-Vertical2.jpg in Resources */,
+				B3EB394C17792E7F005924BD /* developingpleasewait.wav in Resources */,
+				B3EB394E17792E8D005924BD /* picked.wav in Resources */,
+				B3EB395017792E9E005924BD /* pickupphotos.wav in Resources */,
+				B3EB395217792EAA005924BD /* thanks.wav in Resources */,
+				B3EB395417792F7C005924BD /* welcome.wav in Resources */,
+				B3EB395817794478005924BD /* selectphototype.wav in Resources */,
+				B373ECBC17795D4B00B1AEC1 /* enteremail.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1992,6 +2041,9 @@
 				B38D5A41176B1E4100DA3770 /* TwitterLoginPopup.m in Sources */,
 				B38D5A43176B1E4100DA3770 /* TwitterWebViewController.m in Sources */,
 				B3482C67176E751D001D8E81 /* FlickrViewController.m in Sources */,
+				B382FB071777E44100F46DE2 /* ThanksViewController.m in Sources */,
+				B382FB1E1777F0BB00F46DE2 /* StartViewController.m in Sources */,
+				B374606F1778EB2F00B4A32F /* SelectFavoriteHorizViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

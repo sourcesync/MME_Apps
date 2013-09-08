@@ -420,14 +420,14 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     FacebookViewController *s = (FacebookViewController *)self.facebook_view;
     self.window.rootViewController = s;
 }
-
+ 
 
 //  Goto the twitter view...
--(void) goto_twitterview:(UIViewController *)back
+-(void) goto_twitterview:(UIViewController *)back append_hash_tag:(BOOL)append_hash_tag
 {
     TwitterViewController *s = (TwitterViewController *)self.twitter_view;
+    s.append_hash_tag = append_hash_tag;
     self.window.rootViewController = s;
-    
     self.is_twitter = YES;
 }
 
@@ -452,6 +452,13 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 {
     self.window.rootViewController = self.start_view;
 }
+
+
+-(void) goto_thanks
+{
+    self.window.rootViewController = self.thanks_view;
+}
+
 
 + (void) set_popover: (UIPopoverController *)popover
 {
@@ -1039,8 +1046,9 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     if (vertical)
     {
         //  Load the template...
-        UIImage *template = [ UIImage imageNamed:@"email_vert_1200x1800.jpg" ];
-    
+        //gw UIImage *template = [ UIImage imageNamed:@"email_vert_1200x1800.jpg" ];
+        UIImage *template = [ self.config GetImage:@"em_p" ];
+        
         // Resize the template to the final res...
         CGSize sz = CGSizeMake(400,600);
         UIImage *rsize_template = [ template
@@ -1056,7 +1064,8 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
         UIImage *result = [ rsize_template pasteImage:rsize_insert bounds:rect ];
     
         //  Load the watermark...
-        UIImage *watermark = [ UIImage imageNamed:@"watermark400x600.png"];
+        //gw UIImage *watermark = [ UIImage imageNamed:@"watermark400x600.png"];
+        UIImage *watermark = [ self.config GetImage:@"wm_p" ];
         
         //  Watermark...
         UIImage *watermarked_image = [ self maskImage:result withMask:watermark ];
@@ -1066,7 +1075,8 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     else
     {        
         //  Load the template...
-        UIImage *template = [ UIImage imageNamed:@"email_horiz_1800x1200.png" ];
+        //gw UIImage *template = [ UIImage imageNamed:@"email_horiz_1800x1200.png" ];
+        UIImage *template = [ self.config GetImage:@"em_l" ];
         
         // Resize the template to the final res...
         CGSize sz = CGSizeMake(600,400);
@@ -1086,7 +1096,8 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
         raw2.image = result;
        
         //  Load the water mark...
-        UIImage *watermark = [ UIImage imageNamed:@"watermark600x400.png"];
+        //UIImage *watermark = [ UIImage imageNamed:@"watermark600x400.png"];
+        UIImage *watermark = [ self.config GetImage:@"wm_l" ];
         
         //  water mark the image...
         UIImage *watermarked_image = [ self maskImage:result withMask:watermark ];

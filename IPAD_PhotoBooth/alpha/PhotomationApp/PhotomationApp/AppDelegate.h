@@ -121,7 +121,7 @@ extern NSString *SnapAndRunShouldUpdateAuthInfoNotification;
 -(void) goto_emailview:(UIViewController *)back;
 -(void) email_go_back;
 -(void) goto_facebookview:(UIViewController *)back;
--(void) goto_twitterview:(UIViewController *)back;
+-(void) goto_twitterview:(UIViewController *)back append_hash_tag:(BOOL)append_hash_tag;
 -(void) goto_flickrview:(UIViewController *)back;
 +(void) set_popover: (UIPopoverController *)popover;
 +(void) show_popover: (UIBarButtonItem *)b;
@@ -129,6 +129,8 @@ extern NSString *SnapAndRunShouldUpdateAuthInfoNotification;
 +(void) show_settings_chroma;
 -(void) playSound:(NSURL *)sound delegate:(id<AVAudioPlayerDelegate>) del;
 -(void) goto_start;
+-(void) goto_thanks;
+
 
 //  Gallery funcs...
 +(NSArray *) GetGalleryPhotos;

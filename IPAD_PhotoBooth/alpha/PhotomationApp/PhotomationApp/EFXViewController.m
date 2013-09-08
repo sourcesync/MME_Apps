@@ -59,17 +59,46 @@ UIInterfaceOrientation current_orientation;
     else
         self.img_taken.image = self.filtered_img;
     
+    
+    //  play the audio...
+    if ( app.config.mode == 1) //experience
+    {
+        [ app.config PlaySound:@"snd_efx" del:self ];
+        self.audio_done = NO;
+    }
+    
+    //  disable buttons in experience mode...
+    if ( app.config.mode == 1 )
+    {
+        self.btn_gallery.enabled = NO;
+        self.btn_photobooth.enabled = NO;
+        self.btn_settings.enabled = NO;
+    }
+    
     //  Initialize orientation...
     UIInterfaceOrientation uiorientation =
         [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation  duration:0];
     
+    //  Start the idle timer...
+    [ self restartTimer ];
 }
+
 
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [ super viewWillDisappear:animated];
+    
+    //  stop any timer...
+    [self.timer invalidate];
+    self.timer = nil;
+    
+    AppDelegate *app = (AppDelegate *) [ [ UIApplication sharedApplication ] delegate ];
+    if ( app.config.mode == 1) //experience
+    {
+        [ app.config SetSoundDelegate:@"snd_efx" del:nil ];
+    }
     
     if (self.use_original)
     {
@@ -77,6 +106,14 @@ UIInterfaceOrientation current_orientation;
         [ AppDelegate DeleteCurrentFilteredPhoto];
     }
     
+}
+
+
+#pragma avdelegate
+
+-(void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    self.audio_done = YES;
 }
 
 #pragma general funcs
@@ -156,16 +193,30 @@ UIInterfaceOrientation current_orientation;
 {
     AppDelegate *app = (AppDelegate *)
         [ [ UIApplication sharedApplication ] delegate ];
-    [ app efx_go_back ];
+    if ( app.config.mode==1) //experience
+    {
+        [ app goto_selectfavorite];
+    }
+    else
+    {
+        [ app efx_go_back ];
+    }
 }
 
 
 -(IBAction) btnaction_ilikeit: (id)sender
 {
+    
     AppDelegate *app = (AppDelegate *)
         [ [ UIApplication sharedApplication ] delegate ];
-    [ app efx_go_back];
-    
+    if ( app.config.mode==1) //experience
+    {
+        [ app goto_sharephoto:nil ];
+    }
+    else
+    {
+        [ app efx_go_back];
+    }
 }
 
 
@@ -215,6 +266,42 @@ UIInterfaceOrientation current_orientation;
     app.active_photo_is_original = NO;
 }
 
+
+#pragma timer
+
+
+-(void) restartTimer
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    //  we only do timer stuff in experience mode...
+    if ( app.config.mode == 0) return;
+    
+    //  kill the current timer, if any...
+    if (self.timer!=nil) [self.timer invalidate];
+    self.timer = nil;
+    
+    //  start the new timer...
+    int timeout = app.config.efxview_timeout;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:timeout
+                                                  target:self
+                                                selector:@selector(timerExpired:)
+                                                userInfo:nil
+                                                 repeats:NO];
+}
+
+
+
+-(void) timerExpired: (id)obj
+{
+    //  If got here, and we are the primary view
+    //  then go back to start
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    if ( app.config.mode == 1 ) // experience
+    {
+        [ app goto_sharephoto:nil ];
+    }
+}
 
 
 #pragma rotation stuff

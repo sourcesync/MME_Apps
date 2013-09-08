@@ -87,6 +87,13 @@
     //  Initialize the message label...
     self.lbl_message.hidden = YES;
     
+    //  play the audio...
+    if ( app.config.mode == 1) //experience
+    {
+        [ app.config PlaySound:@"snd_email" del:self ];
+        self.audio_done = NO;
+    }
+    
     //  Initialize orientation and control positions...
     UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation  duration:0];
@@ -108,8 +115,25 @@
 {
     [ super viewWillDisappear:animated];
     
+    //  stop any timer...
     [self.timer invalidate];
     self.timer = nil;
+
+    
+    
+    //  release audio delegate...
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app.config SetSoundDelegate:@"snd_email" del:nil];
+    [ app.config StopSound:@"snd_email"];
+    
+}
+
+
+#pragma avdelegate
+
+-(void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    self.audio_done = YES;
 }
 
 #pragma actions
@@ -119,14 +143,14 @@
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     //  we only do timer stuff in experience mode...
-    if ( app.config.mode == 1) return;
+    if ( app.config.mode == 0) return;
     
     //  kill the current timer, if any...
     if (self.timer!=nil) [self.timer invalidate];
     self.timer = nil;
     
     //  start the new timer...
-    int timeout = app.config.startview_timeout;
+    int timeout = app.config.email_timeout;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:timeout
                                                   target:self
                                                 selector:@selector(timerExpired:)
@@ -257,7 +281,16 @@
 -(IBAction) btn_cancel:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [ app email_go_back ];
+    if (app.config.mode == 1 ) //experience
+    {
+        [ app goto_start ];
+        
+            
+    }
+    else
+    {
+       [ app email_go_back ]; 
+    }
 }
 
 
