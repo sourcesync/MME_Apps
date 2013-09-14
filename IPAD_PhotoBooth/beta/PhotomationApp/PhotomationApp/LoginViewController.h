@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface LoginViewController : UIViewController
+    <UITableViewDataSource, UITableViewDelegate, ContentManagerDelegate>
 
 //  Table view...
 @property (strong, nonatomic) IBOutlet UITableView *tv;
@@ -28,7 +29,12 @@
 //  Nav item..
 @property (strong, nonatomic) IBOutlet UINavigationItem *nav;
 
+//  Activity...
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activity;
+
+//  Button...
+@property (nonatomic, retain) IBOutlet UIButton *btn_login;
+
 
 
 @property (assign) bool logging_in;

@@ -207,7 +207,10 @@ UIInterfaceOrientation current_orientation;
 -(IBAction) btnaction_email:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [ app goto_emailview:self ];
+    if ( app.config.mode == 1 )
+        ;
+    else
+        [ app goto_emailview:self ];
 }
 
 

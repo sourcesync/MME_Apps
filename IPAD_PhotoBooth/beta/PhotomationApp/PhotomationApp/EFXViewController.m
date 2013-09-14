@@ -423,15 +423,17 @@ UIInterfaceOrientation current_orientation;
               duration:(NSTimeInterval)duration
 
 {
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     current_orientation = toInterfaceOrientation;
     
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"6-Photomation-iPad-EFX-Photo-Screen-Vertical.jpg" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+        //                     @"6-Photomation-iPad-EFX-Photo-Screen-Vertical.jpg" ];
+        self.img_bg.image = [ app.config GetImage:@"efx_p" ];
+        
         //self.img_bg.frame = CGRectMake(0,0,1024,768);
         
         self.img_taken.frame = CGRectMake(172,132,423,567);
@@ -473,8 +475,11 @@ UIInterfaceOrientation current_orientation;
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"6-Photomation-iPad-EFX-Photo-Screen-Horizontal.jpg" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+        //                     @"6-Photomation-iPad-EFX-Photo-Screen-Horizontal.jpg" ];
+        self.img_bg.image = [ app.config GetImage:@"efx_l" ];
+
+        
         //self.img_bg.frame = CGRectMake(0,0,1024,768);
         
         self.img_taken.frame = CGRectMake(235, 82, 554, 415);

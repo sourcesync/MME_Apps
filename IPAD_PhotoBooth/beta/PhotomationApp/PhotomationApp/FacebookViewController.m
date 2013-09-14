@@ -399,15 +399,16 @@ UIInterfaceOrientation current_orientation;
               duration:(NSTimeInterval)duration
 
 {
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     current_orientation = toInterfaceOrientation;
     
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.imgview_bg.image = [ UIImage imageNamed:
-                                 @"7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg" ];
+        //self.imgview_bg.image = [ UIImage imageNamed:
+        //                         @"7b-Photomation-iPad-Enter-FB-Login-Screen-Vertical.jpg" ];
+        self.imgview_bg.image = [ app.config GetImage:@"facebook_p" ];
         
         self.webview.frame = CGRectMake(44, 216, 680, 711);
         
@@ -420,8 +421,9 @@ UIInterfaceOrientation current_orientation;
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        self.imgview_bg.image = [ UIImage imageNamed:
-                                 @"07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg" ];
+        //self.imgview_bg.image = [ UIImage imageNamed:
+        //                         @"07b-Photomation-iPad-Enter-FB-Login-Horizontal.jpg" ];
+        self.imgview_bg.image = [ app.config GetImage:@"facebook_l" ];
         
         self.webview.frame = CGRectMake(46, 136, 931, 561);
         

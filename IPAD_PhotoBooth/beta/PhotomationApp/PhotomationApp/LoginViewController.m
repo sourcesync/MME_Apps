@@ -70,6 +70,45 @@
         return NO;
 }
 
+
+- (void) ContentStatusChanged
+{
+    
+}
+
+- (void) ContentConfigChanged
+{
+    
+}
+
+- (void) ConfigDownloadFailed
+{
+    //  Adjust ui
+    self.activity.hidden = YES;
+    [self.activity stopAnimating];
+    self.btn_login.enabled = YES;
+    self.logging_in = NO;
+    
+    [ AppDelegate ErrorMessage:@"Login Failed"];
+    //  Goto to cms/skin config screen...
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    //[ app goto_cms ];
+}
+
+
+
+- (void) ConfigDownloadSucceeded
+{
+    //  Adjust ui
+    self.activity.hidden = YES;
+    [self.activity stopAnimating];
+    self.btn_login.enabled = YES;
+    self.logging_in = NO;
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    [ app goto_cms ];
+}
+
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 2;
@@ -107,12 +146,27 @@
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     
+    //
     //  Create the configuration objects here...
-    app.config = [ [ Configuration alloc ] init ];
-    app.cm = [ [ ContentManager alloc ] init:app.login_name ];
+    //
+    if ( app.config == nil )
+    {
+        app.config = [ [ Configuration alloc ] init ];
+        app.cm = [ [ ContentManager alloc ] init:app.login_name ];
+        app.cm.cmdel = self;
+    }
     
-    //  Goto to cms/skin config screen...
-    [ app goto_cms ];
+    if ( ! [ app.cm config_sync: NO] )
+    {
+        //  Adjust ui
+        self.activity.hidden = YES;
+        [self.activity stopAnimating];
+        self.btn_login.enabled = YES;
+        self.logging_in = NO;
+        
+        [ AppDelegate ErrorMessage:@"Problem Connecting To Server" ];
+    }
+    
 }
 
 - (IBAction) btn_submit
@@ -123,19 +177,22 @@
     if ( ( self.field_name.text == nil ) || 
         ( [ self.field_name.text compare:@"" ] == NSOrderedSame ) )
     {
-        [ AppDelegate ErrorMessage:@"Invalid Login" ];
+        [ AppDelegate ErrorMessage:@"Invalid Login Name" ];
     }
     else if (! self.logging_in)
     {
         self.logging_in = YES;
         
+        //  Set the login name globally...
         app.login_name =self.field_name.text;
         
-        
+        //  Adjust ui
         self.activity.hidden = NO;
         [self.activity startAnimating];
-        
+        self.btn_login.enabled = NO;
+            
         [ self performSelector:@selector(next:) withObject:nil afterDelay:1];
+        
     }
 }
 

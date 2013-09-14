@@ -295,7 +295,7 @@ UIInterfaceOrientation current_orientation;
     self.state = 0;
     AppDelegate * app =
         ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
-    [ app.config PlaySound:@"selection" del:nil];
+    [ app.config PlaySound:@"snd_selection" del:nil];
 }
 
 
@@ -310,7 +310,7 @@ UIInterfaceOrientation current_orientation;
     self.state = 1;
     AppDelegate * app =
         ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
-    [ app.config PlaySound:@"getready" del:self];
+    [ app.config PlaySound:@"snd_getready" del:self];
 }
 
 -(void) countdown
@@ -318,7 +318,7 @@ UIInterfaceOrientation current_orientation;
     self.state = 2;
     AppDelegate * app =
         ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
-    [app.config PlaySound:@"countdown" del:self];
+    [app.config PlaySound:@"snd_countdown" del:self];
 }
 
 

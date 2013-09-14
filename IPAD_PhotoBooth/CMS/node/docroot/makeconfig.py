@@ -15,6 +15,8 @@ settings = {\
 	"img_yourphoto_manual_landscape": "screens/05-Photomation-iPad-Select-Photo-Screen-Manual-4up-Horizontal.jpg", \
 	"img_yourphoto_auto_portrait": "screens/5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg", \
 	"img_yourphoto_auto_landscape": "screens/5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg", \
+	"img_selectedphoto_portrait" : "screens/05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg", \
+	"img_selectedphoto_landscape": "screens/05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg", \
 	"img_efx_portrait":"screens/6-Photomation-iPad-EFX-Photo-Screen-Vertical.jpg", \
 	"img_efx_landscape":"screens/6-Photomation-iPad-EFX-Photo-Screen-Horizontal.jpg", \
 	"img_share_portrait":"screens/7-Photomation-iPad-SHARE-Photo-Screen-Vertical.jpg",\

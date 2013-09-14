@@ -336,7 +336,7 @@
               duration:(NSTimeInterval)duration
 
 {
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     //current_orientation = toInterfaceOrientation;
     float width = self.image_email.size.width;
     float height = self.image_email.size.height;
@@ -344,8 +344,11 @@
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
+        //self.imageview_bg.image =
+        //    [ UIImage imageNamed:@"03-Photomation-iPad-Enter-Email-Screen-Vertical.jpg"];
         self.imageview_bg.image =
-            [ UIImage imageNamed:@"03-Photomation-iPad-Enter-Email-Screen-Vertical.jpg"];
+            [ app.config GetImage:@"email_p" ];
+        
         self.fld_email.frame = CGRectMake(0,681,682,44);
         self.btn_cancel.frame = CGRectMake(687, 681, 73, 44);
         
@@ -370,8 +373,11 @@
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
+        //self.imageview_bg.image =
+        //    [ UIImage imageNamed:@"03-Photomation-iPad-Entyer-Email-Horizontal.jpg"];
         self.imageview_bg.image =
-            [ UIImage imageNamed:@"03-Photomation-iPad-Entyer-Email-Horizontal.jpg"];
+            [ app.config GetImage:@"email_p" ];
+        
         self.fld_email.frame = CGRectMake(76,345,727,44);
         self.btn_cancel.frame = CGRectMake(811, 345, 73, 44);
         

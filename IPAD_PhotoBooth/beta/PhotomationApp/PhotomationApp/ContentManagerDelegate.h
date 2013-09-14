@@ -16,4 +16,8 @@
 
 - (void) ContentConfigChanged;
 
+- (void) ConfigDownloadSucceeded;
+
+- (void) ConfigDownloadFailed;
+
 @end

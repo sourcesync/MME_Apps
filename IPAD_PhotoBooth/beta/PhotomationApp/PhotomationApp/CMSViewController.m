@@ -32,16 +32,6 @@
 {
     [super viewDidLoad];
     
-    //  various init...
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    app.cm.cmdel = self;
-    self.cm = app.cm; 
-    self.content = app.cm.content;
-    self.content_keys = [ [ app.cm.content allKeys ]
-                         sortedArrayUsingComparator: ^(id a, id b) {
-                             NSString *ka = (NSString *)a;
-                             NSString *kb = (NSString *)b;
-                             return [ka compare:kb]; } ];
     //  init table...
     self.tv.delegate = self;
     self.tv.dataSource = self;
@@ -51,6 +41,29 @@
 {
     [ super viewWillAppear:animated];
     
+    //  Make sure this object is the callback delegate for the contentmanager...
+
+    [self.tv reloadData];
+    
+    self.activity.hidden = YES;
+    [ self.activity stopAnimating];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    self.cm = app.cm;
+    app.cm.cmdel = self;
+    
+    self.content = app.cm.content;
+    self.content_keys = [ [ app.cm.content allKeys ]
+                         sortedArrayUsingComparator: ^(id a, id b) {
+                             NSString *ka = (NSString *)a;
+                             NSString *kb = (NSString *)b;
+                             return [ka compare:kb]; } ];
+    
+    
     //  update the url...
     self.fld_url.text = self.cm.remote;
     
@@ -58,12 +71,15 @@
     self.lbl_skin.text = self.cm.name;
     
     //  this will update the status label...
-    [ self ContentStatusChanged ];
+    //  Change the status label...
+    NSString *cstr = app.cm.str_cstatus;
+    NSLog(@"%@",cstr);
+    NSString *sstr = app.cm.str_sstatus;
+    NSLog(@"%@",sstr);
+    NSString *lblstr = [ NSString stringWithFormat:@"%@,%@",cstr,sstr];
+    self.lbl_status.text = lblstr;
     
     [self.tv reloadData];
-    
-    self.activity.hidden = YES;
-    [ self.activity stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,6 +89,16 @@
 }
 
 //  CONTENTMANAGERDELEGATE
+
+-(void) ConfigDownloadSucceeded
+{
+    
+}
+
+-(void) ConfigDownloadFailed
+{
+    
+}
 
 -(void) ContentStatusChanged
 {
@@ -126,6 +152,8 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (self.content_keys == nil) return 0;
+    
    int rows = [ self.content_keys count ];
     return rows;
 }
@@ -230,11 +258,19 @@
 
 -(IBAction) btn_action_launch: (id)sender
 {
-    if ( [ self.cm is_complete] )
+    if ( [self.cm is_syncing] )
+    {
+        [AppDelegate ErrorMessage:@"Please wait.  Content is syncing."];
+    }
+    else if ( [ self.cm is_complete] )
     {
         AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
         
         [ app goto_start ];
+    }
+    else
+    {
+        [AppDelegate ErrorMessage:@"Content is not complete.  Please sync."];
     }
 }
 

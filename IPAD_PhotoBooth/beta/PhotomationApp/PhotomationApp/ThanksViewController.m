@@ -256,12 +256,17 @@
                                 duration:(NSTimeInterval)duration
 {
     
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication ] delegate ];
+    
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
+        self.imgview_bg.image = [ app.config GetImage:@"thanks_p"];
         [self orientElements:toInterfaceOrientation duration:duration ];
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
+        self.imgview_bg.image = [ app.config GetImage:@"thanks_l"];
         [self orientElements:toInterfaceOrientation duration:duration ];
     }
 }

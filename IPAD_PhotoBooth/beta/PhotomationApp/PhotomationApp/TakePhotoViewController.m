@@ -292,7 +292,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         [ self startChroma ];
     }
     
-    [ self playSound:@"selection" usedel:NO ];
+    [ self playSound:@"snd_election" usedel:NO ];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -565,8 +565,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     AppDelegate * app = ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
     
-    self.img_bg.image = [ UIImage imageNamed:@"bg_takephoto_lightsfull_768_955.png"];
-            
+    //self.img_bg.image = [ UIImage imageNamed:@"bg_takephoto_lightsfull_768_955.png"];
+    
+    
     self.allow_snap = NO;
     
     //  Take the pic...
@@ -585,12 +586,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     self.img_bg.image = [ UIImage imageNamed:@"bg_takephoto_lightson_768_955.png"];
     
     
-    [ self playSound:@"getready" usedel:YES];
+    [ self playSound:@"snd_getready" usedel:YES];
 }
 
 -(void) countdown
 {
-    [ self playSound:@"countdown" usedel:YES];
+    [ self playSound:@"snd_countdown" usedel:YES];
 }
 
 - (void) playSound:(NSString *)sound usedel:(BOOL)usedel

@@ -62,10 +62,15 @@
 
 -(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
 {
+    
+    AppDelegate *app = (AppDelegate *)[[ UIApplication sharedApplication] delegate ];
+    
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+        //                     @"05b-Photomation-iPad-Selected-Photo-Screen-Vertical.jpg" ];
+        
+        self.img_bg.image = [ app.config GetImage:@"sel_p" ];
         
         CGRect rect = CGRectMake(173, 132, 422, 567);
         self.selected.frame = rect;
@@ -96,8 +101,10 @@
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+        //                     @"05b-Photomation-iPad-Selected-Photo-Screen-Horizontal.jpg" ];
+        
+        self.img_bg.image = [ app.config GetImage:@"sel_l" ];
         
         CGRect rect = CGRectMake(344, 103, 336, 449);
         self.selected.frame = rect;
@@ -212,7 +219,7 @@
 - (void) playSelection
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [ app.config PlaySound:@"Selection" del:nil];
+    [ app.config PlaySound:@"snd_selection" del:nil];
 }
 
 

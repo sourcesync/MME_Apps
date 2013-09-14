@@ -33,10 +33,12 @@ enum SettingsStatus {
 @property (atomic, retain) NSDictionary *content;
 @property (assign) enum ConfigStatus cstatus;
 @property (assign) enum SettingsStatus sstatus;
-@property (assign) NSString *str_cstatus;
-@property (assign) NSString *str_sstatus;
+@property (nonatomic, retain) NSString *str_cstatus;
+@property (nonatomic, retain) NSString *str_sstatus;
 @property (assign) id<ContentManagerDelegate> cmdel;
 @property (assign) bool config_syncing;
+
+@property (assign) bool sync_settings_after_config;
 
 -(id)       init:(NSString *)name;
 
@@ -49,5 +51,7 @@ enum SettingsStatus {
 -(bool)     is_syncing;
 
 -(bool)     is_complete;
+
+-(bool)     config_sync:(bool)sync_settings;
 
 @end

@@ -134,14 +134,22 @@
 
 -(id)init:(NSString *)name
 {
+    
     //  basic init...
-    ContentManager *obj = [ self init ];
+    ContentManager *obj = [ super init ];
     obj.local = @"events";
     obj.name = name;
     obj.content = [ [ NSMutableDictionary alloc ] init ];
     obj.cstatus = ConfigStatusUnknown;
     obj.sstatus = SettingsStatusUnknown;
     obj.config_syncing = NO;
+    obj.sync_settings_after_config = NO;
+    obj.str_sstatus = @"Unknown";
+    obj.str_cstatus = @"Unknown";
+    NSString *cstr = obj.str_cstatus;
+    NSLog(@"%@",cstr);
+    NSString *sstr = obj.str_sstatus;
+    NSLog(@"%@",sstr);
     
     //
     //  Get/determine the remote url...
@@ -153,11 +161,11 @@
         if ([model isEqualToString:@"iPad Simulator"])
         {
             //device is simulator
-            //[[NSUserDefaults standardUserDefaults] setObject:@"http://127.0.0.1/events"
-              //                                        forKey:@"mainURL"];
-            
-            [[NSUserDefaults standardUserDefaults] setObject:@"http://photomation.mmeink.com/event"
+            [[NSUserDefaults standardUserDefaults] setObject:@"http://127.0.0.1/events"
                                                       forKey:@"mainURL"];
+            
+            //[[NSUserDefaults standardUserDefaults] setObject:@"http://photomation.mmeink.com/event"
+              //                                        forKey:@"mainURL"];
         }
         else
         {
@@ -214,6 +222,12 @@
             self.str_cstatus = [ NSString stringWithFormat:@"Error"];
             break;
     }
+    
+    NSString *cstr = self.str_cstatus;
+    NSLog(@"%@",cstr);
+    NSString *sstr = self.str_sstatus;
+    NSLog(@"%@",sstr);
+
 }
 
 -(void) compute_settings_status
@@ -259,6 +273,10 @@
             break;
     }
     
+    NSString *cstr = self.str_cstatus;
+    NSLog(@"%@",cstr);
+    NSString *sstr = self.str_sstatus;
+    NSLog(@"%@",sstr);
 }
 
 -(void) compute_status
@@ -267,8 +285,12 @@
     
     [ self compute_settings_status ];
     
-    if ( self.cmdel!=nil) [ self.cmdel ContentStatusChanged ];
+    if ( self.sync_settings_after_config )
+    {
+        
     
+        if ( self.cmdel!=nil) [ self.cmdel ContentStatusChanged ];
+    }
 }
 
 -(bool) is_syncing
@@ -288,9 +310,11 @@
 
 -(bool) sync
 {
-    if (! [ self config_sync ] ) return false;
+    self.sync_settings_after_config = YES;
     
-    return [ self settings_sync ];
+    if (! [ self config_sync:YES ] ) return false;
+    else return true;
+    //return [ self settings_sync ];
 }
 
 -(void) fetchedConfig: (id)obj
@@ -325,14 +349,24 @@
                 else if ( [ key hasPrefix:@"str_"] ) [ self set_settings_str:key val:val];
             }
             
+            [ self.cmdel ConfigDownloadSucceeded ];
             
             [ self.cmdel ContentConfigChanged ];
             
             [ self compute_status ];
         }
+        else // config == null
+        {
+            [ self.cmdel ConfigDownloadFailed ];
+        }
         
         //  initiate settings sync...
-        [ self settings_sync ];
+        if (self.sync_settings_after_config)
+            [ self settings_sync ];
+    }
+    else // data==null
+    {
+        [ self.cmdel ConfigDownloadFailed ];
     }
     
     [ self compute_status ];
@@ -357,8 +391,10 @@
 }
 
 
--(bool) config_sync
+-(bool) config_sync:(bool)sync_settings
 {
+    self.sync_settings_after_config = sync_settings;
+    
     //  form remote path...
     NSString *path = [ NSString stringWithFormat:@"%@/ipad_%@/%@.json",
                       self.remote,
@@ -506,6 +542,7 @@
                         AVAudioPlayer *audio = [[AVAudioPlayer alloc]
                                  initWithContentsOfURL:fileURL error:NULL];
                         [ audio prepareToPlay ];
+                        content.data = audio;
                     }
                     else
                     {

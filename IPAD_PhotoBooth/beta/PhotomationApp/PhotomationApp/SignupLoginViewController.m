@@ -73,7 +73,7 @@
 
 -(IBAction) btn_signup: (id) sender
 {
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     
     [ AppDelegate ErrorMessage:@"Not Implemented" ];
     //[ app goto_signup];

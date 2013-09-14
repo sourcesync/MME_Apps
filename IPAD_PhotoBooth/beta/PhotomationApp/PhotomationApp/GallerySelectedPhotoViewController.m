@@ -147,11 +147,14 @@ UIInterfaceOrientation current_orientation;
 -(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
 {
     current_orientation = toInterfaceOrientation;
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"8-Photomation-iPad-Gallery-Single-Pic-Screen-Vertical.jpg" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+          //                   @"8-Photomation-iPad-Gallery-Single-Pic-Screen-Vertical.jpg" ];
+        self.img_bg.image = [ app.config GetImage:@"gal_sel_p" ];
         
         CGRect rect = CGRectMake(173,161,423,568);
         self.selected.frame = rect;
@@ -186,8 +189,9 @@ UIInterfaceOrientation current_orientation;
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"8-Photomation-iPad-Gallery-Single-Pic-Screen-Horizontal.jpg" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+        //                     @"8-Photomation-iPad-Gallery-Single-Pic-Screen-Horizontal.jpg" ];
+        self.img_bg.image = [ app.config GetImage:@"gal_sel_l" ];
         
         CGRect rect = CGRectMake(280,151,464,346);
         self.selected.frame = rect;

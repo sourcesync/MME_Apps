@@ -223,7 +223,7 @@
     pic.showsPageRange = YES;
     
     
-    int cnt = [ pic accessibilityElementCount];
+    //int cnt = [ pic accessibilityElementCount];
     //[ pic a]
     
     void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) =

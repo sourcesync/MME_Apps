@@ -44,6 +44,8 @@
                    @"img_start_landscape",@"start_l",
                    @"img_email_portrait", @"email_p",
                    @"img_email_landscape", @"email_l",
+                   @"img_selectedphoto_portrait", @"sel_p",
+                   @"img_selectedphoto_landscape", @"sel_l",
                    @"img_takephoto_manual_portrait", @"take_mp",
                    @"img_takephoto_manual_landscape",@"take_ml",
                    @"img_takephoto_auto_portrait",@"take_ap",
