@@ -72,7 +72,6 @@
 		B3482C67176E751D001D8E81 /* FlickrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3482C65176E751D001D8E81 /* FlickrViewController.m */; };
 		B3482C68176E751D001D8E81 /* FlickrViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3482C66176E751D001D8E81 /* FlickrViewController.xib */; };
 		B373ECBC17795D4B00B1AEC1 /* enteremail.wav in Resources */ = {isa = PBXBuildFile; fileRef = B373ECBB17795D4B00B1AEC1 /* enteremail.wav */; };
-		B37460661778C05A00B4A32F /* camera-shutter-click-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460621778C05A00B4A32F /* camera-shutter-click-01.wav */; };
 		B37460671778C05A00B4A32F /* countdown.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460631778C05A00B4A32F /* countdown.wav */; };
 		B37460681778C05A00B4A32F /* getready.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460641778C05A00B4A32F /* getready.wav */; };
 		B37460691778C05A00B4A32F /* pickfavorite.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460651778C05A00B4A32F /* pickfavorite.wav */; };
@@ -304,13 +303,13 @@
 		B3482C65176E751D001D8E81 /* FlickrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrViewController.m; sourceTree = "<group>"; };
 		B3482C66176E751D001D8E81 /* FlickrViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlickrViewController.xib; sourceTree = "<group>"; };
 		B373ECBB17795D4B00B1AEC1 /* enteremail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = enteremail.wav; sourceTree = "<group>"; };
-		B37460621778C05A00B4A32F /* camera-shutter-click-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "camera-shutter-click-01.wav"; sourceTree = "<group>"; };
 		B37460631778C05A00B4A32F /* countdown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = countdown.wav; sourceTree = "<group>"; };
 		B37460641778C05A00B4A32F /* getready.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = getready.wav; sourceTree = "<group>"; };
 		B37460651778C05A00B4A32F /* pickfavorite.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickfavorite.wav; sourceTree = "<group>"; };
 		B374606C1778EB2F00B4A32F /* SelectFavoriteHorizViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectFavoriteHorizViewController.h; sourceTree = "<group>"; };
 		B374606D1778EB2F00B4A32F /* SelectFavoriteHorizViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFavoriteHorizViewController.m; sourceTree = "<group>"; };
 		B374606E1778EB2F00B4A32F /* SelectFavoriteHorizViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectFavoriteHorizViewController.xib; sourceTree = "<group>"; };
+		B37758F217F363260076FE3E /* SubstitutableDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubstitutableDetailViewController.h; sourceTree = "<group>"; };
 		B37B372F17423015002C4BEE /* TakePhotoAutoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoAutoViewController.h; sourceTree = "<group>"; };
 		B37B373017423015002C4BEE /* TakePhotoAutoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoAutoViewController.m; sourceTree = "<group>"; };
 		B37B373117423015002C4BEE /* TakePhotoAutoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TakePhotoAutoViewController.xib; sourceTree = "<group>"; };
@@ -1049,7 +1048,6 @@
 				B3EB394F17792E9E005924BD /* pickupphotos.wav */,
 				B3EB394D17792E8D005924BD /* picked.wav */,
 				B3EB394B17792E7F005924BD /* developingpleasewait.wav */,
-				B37460621778C05A00B4A32F /* camera-shutter-click-01.wav */,
 				B37460631778C05A00B4A32F /* countdown.wav */,
 				B37460641778C05A00B4A32F /* getready.wav */,
 				B37460651778C05A00B4A32F /* pickfavorite.wav */,
@@ -1578,6 +1576,7 @@
 				B38FF82F170AAA1300D80409 /* rightview */,
 				B38FF829170AA96F00D80409 /* leftview */,
 				B38FF828170AA65900D80409 /* splitview */,
+				B37758F217F363260076FE3E /* SubstitutableDetailViewController.h */,
 			);
 			name = settings_view;
 			sourceTree = "<group>";
@@ -1914,7 +1913,6 @@
 				B3482C68176E751D001D8E81 /* FlickrViewController.xib in Resources */,
 				B382FB081777E44100F46DE2 /* ThanksViewController.xib in Resources */,
 				B382FB1F1777F0BB00F46DE2 /* StartViewController.xib in Resources */,
-				B37460661778C05A00B4A32F /* camera-shutter-click-01.wav in Resources */,
 				B37460671778C05A00B4A32F /* countdown.wav in Resources */,
 				B37460681778C05A00B4A32F /* getready.wav in Resources */,
 				B37460691778C05A00B4A32F /* pickfavorite.wav in Resources */,

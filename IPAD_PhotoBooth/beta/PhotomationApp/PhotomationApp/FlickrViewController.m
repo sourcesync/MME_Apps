@@ -37,6 +37,13 @@ static NSString *kUploadImageStep = @"kUploadImageStep";
 
 UIInterfaceOrientation current_orientation;
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -86,13 +93,6 @@ UIInterfaceOrientation current_orientation;
     
     AppDelegate *app = [ AppDelegate sharedDelegate ];
     [ app clearRequest];
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

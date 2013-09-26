@@ -42,6 +42,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
 }
 
 - (NSUInteger)supportedInterfaceOrientations

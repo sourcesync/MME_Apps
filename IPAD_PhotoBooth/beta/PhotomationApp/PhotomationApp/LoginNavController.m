@@ -7,12 +7,14 @@
 //
 
 #import "LoginNavController.h"
+#import "AppDelegate.h"
 
 @interface LoginNavController ()
 
 @end
 
 @implementation LoginNavController
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +34,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
     // Dispose of any resources that can be recreated.
 }
 

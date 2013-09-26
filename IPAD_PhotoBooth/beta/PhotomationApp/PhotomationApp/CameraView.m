@@ -94,12 +94,14 @@ float zoomScale=1.0;
             int new_width = app.config.rect_preview_size_vert.size.width * zoomScale;
             rec.origin.x = rec.origin.x +
                 (int)(new_width/2.0f) -
-                (int)(app.config.rect_preview_size_vert.size.width/2.0f);
+            (int)(app.config.rect_preview_size_vert.size.width/2.0f);
+            //-196; //-minus is more left
             
             int new_height = app.config.rect_preview_size_vert.size.height * zoomScale;
             rec.origin.y = rec.origin.y -
                 (int)(new_height/2.0f) +
-                (int)(app.config.rect_preview_size_vert.size.height/2.0f);
+            (int)(app.config.rect_preview_size_vert.size.height/2.0f);
+            //+234; // plus is more down
             
             //self.camera_normal_view.frame = app.config.rect_preview_size_vert;
             self.camera_normal_view.frame = rec;

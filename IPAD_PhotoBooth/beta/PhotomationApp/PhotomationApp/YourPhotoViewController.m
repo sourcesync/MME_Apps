@@ -19,6 +19,11 @@
 
 UIInterfaceOrientation current_orientation;
 
+- (void)didReceiveMemoryWarning
+{
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+    [ super didReceiveMemoryWarning];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,12 +38,6 @@ UIInterfaceOrientation current_orientation;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -128,7 +127,11 @@ UIInterfaceOrientation current_orientation;
 
 -(IBAction) btnaction_settings:(id)sender
 {
-    [ AppDelegate NotImplemented:@"" ];
+    AppDelegate *app =
+    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    if (app.config.mode==0)
+        [ app goto_settings:self ];
+    //[ AppDelegate NotImplemented:@"" ];
     
     //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     //[ app goto_settings:self ];
@@ -176,15 +179,16 @@ UIInterfaceOrientation current_orientation;
               duration:(NSTimeInterval)duration
             
 {
-    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     current_orientation = toInterfaceOrientation;
     
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+        //                     @"5-Photomation-iPad-Your-Photo-Screen-Vertical.jpg" ];
+        self.img_bg.image = [ app.config GetImage:@"your_ap" ];
         //self.img_bg.frame = CGRectMake(0,0,1024,768);
         
         self.img_taken.frame = CGRectMake(172,132,423,567);
@@ -199,8 +203,9 @@ UIInterfaceOrientation current_orientation;
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg" ];
+        self.img_bg.image = [ app.config GetImage:@"your_al" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+        //                     @"5-Photomation-iPad-your-Photo-Screen-Horizontal.jpg" ];
         //self.img_bg.frame = CGRectMake(0,0,1024,768);
         
         self.img_taken.frame = CGRectMake(210,102,603,451);

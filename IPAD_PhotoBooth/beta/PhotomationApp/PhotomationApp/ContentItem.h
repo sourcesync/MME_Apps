@@ -12,9 +12,12 @@
 
 
 @property (assign) bool syncing;
-@property (assign) Class type;
+@property (assign) bool local_file;
+
+@property (nonatomic, retain) Class type;
 @property (nonatomic, retain) NSURL *remote;
-@property (nonatomic, retain) NSString *local;
-@property (nonatomic,retain) id data;
+@property (nonatomic, retain) NSString *fpath;
+@property (nonatomic, retain) NSString *subpath;
+@property (nonatomic, retain) id data;
 
 @end

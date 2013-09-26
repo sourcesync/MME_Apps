@@ -54,7 +54,9 @@
         return nil;
     }
 
-	SBJsonStreamParserAccumulator *accumulator = [[SBJsonStreamParserAccumulator alloc] init];
+    
+    //gw analyze
+	SBJsonStreamParserAccumulator *accumulator = [ [[SBJsonStreamParserAccumulator alloc] init] autorelease ];
     
     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
     adapter.delegate = accumulator;

@@ -18,10 +18,17 @@
 #import <AVFoundation/AVMetadataFormat.h>
 #import <AVFoundation/AVVideoSettings.h>
 
-@interface ChromaViewController : UIViewController
-    <AVAudioPlayerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
+#import "SubstitutableDetailViewController.h"
 
-@property (nonatomic, retain) UIPopoverController *popover;
+@interface ChromaViewController : UIViewController
+    <AVAudioPlayerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate,
+    SubstitutableDetailViewController>
+
+
+/// Things for IB
+@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
+/// SubstitutableDetailViewController
+@property (nonatomic, retain) UIBarButtonItem *navigationPaneBarButtonItem;
 
 //  video session stuff...
 
@@ -65,7 +72,9 @@
 //  chroma state... 
 //@property (nonatomic, assign) bool have_chroma;
 @property (nonatomic, assign) bool chroma_started;
-@property (nonatomic, assign) dispatch_queue_t queue;
+
+//gw analyze
+@property (nonatomic, retain) dispatch_queue_t queue;
 
 /*
 @property (nonatomic, assign) int touch_x;

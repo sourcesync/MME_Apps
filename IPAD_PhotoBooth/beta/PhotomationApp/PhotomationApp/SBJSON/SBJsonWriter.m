@@ -55,12 +55,15 @@
 
 - (NSString*)stringWithObject:(id)value {
 	NSData *data = [self dataWithObject:value];
+    
+    //gw analyze
 	if (data)
-		return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		return [ [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease ];
 	return nil;
 }	
 
 - (NSString*)stringWithObject:(id)value error:(NSError**)error_ {
+    //gw analyze
     NSString *tmp = [self stringWithObject:value];
     if (tmp)
         return tmp;
@@ -76,7 +79,8 @@
 - (NSData*)dataWithObject:(id)object {	
     self.error = nil;
 
-    SBJsonStreamWriterAccumulator *accumulator = [[SBJsonStreamWriterAccumulator alloc] init];
+    //gw analyze
+    SBJsonStreamWriterAccumulator *accumulator = [ [[SBJsonStreamWriterAccumulator alloc] init] autorelease];
     
 	SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
 	streamWriter.sortKeys = self.sortKeys;

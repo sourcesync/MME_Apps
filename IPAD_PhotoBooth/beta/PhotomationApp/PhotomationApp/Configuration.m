@@ -16,7 +16,18 @@
 
 @implementation Configuration
 
+-(void)dealloc
+{
+    self.configjson = nil;
+    self.images= nil;
+    self.sounds= nil;
+    self.invokeData= nil;
+    self.connection= nil;
+    self.currentURL=nil;
+    [super dealloc];
+}
 
+/*
 -(UIImage *) guiimage: (NSString *)path
 {
     UIImage *img = [ UIImage imageNamed:path ];
@@ -35,10 +46,14 @@
     assert(audio!=nil);
     return audio;
 }
+ */
 
 -(id) init
 {
-    self.images = [ [ NSMutableDictionary alloc ]
+    self = [ super init ];
+    
+    //gw analyze
+    self.images = [ [ [ NSMutableDictionary alloc ]
                    initWithObjectsAndKeys:
                    @"img_start_portrait", @"start_p",
                    @"img_start_landscape",@"start_l",
@@ -74,10 +89,10 @@
                    @"img_email_template_landscape",@"em_l",
                    @"img_email_watermark_portrait",@"wm_p",
                    @"img_email_watermark_landscape",@"wm_l",
-                   nil ];
+                     nil ] autorelease ];
 
-    
-    self.sounds = [ [ NSMutableDictionary alloc ]
+    //gw analyze...
+    self.sounds = [ [ [ NSMutableDictionary alloc ]
                    initWithObjectsAndKeys:
                    @"snd_selection", @"snd_selection",
                    @"snd_picked", @"snd_picked",
@@ -89,7 +104,7 @@
                    @"snd_selection", @"snd_share",
                    @"snd_selection", @"snd_efx",
                    @"snd_thanks", @"snd_thanks",
-                   nil ];
+                     nil ] autorelease ];
 
     
     /*
@@ -202,7 +217,11 @@
     //
     
     //  mode...
-    self.mode = 1; // app/manual mode = 0, scripted/experience = 1
+    self.mode = 0; // app/manual mode = 0, scripted/experience = 1
+    
+    //  sharing...
+    self.sharing = YES;
+    
     
     //
     //  Start...
@@ -237,7 +256,7 @@
     self.pt_btn_zoomin_horiz= CGPointMake(890,234);
     self.pt_btn_zoomout_horiz= CGPointMake(885, 402);
 
-    
+    /* WORKS WITH SMALL WIN
     self.rect_preview_vert = CGRectMake(248, 275, 272, 333);
     self.rect_preview_horiz = CGRectMake(269, 136, 485, 396);
     self.rect_preview_size_vert = CGRectMake(0, 0, 272, 333);
@@ -247,8 +266,21 @@
     self.rect_layer_preview_size_horiz = CGRectMake(0, 0, 396, 485);
     self.pt_layer_preview_vert = CGPointMake(202-64, 228-62);
     self.pt_layer_preview_horiz = CGPointMake(269-71, 136+107);
+    */
     
-    /*
+    /* NEW LARGER WIN*/
+    self.rect_preview_vert = CGRectMake(189,244,390,478);  // 190,246,390,478); //new !
+    self.rect_preview_horiz = CGRectMake(269, 136, 485, 396);
+    self.rect_preview_size_vert = CGRectMake(0, 0, 390, 478); //0,0,390,478); //new !
+    self.rect_preview_size_horiz = CGRectMake(0, 0, 485, 396);
+    self.pt_preview_vert = CGPointMake(190,246); // new !
+    self.pt_preview_horiz = CGPointMake(269, 136);
+    self.rect_layer_preview_size_horiz = CGRectMake(0, 0, 396, 485);
+    self.pt_layer_preview_vert = CGPointMake(195, 239); //???
+    self.pt_layer_preview_horiz = CGPointMake(269-71, 136+107);
+    
+    
+    /* SUPER OLD CODE
     self.rect_preview_vert = CGRectMake(188, 243, 390, 477);
     self.rect_preview_horiz = CGRectMake(269, 136, 485, 396);
     self.rect_preview_size_vert = CGRectMake(0, 0, 390, 477);
@@ -307,10 +339,8 @@
      */
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     ContentManager *cm = (ContentManager *)app.cm;
-    
     NSString *content_key = [ self.images objectForKey:key ];
-    ContentItem *item = [ cm.content objectForKey:content_key ];
-    UIImage *img = item.data;
+    UIImage *img = (UIImage *)[ cm get_setting_image:content_key  ];
     return img;
     
 }
@@ -331,8 +361,11 @@
     ContentManager *cm = (ContentManager *)app.cm;
      
     NSString *content_key = [ self.sounds objectForKey:name ];
-    ContentItem *item = [ cm.content objectForKey:content_key ];
-    AVAudioPlayer *audio = (AVAudioPlayer *)item.data;
+    //ContentItem *item = [ cm.content objectForKey:content_key ];
+    //AVAudioPlayer *audio = (AVAudioPlayer *)item.data;
+    
+    AVAudioPlayer *audio = (AVAudioPlayer *)[ cm get_setting_sound :content_key ];
+    
     audio.delegate = del;
     [ audio setCurrentTime:0.0];
     [ audio play];
@@ -451,6 +484,7 @@
     
 }
 
+/*
 -(void) ReceiveData: (NSData *)data
 {
     if ( self.downloadMode==0) // its the config
@@ -559,6 +593,7 @@
         }
     }
 }
+ */
 
 -(BOOL) DownloadItem: (NSString *)key
 {
@@ -605,9 +640,9 @@
     else
     {
         NSLog(@"!!!CACHE HIT->%@", path);
-        self.invokeData = [ NSMutableData alloc ];
+        [ self.invokeData = [ NSMutableData alloc ] autorelease];
         [ self.invokeData appendData:rd ];
-        [ self performSelector:@selector(ReceiveData:) withObject:self.invokeData afterDelay:0.01];
+        //gw [ self performSelector:@selector(ReceiveData:) withObject:self.invokeData afterDelay:0.01];
         return YES;
     }
     
@@ -636,7 +671,7 @@
     
 }
 
-
+/*
 -(BOOL) DownloadConfiguration
 {
     
@@ -675,7 +710,7 @@
     }
 }
 
-
+*/
 
 
 -(NSURL *)default_sound:(NSString *)name
@@ -696,8 +731,8 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    self.invokeData = [ NSMutableData alloc ];
-    [ self.invokeData setLength:0 ];
+    //gw self.invokeData = [ NSMutableData alloc ];
+    //gw [ self.invokeData setLength:0 ];
     //NSLog(@"response");
 }
 
@@ -715,7 +750,7 @@
 {
     //NSLog(@"loading");
     
-    [ self ReceiveData:self.invokeData ];
+    //gw [ self ReceiveData:self.invokeData ];
 }
 
 

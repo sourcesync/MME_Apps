@@ -88,6 +88,7 @@ void _callbackFunc(void *info, const void *data, size_t size)
     //CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
     CGBitmapInfo bitmapInfo =
         kCGBitmapByteOrderDefault | kCGImageAlphaLast;
+    
     CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
     CGImageRef imageRef = CGImageCreate(width, height,
                                         bitsPerComponent, bitsPerPixel,
@@ -98,10 +99,14 @@ void _callbackFunc(void *info, const void *data, size_t size)
     
     // make UIImage from CGImage
     UIImage *newUIImage =
-    [UIImage imageWithCGImage:imageRef ]; //]scale:1.0 orientation:UIImageOrientationUp ];
+        [UIImage imageWithCGImage:imageRef ]; //]scale:1.0 orientation:UIImageOrientationUp ];
     
     //  free up stuff...
-    
+    //gw analyze...
+    CGImageRelease( imageRef );
+    CGColorSpaceRelease( colorSpaceRef );
+    CFRelease( ibitmapData );
+    CFRelease( rbitmapData );
     
     return newUIImage;
     
@@ -129,7 +134,10 @@ void _callbackFunc(void *info, const void *data, size_t size)
         
     if ( ( iwidth!=width) || ( iheight!=height) )
     {
-         return nil;
+            //gw analyze
+            CFRelease( ibitmapData );
+            CFRelease( rbitmapData );
+            return nil;
     }
     
     //  Create a new cgimage the size of the original...
@@ -209,7 +217,11 @@ void _callbackFunc(void *info, const void *data, size_t size)
     [UIImage imageWithCGImage:imageRef ]; //]scale:1.0 orientation:UIImageOrientationUp ];
     
     //  free up stuff...
-    
+    //gw analyze
+    CGImageRelease( imageRef );
+    CGColorSpaceRelease( colorSpaceRef );
+    CFRelease( ibitmapData );
+    CFRelease( rbitmapData );
     
     return newUIImage;
     
@@ -289,6 +301,13 @@ void _callbackFunc(void *info, const void *data, size_t size)
     // make UIImage from CGImage
     UIImage *newUIImage =
     [UIImage imageWithCGImage:imageRef ];
+    
+    
+    //gw analyze...
+    CGImageRelease( imageRef );
+    CGColorSpaceRelease( colorSpaceRef );
+    //CFRelease( ibitmapData );
+    CFRelease( rbitmapData );
     
     return newUIImage;
     
@@ -395,7 +414,13 @@ void _callbackFunc(void *info, const void *data, size_t size)
     // make UIImage from CGImage
     UIImage *newUIImage =
     [UIImage imageWithCGImage:imageRef ]; 
-        
+    
+    //gw analyze...
+    CGImageRelease( imageRef );
+    CGColorSpaceRelease( colorSpaceRef );
+    //CFRelease( ibitmapData );
+    CFRelease( rbitmapData );
+    
     return newUIImage;
     
 }
@@ -498,6 +523,13 @@ void _callbackFunc(void *info, const void *data, size_t size)
     // make UIImage from CGImage
     UIImage *newUIImage =
     [UIImage imageWithCGImage:imageRef ];
+    
+    //  free up stuff...
+    //gw analyze...
+    CGImageRelease( imageRef );
+    CGColorSpaceRelease( colorSpaceRef );
+    //CFRelease( ibitmapData );
+    CFRelease( rbitmapData );
     
     return newUIImage;
     

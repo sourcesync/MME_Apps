@@ -133,7 +133,10 @@
 }
 
 - (NSString*)stringWithRange:(NSRange)range {
-    return [[NSString alloc] initWithBytes:_bytes + range.location length:range.length encoding:NSUTF8StringEncoding];
+    //  gw analyze
+    return
+        [ [[NSString alloc]
+           initWithBytes:_bytes + range.location length:range.length encoding:NSUTF8StringEncoding] autorelease ];
     
 }
 

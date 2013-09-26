@@ -31,7 +31,6 @@
 
 //  actions...
 -(IBAction) btn_fillemail:(id)sender;
--(IBAction) btn_send:(id)sender;
 -(IBAction) btn_cancel:(id)sender;
 
 //  class funcs...

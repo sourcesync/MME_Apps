@@ -37,7 +37,6 @@
     }
     return self;
 }
-
 -(void) viewDidAppear:(BOOL)animated
 {
     [ super viewDidAppear:animated ];
@@ -109,8 +108,8 @@
     [self.camPreview addGestureRecognizer:longFingerTap];
     [longFingerTap release];
    
-        
-    self.queue = dispatch_queue_create("cameraQueue", NULL);
+    //gw analyze
+    self.queue = [dispatch_queue_create("cameraQueue", NULL) autorelease];
 }
 
 -(IBAction)sliderValueChanged:(UISlider *)sender
@@ -187,6 +186,9 @@
 {
     [ super viewWillAppear:animated ];
     
+    //[self.navigationItem setHidesBackButton:YES animated:NO];
+    
+
     self.chroma_started = NO;
     
     AppDelegate * app = ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
@@ -316,9 +318,9 @@
     size_t width = CGImageGetWidth(cgImage);
     size_t height = CGImageGetHeight(cgImage);
     
-    NSUInteger x = (NSUInteger)floor(point.x);
+    //gw NSUInteger x = (NSUInteger)floor(point.x);
     //NSUInteger y = height - (NSUInteger)floor(point.y);
-    NSUInteger y = (NSUInteger)floor(point.y);
+    //gw NSUInteger y = (NSUInteger)floor(point.y);
     
     float xx = (float)(point.x*1.0/(272-1));
     float yy = (float)(point.y*1.0/(363-1));
@@ -334,8 +336,8 @@
     
     //rot x = (int)(xx*width);
     //rot y = (int)(yy*height);
-    x = width - (int)(xx*width);
-    y = height - (int)(yy*height);
+    NSUInteger x = width - (int)(xx*width);
+    NSUInteger y = height - (int)(yy*height);
     
     NSLog(@"XY AND frac %d %d - %f %f - %f %f\n",x,y, xx,yy, nxx,nyy);
     
@@ -485,7 +487,10 @@
     {
         app.chroma_video.new_touch = NO;
         
-        UInt8 rc,gc,bc;
+        //gw analyze
+        UInt8 bc = 0;
+        UInt8 gc = 0;
+        UInt8 rc = 0;
         CGPoint location = CGPointMake(app.chroma_video.touch_x, app.chroma_video.touch_y);
         UIColor *touch_color = [ self getRGBPixelColorAtPoint:location rr:&rc gg:&gc bb:&bc ];
         
@@ -609,6 +614,8 @@ void callbackFunc(void *info, const void *data, size_t size)
                     h = 0;
                     s = 0;
                     l = 0;
+                    //gw analyze
+                    l = l;
                     
                     v = MAX(r, g);
                     v = MAX(v, b);
@@ -616,6 +623,8 @@ void callbackFunc(void *info, const void *data, size_t size)
                     m = MIN(m, b);
                     
                     l = (m+v)/2.0f;
+                    //gw analyze
+                    l = l;
                     
                     if (l <= 0.0)
                     {
@@ -676,6 +685,9 @@ void callbackFunc(void *info, const void *data, size_t size)
                         }
                         
                     }
+                    //gw analyze
+                    l = l;
+                    outS = outS;
                 }
                 
                 uint8_t hh = (int)(outH * 0xFF);
@@ -727,6 +739,10 @@ void callbackFunc(void *info, const void *data, size_t size)
             CGColorSpaceRelease(colorSpaceRef);
             //[ newUIImage release ];
         
+        
+            //gw analyze...
+            CFRelease(rbitmapData);
+            CGImageRelease(imageRef);
         }
 
     
@@ -738,6 +754,8 @@ void callbackFunc(void *info, const void *data, size_t size)
     self.slider_sensitivity.enabled = YES;
     self.btn_cam_lock.enabled = NO;
     self.btn_practice.enabled = YES;
+    
+
 }
 
 
@@ -1117,13 +1135,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     //  set the opposite...
     AVCaptureExposureMode emode = AVCaptureExposureModeLocked;
-    AVCaptureFocusMode fmode = AVCaptureFocusModeLocked;
-    AVCaptureWhiteBalanceMode wmode = AVCaptureWhiteBalanceModeLocked;
+    //gw analyze
+    //AVCaptureFocusMode fmode = AVCaptureFocusModeLocked;
+    //AVCaptureWhiteBalanceMode wmode = AVCaptureWhiteBalanceModeLocked;
     if (locked)
     {
         emode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
-        fmode = AVCaptureFocusModeContinuousAutoFocus;
-        wmode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
+        //fmode = AVCaptureFocusModeContinuousAutoFocus;
+        //wmode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
     }
     
     NSError *error;
@@ -1200,6 +1219,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setNavigationPaneBarButtonItem:(UIBarButtonItem *)navigationPaneBarButtonItem
+{
+    if (navigationPaneBarButtonItem != _navigationPaneBarButtonItem) {
+        // Add the popover button to the left navigation item.
+        [self.navigationBar.topItem setLeftBarButtonItem:navigationPaneBarButtonItem
+                                                animated:NO];
+        
+        [_navigationPaneBarButtonItem release];
+        _navigationPaneBarButtonItem = [navigationPaneBarButtonItem retain];
+    }
 }
 
 @end

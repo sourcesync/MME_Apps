@@ -17,6 +17,13 @@
 UIInterfaceOrientation current_orientation;
 
 
+- (void)didReceiveMemoryWarning
+{
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+    [ super didReceiveMemoryWarning];
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -47,7 +54,7 @@ UIInterfaceOrientation current_orientation;
     //
     //  The camera view object...
     //
-    self.camera_view = [ [ CameraView alloc] init ];
+    self.camera_view = [[ [ CameraView alloc] init ] autorelease];
     self.camera_view.camera_normal_view = self.camera_normal_view;
     self.camera_snapshot_view = self.camera_snapshot_view;
     self.camera_view.preview_parent = self.preview_parent;
@@ -111,10 +118,6 @@ UIInterfaceOrientation current_orientation;
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 #pragma button actions...
 
@@ -243,12 +246,13 @@ UIInterfaceOrientation current_orientation;
     
     [ self cancelAutoNext ];
     
-    [ AppDelegate NotImplemented:@""] ;
-    /*
+    //[ AppDelegate NotImplemented:@""] ;
+    
     AppDelegate *app =
         ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
-    [ app goto_settings:self ];
-     */
+    if (app.config.mode==0)
+        [ app goto_settings:self ];
+     
 }
 
 #pragma main funcs...
@@ -401,8 +405,9 @@ UIInterfaceOrientation current_orientation;
     NSString *fname;
     bool is_portrait;
     NSString  *jpgPath;
-    NSString *tname;
-    NSString *tPath;
+    //gw analyze
+    //NSString *tname;
+    //NSString *tPath;
     
     if ( UIInterfaceOrientationIsLandscape(current_orientation) )
     {
@@ -445,8 +450,9 @@ UIInterfaceOrientation current_orientation;
         fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",0];
         jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
         
-        tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",0];
-        tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
+        //gw analyze
+        //gw tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",0];
+        //gw tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
         
         is_portrait = NO;
     }
@@ -457,8 +463,9 @@ UIInterfaceOrientation current_orientation;
         fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",0];
         jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
         
-        tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",0];
-        tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
+        //gw analyze
+        //gw tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",0];
+        //gw tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
         
         is_portrait = YES;
     }
@@ -577,8 +584,8 @@ UIInterfaceOrientation current_orientation;
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ app.config GetImage:@"take_mp"];
-        
+        UIImage *img = [ app.config GetImage:@"take_mp"];
+        self.img_bg.image = img;
         
         [ self reposition:self.btn_flash : app.config.pt_btn_flash_vert ];
         [ self reposition:self.btn_swapcam : app.config.pt_btn_swapcam_vert ];

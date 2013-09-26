@@ -24,6 +24,13 @@ UIInterfaceOrientation current_orientation;
 
 @implementation FacebookViewController
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -250,7 +257,9 @@ UIInterfaceOrientation current_orientation;
     
     //  get the message...
     //gw NSString *message = [NSString stringWithFormat:@"Photomation Rocks!"];
-    NSString *message = app.config.facebook_post_message;
+    //NSString *message = app.config.facebook_post_message;
+    
+    NSString *message = [ app.cm get_setting_string: @"str_facebook_post_message"];
     
     //  Form path to file to upload....
     NSString *fullPath = nil;
@@ -283,12 +292,6 @@ UIInterfaceOrientation current_orientation;
 {
     
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 
 #pragma oauth/sdk stuff
 

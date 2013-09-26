@@ -19,6 +19,8 @@
 
 -(id)init
 {
+    //gw analyze
+    self = [ super init ];
     
     self.have_chroma = NO;
     
@@ -91,7 +93,8 @@
 	}
     else
     {
-        self.captureOutput = [[AVCaptureVideoDataOutput alloc] init];
+        //gw analyze
+        self.captureOutput = [[[AVCaptureVideoDataOutput alloc] init] autorelease];
         /*While a frame is processes in -captureOutput:didOutputSampleBuffer:fromConnection: delegate methods no other frames are added in the queue.
          If you don't want this behaviour set the property to NO */
         self.captureOutput.alwaysDiscardsLateVideoFrames = YES;
@@ -112,7 +115,8 @@
         [ self.stillImageOutput setOutputSettings:outputSettings];
         [ self.session addOutput:self.stillImageOutput];
         
-        self.queue = dispatch_queue_create("cameraQueue", NULL);
+        //gw analyze...
+        self.queue = [dispatch_queue_create("cameraQueue", NULL) autorelease];
         
         [ self.session commitConfiguration ];
         [ self.session startRunning];
@@ -434,7 +438,9 @@
                 
                 self.total_pix++;
                 
-                float outH, outS, outL;
+                float outH;
+                float outS;
+                float outL;
                 {
                     float r = _r/255.0f;
                     float g = _g/255.0f;
@@ -444,7 +450,7 @@
                     
                     h = 0;
                     s = 0;
-                    l = 0;
+                    //l = 0;
                     
                     v = MAX(r, g);
                     v = MAX(v, b);
@@ -468,7 +474,9 @@
                     {
                         
                         vm = v - m;
+                        
                         s = vm;
+                        
                         
                         if (s > 0.0f)
                         {
@@ -513,6 +521,8 @@
                         
                     }
                 }
+                //gw analyze
+                outS = outS;
                 
                 uint8_t hh = (int)(outH * 0xFF);
                 //uint8_t ss = (int)(outS * 0xFF);

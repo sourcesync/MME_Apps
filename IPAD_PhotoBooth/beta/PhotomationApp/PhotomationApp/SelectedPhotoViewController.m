@@ -16,6 +16,14 @@
 
 @implementation SelectedPhotoViewController
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -177,19 +185,11 @@
 }
 
 
-
-
-
 -(IBAction) btnaction_print: (id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     [ app goto_printview:self ];
-}
-  
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 
@@ -264,7 +264,11 @@
 
 -(IBAction) btnaction_settings:(id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    //[ AppDelegate NotImplemented:nil ];
+    AppDelegate *app =
+    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    if (app.config.mode==0)
+        [ app goto_settings:self ];
 }
 
 

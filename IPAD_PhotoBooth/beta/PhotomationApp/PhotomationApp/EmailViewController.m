@@ -15,6 +15,13 @@
 
 @implementation EmailViewController
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,24 +40,27 @@
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [ super viewWillAppear:animated];
     
+    
+    //  Is active image original or filtered ?...
+    UIImage *filtered_img = [ AppDelegate GetCurrentFilteredPhoto ];
+    AppDelegate *app = (AppDelegate *) [ [ UIApplication sharedApplication ] delegate ];
+    //BOOL use_original = app.active_photo_is_original;
+    
     //  Get the file/image to display...
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    NSString *fullPath = app.current_photo_path;
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
-    if (fileExists)
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    //NSString *fullPath = app.current_photo_path;
+    //BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
+    //if (fileExists)
+    if (filtered_img)
     {
-        UIImage *image =
-            [[[ UIImage alloc ] initWithContentsOfFile:fullPath ] autorelease];
+        //UIImage *image =
+        //    [[[ UIImage alloc ] initWithContentsOfFile:fullPath ] autorelease];
+        UIImage *image=filtered_img;
         float width = image.size.width;
         float height = image.size.height;
         
@@ -271,7 +281,10 @@
     NSData *returnData =
         [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    //gw analyze
+    [ request autorelease ];
+    
+    NSString *returnString = [ [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding] autorelease ];
  
     NSLog( @"%@",returnString );
     

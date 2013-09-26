@@ -25,6 +25,13 @@
 
 UIInterfaceOrientation current_orientation;
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -39,11 +46,6 @@ UIInterfaceOrientation current_orientation;
     [super viewDidLoad];
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -156,7 +158,11 @@ UIInterfaceOrientation current_orientation;
 #pragma actions...
 -(IBAction) btnaction_settings: (id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    AppDelegate *app =
+    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    if (app.config.mode==0)
+        [ app goto_settings:self ];
+    //[ AppDelegate NotImplemented:nil ];
 }
 
 
@@ -371,12 +377,15 @@ UIInterfaceOrientation current_orientation;
 
 -(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
 {
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
     current_orientation = toInterfaceOrientation;
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                             @"7-Photomation-iPad-SHARE-Photo-Screen-Vertical.jpg" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+        //                     @"7-Photomation-iPad-SHARE-Photo-Screen-Vertical.jpg" ];
+        self.img_bg.image = [ app.config GetImage: @"share_p"];
         
         CGRect rect = CGRectMake(171,131,424,568);
         self.selected.frame = rect;
@@ -421,8 +430,10 @@ UIInterfaceOrientation current_orientation;
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        self.img_bg.image = [ UIImage imageNamed:
-                               @"7-Photomation-iPad-SHARE-Photo-Screen-Horizontal.jpg" ];
+        //self.img_bg.image = [ UIImage imageNamed:
+          //                     @"7-Photomation-iPad-SHARE-Photo-Screen-Horizontal.jpg" ];
+        
+        self.img_bg.image = [ app.config GetImage: @"share_l"];
         
         CGRect rect = CGRectMake(212,103,601,452);
         self.selected.frame = rect;

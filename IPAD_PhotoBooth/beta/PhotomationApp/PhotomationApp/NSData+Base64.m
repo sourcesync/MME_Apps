@@ -35,6 +35,8 @@ static char encodingTable[64] = {
         //gw
 		//unsigned char inbuf[3], outbuf[4];
         unsigned char inbuf[4], outbuf[4];
+        //gw analyze
+        inbuf[0]=0;inbuf[1]=0;inbuf[2]=0;inbuf[3]=0;
         //gw
 		short i = 0, ixinbuf = 0;
 		BOOL flignore = NO;

@@ -15,6 +15,13 @@
 
 @implementation LoginViewController
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -57,10 +64,6 @@
     self.logging_in = NO;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -103,10 +106,11 @@
     self.activity.hidden = YES;
     [self.activity stopAnimating];
     self.btn_login.enabled = YES;
-    self.logging_in = NO;
+    self.logging_in = NO; 
     
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
-    [ app goto_cms ];
+    //[ app goto_cms ];
+    [ app goto_settings:nil];
 }
 
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -151,8 +155,11 @@
     //
     if ( app.config == nil )
     {
-        app.config = [ [ Configuration alloc ] init ];
-        app.cm = [ [ ContentManager alloc ] init:app.login_name ];
+        //gw analyze...
+        app.config = [ [ [ Configuration alloc ] init ] autorelease ];
+        
+        //gw analyze...
+        app.cm = [ [ [ ContentManager alloc ] init:app.login_name ] autorelease];
         app.cm.cmdel = self;
     }
     

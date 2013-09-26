@@ -18,6 +18,13 @@
 
 UIInterfaceOrientation current_orientation;
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -44,11 +51,6 @@ UIInterfaceOrientation current_orientation;
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void) viewWillAppear:(BOOL)animated
 {
@@ -159,7 +161,11 @@ UIInterfaceOrientation current_orientation;
 
 -(IBAction) btnaction_settings: (id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    //[ AppDelegate NotImplemented:nil ];
+    AppDelegate *app =
+    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    if (app.config.mode==0)
+        [ app goto_settings:self ];
 }
 
 
@@ -262,19 +268,20 @@ UIInterfaceOrientation current_orientation;
         self.twelve.frame = rect;
         self.btwelve.frame = rect;
         
-        rect = CGRectMake(677, 434,139,105);
+        
+        //gw rect = CGRectMake(677, 434,139,105);
         self.thirteen.hidden = YES;
         self.bthirteen.hidden = YES;
         
-        rect = CGRectMake(677, 434,139,105);
+        //gw rect = CGRectMake(677, 434,139,105);
         self.fourteen.hidden = YES;
         self.bfourteen.hidden = YES;
         
-        rect = CGRectMake(677, 434,139,105);
+        //gw rect = CGRectMake(677, 434,139,105);
         self.fifteen.hidden = YES;
         self.bfifteen.hidden = YES;
         
-        rect = CGRectMake(677, 434,139,105);
+        //gw rect = CGRectMake(677, 434,139,105);
         self.sixteen.hidden = YES;
         self.bsixteen.hidden = YES;
         

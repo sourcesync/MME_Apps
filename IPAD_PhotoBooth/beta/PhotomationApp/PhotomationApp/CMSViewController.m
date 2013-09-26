@@ -18,6 +18,15 @@
 
 @implementation CMSViewController
 
+//@synthesize navigationTitle=_navigationItem;
+//@synthesize navigationPaneBarButtonItem=_navigationPaneBarButtonItem;
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,11 +44,25 @@
     //  init table...
     self.tv.delegate = self;
     self.tv.dataSource = self;
+    
+    [self.navigationItem setHidesBackButton:YES animated:NO];
+    self.navigationPaneBarButtonItem = nil;
+    
+    self.tv.allowsSelection = YES;
+    
+    self.tap = [ [ UITapGestureRecognizer alloc ]
+                initWithTarget:self action:@selector( img_tapped: ) ];
+    [self.tap setNumberOfTapsRequired:1];
+    [self.img_preview  addGestureRecognizer:self.tap];
+    
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [ super viewWillAppear:animated];
+    
+    
     
     //  Make sure this object is the callback delegate for the contentmanager...
 
@@ -82,11 +105,14 @@
     [self.tv reloadData];
 }
 
-- (void)didReceiveMemoryWarning
+-(void) viewWillDisappear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [ super viewWillDisappear:animated];
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    app.cm.cmdel = nil;
 }
+
 
 //  CONTENTMANAGERDELEGATE
 
@@ -158,6 +184,35 @@
     return rows;
 }
 
+
+-(IBAction) img_tapped: (id)sender
+{
+    self.img_preview.hidden = YES;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int row = [ indexPath row ];
+    NSString *key = [ self.content_keys objectAtIndex:row];
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    NSLog(@"%@",key);
+    
+    if ( [ key hasPrefix:@"img_" ] )
+    {
+        UIImage *img = [ app.cm get_setting_image:key ];
+        if ( img )
+        {
+            self.img_preview.image = img;
+            self.img_preview.hidden = NO;
+        }
+    }
+    
+    return [ tableView cellForRowAtIndexPath:indexPath];
+
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
@@ -174,45 +229,22 @@
     cell.detailTextLabel.text = nil;
     cell.imageView.image = nil;
     
-    //cell.backgroundColor = [ UIColor greenColor ];
-    //cell.backgroundView.backgroundColor = [ UIColor greenColor];
-    
     cell.textLabel.backgroundColor = [ UIColor clearColor];
     cell.detailTextLabel.backgroundColor = [ UIColor clearColor];
+    cell.detailTextLabel.text = @"NO VALUE";
     
     ContentItem *item = [ self.content objectForKey:key ];
-    if (item.data==nil)
+    if ( item.syncing )
     {
-        if ( item.syncing )
-            cell.contentView.backgroundColor = [ UIColor yellowColor];
-        else
-            cell.contentView.backgroundColor = [ UIColor redColor];
-        
-        cell.detailTextLabel.text = @"NO VALUE";
+        cell.contentView.backgroundColor = [ UIColor yellowColor];
     }
-    else
+    else if ( item.data || ( !item.data && item.local_file ) )
     {
-        if ( item.syncing )
-            cell.contentView.backgroundColor = [ UIColor yellowColor];
-        else
-            cell.contentView.backgroundColor = [ UIColor greenColor];
-        
+        cell.contentView.backgroundColor = [ UIColor greenColor];
         if ( [  item.data isKindOfClass:[ NSNumber class] ] )
         {
             NSNumber *num = item.data;
             NSString *val = [ NSString stringWithFormat:@"value=%@", num ];
-            cell.detailTextLabel.text = val;
-            cell.imageView.image = nil;
-        }
-        else if ( [  item.data isKindOfClass:[ UIImage class] ])
-        {
-            NSString *val = [ NSString stringWithFormat:@"value=%@/%@", item.local, item.remote ];
-            cell.detailTextLabel.text = val;
-            //cell.imageView.image = item.data;
-        }
-        else if ( [  item.data isKindOfClass:[ AVAudioPlayer class] ] )
-        {
-            NSString *val = [ NSString stringWithFormat:@"value=%@/%@", item.local, item.remote ];
             cell.detailTextLabel.text = val;
             cell.imageView.image = nil;
         }
@@ -222,10 +254,26 @@
             cell.detailTextLabel.text = val;
             cell.imageView.image = nil;
         }
+        else if ( item.fpath )
+        {
+            NSString *val = [ NSString stringWithFormat:@"value=%@ / %@", item.subpath, item.remote ];
+            cell.detailTextLabel.text = val;
+            //cell.imageView.image = item.data;
+        }
+        //else if ( [  item.data isKindOfClass:[ AVAudioPlayer class] ] )
+        //{
+        //    NSString *val = [ NSString stringWithFormat:@"value=%@ /%@", item.subpath, item.remote ];
+        //    cell.detailTextLabel.text = val;
+        //    cell.imageView.image = nil;
+        //}
         else
         {
-            
+            [ AppDelegate ErrorMessage:@"Unknown setting type"];
         }
+    }
+    else
+    {
+        cell.contentView.backgroundColor = [ UIColor redColor];
     }
     
     
@@ -235,6 +283,8 @@
     
     return cell;
 }
+
+
 
 -(void) btn_sync_update
 {
@@ -258,20 +308,111 @@
 
 -(IBAction) btn_action_launch: (id)sender
 {
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [ app settings_done ];
+
+    /*
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
     if ( [self.cm is_syncing] )
     {
         [AppDelegate ErrorMessage:@"Please wait.  Content is syncing."];
     }
     else if ( [ self.cm is_complete] )
     {
-        AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-        
-        [ app goto_start ];
+        Configuration *cf = app.config;
+        if (cf.mode==1) // experience
+            [ app goto_start ];
+        else
+            [ app goto_takephoto ];
     }
     else
     {
         [AppDelegate ErrorMessage:@"Content is not complete.  Please sync."];
     }
+     */
+}
+
+/*
+#pragma mark -
+#pragma mark UISplitViewControllerDelegate implementation
+- (void)splitViewController:(UISplitViewController*)svc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem*)barButtonItem
+       forPopoverController:(UIPopoverController*)pc
+{
+    self.popover = pc;
+    
+    //[barButtonItem setTitle:@"Settings"];
+    //self.navigationItem.leftBarButtonItem = barButtonItem;
+    //aViewController.navigationController.navigationBarHidden = NO;
+    //aViewController.navigationItem.leftBarButtonItem = barButtonItem;
+    
+    UINavigationController *detail_nav =
+    (UINavigationController *)[ self.splitViewController.viewControllers
+                               objectAtIndex:1];
+    [barButtonItem setTitle:@"Settings"];
+    //ChromaViewController *detail =
+    //(ChromaViewController *)[ detail_nav.viewControllers objectAtIndex: 0];
+    //detail.navigationController.navigationBarHidden = NO;
+    //detail.navigationItem.title = @"Chroma Key";
+    //detail.navigationItem.leftBarButtonItem = barButtonItem;
+    //detail.popover = pc;
+    
+    
+}
+
+
+- (void)splitViewController:(UISplitViewController*)svc
+     willShowViewController:(UIViewController *)aViewController
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    //self.navigationItem.leftBarButtonItem = nil;
+    //aViewController.navigationController.navigationBarHidden = NO;
+    //aViewController.navigationItem.leftBarButtonItem = nil;
+    
+    self.popover = nil;
+    UINavigationController *detail_nav =
+    (UINavigationController *)[ self.splitViewController.viewControllers
+                               objectAtIndex:1];
+    //ChromaViewController *detail =
+    //(ChromaViewController *)[ detail_nav.viewControllers objectAtIndex: 0];
+    //detail.navigationController.navigationBarHidden = NO;
+    //detail.navigationItem.title = @"Chroma Key";
+    //detail.navigationItem.leftBarButtonItem = nil;
+    //detail.popover = nil;
+}
+*/
+
+#pragma mark SubstitutableDetailViewController
+
+// -------------------------------------------------------------------------------
+//	setNavigationPaneBarButtonItem:
+//  Custom implementation for the navigationPaneBarButtonItem setter.
+//  In addition to updating the _navigationPaneBarButtonItem ivar, it
+//  reconfigures the toolbar to either show or hide the
+//  navigationPaneBarButtonItem.
+// -------------------------------------------------------------------------------
+- (void)setNavigationPaneBarButtonItem:(UIBarButtonItem *)navigationPaneBarButtonItem
+{
+    if (navigationPaneBarButtonItem != _navigationPaneBarButtonItem) {
+        if (navigationPaneBarButtonItem)
+            [self.toolbar setItems:[NSArray arrayWithObjects:
+                                    navigationPaneBarButtonItem,
+                                    self.flex,
+                                    self.doneButton, nil]animated:NO];
+        else
+            [self.toolbar setItems:nil animated:NO];
+        
+        [_navigationPaneBarButtonItem release];
+        _navigationPaneBarButtonItem = [navigationPaneBarButtonItem retain];
+    }
+}
+
+
+- (void)setNavigationTitle:(NSString *)navigationTitle
+{
+    self.navigationItem.title = navigationTitle;
 }
 
 @end

@@ -161,7 +161,8 @@
                 return sbjson_token_string;
                 
             } else {
-                acc = [string mutableCopy];
+                //gw analyze
+                acc = [ [string mutableCopy] autorelease ];
             }
         }
 

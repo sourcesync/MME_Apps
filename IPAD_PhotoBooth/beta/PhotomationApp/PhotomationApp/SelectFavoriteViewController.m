@@ -16,6 +16,14 @@
 
 @implementation SelectFavoriteViewController
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,11 +36,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -237,7 +240,11 @@
 
 -(IBAction) btn_settings:(id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    AppDelegate *app =
+    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    if (app.config.mode==0)
+        [ app goto_settings:self ];
+    //[ AppDelegate NotImplemented:nil ];
 }
 
 

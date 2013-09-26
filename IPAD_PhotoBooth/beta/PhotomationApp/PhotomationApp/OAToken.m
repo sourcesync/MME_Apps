@@ -31,26 +31,28 @@
 
 @implementation OAToken
 
-//@synthesize key, secret;
+//@synthesize key, secret;x
 
 #pragma mark init
 
 - (id)init {
-    [super init];
+    self = [super init];
     [self setKey:@""];
     [self setSecret:@""];
     return self;
 }
 
 - (id)initWithKey:(NSString *)aKey secret:(NSString *)aSecret {
-	[super init];
+	self = [super init];
 	[self setKey:aKey];
     [self setSecret:aSecret];
 	return self;
 }
 
 - (id)initWithHTTPResponseBody:(NSString *)body {
-    [super init];
+    
+    //gw analyze
+    self = [super init];
     NSArray *pairs = [body componentsSeparatedByString:@"&"];
     
     // Converted for loop to be Obj-c 1.x compliant

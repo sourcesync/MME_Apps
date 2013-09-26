@@ -39,7 +39,8 @@
 //@property(copy, readwrite) NSString *secret;
 
 - (id)initWithKey:(NSString *)aKey secret:(NSString *)aSecret;
-- (id)initWithKeychainUsingAppName:(NSString *)name serviceProviderName:(NSString *)provider;
+//gw analyze
+//- (id)initWithKeychainUsingAppName:(NSString *)name serviceProviderName:(NSString *)provider;
 - (id)initWithHTTPResponseBody:(NSString *)body;
 
 /* gw
@@ -52,6 +53,8 @@
 //gw
 
 // Obj-c 1.x requires explicit property methods
+//gw analyze
+
 - (NSString *)key;
 - (void)setKey:(NSString *)aKey;
 - (NSString *)secret;

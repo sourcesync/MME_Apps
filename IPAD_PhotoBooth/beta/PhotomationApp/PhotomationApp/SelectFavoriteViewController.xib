@@ -45,10 +45,6 @@
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">5b-Photomation-iPad-Your-Photo-Screen-Manual-4Up-Vertical.jpg</string>
-						</object>
 					</object>
 					<object class="IBUIImageView" id="1059043810">
 						<reference key="NSNextResponder" ref="766721923"/>
@@ -595,10 +591,6 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">5b-Photomation-iPad-Your-Photo-Screen-Manual-4Up-Vertical.jpg</string>
-			<string key="NS.object.0">{1536, 2048}</string>
-		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

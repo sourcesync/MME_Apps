@@ -16,6 +16,13 @@
 
 UIInterfaceOrientation current_orientation;
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,12 +39,6 @@ UIInterfaceOrientation current_orientation;
     
     
     
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -173,8 +174,12 @@ UIInterfaceOrientation current_orientation;
 
 -(IBAction) btnaction_settings:(id)sender
 {
-    [ AppDelegate NotImplemented:@"" ];
+    //[ AppDelegate NotImplemented:@"" ];
     
+    AppDelegate *app =
+    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    if (app.config.mode==0)
+        [ app goto_settings:self ];
     //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     //[ app goto_settings:self ];
 }

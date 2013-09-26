@@ -32,6 +32,14 @@
 
 @implementation TakePhotoViewController
 
+
+- (void)didReceiveMemoryWarning
+{
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+    [ super didReceiveMemoryWarning];
+
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -96,14 +104,9 @@
     }
      */
     
+    //gw analyze
+    self.queue = [ dispatch_queue_create("cameraQueue", NULL) autorelease ];
     
-    self.queue = dispatch_queue_create("cameraQueue", NULL);
-    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 -(void) viewDidAppear:(BOOL)animated

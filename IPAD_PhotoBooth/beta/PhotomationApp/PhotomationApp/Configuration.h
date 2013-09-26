@@ -11,7 +11,6 @@
 #import "ConfigurationDelegate.h"
 
 @interface Configuration : NSObject
-    <NSURLConnectionDelegate>
 {
     //  Delegate to users of this class...
     id <ConfigurationDelegate> delegate;
@@ -21,14 +20,17 @@
 //  State...
 //
 @property (nonatomic, retain) NSDictionary *configjson;
-@property (nonatomic, assign) int mode;
 @property (nonatomic, retain) NSMutableDictionary *images;
 @property (nonatomic, retain) NSMutableDictionary *sounds;
 @property (nonatomic, retain) NSMutableData *invokeData;
 @property (nonatomic, retain) NSURLConnection *connection;
 @property (nonatomic, retain) NSURL *currentURL;
+
 @property (nonatomic, assign) int downloadIDX;
 @property (nonatomic, assign) int downloadMode;
+@property (nonatomic, assign) int mode;
+@property (nonatomic, assign) BOOL sharing;
+
 //
 //  Start View
 //
@@ -115,9 +117,10 @@
 //  public funcs...
 //
 -(UIImage *) GetImage: (NSString *)key;
--(BOOL) DownloadConfiguration;
+//-(BOOL) DownloadConfiguration;
 -(BOOL) PlaySound:(NSString *)name  del:(id<AVAudioPlayerDelegate>)del;
 -(BOOL) SetSoundDelegate:(NSString *)name  del:(id<AVAudioPlayerDelegate>)del;
 -(BOOL) StopSound:(NSString *)name;
+//-(int) GetInt:(NSString *)key;
 
 @end

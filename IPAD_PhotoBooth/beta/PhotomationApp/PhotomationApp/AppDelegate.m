@@ -34,6 +34,7 @@
 #import "ThanksViewController.h"
 #import "StartViewController.h"
 #import "CMSViewController.h"
+#import "RightViewController.h"
 
 #import "ChromaVideo.h"
 
@@ -59,7 +60,53 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 
 - (void)dealloc
 {
-    //[_window release];
+    self.window = nil;
+    self.navController= nil;
+    self.signup_login_view= nil;
+    self.signup_view= nil;
+    self.login_view= nil;
+    self.takephoto_view= nil;
+    self.takephoto_auto_view= nil;
+    self.takephoto_manual_view= nil;
+    self.selectfavorite_view= nil;
+    self.yourphoto_view= nil;
+    self.efx_view= nil;
+    self.efxBack= nil;
+    self.selectedphoto_view= nil;
+    self.galleryselectedphoto_view= nil;
+    self.gallery_view= nil;
+    self.sharephoto_view= nil;
+    self.shareBack= nil;
+    self.chroma_view= nil;
+    self.email_view= nil;
+    self.emailBack= nil;
+    self.flickr_view= nil;
+    self.flickrBack= nil;
+    self.print_view= nil;
+    self.printBack= nil;
+    self.facebook_view= nil;
+    self.twitter_view= nil;
+    self.settings_popover= nil;
+    self.settings_split_view= nil;
+    self.settingsBack= nil;
+    self.alert= nil;
+    self.thanks_view= nil;
+    self.start_view= nil;
+    self.cms_view= nil; 
+    self.login_name= nil;
+    self.current_photo_path= nil;
+    self.current_filtered_path= nil;
+    self.audio= nil;
+    self.cm= nil;
+    self.flickrContext= nil;
+    self.flickrUserName= nil;
+    self.current_email= nil;
+    self.file_name= nil;
+    self.config= nil;
+    self.chroma_video= nil;
+    self.settings_right_view = nil;
+    self.detail_nav = nil;
+    
     //[_tabBarController release];
     [super dealloc];
 }
@@ -72,6 +119,13 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    //[ AppDelegate ErrorMessage:@"Application Memory Error" ];
+    
+    if (self.cm ) [ self.cm lowmemory ];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -94,13 +148,18 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 
     
     //  Create the chroma video object...
-    self.chroma_video = [ [ ChromaVideo alloc ] init ];
+    //gw analyze
+    self.chroma_video = [[ [ ChromaVideo alloc ] init ]autorelease];
     
     
-    //
+    // 
     //  Create the one and only window...
     //
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    // gw analyze
+    UIScreen *screen = [ UIScreen mainScreen];
+    CGRect bounds = [ screen bounds ];
+    //screen = nil;
+    self.window = [[[UIWindow alloc] initWithFrame:bounds] autorelease];
     
     //
     //  Initialize all the singleton view controllers...
@@ -220,29 +279,54 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     self.cms_view =
         [[[CMSViewController alloc]
           initWithNibName:@"CMSViewController" bundle:nil] autorelease];
-    
+    //
     //  Settings split view...
-    SettingsLeftViewController *left =
+    //
+    //  left view controller
+    self.left =
         [[[SettingsLeftViewController alloc]
           initWithNibName:@"SettingsLeftViewController" bundle:nil] autorelease ];
+    SettingsLeftViewController *left =
+        (SettingsLeftViewController *)self.left;
+    
+    //  Settings right
+    self.settings_right_view = 
+        [[[RightViewController alloc ] initWithNibName:
+          @"RightViewController" bundle:nil] autorelease];
+    
     UINavigationController *rootNav =
-        [[[UINavigationController alloc] initWithRootViewController:left] autorelease];
-    UINavigationController *detailNav =
-        [[[UINavigationController alloc]
-            initWithRootViewController:self.chroma_view] autorelease];
+        [[[UINavigationController alloc] initWithRootViewController:self.left] autorelease];
+    
+    //UINavigationController *detailNav =
+    //self.detail_nav =
+    //    [[[UINavigationController alloc]
+    //        //initWithRootViewController:self.chroma_view] autorelease];
+    //        initWithRootViewController:self.settings_right_view] autorelease];
+    
     self.settings_split_view =
         [ [[UISplitViewController alloc] init ] autorelease ];
+    
     self.settings_split_view.viewControllers =
-        [NSArray arrayWithObjects:rootNav, detailNav, nil];
+        [NSArray arrayWithObjects:rootNav,
+         //self.detail_nav,
+         self.cms_view,
+         nil];
+    
+    
     self.settings_split_view.delegate = left;
     self.settings_popover = nil;
+    left.detailViewController =
+        (UIViewController<SubstitutableDetailViewController> *)self.cms_view;
+    
     
     //  signup/register tabbed controllers are first...
     self.window.rootViewController = self.navController;
     
-    //  set the first view...
+    //  testing
     //self.window.rootViewController = self.start_view;
     //self.window.rootViewController = self.cms_view;
+    //self.window.rootViewController = self.settings_split_view;
+    //self.window.rootViewController = self.takephoto_manual_view;
     
     //  make it go !
     [self.window makeKeyAndVisible];
@@ -295,7 +379,47 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 {
     self.settingsBack = back;
     
-    [self.window setRootViewController:(UIViewController*)self.settings_split_view];
+    //[self.window setRootViewController:(UIViewController*)self.settings_split_view];
+    self.window.rootViewController = self.settings_split_view;
+    
+    SettingsLeftViewController *left = (SettingsLeftViewController *) self.left;
+    [ left reset ];
+}
+
+-(void) settings_done
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    ContentManager *cm = app.cm;
+    
+    
+    if ( [cm is_syncing] )
+    {
+        [AppDelegate ErrorMessage:@"Please wait.  Content is syncing."];
+    }
+    else if ( [ cm is_complete] )
+    {
+        AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+        
+        Configuration *cf = app.config;
+        if (cf.mode==1) // experience
+            [ app goto_start ];
+        else
+        {
+            
+            if (self.settingsBack)
+            {
+                [ self settings_go_back ];
+            }
+            else
+            {
+                [ app goto_takephoto ];
+            }
+        }
+    }
+    else
+    {
+        [AppDelegate ErrorMessage:@"Content is not complete.  Please sync."];
+    }
 }
 
 - (void) settings_go_back
@@ -650,7 +774,8 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 {
     NSArray *photos = [ AppDelegate GetGalleryPhotos ];
     
-    NSMutableArray *pairs = [ [ NSMutableArray alloc ] init ];
+    //gw analyze
+    NSMutableArray *pairs = [ [ [ NSMutableArray alloc ] init ] autorelease ];
     
     int count = [ photos count ];
     for ( int i=0; i<count; i++)
@@ -667,7 +792,8 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
         else
             filtered = @"";
         
-        NSMutableArray *pair = [ [ NSMutableArray alloc ] init ];
+        //gw analyze
+        NSMutableArray *pair = [[ [ NSMutableArray alloc ] init ]autorelease];
         [ pair addObject: original ];
         [ pair addObject: filtered ];
         [ pairs addObject:pair ];

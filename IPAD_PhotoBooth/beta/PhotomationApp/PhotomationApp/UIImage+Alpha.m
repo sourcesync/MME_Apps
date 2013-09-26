@@ -91,6 +91,8 @@
 #pragma mark -
 #pragma mark Private helper methods
 
+//gw analyze
+/*
 // Creates a mask that makes the outer edges transparent and everything else opaque
 // The size must include the entire mask (opaque part + transparent border)
 // The caller is responsible for releasing the returned reference by calling CGImageRelease
@@ -117,11 +119,13 @@
     // Get an image of the context
     CGImageRef maskImageRef = CGBitmapContextCreateImage(maskContext);
     
+    
     // Clean up
     CGContextRelease(maskContext);
     CGColorSpaceRelease(colorSpace);
     
     return maskImageRef;
 }
+ */
 
 @end

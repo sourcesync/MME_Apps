@@ -17,6 +17,13 @@
 
 UIInterfaceOrientation current_orientation;
 
+
+- (void)didReceiveMemoryWarning
+{
+    [ super didReceiveMemoryWarning ];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,7 +42,8 @@ UIInterfaceOrientation current_orientation;
     //
     //  The camera view object...
     //
-    self.camera_view = [ [ CameraView alloc] init ];
+    //gw analyze
+    self.camera_view = [[ [ CameraView alloc] init ] autorelease];
     self.camera_view.camera_normal_view = self.camera_normal_view;
     self.camera_view.camera_snapshot_view = self.camera_snapshot_view;
     self.camera_view.preview_parent = self.preview_parent;
@@ -46,10 +54,6 @@ UIInterfaceOrientation current_orientation;
     self.zoomScale = 1.0f;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 #pragma more view stuff
 
@@ -270,8 +274,8 @@ UIInterfaceOrientation current_orientation;
     NSString *fname;
     bool is_portrait;
     NSString  *jpgPath;
-    NSString *tname;
-    NSString *tPath;
+    //NSString *tname;
+    //NSString *tPath;
     
     if ( UIInterfaceOrientationIsLandscape(current_orientation) )
     {
@@ -314,8 +318,9 @@ UIInterfaceOrientation current_orientation;
         fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",self.count];
         jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
         
-        tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",self.count];
-        tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
+        //gw analyze
+        //gw tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",self.count];
+        //gw tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
         
         is_portrait = NO;
     }
@@ -326,8 +331,9 @@ UIInterfaceOrientation current_orientation;
         fname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",self.count];
         jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
         
-        tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",self.count];
-        tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
+        //gw analyze
+        //tname = [ NSString stringWithFormat:@"Documents/TakePhoto%d.txt",self.count];
+        //gw tPath = [NSHomeDirectory() stringByAppendingPathComponent:tname];
         
         is_portrait = YES;
     }

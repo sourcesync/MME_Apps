@@ -17,6 +17,13 @@
 
 @implementation ThanksViewController
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,11 +40,6 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void) viewWillAppear:(BOOL)animated
 {
@@ -232,21 +234,18 @@
               duration:(NSTimeInterval)duration
 
 {
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication ] delegate ];
     
-        
     
     if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
     {
-        self.imgview_bg.image = [ UIImage imageNamed:
-                             @"9-Photomation-iPad-Thank-You-Vertical.jpg" ];
+        self.imgview_bg.image = [ app.config GetImage:@"thx_p" ];
         
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
-        self.imgview_bg.image = [ UIImage imageNamed:
-                             @"9-Photomation-iPad-Thank-You-Screen-Horizontal.jpg" ];
-        
-        
+        self.imgview_bg.image = [ app.config GetImage:@"thx_l" ];
     }
     
 }

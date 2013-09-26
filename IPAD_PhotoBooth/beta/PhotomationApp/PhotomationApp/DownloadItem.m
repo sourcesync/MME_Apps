@@ -10,4 +10,19 @@
 
 @implementation DownloadItem
 
+-(id)init
+{
+    self = [super init];
+    return self;
+}
+
+-(void)dealloc
+{
+    
+    self.data = nil;
+    self.key = nil;
+    
+    [ super dealloc];
+} 
+
 @end

@@ -15,6 +15,14 @@
 
 @implementation SignupViewController
 
+
+- (void)didReceiveMemoryWarning
+{
+    [ super didReceiveMemoryWarning ];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -61,10 +69,6 @@
         return NO;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

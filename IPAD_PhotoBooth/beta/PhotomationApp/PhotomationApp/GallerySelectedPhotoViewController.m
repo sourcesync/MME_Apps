@@ -19,6 +19,13 @@
 
 UIInterfaceOrientation current_orientation;
 
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+} 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,10 +40,6 @@ UIInterfaceOrientation current_orientation;
     [super viewDidLoad];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 -(void) viewWillAppear:(BOOL)animated
 {
@@ -59,10 +62,10 @@ UIInterfaceOrientation current_orientation;
 
 -(IBAction) btnaction_print:(id)sender
 {
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [ app goto_printview:self];
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    //[ app goto_printview:self];
     
-    //[ AppDelegate NotImplemented:@"" ];
+    [ AppDelegate InfoMessage:@"Not Available" ];
 }
 
 -(IBAction) btnaction_delete:(id)sender
@@ -90,7 +93,11 @@ UIInterfaceOrientation current_orientation;
 
 -(IBAction) btnaction_settings: (id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    AppDelegate *app =
+    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+    if (app.config.mode==0)
+        [ app goto_settings:self ];
+    //[ AppDelegate NotImplemented:nil ];
 }
 
 
@@ -103,7 +110,10 @@ UIInterfaceOrientation current_orientation;
 -(IBAction) btnaction_share: (id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [ app goto_sharephoto:self ];
+    if ( app.config.sharing)
+        [ app goto_sharephoto:self ];
+    else
+        [ AppDelegate InfoMessage:@"Sharing Is Not Enabled."];
      
 }
 

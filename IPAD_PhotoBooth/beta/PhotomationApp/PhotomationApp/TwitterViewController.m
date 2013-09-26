@@ -40,6 +40,13 @@ NSString *kUploadImageStep = @"kUploadImageStep";
 
 UIInterfaceOrientation current_orientation;
 
+
+- (void)didReceiveMemoryWarning
+{
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+    [ super didReceiveMemoryWarning];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -84,11 +91,6 @@ UIInterfaceOrientation current_orientation;
     [ app clearRequest];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 -(void)viewWillAppear:(BOOL)animated
@@ -107,7 +109,11 @@ UIInterfaceOrientation current_orientation;
     self.webview.hidden = YES;
     
     //  Initialize label...
-    self.lbl_message.text = @"Contacting Twitter...";
+    //self.lbl_message.text = @"Contacting Twitter...";
+    
+    AppDelegate *app = [ AppDelegate sharedDelegate ];
+    self.lbl_message.text =
+        [ app.cm get_setting_string:@"str_twitter_post_message"];
     self.lbl_message.hidden = NO;
     
     //  Initialize notification for auth...
@@ -178,10 +184,12 @@ UIInterfaceOrientation current_orientation;
     NSString *message = [ NSString stringWithFormat:@"%@", app.config.twitter_post_message ];
     if ( self.append_hash_tag )
     {
+        //NSString *hash_tag = app.config.hash_tag ;
+        NSString *hash_tag = [ app.cm get_setting_string:@"str_twitter_hastag"];
         if ( [ app.config.hash_tag hasPrefix:@"#" ] )
-            message = [ NSString stringWithFormat:@"%@ #%@", message, app.config.hash_tag ];
+            message = [ NSString stringWithFormat:@"%@ #%@", message, hash_tag];
         else
-            message = [ NSString stringWithFormat:@"%@ %@", message, app.config.hash_tag ];
+            message = [ NSString stringWithFormat:@"%@ %@", message, hash_tag ];
     }
     return message;
 }
@@ -256,9 +264,10 @@ UIInterfaceOrientation current_orientation;
                                                  returningResponse:&response
                                                              error:&error];
     
-    NSString *responseString = [[NSString alloc] initWithData:responseData
-                                                     encoding:NSUTF8StringEncoding];
+    NSString *responseString = [ [[NSString alloc] initWithData:responseData
+                                                       encoding:NSUTF8StringEncoding] autorelease ];
     NSLog(@"%@", responseString);
+    
     
     [ self done];
 }

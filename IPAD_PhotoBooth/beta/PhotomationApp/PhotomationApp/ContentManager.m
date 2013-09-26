@@ -14,11 +14,45 @@
 #import "ContentItem.h"
 #import "DownloadItem.h"
 
-
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) //1
 
 @implementation ContentManager
 
+-(void)dealloc
+{
+    NSLog(@"Content Item dealloc");
+    
+    self.remote = nil;
+    self.name = nil;
+    self.config = nil;
+    self.content = nil;
+    self.str_cstatus = nil;
+    self.str_sstatus = nil;
+    
+    
+    [super dealloc];
+}
+
+-(void) lowmemory
+{
+    if (self.config)
+    {
+        //  Prep settings via this config...
+        NSDictionary *config_settings = [ self.config objectForKey:@"settings" ];
+        for ( NSString *key in config_settings )
+        {
+            //NSString *val = [ config_settings objectForKey:key ];
+            
+            if ( [ key hasPrefix:@"img_"] )
+                [ self free_setting_data:key ];
+            else if ( [ key hasPrefix:@"snd_"] )
+                [ self free_setting_data:key ];
+            
+            //else if ( [ key hasPrefix:@"int_"] ) [ self set_settings_int:key val:val];
+            //else if ( [ key hasPrefix:@"str_"] ) [ self set_settings_str:key val:val];
+        }
+    }
+}
 
 -(NSString *)get_setting_string:(NSString *)key
 {
@@ -27,8 +61,13 @@
     return val;
 }
 
+-(void)free_setting_data:(NSString *)key
+{
+    ContentItem *item = [ self.content objectForKey:key ];
+    item.data = nil;
+}
 
--(int)get_setting_int:(NSString *)key
+-(int) get_setting_int:(NSString *)key
 {
     ContentItem *item = [ self.content objectForKey:key ];
     NSNumber *num = item.data;
@@ -36,16 +75,59 @@
     return val;
 }
 
+-(UIImage *) get_setting_image:(NSString *)key
+{
+    ContentItem *item = [ self.content objectForKey:key ];
+    if (item.data )  // cached...
+    {
+        UIImage *img = item.data;
+        NSLog(@"CACHED KEY=%@ PATH=%@", key, item.fpath);
+        return img;
+    }
+    else if ( item.local_file && item.fpath ) // dynamic loading...
+    {
+        NSLog(@"KEY=%@ PATH=%@", key, item.fpath);
+        UIImage *img = [ UIImage imageWithContentsOfFile:item.fpath];
+        item.data = img;
+        [ self.content setValue:item forKey:key];
+        return img;
+    }
+    else return nil;
+}
+
+
+-(AVAudioPlayer *) get_setting_sound:(NSString *)key
+{
+    ContentItem *item = [ self.content objectForKey:key ];
+    if (item.data) // cached...
+    {
+        AVAudioPlayer *snd = item.data;
+        return snd;
+    }
+    else if ( item.local_file && item.fpath ) // dynamic loading...
+    {
+        NSURL *fileURL = [[[NSURL alloc] initFileURLWithPath: item.fpath] autorelease];
+        AVAudioPlayer *audio = [[[AVAudioPlayer alloc]
+                                 initWithContentsOfURL:fileURL error:NULL] autorelease];
+        [ audio prepareToPlay ];
+        item.data = audio;
+        return audio;
+    }
+    else return nil;
+}
 
 -(bool) set_settings_img:(NSString *)key val:(NSString *)val
 {
     //  Form local path...
     NSString *subpath = [ NSString stringWithFormat:@"Documents/Events/%@/%@", self.name, val ];
-    NSString  *local = [NSHomeDirectory() stringByAppendingPathComponent:subpath];
-    UIImage *img = nil;
+    NSString  *fpath = [NSHomeDirectory() stringByAppendingPathComponent:subpath];
+    //UIImage *img = nil;
+    
+    bool local_file = NO;
     BOOL isdir = NO;
-    BOOL exists = [ [ NSFileManager defaultManager] fileExistsAtPath:local isDirectory:&isdir];
-    if (exists) img = [ UIImage imageWithContentsOfFile:local ];
+    BOOL exists = [ [ NSFileManager defaultManager] fileExistsAtPath:fpath isDirectory:&isdir];
+    if (exists)  local_file = YES;
+        //img = [ UIImage imageWithContentsOfFile:local ];
 
     //  Form remote path...
     NSString *remote_path = [ NSString stringWithFormat:@"%@/ipad_%@/%@",
@@ -53,12 +135,16 @@
                              self.name, val ];
     
     //  Commit the content item...
-    ContentItem *item = [ [ ContentItem alloc ] init ];
-    item.data = img;
+    //gw analyze
+    ContentItem *item = [ [ [ ContentItem alloc ] init ] autorelease ];
+    item.data = nil; //img;
     item.type = [ UIImage class ];
     item.syncing = NO;
     item.remote = [ NSURL URLWithString:remote_path ];
-    item.local = subpath;
+    item.fpath = fpath;
+    item.local_file = local_file;
+    item.subpath = subpath;
+    
     [ self.content setValue:item forKey:key ];
     
     return YES;
@@ -67,19 +153,23 @@
 -(bool) set_settings_snd:(NSString *)key val:(NSString *)val
 {
     //  Form local path...
-    NSString *subpath = [ NSString stringWithFormat:@"Documents/Events/%@/%@", self.name, val ];
-    NSString  *local = [NSHomeDirectory() stringByAppendingPathComponent:subpath];
-    AVAudioPlayer *audio = nil;
+    NSString *subpath = [ NSString
+                         stringWithFormat:@"Documents/Events/%@/%@", self.name, val ];
+    NSString  *fpath = [NSHomeDirectory() stringByAppendingPathComponent:subpath];
+    //AVAudioPlayer *audio = nil;
+    bool local_file = NO;
     BOOL isdir = NO;
-    BOOL exists = [ [ NSFileManager defaultManager] fileExistsAtPath:local isDirectory:&isdir];
-    if (exists)
-    {
-        NSURL *fileURL = [[[NSURL alloc] initFileURLWithPath: local] autorelease];
-        audio = [[AVAudioPlayer alloc]
-                                initWithContentsOfURL:fileURL error:NULL];
-        [ audio prepareToPlay ];
-        
-    }
+    BOOL exists = [ [ NSFileManager defaultManager]
+                   fileExistsAtPath:fpath isDirectory:&isdir];
+    if (exists) local_file = YES;
+    //{
+    //    NSURL *fileURL = [[[NSURL alloc] initFileURLWithPath: local] autorelease];
+    //    //gw analyze
+    //    audio = [[[AVAudioPlayer alloc]
+    //              initWithContentsOfURL:fileURL error:NULL] autorelease];
+    //    [ audio prepareToPlay ];
+    //
+    //}
     
     //  Form remote path...
     NSString *remote_path = [ NSString stringWithFormat:@"%@/ipad_%@/%@",
@@ -87,12 +177,17 @@
                       self.name, val ];
     
     //  Commit the content item...
-    ContentItem *item = [ [ ContentItem alloc ] init ];
-    item.data = audio;
+    
+    //gw analyze
+    ContentItem *item = [ [ [ ContentItem alloc ] init ] autorelease ];
+    item.data = nil; //audio;
     item.type = [ AVAudioPlayer class ];
     item.syncing = NO;
     item.remote = [ NSURL URLWithString:remote_path ];
-    item.local = subpath;
+    item.subpath = subpath;
+    item.fpath = fpath;
+    item.local_file = local_file;
+    
     [ self.content setValue:item forKey:key ];
     
     return YES;
@@ -104,12 +199,14 @@
     NSNumber *num = [ NSNumber numberWithInt:ii ];
     
     //  Commit the content item...
-    ContentItem *item = [ [ ContentItem alloc ] init ];
+    //gw analyze
+    ContentItem *item = [ [ [ ContentItem alloc ] init ] autorelease];
     item.data = num;
     item.type = [ NSNumber class ];
     item.syncing = NO;
     item.remote = nil;
-    item.local = nil;
+    item.subpath = nil;
+    item.fpath = nil;
     [ self.content setValue:item forKey:key ];
     
     return YES;
@@ -120,12 +217,14 @@
 {
     
     //  Commit the content item...
-    ContentItem *item = [ [ ContentItem alloc ] init ];
+    //gw analyze
+    ContentItem *item = [ [ [ ContentItem alloc ] init ] autorelease ];
     item.data = val;
     item.type = [ NSNumber class ];
     item.syncing = NO;
     item.remote = nil;
-    item.local = nil;
+    item.subpath = nil;
+    item.fpath = nil;
     [ self.content setValue:item forKey:key ];
     
     return YES;
@@ -138,8 +237,10 @@
     //  basic init...
     ContentManager *obj = [ super init ];
     obj.local = @"events";
-    obj.name = name;
-    obj.content = [ [ NSMutableDictionary alloc ] init ];
+    obj.name = name; 
+    
+    //gw analyze
+    obj.content = [[ [ NSMutableDictionary alloc ] init ]autorelease];
     obj.cstatus = ConfigStatusUnknown;
     obj.sstatus = SettingsStatusUnknown;
     obj.config_syncing = NO;
@@ -164,7 +265,8 @@
             [[NSUserDefaults standardUserDefaults] setObject:@"http://127.0.0.1/events"
                                                       forKey:@"mainURL"];
             
-            //[[NSUserDefaults standardUserDefaults] setObject:@"http://photomation.mmeink.com/event"
+            //[[NSUserDefaults standardUserDefaults]
+            //    setObject:@"http://photomation.mmeink.com/event"
               //                                        forKey:@"mainURL"];
         }
         else
@@ -245,11 +347,16 @@
                 self.sstatus = SyncingSettings;
                 break;
             }
-            else if (val.data==nil)
+            else if ( !val.data && !val.local_file )
             {
                 self.sstatus = InvalidLocalSettings;
                 break;
             }
+            else
+            {
+                NSLog(@"No setting");
+            }
+                
         }
         
     }
@@ -334,8 +441,9 @@
         
         if (self.config)
         {
-            
-            self.content = [ [ NSMutableDictionary alloc ] init ];
+            //gw analyze
+            self.content = nil;
+            self.content = [[ [ NSMutableDictionary alloc ] init ] autorelease];
             
             //  Reset settings via this config...
             NSDictionary *config_settings = [ self.config objectForKey:@"settings" ];
@@ -343,10 +451,14 @@
             {
                 NSString *val = [ config_settings objectForKey:key ];
             
-                if ( [ key hasPrefix:@"img_"] ) [ self set_settings_img:key val:val];
-                else if ( [ key hasPrefix:@"snd_"] ) [ self set_settings_snd:key val:val];
-                else if ( [ key hasPrefix:@"int_"] ) [ self set_settings_int:key val:val];
-                else if ( [ key hasPrefix:@"str_"] ) [ self set_settings_str:key val:val];
+                if ( [ key hasPrefix:@"img_"] )
+                    [ self set_settings_img:key val:val];
+                else if ( [ key hasPrefix:@"snd_"] )
+                    [ self set_settings_snd:key val:val];
+                else if ( [ key hasPrefix:@"int_"] )
+                    [ self set_settings_int:key val:val];
+                else if ( [ key hasPrefix:@"str_"] )
+                    [ self set_settings_str:key val:val];
             }
             
             [ self.cmdel ConfigDownloadSucceeded ];
@@ -444,6 +556,7 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                  options:kNilOptions
                                                    error:&error];
+        data = nil;
         return json;
     }
     else
@@ -517,42 +630,49 @@
     DownloadItem *item = (DownloadItem *)obj;
     if (item.data!=nil)
     {
-        
         ContentItem *content = [ self.content objectForKey:item.key ];
         if (content)
         {
             content.syncing = NO;
-            
-            if ( content.local ) // sync to local file...
+            if ( content.fpath ) // sync to local file...
             {
-                [ self create_dirs:content.local isfile:YES];
+                [ self create_dirs:content.subpath isfile:YES];
                 
-                NSString *fpath = [NSHomeDirectory() stringByAppendingPathComponent:content.local];
-                bool success = [ item.data writeToFile:fpath atomically:YES ];
+                //NSString *fpath = [NSHomeDirectory() stringByAppendingPathComponent:content.local];
+                bool success = [ item.data writeToFile:content.fpath atomically:YES ];
+                
                 //NSLog(@"WARNING: wrote data to %@ %d %d", fpath, [item.data length],success);
-                if (success)
-                {
+                
+                if (success) content.local_file = YES;
+                else content.local_file = NO;
+                
+                    /*
                     if ( [ item.key hasPrefix:@"img_"] )
                     {
-                        content.data = [ UIImage imageWithContentsOfFile:fpath ];
+                        //TEST content.data = [ UIImage imageWithContentsOfFile:fpath ];
+                        //content.data = nil;
+                        //content.fpath = fpath;
                     }
                     else if ( [item.key hasPrefix:@"snd_"] )
                     {
                         NSURL *fileURL = [[[NSURL alloc] initFileURLWithPath: fpath] autorelease];
-                        AVAudioPlayer *audio = [[AVAudioPlayer alloc]
-                                 initWithContentsOfURL:fileURL error:NULL];
+                        //gw analyze
+                        AVAudioPlayer *audio = [[[AVAudioPlayer alloc]
+                                                 initWithContentsOfURL:fileURL error:NULL] autorelease];
                         [ audio prepareToPlay ];
-                        content.data = audio;
+                        
+                        //TEST content.data = audio;
+                        content.data = nil;
+                        content.fpath = fpath;
                     }
                     else
                     {
                         content.data = nil;
+                        content.fpath = nil;
                     }
-                }
-                
+                     */
+                //}
             }
-        
-        
         }
         else
         {
@@ -586,7 +706,8 @@
         NSData* data = [NSData dataWithContentsOfURL:url];
                 
         //  Create the download item...
-        DownloadItem *item = [ [ DownloadItem alloc ] init ];
+        //gw analyze
+        DownloadItem *item = [ [ DownloadItem alloc ] init ]; // DO NOT AUTORELEASE !!
         item.data = data;
         item.key = key;
         

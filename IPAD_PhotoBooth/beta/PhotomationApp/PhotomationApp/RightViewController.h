@@ -7,7 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SubstitutableDetailViewController.h"
 
-@interface RightViewController : UIViewController <UISplitViewControllerDelegate>
+@interface RightViewController : UIViewController <SubstitutableDetailViewController>
+
+
+/// Things for IB
+@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, retain) IBOutlet UILabel *lbl_title;
+
+/// SubstitutableDetailViewController
+@property (nonatomic, retain) UIBarButtonItem *navigationPaneBarButtonItem;
+@property (nonatomic, retain) NSString *navigationTitle;
+
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *flex;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
+
+@property (nonatomic, retain) IBOutlet UIButton *btn_launch;
+
+-(void) changeView;
 
 @end

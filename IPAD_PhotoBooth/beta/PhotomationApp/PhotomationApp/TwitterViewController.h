@@ -33,6 +33,6 @@
 
 //  button actions...
 -(IBAction)cancelPressed:(id)sender;
--(IBAction)tweetClick:(UIButton *)sender;
+//-(IBAction)tweetClick:(UIButton *)sender;
 
 @end

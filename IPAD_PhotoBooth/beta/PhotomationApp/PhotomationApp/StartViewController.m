@@ -16,6 +16,13 @@
 
 @implementation StartViewController
 
+
+- (void)didReceiveMemoryWarning
+{
+    [ super didReceiveMemoryWarning ];
+    //[ AppDelegate ErrorMessage:@"VC Memory Low" ];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,10 +55,6 @@
     [self.imgview_bg setUserInteractionEnabled:YES];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 -(void) viewWillAppear:(BOOL)animated
 {
