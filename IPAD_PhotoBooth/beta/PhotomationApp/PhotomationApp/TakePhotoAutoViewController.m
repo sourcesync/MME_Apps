@@ -88,6 +88,9 @@ UIInterfaceOrientation current_orientation;
     //  TODO: should be performed via a 'done' delegate on chromavideo...
     [ self performSelector:@selector(finishInit) withObject:self afterDelay:1 ];
     
+    
+    self.lbl_countdown_left.hidden = YES;
+    self.lbl_countdown_right.hidden = YES;
 }
 
 
@@ -182,9 +185,34 @@ UIInterfaceOrientation current_orientation;
     self.state = 2;
     
     [ self playSound: @"snd_countdown" usedel:YES];
+    
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    if ( app.config.countdown)
+    {
+        self.countdown_val = 4;
+        [self performSelector:@selector(countdown_next) withObject:self afterDelay:0.25];
+    }
 }
 
-
+-(void) countdown_next
+{
+    if (self.countdown_val>0)
+    {
+        NSString *lbl = [ NSString stringWithFormat:@"%d", self.countdown_val ];
+        [self.lbl_countdown_left setText:lbl];
+        [self.lbl_countdown_right setText:lbl];
+        self.lbl_countdown_left.hidden = NO;
+        self.lbl_countdown_right.hidden = NO;
+        [self performSelector:@selector(countdown_next) withObject:self afterDelay:0.65];
+        self.countdown_val--;
+    }
+    else
+    {
+        self.lbl_countdown_left.hidden = YES;
+        self.lbl_countdown_right.hidden = YES;
+        
+    }
+}
 
 - (void) finishInit
 {
@@ -563,6 +591,10 @@ UIInterfaceOrientation current_orientation;
         
         self.btn_switch.frame =
             CGRectMake(349,682,73,44);
+        
+        self.lbl_countdown_left.frame = CGRectMake( 116,391, 54, 100 );
+        self.lbl_countdown_right.frame = CGRectMake( 594, 391, 54, 101 );
+        
         /*
         self.preview_parent.frame = CGRectMake(202, 228, 366, 430);
         self.camera_normal_view.frame = CGRectMake(0, 0, 366, 430);
@@ -590,6 +622,9 @@ UIInterfaceOrientation current_orientation;
         
         self.btn_switch.frame =
             CGRectMake(349,682,73,44);
+        
+        self.lbl_countdown_left.frame = CGRectMake( 174-70,283, 54, 100 );
+        self.lbl_countdown_right.frame = CGRectMake( 793+70, 283, 54, 101 );
         /*
         self.preview_parent.frame = CGRectMake(269, 136, 485, 396);
         self.camera_normal_view.frame = CGRectMake(0, 0, 485, 396);

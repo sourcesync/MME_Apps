@@ -65,6 +65,13 @@ UIInterfaceOrientation current_orientation;
     else
         self.img_taken.image = self.filtered_img;
     
+    //  test phot for testing...
+    if ( self.img_taken.image == nil )
+    {
+        UIImage *test = [ UIImage imageNamed:@"testphoto640x480.png" ];
+        self.img_taken.image = test;
+        self.original_img = test;
+    }
     
     //  play the audio...
     if ( app.config.mode == 1) //experience
@@ -276,7 +283,7 @@ UIInterfaceOrientation current_orientation;
     app.active_photo_is_original = NO;
 }
 
-
+/*
 -(IBAction) btnaction_four: (id)sender
 {
     //  Filter the original...
@@ -292,12 +299,17 @@ UIInterfaceOrientation current_orientation;
     [ [ UIApplication sharedApplication ] delegate ];
     app.active_photo_is_original = NO;
 }
+ */
 
 
 -(IBAction) btnaction_five: (id)sender
 {
-    //  Filter the original...
-    UIImage *filtered = [ self.original_img filterImageSepiaBorder ];
+    UIImage *filtered = nil;
+    
+    if ( UIInterfaceOrientationIsPortrait(current_orientation) )
+       filtered = [ self.original_img filterImageSepiaBorder ];
+    else
+        filtered = [ self.original_img filterImageSepiaBorderHoriz ];
     
     //  Show the filtered image...
     self.img_taken.image = filtered;
@@ -311,7 +323,7 @@ UIInterfaceOrientation current_orientation;
 }
 
 
-/*
+
 -(IBAction) btnaction_four: (id)sender
 {
     //beginImage = [CIImage imageWithContentsOfURL:fileNameAndPath];
@@ -330,7 +342,19 @@ UIInterfaceOrientation current_orientation;
     //[ filter setValue:@0.8
     //          forKey:@"inputIntensity"];
     CIImage *outputImage = [filter outputImage];
+    CGImageRef cgimg = [context createCGImage:outputImage
+                                     fromRect:[outputImage extent]];
+    UIImage *newImage = [UIImage imageWithCGImage:cgimg];
+    self.img_taken.image = newImage;
     
+    //  Set it globally...
+    [ AppDelegate SetCurrentFilteredPhoto:newImage];
+    self.use_original = NO;
+    AppDelegate *app = (AppDelegate *)
+    [ [ UIApplication sharedApplication ] delegate ];
+    app.active_photo_is_original = NO;
+    
+    /*
     CIFilter *filter2 = [CIFilter filterWithName:@"CIColorInvert"
                                   keysAndValues:kCIInputImageKey, outputImage,
                         //@"inputEV",@5,
@@ -339,15 +363,15 @@ UIInterfaceOrientation current_orientation;
                         //@"inputIntensity",@0.8,
                         nil];
     outputImage = [filter2 outputImage];
+    */
     
-    CGImageRef cgimg = [context createCGImage:outputImage
-                                     fromRect:[outputImage extent]];
-    UIImage *newImage = [UIImage imageWithCGImage:cgimg];
-    self.img_taken.image = newImage;
+    //newImage = [UIImage imageWithCGImage:cgimg];
+    //self.img_taken.image = newImage;
     
+     
     CGImageRelease(cgimg);
 }
- */
+ 
 
 
 
@@ -468,7 +492,8 @@ UIInterfaceOrientation current_orientation;
         img = [ UIImage imageNamed:@"sepiav_rise.png"];
         self.img_three.image = img;
         
-        img = [ UIImage imageNamed:@"bwvb_portrait.png"];
+        //img = [ UIImage imageNamed:@"bwvb_portrait.png"];
+        img = [ UIImage imageNamed:@"colorphotonegative.png"];
         self.img_four.image = img;
         
         img = [ UIImage imageNamed:@"sepiavb_earlybird.png"];

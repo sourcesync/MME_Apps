@@ -10,11 +10,30 @@
 
 #import "ConfigurationDelegate.h"
 
+
+
+typedef struct
+{
+    CGRect rect_preview_vert;
+    CGRect rect_preview_horiz;
+    CGRect rect_preview_size_vert;
+    CGRect rect_preview_size_horiz;
+    CGPoint pt_preview_vert;
+    CGPoint pt_preview_horiz;
+    CGRect  rect_layer_preview_size_horiz;
+    CGPoint pt_layer_preview_vert;
+    CGPoint pt_layer_preview_horiz;
+} CameraWindow;
+
 @interface Configuration : NSObject
 {
     //  Delegate to users of this class...
     id <ConfigurationDelegate> delegate;
+    
+    CameraWindow _smwin;
+    CameraWindow _lgwin;
 }
+
 
 //
 //  State...
@@ -30,6 +49,8 @@
 @property (nonatomic, assign) int downloadMode;
 @property (nonatomic, assign) int mode;
 @property (nonatomic, assign) BOOL sharing;
+
+@property (nonatomic, assign) int countdown;
 
 //
 //  Start View
@@ -68,6 +89,7 @@
 @property (nonatomic, assign) CGPoint pt_btn_zoomout_horiz;
 
 //  camera view...
+
 @property (nonatomic, assign) CGRect rect_preview_vert;
 @property (nonatomic, assign) CGRect rect_preview_horiz;
 @property (nonatomic, assign) CGRect rect_preview_size_vert;
@@ -78,6 +100,20 @@
 @property (nonatomic, assign) CGPoint pt_layer_preview_vert;
 @property (nonatomic, assign) CGPoint pt_layer_preview_horiz;
 
+/*
+@property (nonatomic, assign) CGRect rect_preview_vert_lg;
+@property (nonatomic, assign) CGRect rect_preview_horiz_lg;;
+@property (nonatomic, assign) CGRect rect_preview_size_vert_lg;
+@property (nonatomic, assign) CGRect rect_preview_size_horiz_lg;
+@property (nonatomic, assign) CGPoint pt_preview_vert_lg;
+@property (nonatomic, assign) CGPoint pt_preview_horiz_lg;
+@property (nonatomic, assign) CGRect  rect_layer_preview_size_horiz_lg;
+@property (nonatomic, assign) CGPoint pt_layer_preview_vert_lg;
+@property (nonatomic, assign) CGPoint pt_layer_preview_horiz_lg;
+ */
+
+//@property (nonatomic,assign) struct CameraWindow smwin;
+//@property (nonatomic,assign) struct CameraWindow lgwin;
 
 //
 //  Thanks View...
@@ -122,5 +158,7 @@
 -(BOOL) SetSoundDelegate:(NSString *)name  del:(id<AVAudioPlayerDelegate>)del;
 -(BOOL) StopSound:(NSString *)name;
 //-(int) GetInt:(NSString *)key;
+
+-(void) ResetParms;
 
 @end

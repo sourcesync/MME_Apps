@@ -23,6 +23,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *btn_photobooth;
 @property (nonatomic, retain) IBOutlet UIButton *btn_settings;
 
+-(IBAction) btnaction_take_again:(id)sender;
 
 -(IBAction) btnaction_goto_takephoto: (id)sender;
 
@@ -33,5 +34,9 @@
 -(IBAction) btnaction_photobooth:(id)sender;
 
 -(IBAction) btnaction_settings:(id)sender;
+
+@property (nonatomic, retain) NSString *last_current_photo_path;
+@property (nonatomic, retain) NSString *last_filtered_current_photo_path;
+@property (assign) BOOL last_active_is_original;
 
 @end

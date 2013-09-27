@@ -49,4 +49,7 @@
 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *flex;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
+
+@property (nonatomic, retain) AVAudioPlayer *current_audio;
+
 @end

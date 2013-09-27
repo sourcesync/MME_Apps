@@ -92,7 +92,7 @@
     self.btn_login.enabled = YES;
     self.logging_in = NO;
     
-    [ AppDelegate ErrorMessage:@"Login Failed"];
+    [ AppDelegate ErrorMessage:@"Login Failed."];
     //  Goto to cms/skin config screen...
     //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     //[ app goto_cms ];
@@ -109,8 +109,22 @@
     self.logging_in = NO; 
     
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
-    //[ app goto_cms ];
-    [ app goto_settings:nil];
+    if ( app.config.mode == 1 ) // experience...
+    {
+        [ app goto_settings:nil];
+    }
+    else
+    {
+        if ( (app.cm.sstatus == LocalSettingsComplete )
+            && ( app.cm.cstatus == LocalConfigComplete ) )
+        {
+            [ app goto_takephoto ];
+        }
+        else
+        {
+            [ app goto_settings:nil];
+        }
+    }
 }
 
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

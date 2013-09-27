@@ -56,6 +56,12 @@
 @property (nonatomic, retain) NSArray *buttons;
 @property (nonatomic, retain) NSArray *show_files;
 
+@property (nonatomic, retain) NSArray *gallery_pairs;
+
+@property (assign) int current_idx;
+@property (assign) int current_page;
+@property (assign) int page_size;
+
 -(IBAction) btnaction_goto_takephoto:(id)sender;
 -(IBAction) btn_select_photo:(id)sender;
 -(IBAction) btnaction_settings: (id)sender;
@@ -64,4 +70,6 @@
 -(IBAction) btnaction_goleft: (id)sender;
 -(IBAction) btnaction_goright: (id)sender;
 
+
+-(void) showPage:(int)first last:(int)last;
 @end

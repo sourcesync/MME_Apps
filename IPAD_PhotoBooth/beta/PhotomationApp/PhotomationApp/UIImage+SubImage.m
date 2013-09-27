@@ -326,6 +326,16 @@ void _callbackFunc(void *info, const void *data, size_t size)
 }
 
 
+- (UIImage *)filterImageSepiaBorderHoriz
+{
+    UIImage *original = [ self filterImageSepia ];
+    
+    UIImage *maskImage = [ UIImage imageNamed:@"earlybird_border_alpha_480x640.png"];
+    UIImage *blended = [ original blendImage:maskImage ];
+    
+    return blended;
+}
+
 
 
 - (UIImage *)filterImageBlackAndWhite

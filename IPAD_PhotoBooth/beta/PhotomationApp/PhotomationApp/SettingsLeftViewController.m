@@ -161,6 +161,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate];
+    
+    
     /*
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -195,6 +198,15 @@
     else if ( row == 4 )
     {
         self.cell_photobooth.userInteractionEnabled = YES;
+        if ( app.config.mode == 0 )
+        {
+            self.lbl_photobooth_value.text = @"Manual";
+            
+        }
+        else
+        {
+            self.lbl_photobooth_value.text = @"Experience";
+        }
         return self.cell_photobooth;
     }
     else if ( row == 5 )
@@ -269,12 +281,19 @@
     {
         app.config.mode = 0;
         self.lbl_photobooth_value.text = @"Manual";
+        
     }
     else
     {
         app.config.mode = 1;
         self.lbl_photobooth_value.text = @"Experience";
     }
+    
+    //  We need to do some recalculation...
+    [ app.config ResetParms ];
+    
+    NSString *str = [ NSString stringWithFormat:@"%d", app.config.mode];
+    [[NSUserDefaults standardUserDefaults] setObject:str forKey:@"mode"];
 }
 
 
@@ -291,6 +310,10 @@
         app.config.sharing = YES;
         self.lbl_social_value.text = @"On";
     }
+    
+    
+    NSString *str = [ NSString stringWithFormat:@"%d", app.config.sharing ];
+    [[NSUserDefaults standardUserDefaults] setObject:str forKey:@"sharing"];
 }
 
 

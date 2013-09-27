@@ -461,11 +461,12 @@
                     [ self set_settings_str:key val:val];
             }
             
+            [ self compute_status ];
+            
             [ self.cmdel ConfigDownloadSucceeded ];
             
             [ self.cmdel ContentConfigChanged ];
             
-            [ self compute_status ];
         }
         else // config == null
         {

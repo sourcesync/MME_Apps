@@ -34,6 +34,7 @@
 @property (nonatomic, assign) float zoomScale;
 @property (nonatomic, retain) CameraView *camera_view;
 @property (nonatomic, assign) BOOL allow_swap;
+@property (nonatomic, assign) int countdown_val;
 
 //  controls...
 @property (nonatomic, retain) IBOutlet UIImageView *img_bg;
@@ -45,6 +46,9 @@
 @property (nonatomic, retain) IBOutlet UIButton *btn_settings;
 @property (nonatomic, retain) IBOutlet UIButton *btn_switch;
 @property (nonatomic, retain) IBOutlet UIImageView *test_view;
+
+@property (nonatomic, retain) IBOutlet UILabel *lbl_countdown_right;
+@property (nonatomic, retain) IBOutlet UILabel *lbl_countdown_left;
 
 //  actions...
 -(IBAction) btnaction_swapcam: (id)sender;

@@ -25,6 +25,9 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *btn_launch;
 
+
+-(IBAction) btn_action_launch: (id)sender;
+
 -(void) changeView;
 
 @end

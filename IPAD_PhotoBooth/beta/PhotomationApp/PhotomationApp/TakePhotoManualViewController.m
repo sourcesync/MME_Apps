@@ -506,6 +506,7 @@ UIInterfaceOrientation current_orientation;
     app.current_photo_path = jpgPath;
     app.current_filtered_path = nil;
     app.is_portrait = is_portrait;
+    app.active_photo_is_gallery = NO;
     [ AppDelegate DeleteCurrentFilteredPhoto];
     
     

@@ -40,6 +40,10 @@ UIInterfaceOrientation current_orientation;
     [super viewDidLoad];
 }
 
+-(void) viewWillDisappear:(BOOL)animated
+{
+    self.gallery_pairs = nil;
+}
 
 -(void) viewWillAppear:(BOOL)animated
 {
@@ -48,6 +52,30 @@ UIInterfaceOrientation current_orientation;
     UIImage *img = [ AppDelegate GetActivePhoto ];
     self.selected.image = img;
     self.selected_img = img;
+    
+    self.gallery_pairs = [ AppDelegate GetGalleryPairs ];
+    
+    //  Locate the active photo (index) in this list...
+    self.current_idx = -1;
+    NSString *this_path = [ AppDelegate GetCurrentOriginalPhotoPath ];
+    NSString *this_last_part = [ this_path lastPathComponent ];
+    NSLog(@"this path-%@", this_path);
+    for ( int i=0;i< [ self.gallery_pairs count];i++)
+    {
+        NSArray *pair = (NSArray *)[ self.gallery_pairs objectAtIndex:i ];
+        NSString *path = (NSString *) [ pair objectAtIndex:0 ];
+        NSString *last_part = [ path lastPathComponent];
+        NSLog(@"compare to gallery path-%@", path);
+        if ( [ this_last_part compare:last_part ] == NSOrderedSame )
+        {
+            self.current_idx = i;
+            break;
+        }
+    }
+    if (self.current_idx<0)
+    {
+        [ AppDelegate ErrorMessage:@"This item is no longer in the gallery"];
+    }
     
     //  Initialize orientation...
     UIInterfaceOrientation uiorientation =
@@ -71,10 +99,63 @@ UIInterfaceOrientation current_orientation;
 -(IBAction) btnaction_delete:(id)sender
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    //int count = [ self.gallery_pairs count ];
+    
     if ( [ AppDelegate DeletePhotoFromGallery:app.current_photo_path ] )
     {
-        AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+        
+        self.gallery_pairs = nil;
+        self.gallery_pairs = [ AppDelegate GetGalleryPairs ];
+        
+        // see if next photo is viable...
+        int new_idx = -1;
+        if (self.current_idx < [ self.gallery_pairs count ] )
+            new_idx = self.current_idx;
+        else if ( self.current_idx != 0 )
+            new_idx = self.current_idx-1;
+    
+        if ( new_idx>=0)
+        {
+            //count = [ self.gallery_pairs count];
+        
+            //  Get the photo pair...
+            //NSArray *pair = (NSArray *)[ self.show_files objectAtIndex:which ];
+            NSArray *pair = [ self.gallery_pairs objectAtIndex:new_idx];
+            NSString *original = [ pair objectAtIndex:0 ];
+            NSString *filtered = [ pair objectAtIndex:1 ];
+        
+            //  Form full path to original...
+            NSString *galleryPath = [ AppDelegate GetGalleryDir ];
+            NSString *original_fullpath =
+            [ NSString stringWithFormat:@"%@/%@", galleryPath, original ];
+            app.current_photo_path = original_fullpath;
+            app.active_photo_is_original = YES;
+            app.file_name = original;
+            app.current_filtered_path = nil;
+            app.active_photo_is_gallery = YES;
+        
+            //  Form full path to filtered if its a file...
+            if ( [ filtered compare:@""] != NSOrderedSame )
+            {  
+                NSString *filterPath = [ AppDelegate GetFilterDir ];
+                NSString *filter_fullpath =
+                [ NSString stringWithFormat:@"%@/%@", filterPath, filtered ];
+                app.current_filtered_path = filter_fullpath;
+                app.active_photo_is_original = NO;
+            }
+        }
+        else
+        {
+            app.current_photo_path = nil;
+            app.current_filtered_path = nil;
+        }
+
         [ app goto_gallery ];
+    }
+    else
+    {
+        [AppDelegate ErrorMessage:@"Could not delete image"];
     }
 }
 
@@ -117,15 +198,75 @@ UIInterfaceOrientation current_orientation;
      
 }
 
+-(void) SetCurrentFromIDX: (int)idx
+{
+    int which = idx;
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    //  Get the photo pair...
+    NSArray *pair = (NSArray *)[ self.gallery_pairs objectAtIndex:which ];
+    NSString *original = [ pair objectAtIndex:0 ];
+    NSString *filtered = [ pair objectAtIndex:1 ];
+    
+    //  Form full path to original...
+    NSString *galleryPath = [ AppDelegate GetGalleryDir ];
+    NSString *original_fullpath =
+    [ NSString stringWithFormat:@"%@/%@", galleryPath, original ];
+    app.current_photo_path = original_fullpath;
+    app.active_photo_is_original = YES;
+    app.file_name = original;
+    app.current_filtered_path = nil;
+    
+    //  Form full path to filtered if its a file...
+    if ( [ filtered compare:@""] != NSOrderedSame )
+    {
+        NSString *filterPath = [ AppDelegate GetFilterDir ];
+        NSString *filter_fullpath =
+        [ NSString stringWithFormat:@"%@/%@", filterPath, filtered ];
+        app.current_filtered_path = filter_fullpath;
+        app.active_photo_is_original = NO;
+    }
+    
+    self.selected_img = [ AppDelegate GetActivePhoto ];
+    self.selected.image = self.selected_img;
+
+    self.current_idx = which;
+}
 
 -(IBAction) btnaction_goleft: (id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    //int size = [ self.gallery_pairs count ];
+    if (self.current_idx<0)
+    {
+        [ AppDelegate ErrorMessage:@"An Error Occurred" ];
+    }
+    else if (self.current_idx==0)
+    {
+        [ AppDelegate InfoMessage:@"End Reached"];
+    }
+    else
+    {
+        [ self SetCurrentFromIDX:(self.current_idx-1) ];
+    }
+        
 }
 
 -(IBAction) btnaction_goright: (id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    int size = [ self.gallery_pairs count ];
+    if (self.current_idx<0)
+    {
+        [ AppDelegate ErrorMessage:@"An Error Occurred" ];
+    }
+    else if ( (size>0) && ( self.current_idx == (size-1) ) )
+    {
+        [ AppDelegate InfoMessage:@"End Reached"];
+    }
+    else
+    {
+        [ self SetCurrentFromIDX:(self.current_idx+1) ];
+    }
+        
 }
 
 

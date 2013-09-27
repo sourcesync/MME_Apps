@@ -47,9 +47,16 @@
     self.toolbar.bounds = CGRectMake(0, 0,
                                      self.toolbar.frame.size.width,
                                      self.toolbar.frame.size.height);
+    if ( _navigationPaneBarButtonItem )
+    {
+        [self.toolbar setItems:[NSArray arrayWithObjects:
+                           _navigationPaneBarButtonItem,
+                           self.flex,
+                           self.doneButton, nil] animated:NO];
+    }
     
     UIDeviceOrientation or = [ [UIDevice currentDevice ] orientation ];
-    if (UIDeviceOrientationIsPortrait(or))
+    if ( (UIDeviceOrientationIsPortrait(or))|| (!self.toolbar.hidden))
         [ self.lbl_title setText:_navigationTitle];
     else
         [ self.lbl_title setText:@""];
@@ -150,10 +157,18 @@
 // -------------------------------------------------------------------------------
 - (void)setNavigationPaneBarButtonItem:(UIBarButtonItem *)navigationPaneBarButtonItem
 {
-    if (navigationPaneBarButtonItem==nil)
-        self.lbl_title.text = nil;
+    //if (navigationPaneBarButtonItem==nil)
+    //    self.lbl_title.text = ;
     
     if (navigationPaneBarButtonItem != _navigationPaneBarButtonItem) {
+        
+        
+        [_navigationPaneBarButtonItem release];
+        _navigationPaneBarButtonItem = [navigationPaneBarButtonItem retain];
+        
+        //int width = _navigationPaneBarButtonItem.width;
+        //NSString *title = _navigationPaneBarButtonItem.title;
+        //[ _navigationPaneBarButtonItem setWidth:100.0];
         
         self.toolbar.bounds = CGRectMake(0, 0,
                                         self.toolbar.frame.size.width,
@@ -161,14 +176,12 @@
         
         if (navigationPaneBarButtonItem)
             [self.toolbar setItems:[NSArray arrayWithObjects:
-                                    navigationPaneBarButtonItem,
+                                    _navigationPaneBarButtonItem,
                                     self.flex,
                                     self.doneButton, nil] animated:NO];
         else
             [self.toolbar setItems:nil animated:NO];
         
-        [_navigationPaneBarButtonItem release];
-        _navigationPaneBarButtonItem = [navigationPaneBarButtonItem retain];
     }
     
     UIDeviceOrientation or = [ [UIDevice currentDevice ] orientation ];
@@ -183,9 +196,10 @@
 {
     _navigationTitle = navigationTitle;
     
-    UIDeviceOrientation or = [ [UIDevice currentDevice ] orientation ];
     
-    if (UIDeviceOrientationIsPortrait(or))
+    
+    UIDeviceOrientation or = [ [UIDevice currentDevice ] orientation ];
+    if ((UIDeviceOrientationIsPortrait(or)) || (!self.toolbar.hidden))
         [ self.lbl_title setText:_navigationTitle];
     else
         [ self.lbl_title setText:@""];

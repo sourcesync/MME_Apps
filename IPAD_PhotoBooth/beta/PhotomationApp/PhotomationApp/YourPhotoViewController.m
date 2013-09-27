@@ -45,8 +45,15 @@ UIInterfaceOrientation current_orientation;
 {
     [ super viewWillAppear:animated];
     
+    
+    
     AppDelegate *app = (AppDelegate *)
         [ [ UIApplication sharedApplication ] delegate ];
+    
+    self.last_current_photo_path = app.current_photo_path;
+    self.last_filtered_current_photo_path = app.current_filtered_path;
+    self.last_active_is_original = app.active_photo_is_original;
+    
     NSString *fname =
         [ NSString stringWithFormat:@"Documents/TakePhoto%d.jpg",app.selected_id];
     NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:fname];
@@ -104,7 +111,10 @@ UIInterfaceOrientation current_orientation;
     [ AppDelegate DeleteCurrentFilteredPhoto];
     
     //  Save it to the gallery..
-    [ AppDelegate AddPhotoToGallery:self.selected_img];
+    NSString *gallery_path = [ AppDelegate AddPhotoToGallery:self.selected_img];
+    
+    //  We actually use the gallery path as 'active' now
+    app.current_photo_path = gallery_path;
     
     //  Next screen is efx ( the back button should take you to take photo )...
     [ app goto_efx: app.takephoto_manual_view ];

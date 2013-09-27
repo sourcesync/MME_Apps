@@ -39,6 +39,7 @@
 @property (nonatomic, assign) int selected_id;
 @property (nonatomic, assign) int take_count;
 @property (nonatomic, assign) bool active_photo_is_original;
+@property (nonatomic, assign) bool active_photo_is_gallery;
 @property (nonatomic, assign) bool is_portrait;
 @property (nonatomic, assign) bool lock_orientation;
 @property (nonatomic, assign) UIInterfaceOrientation taken_pic_orientation;
@@ -117,6 +118,7 @@ extern NSString *SnapAndRunShouldUpdateAuthInfoNotification;
 +(NSString *) GetFilterDir;
 +(NSArray *) GetGalleryPairs;
 +(UIImage *) GetActivePhoto;
++(NSArray *) GetGalleryPhotos;
 -(void) goto_selectfavorite;
 -(void) goto_settings:(UIViewController *)back;
 -(void) goto_gallery;
@@ -149,6 +151,7 @@ extern NSString *SnapAndRunShouldUpdateAuthInfoNotification;
 +(UIImage *) GetCurrentOriginalPhoto;
 +(NSString *) AddPhotoToGallery:(UIImage *)img;
 
++(NSString *) GetCurrentOriginalPhotoPath;
 -(void) settings_done;
 
 

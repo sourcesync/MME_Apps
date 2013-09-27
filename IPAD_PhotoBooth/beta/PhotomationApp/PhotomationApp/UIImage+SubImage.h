@@ -20,6 +20,8 @@
 - (UIImage *)filterImageSepia;
 - (UIImage *)filterImageSepiaBorder;
 
+- (UIImage *)filterImageSepiaBorderHoriz;
+
 - (UIImage *)filterImageOther;
 
 @end

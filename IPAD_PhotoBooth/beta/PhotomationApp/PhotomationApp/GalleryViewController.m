@@ -84,6 +84,9 @@ UIInterfaceOrientation current_orientation;
         
     }
     
+    self.gallery_pairs = [ AppDelegate GetGalleryPairs ];
+    
+        
     
     UIInterfaceOrientation uiorientation = [ [ UIApplication sharedApplication] statusBarOrientation];
     [ self orientElements:uiorientation];
@@ -92,6 +95,7 @@ UIInterfaceOrientation current_orientation;
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     app.lock_orientation = NO;
 }
+
 
 - (NSArray *) getImageArray
 {
@@ -128,9 +132,11 @@ UIInterfaceOrientation current_orientation;
     
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     
+    int idx = self.current_page * self.page_size + which;
     
     //  Get the photo pair...
-    NSArray *pair = (NSArray *)[ self.show_files objectAtIndex:which ];
+    //NSArray *pair = (NSArray *)[ self.show_files objectAtIndex:which ];
+    NSArray *pair = [ self.gallery_pairs objectAtIndex:idx];
     NSString *original = [ pair objectAtIndex:0 ];
     NSString *filtered = [ pair objectAtIndex:1 ];
     
@@ -142,6 +148,7 @@ UIInterfaceOrientation current_orientation;
     app.active_photo_is_original = YES;
     app.file_name = original;
     app.current_filtered_path = nil;
+    app.active_photo_is_gallery = YES;
     
     //  Form full path to filtered if its a file...
     if ( [ filtered compare:@""] != NSOrderedSame )
@@ -172,12 +179,89 @@ UIInterfaceOrientation current_orientation;
 
 -(IBAction) btnaction_goleft: (id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    if (self.current_idx<0)
+    {
+        [ AppDelegate ErrorMessage:@"An Error Occurred" ];
+    }
+    else
+    {
+        //  figure out the page of this item...
+        int total =[ self.gallery_pairs count];
+        if ( total==0 )
+        {
+            [ AppDelegate InfoMessage:@"Gallery Empty"];
+        }
+        else
+        {
+            int page = (int)floorf( (self.current_idx)/ self.page_size );
+            if ( page==0 )
+            {
+                [ AppDelegate InfoMessage:@"End Reached"];
+            }
+            else
+            {
+                int first = (page -1) * self.page_size;
+                if ( first < 0 )
+                {
+                    [ AppDelegate InfoMessage:@"End Reached"];
+                }
+                else
+                {
+                    int last = first + self.page_size - 1;
+                    if (last >= total)
+                        last = total - 1;
+                    self.current_idx = first;
+                    self.current_page = page -1;
+                    [self showPage:first last:last];
+                }
+            }
+        }
+    }
 }
 
 -(IBAction) btnaction_goright: (id)sender
 {
-    [ AppDelegate NotImplemented:nil ];
+    if (self.current_idx<0)
+    {
+        [ AppDelegate ErrorMessage:@"An Error Occurred" ];
+    }
+    else
+    {
+        //  figure out the page of this item...
+        int total =[ self.gallery_pairs count];
+        if ( total==0 )
+        {
+            [ AppDelegate InfoMessage:@"Gallery Empty"];
+        }
+        else
+        {
+            int tot_pages = (int)ceilf( (total*1.0)/self.page_size );
+            
+            int page = (int)floorf( (self.current_idx)/ self.page_size );
+            
+            if ( page==(tot_pages-1))
+            {
+                [ AppDelegate InfoMessage:@"End Reached"];
+            }
+            else
+            {
+                int first = (page +1) * self.page_size;
+                if ( first >= total )
+                {
+                    [ AppDelegate InfoMessage:@"End Reached"];
+                }
+                else
+                {
+                    int last = first + self.page_size - 1;
+                    if (last >= total)
+                        last = total - 1;
+                    self.current_idx = first;
+                    self.current_page = page + 1;
+                    [self showPage:first last:last];
+                }
+            }
+        }
+    }
 }
 
 
@@ -206,10 +290,156 @@ UIInterfaceOrientation current_orientation;
     }
 }
 
+-(void) showPage:(int)first last:(int)last
+{
+        
+        //  Get global directories...
+        NSString *gallerydir = [ AppDelegate GetGalleryDir ];
+        NSString *filtereddir = [ AppDelegate GetFilterDir ];
+        
+        //  HACK: get the last page_size...
+        //NSArray *pairs = [ AppDelegate GetGalleryPairs ];
+        NSArray *pairs = self.gallery_pairs;
+        //int len = [ pairs count ];
+        //int first = 0;
+        //int last = len-1;
+        //if (len>self.page_size)
+        //{
+        //    first = len - self.page_size;
+        //}
+        
+        NSRange range = NSMakeRange( first, last-first+1);
+        self.show_files = [ pairs subarrayWithRange:range ];
+        
+        //  Hide all first and set default aspect to scale fill...
+        for ( int i=0; i< 16; i++ )
+        {
+            UIImageView *v= (UIImageView *)[ self.views objectAtIndex:i ];
+            v.hidden = YES;
+            v.contentMode = UIViewContentModeScaleToFill;
+            
+            //  Show the button...
+            UIButton *b = (UIButton *)[ self.buttons objectAtIndex:i ];
+            b.hidden = YES;
+        }
+        
+        //  Load gallery images into the image views...
+        //for (int i=0;i<[ self.show_files count];i++)
+        for ( int i=0; i<= (last-first); i++ )
+        {
+            int pidx = first + i;
+            //  Get the name of the jpg file...
+            NSArray *pair = (NSArray *)
+            [ pairs objectAtIndex:pidx];
+            
+            //  Form path to original file...
+            NSString *original =
+            (NSString *)[ pair objectAtIndex:0];
+            NSString *fullpath =
+            [ NSString stringWithFormat:@"%@/%@", gallerydir, original ];
+            
+            
+            //  Is there a filterd version ?  The use it instead !
+            NSString *filtered =
+            (NSString *)[ pair objectAtIndex:1];
+            if ( [ filtered compare:@""] != NSOrderedSame )
+            {
+                fullpath = [ NSString stringWithFormat:@"%@/%@", filtereddir, original ];
+            }
+            
+            //  Load the image...
+            UIImage *image = [ [[ UIImage alloc ]
+                                initWithContentsOfFile:fullpath ] autorelease ];
+            
+            //  Assign to the imageview and show it...
+            UIImageView *v= (UIImageView *)[ self.views objectAtIndex:i ];
+            v.image = image;
+            v.hidden = NO;
+            
+            //  Depending on current orientation, change the mode for the imageview
+            //  to aspect fill...
+            if ( current_orientation == UIInterfaceOrientationPortrait )
+            {
+                if ( image.size.width > image.size.height )
+                    v.contentMode = UIViewContentModeScaleAspectFit;
+            }
+            else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
+            {
+                if ( image.size.height > image.size.width )
+                    v.contentMode = UIViewContentModeScaleAspectFit;
+            }
+            else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
+            {
+                if ( image.size.height > image.size.width )
+                    v.contentMode = UIViewContentModeScaleAspectFit;
+            }
+            
+            
+            //  Show the button...
+            UIButton *b = (UIButton *)[ self.buttons objectAtIndex:i ];
+            b.hidden = NO;
+        }
+
+}
+    
+-(void) updateGallery
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    if ( !app.active_photo_is_gallery )
+    {
+        self.current_idx = 0;
+    }
+    else
+    {
+        int tot = [ self.gallery_pairs count];
+        if (tot==0) return;
+        
+        
+        //  Locate the active photo (index) in this list...
+        self.current_idx = -1;
+        //NSString *this_path = [ AppDelegate GetCurrentOriginalPhotoPath ];
+        NSString *this_path = app.current_photo_path;
+        NSString *this_last_part = [ this_path lastPathComponent ];
+        NSLog(@"this path-%@", this_path);
+        
+        for ( int i=0;i< [ self.gallery_pairs count];i++)
+        {
+            NSArray *pair = (NSArray *)[ self.gallery_pairs objectAtIndex:i ];
+            NSString *path = (NSString *) [ pair objectAtIndex:0 ];
+            NSString *last_part = [ path lastPathComponent];
+            NSLog(@"%d Compare to gallery path-%@,%@", i,this_last_part, last_part);
+            if ( [ this_last_part compare:last_part ] == NSOrderedSame )
+            {
+                self.current_idx = i;
+                break;
+            }
+        }
+        if (self.current_idx<0)
+        {
+            [ AppDelegate ErrorMessage:@"This item is no longer in the gallery"];
+            return;
+        }
+    }
+    
+    //  figure out the page of this item...
+    int total =[ self.gallery_pairs count];
+    if ( total==0 ) return;
+    int page = (int)floorf( (self.current_idx)/ self.page_size );
+    int first = page * self.page_size;
+    
+    int last = first + self.page_size - 1;
+    if ( last >= total )
+    {
+        int rem = total % self.page_size;
+        last = first + rem -1;
+    }
+    
+    self.current_page = page;
+    [ self showPage:first last:last ];
+}
+
 -(void)orientElements:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    int page_size = 12;
-    
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     
     current_orientation = toInterfaceOrientation;
@@ -301,7 +531,7 @@ UIInterfaceOrientation current_orientation;
         rect = CGRectMake(675, 394, 73,72);
         self.btn_right.frame = rect;
         
-        page_size = 12;
+        self.page_size = 12;
     }
     else if ( UIInterfaceOrientationIsLandscape(toInterfaceOrientation) )
     {
@@ -397,93 +627,11 @@ UIInterfaceOrientation current_orientation;
         rect = CGRectMake(789, 308, 73,72);
         self.btn_right.frame = rect;
         
-        page_size = 16;
+        self.page_size = 16;
     }
     
-    //  Get global directories...
-    NSString *gallerydir = [ AppDelegate GetGalleryDir ];
-    NSString *filtereddir = [ AppDelegate GetFilterDir ];
     
-    //  HACK: get the last page_size...
-    NSArray *pairs = [ AppDelegate GetGalleryPairs ];
-    int len = [ pairs count ];
-    int first = 0;
-    int last = len-1;
-    if (len>page_size)
-    {
-        first = len - page_size;
-    }
-    
-    NSRange range = NSMakeRange( first, last-first+1);
-    self.show_files = [ pairs subarrayWithRange:range ];
-    
-    //  Hide all first and set default aspect to scale fill...
-    for ( int i=0; i< 16; i++ )
-    {
-        UIImageView *v= (UIImageView *)[ self.views objectAtIndex:i ];
-        v.hidden = YES;
-        v.contentMode = UIViewContentModeScaleToFill;
-        
-        //  Show the button...
-        UIButton *b = (UIButton *)[ self.buttons objectAtIndex:i ];
-        b.hidden = YES;
-    }
-    
-    //  Load gallery images into the image views...
-    //for (int i=0;i<[ self.show_files count];i++)
-    for ( int i=0; i<= (last-first); i++ )
-    {
-        //  Get the name of the jpg file...
-        NSArray *pair = (NSArray *)
-            [ pairs objectAtIndex:i];
-        
-        //  Form path to original file...
-        NSString *original =
-            (NSString *)[ pair objectAtIndex:0];
-        NSString *fullpath =
-            [ NSString stringWithFormat:@"%@/%@", gallerydir, original ];
-        
-        
-        //  Is there a filterd version ?  The use it instead !
-        NSString *filtered =
-            (NSString *)[ pair objectAtIndex:1];
-        if ( [ filtered compare:@""] != NSOrderedSame )
-        {
-            fullpath = [ NSString stringWithFormat:@"%@/%@", filtereddir, original ];
-        }
-        
-        //  Load the image...
-        UIImage *image = [ [[ UIImage alloc ]
-                            initWithContentsOfFile:fullpath ] autorelease ];
-        
-        //  Assign to the imageview and show it...
-        UIImageView *v= (UIImageView *)[ self.views objectAtIndex:i ];
-        v.image = image;
-        v.hidden = NO;
-        
-        //  Depending on current orientation, change the mode for the imageview
-        //  to aspect fill...
-        if ( current_orientation == UIInterfaceOrientationPortrait )
-        {
-            if ( image.size.width > image.size.height )
-                v.contentMode = UIViewContentModeScaleAspectFit;
-        }
-        else if ( current_orientation == UIInterfaceOrientationLandscapeLeft )
-        {
-            if ( image.size.height > image.size.width )
-                v.contentMode = UIViewContentModeScaleAspectFit;
-        }
-        else if ( current_orientation == UIInterfaceOrientationLandscapeRight )
-        {
-            if ( image.size.height > image.size.width )
-                v.contentMode = UIViewContentModeScaleAspectFit;
-        }
-        
-        
-        //  Show the button...
-        UIButton *b = (UIButton *)[ self.buttons objectAtIndex:i ];
-        b.hidden = NO;
-    }
+    [ self updateGallery ];
     
 }
 

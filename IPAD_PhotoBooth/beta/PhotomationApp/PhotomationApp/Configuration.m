@@ -218,10 +218,16 @@
     
     //  mode...
     self.mode = 0; // app/manual mode = 0, scripted/experience = 1
+    NSString *mm =[[NSUserDefaults standardUserDefaults]  stringForKey:@"mode" ];
+    if (mm) self.mode = [ mm integerValue ];
+    
     
     //  sharing...
     self.sharing = YES;
     
+    
+    //  countdown...
+    self.countdown = 1;
     
     //
     //  Start...
@@ -240,7 +246,7 @@
     self.max_take_photos = 4;
     
     //  max gallery photos...
-    self.max_gallery_photos = 16;
+    self.max_gallery_photos = 160;
     
     //  buttons...
     self.pt_btn_flash_vert = CGPointMake(348, 96);
@@ -256,28 +262,30 @@
     self.pt_btn_zoomin_horiz= CGPointMake(890,234);
     self.pt_btn_zoomout_horiz= CGPointMake(885, 402);
 
-    /* WORKS WITH SMALL WIN
-    self.rect_preview_vert = CGRectMake(248, 275, 272, 333);
-    self.rect_preview_horiz = CGRectMake(269, 136, 485, 396);
-    self.rect_preview_size_vert = CGRectMake(0, 0, 272, 333);
-    self.rect_preview_size_horiz = CGRectMake(0, 0, 485, 396);
-    self.pt_preview_vert = CGPointMake(248, 275);
-    self.pt_preview_horiz = CGPointMake(269, 136);
-    self.rect_layer_preview_size_horiz = CGRectMake(0, 0, 396, 485);
-    self.pt_layer_preview_vert = CGPointMake(202-64, 228-62);
-    self.pt_layer_preview_horiz = CGPointMake(269-71, 136+107);
-    */
+    /* WORKS WITH SMALL WIN */
+    _smwin.rect_preview_vert = CGRectMake(248, 275, 272, 333);
+    _smwin.rect_preview_horiz = CGRectMake(269, 136, 485, 396);
+    _smwin.rect_preview_size_vert = CGRectMake(0, 0, 272, 333);
+    _smwin.rect_preview_size_horiz = CGRectMake(0, 0, 485, 396);
+    _smwin.pt_preview_vert = CGPointMake(248, 275);
+    _smwin.pt_preview_horiz = CGPointMake(269, 136);
+    _smwin.rect_layer_preview_size_horiz = CGRectMake(0, 0, 396, 485);
+    _smwin.pt_layer_preview_vert = CGPointMake(202-64, 228-62);
+    _smwin.pt_layer_preview_horiz = CGPointMake(269-71, 136+107);
+    
     
     /* NEW LARGER WIN*/
-    self.rect_preview_vert = CGRectMake(189,244,390,478);  // 190,246,390,478); //new !
-    self.rect_preview_horiz = CGRectMake(269, 136, 485, 396);
-    self.rect_preview_size_vert = CGRectMake(0, 0, 390, 478); //0,0,390,478); //new !
-    self.rect_preview_size_horiz = CGRectMake(0, 0, 485, 396);
-    self.pt_preview_vert = CGPointMake(190,246); // new !
-    self.pt_preview_horiz = CGPointMake(269, 136);
-    self.rect_layer_preview_size_horiz = CGRectMake(0, 0, 396, 485);
-    self.pt_layer_preview_vert = CGPointMake(195, 239); //???
-    self.pt_layer_preview_horiz = CGPointMake(269-71, 136+107);
+    _lgwin.rect_preview_vert = CGRectMake(189,244,390,478);  // 190,246,390,478); //new !
+    _lgwin.rect_preview_horiz = CGRectMake(269, 136, 485, 396);
+    _lgwin.rect_preview_size_vert = CGRectMake(0, 0, 390, 478); //0,0,390,478); //new !
+    _lgwin.rect_preview_size_horiz = CGRectMake(0, 0, 485, 396);
+    _lgwin.pt_preview_vert = CGPointMake(190,246); // new !
+    _lgwin.pt_preview_horiz = CGPointMake(269, 136);
+    _lgwin.rect_layer_preview_size_horiz = CGRectMake(0, 0, 396, 485);
+    _lgwin.pt_layer_preview_vert = CGPointMake(195, 239); //???
+    _lgwin.pt_layer_preview_horiz = CGPointMake(269-71, 136+107);
+    
+    [ self ResetParms];
     
     
     /* SUPER OLD CODE
@@ -328,6 +336,34 @@
     self.hash_tag = @"PhotomationPhotobooth";
     
     return self;
+}
+
+-(void) ResetParms
+{
+    if (self.mode == 0 )
+    {
+        self.rect_preview_vert = _lgwin.rect_preview_vert;
+        self.rect_preview_horiz = _lgwin.rect_preview_horiz;
+        self.rect_preview_size_vert = _lgwin.rect_preview_size_vert;
+        self.rect_preview_size_horiz = _lgwin.rect_preview_size_horiz;
+        self.pt_preview_vert = _lgwin.pt_preview_vert;
+        self.pt_preview_horiz = _lgwin.pt_preview_horiz;
+        self.pt_layer_preview_vert = _lgwin.pt_layer_preview_vert;
+        self.pt_layer_preview_horiz = _lgwin.pt_layer_preview_horiz;
+        self.rect_layer_preview_size_horiz = _lgwin.rect_layer_preview_size_horiz;
+    }
+    else
+    {
+        self.rect_preview_vert = _smwin.rect_preview_vert;
+        self.rect_preview_horiz = _smwin.rect_preview_horiz;
+        self.rect_preview_size_vert = _smwin.rect_preview_size_vert;
+        self.rect_preview_size_horiz = _smwin.rect_preview_size_horiz;
+        self.pt_preview_vert = _smwin.pt_preview_vert;
+        self.pt_preview_horiz = _smwin.pt_preview_horiz;
+        self.pt_layer_preview_vert = _smwin.pt_layer_preview_vert;
+        self.pt_layer_preview_horiz = _smwin.pt_layer_preview_horiz;
+        self.rect_layer_preview_size_horiz = _smwin.rect_layer_preview_size_horiz;
+    }
 }
 
 -(UIImage *) GetImage: (NSString *)key

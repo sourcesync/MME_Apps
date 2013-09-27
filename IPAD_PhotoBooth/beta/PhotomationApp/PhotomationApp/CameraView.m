@@ -91,6 +91,7 @@ float zoomScale=1.0;
             self.camera_normal_view.transform = CGAffineTransformMakeScale(-1.0f*zoomScale,
                                                                            1.0f*zoomScale);
             rec = app.config.rect_preview_size_vert;
+            
             int new_width = app.config.rect_preview_size_vert.size.width * zoomScale;
             rec.origin.x = rec.origin.x +
                 (int)(new_width/2.0f) -
@@ -105,12 +106,7 @@ float zoomScale=1.0;
             
             //self.camera_normal_view.frame = app.config.rect_preview_size_vert;
             self.camera_normal_view.frame = rec;
-            
-            
-            
-            
-            
-        }
+        }        
         else
         {
             self.camera_normal_view.transform = CGAffineTransformMakeScale(1.0f*zoomScale,
@@ -242,6 +238,8 @@ float zoomScale=1.0;
         
         
         app.chroma_video.captureVideoPreviewLayer.bounds = app.config.rect_layer_preview_size_horiz;
+        
+        
         app.chroma_video.captureVideoPreviewLayer.position = app.config.pt_layer_preview_horiz;
         app.chroma_video.captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResize;
         

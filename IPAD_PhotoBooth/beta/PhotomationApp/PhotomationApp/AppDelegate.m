@@ -327,6 +327,7 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     //self.window.rootViewController = self.cms_view;
     //self.window.rootViewController = self.settings_split_view;
     //self.window.rootViewController = self.takephoto_manual_view;
+    //self.window.rootViewController = self.efx_view;
     
     //  make it go !
     [self.window makeKeyAndVisible];
@@ -827,6 +828,10 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     }
     else
     {
+        //  replace the active item with next or previous...
+        
+        
+        
         return true;
     }
 }
@@ -1030,6 +1035,14 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
         [ data writeToFile:jpgPath atomically:YES];
     }
     
+}
+
+
++(NSString *) GetCurrentOriginalPhotoPath
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    return app.current_photo_path;
 }
 
 +(UIImage *) GetCurrentOriginalPhoto

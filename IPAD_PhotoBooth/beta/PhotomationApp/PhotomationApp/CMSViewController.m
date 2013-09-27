@@ -62,8 +62,7 @@
 {
     [ super viewWillAppear:animated];
     
-    
-    
+
     //  Make sure this object is the callback delegate for the contentmanager...
 
     [self.tv reloadData];
@@ -111,6 +110,10 @@
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     app.cm.cmdel = nil;
+    
+    self.current_audio = nil;
+    self.img_preview.image = nil;
+    [ self.cm lowmemory ];
 }
 
 
@@ -190,7 +193,7 @@
     self.img_preview.hidden = YES;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int row = [ indexPath row ];
     NSString *key = [ self.content_keys objectAtIndex:row];
@@ -204,12 +207,43 @@
         UIImage *img = [ app.cm get_setting_image:key ];
         if ( img )
         {
+            self.img_preview.image = nil;
             self.img_preview.image = img;
             self.img_preview.hidden = NO;
         }
+        else
+        {
+            [ AppDelegate ErrorMessage:@"Could not find/load image"];
+        }
+    }
+    else if ( [ key hasPrefix:@"snd_" ] )
+    {
+        if (self.current_audio)
+        {
+            [ self.current_audio stop ];
+            self.current_audio = nil;
+        }
+        AVAudioPlayer *av = [ app.cm get_setting_sound:key];
+        if (av)
+        {
+            self.current_audio = av;
+            [ av play ];
+        }
+    }
+    else
+    {
+        if (self.current_audio)
+        {
+            [ self.current_audio stop ];
+            self.current_audio = nil;
+        }
+        self.img_preview.image = nil;
+        self.img_preview.hidden = YES;
     }
     
-    return [ tableView cellForRowAtIndexPath:indexPath];
+    
+    
+    //return [ tableView cellForRowAtIndexPath:indexPath];
 
 }
 
@@ -219,7 +253,7 @@
     if (cell == nil)
     {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyIdentifier"] autorelease];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //cell.selectionStyle = UITableViewS
         
     }
     
@@ -229,8 +263,10 @@
     cell.detailTextLabel.text = nil;
     cell.imageView.image = nil;
     
-    cell.textLabel.backgroundColor = [ UIColor clearColor];
-    cell.detailTextLabel.backgroundColor = [ UIColor clearColor];
+    //cell.textLabel.backgroundColor = [ UIColor clearColor];
+    //cell.detailTextLabel.backgroundColor = [ UIColor clearColor];
+    //cell.contentView.backgroundColor = [ UIColor whiteColor ];
+    
     cell.detailTextLabel.text = @"NO VALUE";
     
     ContentItem *item = [ self.content objectForKey:key ];
@@ -240,7 +276,8 @@
     }
     else if ( item.data || ( !item.data && item.local_file ) )
     {
-        cell.contentView.backgroundColor = [ UIColor greenColor];
+        //cell.contentView.backgroundColor = [ UIColor greenColor];
+        cell.contentView.backgroundColor = [ UIColor whiteColor ];
         if ( [  item.data isKindOfClass:[ NSNumber class] ] )
         {
             NSNumber *num = item.data;

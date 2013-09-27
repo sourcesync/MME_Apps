@@ -27,6 +27,9 @@
 
 @property (nonatomic,retain) UIImage *selected_img;
 
+@property (nonatomic,retain) NSArray *gallery_pairs;
+@property (assign) int current_idx;
+
 -(IBAction) btnaction_print:(id)sender;
 -(IBAction) btnaction_delete:(id)sender;
 -(IBAction) btnaction_goto_gallery:(id)sender;
