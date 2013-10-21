@@ -1,0 +1,10 @@
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\bin\Debug\winprint.exe
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\bin\Debug\winprint.pdb
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\obj\x86\Debug\winprint.exe
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\obj\x86\Debug\winprint.pdb
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\obj\x86\Debug\winprint.Form1.resources
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\obj\x86\Debug\winprint.csproj.GenerateResource.Cache
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\bin\Debug\HttpMultipartParser.dll
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\bin\Debug\HttpMultipartParser.pdb
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\bin\Debug\HttpMultipartParser.xml
+C:\Projects\MME\MME_Apps\MME_Apps\IPAD_PhotoBooth\printserver\winprint\winprint\winprint\obj\x86\Debug\winprint.csprojResolveAssemblyReference.cache
