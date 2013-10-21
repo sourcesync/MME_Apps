@@ -57,9 +57,19 @@
         
     }
     
-    //  Initial device is front camera...
+    //  Initial device is front camera by default...
     self.device = self.frontCamera;
     self.is_front = YES;
+    
+    if ( app.config.auto_manual == 1 ) // experience
+    {
+        if ( app.config.auto_manual == 1 ) // manual
+        {
+            self.device = self.backCamera;
+            self.is_front = NO;
+        }
+    }
+    
     
     //  Initialize video session...
     self.session = [[[AVCaptureSession alloc] init] autorelease];

@@ -275,7 +275,10 @@
     
     unsigned char pixel[4] = {0};
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(pixel, 1, 1, 8, 4, colorSpace, kCGImageAlphaPremultipliedLast);
+    CGContextRef context = CGBitmapContextCreate(pixel, 1, 1, 8, 4,colorSpace,
+                                                 kCGBitmapAlphaInfoMask );
+    
+                                                 //gw XCODE 5kCGImageAlphaPremultipliedLast);
     
     CGContextTranslateCTM(context, -point.x, -point.y);
     
@@ -1140,7 +1143,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     //AVCaptureWhiteBalanceMode wmode = AVCaptureWhiteBalanceModeLocked;
     if (locked)
     {
-        emode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
+        emode =
+        AVCaptureExposureModeContinuousAutoExposure;
+        //emode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
         //fmode = AVCaptureFocusModeContinuousAutoFocus;
         //wmode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
     }
@@ -1148,10 +1153,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     NSError *error;
     [ app.chroma_video.device lockForConfiguration:&error];
     
-    if ([app.chroma_video.device isExposureModeSupported :AVCaptureFocusModeLocked])
+    if ([app.chroma_video.device isExposureModeSupported
+         :AVCaptureExposureModeLocked])
+         //:AVCaptureFocusModeLocked])
         app.chroma_video.device.exposureMode = emode;
     
-    if ([app.chroma_video.device isWhiteBalanceModeSupported:AVCaptureFocusModeLocked])
+    if ([app.chroma_video.device isWhiteBalanceModeSupported
+         :AVCaptureWhiteBalanceModeLocked])
+         //:AVCaptureFocusModeLocked])
         app.chroma_video.device.whiteBalanceMode = AVCaptureWhiteBalanceModeLocked;
     
     if ([app.chroma_video.device isFocusModeSupported:AVCaptureFocusModeLocked])

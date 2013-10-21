@@ -31,6 +31,7 @@
 @property (nonatomic, retain) IBOutlet UITableViewCell *cell_printing;
 @property (nonatomic, retain) IBOutlet UITableViewCell *cell_offline;
 @property (nonatomic, retain) IBOutlet UITableViewCell *cell_photobooth;
+@property (nonatomic, retain) IBOutlet UITableViewCell *cell_gallery;
 @property (nonatomic, retain) IBOutlet UITableViewCell *cell_done;
  
 @property (nonatomic, retain) IBOutlet UILabel *lbl_social_value;

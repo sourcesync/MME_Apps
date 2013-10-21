@@ -48,6 +48,9 @@
     //  Get the file/image to display...
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     NSString *fullPath = app.current_photo_path;
+    if ( !app.active_photo_is_original)
+        fullPath = app.current_filtered_path;
+        
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
     if (fileExists)
     {
@@ -183,7 +186,30 @@
     
     UIImage *to_send = self.image_email;
     
-    [ EmailViewController postimage:email_addr image:to_send ];
+    ContentManager *cm = app.cm;
+    Configuration *config = app.config;
+    
+    //
+    //  print photo...
+    //
+    if ( config.printMode!=0)
+    {
+        NSString *urlString = config.printURL;
+        [ EmailViewController postimage_for_print:urlString image:to_send ];
+    }
+    
+    //
+    //  Send photo to server...
+    //
+    NSString *urlServer = [ cm get_setting_string:@"str_email_send_url"];
+    NSString *url = [ EmailViewController postimage:email_addr url:urlServer image:to_send ];
+    app.landing_page = url;
+    
+    //
+    //  Post to facekbook...
+    //
+    if ( app.landing_page )
+        [ app post_link_to_facebook ];
     
     self.send_tried = YES;
     

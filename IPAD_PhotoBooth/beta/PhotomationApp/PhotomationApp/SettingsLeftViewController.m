@@ -10,6 +10,7 @@
 #import "SettingsLeftViewController.h"
 #import "ChromaViewController.h"
 #import "RightViewController.h"
+#import "PrintSettingsViewController.h"
 
 #import "SubstitutableDetailViewController.h"
 
@@ -120,7 +121,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 -(void) changeView: (int)i
@@ -128,7 +129,7 @@
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate];
     RightViewController *right =
         (RightViewController *)app.settings_right_view;
-    [ right changeView];
+    [ right changeView:i];
 }
 
  
@@ -188,6 +189,14 @@
     else if ( row == 2 )
     {
         self.cell_printing.userInteractionEnabled = YES;
+        if ( app.config.printMode==1)
+        {
+            self.lbl_print_value.text = @"On";
+        }
+        else
+        {
+            self.lbl_print_value.text = @"Off";
+        }
         return self.cell_printing;
     }
     else if ( row == 3 )
@@ -200,16 +209,23 @@
         self.cell_photobooth.userInteractionEnabled = YES;
         if ( app.config.mode == 0 )
         {
-            self.lbl_photobooth_value.text = @"Manual";
-            
+            self.lbl_photobooth_value.text = @"App";
         }
-        else
+        else if ( app.config.mode == 1 )
         {
-            self.lbl_photobooth_value.text = @"Experience";
+            if ( app.config.auto_manual ==0 )
+                self.lbl_photobooth_value.text = @"Experience";
+            else
+                self.lbl_photobooth_value.text = @"Manual";
         }
         return self.cell_photobooth;
     }
     else if ( row == 5 )
+    {
+        self.cell_gallery.userInteractionEnabled = YES;
+        return self.cell_gallery;
+    }
+    else if ( row == 6 )
     {
         self.cell_done.userInteractionEnabled = YES;
         return self.cell_done;
@@ -279,13 +295,21 @@
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate];
     if ( app.config.mode == 1 )
     {
-        app.config.mode = 0;
-        self.lbl_photobooth_value.text = @"Manual";
-        
+        if (app.config.auto_manual == 0 ) // its in experience, go to manual..
+        {
+            app.config.auto_manual = 1;
+            self.lbl_photobooth_value.text = @"Manual";
+        }
+        else if ( app.config.auto_manual == 1 ) // its in manual, go to app
+        {
+            app.config.mode = 0;
+            self.lbl_photobooth_value.text = @"App";
+        }
     }
-    else
+    else if ( app.config.mode == 0 ) // its in app, go to experience
     {
         app.config.mode = 1;
+        app.config.auto_manual = 0;
         self.lbl_photobooth_value.text = @"Experience";
     }
     
@@ -317,6 +341,24 @@
 }
 
 
+-(IBAction) togglePrinting:(id)sender
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate];
+    if ( app.config.printMode==1)
+    {
+        app.config.printMode = 0;
+        self.lbl_print_value.text = @"Off";
+    }
+    else
+    {
+        app.config.printMode = 1;
+        self.lbl_print_value.text = @"On";
+    }
+    
+    
+    NSString *str = [ NSString stringWithFormat:@"%d", app.config.printMode ];
+    [[NSUserDefaults standardUserDefaults] setObject:str forKey:@"print_mode"];
+}
 
 #pragma mark - Table view delegate
 
@@ -364,7 +406,6 @@
     else if (row==1)
     {
         //self.cell_sharing.selected = YES;
-
         UIViewController<SubstitutableDetailViewController> * vc =
             (UIViewController<SubstitutableDetailViewController> *)
         app.settings_right_view;
@@ -374,9 +415,13 @@
     {
         //self.cell_printing.selected = YES;
         UIViewController<SubstitutableDetailViewController> * vc =
-        (UIViewController<SubstitutableDetailViewController> *)
-        app.settings_right_view;
+            (UIViewController<SubstitutableDetailViewController> *)
+        app.settings_print_view;
         [self setRight:vc title:@"Printing"];
+        
+        PrintSettingsViewController *ps = (PrintSettingsViewController *)vc;
+        [ ps changeView:row ];
+        
     }
     else if (row==3)
     {
@@ -394,8 +439,15 @@
         app.settings_right_view;
         [self setRight:vc title:@"Photobooth"];
     }
-    
     else if (row==5)
+    {
+        //self.cell_photobooth.selected = YES;
+        UIViewController<SubstitutableDetailViewController> * vc =
+            (UIViewController<SubstitutableDetailViewController> *)
+                app.settings_gallery_view;
+        [self setRight:vc title:@"Gallery"];
+    }
+    else if (row==6)
     {
         AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
         [ app settings_done ];

@@ -94,6 +94,12 @@ UIInterfaceOrientation current_orientation;
     [ app goto_takephoto ];
 }
 
+-(IBAction) btnaction_back: (id)sender
+{
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication ] delegate ];
+    [ app yourphoto_go_back ];
+}
 
 -(IBAction) btnaction_goto_efx: (id)sender
 {
@@ -121,16 +127,26 @@ UIInterfaceOrientation current_orientation;
 }
 
 
+-(IBAction) btnaction_take_again:(id)sender
+{
+    AppDelegate *app =
+        (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    [ app goto_takephoto ];
+}
+
+
 -(IBAction) btnaction_gallery:(id)sender
 {
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    AppDelegate *app =
+        (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
     [ app goto_gallery ];
 }
 
 
 -(IBAction) btnaction_photobooth:(id)sender
 {
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication] delegate ];
+    AppDelegate *app = (AppDelegate *)
+        [ [ UIApplication sharedApplication] delegate ];
     [ app goto_takephoto ];
 }
 
@@ -138,7 +154,7 @@ UIInterfaceOrientation current_orientation;
 -(IBAction) btnaction_settings:(id)sender
 {
     AppDelegate *app =
-    ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
+        ( AppDelegate *)[[UIApplication sharedApplication ] delegate ];
     if (app.config.mode==0)
         [ app goto_settings:self ];
     //[ AppDelegate NotImplemented:@"" ];
@@ -154,7 +170,8 @@ UIInterfaceOrientation current_orientation;
 - (NSUInteger)supportedInterfaceOrientations
 {
     
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    AppDelegate *app =
+        (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     if ( app.lock_orientation )
     {
@@ -189,7 +206,8 @@ UIInterfaceOrientation current_orientation;
               duration:(NSTimeInterval)duration
             
 {
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    AppDelegate *app =
+        (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     
     current_orientation = toInterfaceOrientation;
     

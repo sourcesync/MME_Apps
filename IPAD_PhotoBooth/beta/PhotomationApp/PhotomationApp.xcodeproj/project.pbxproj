@@ -65,12 +65,18 @@
 		B3180930170BC03D000EA567 /* btn_chromacapture.png in Resources */ = {isa = PBXBuildFile; fileRef = B318092F170BC03D000EA567 /* btn_chromacapture.png */; };
 		B3180932170BC955000EA567 /* bgcurtain.png in Resources */ = {isa = PBXBuildFile; fileRef = B3180931170BC955000EA567 /* bgcurtain.png */; };
 		B3180935170BCA22000EA567 /* camera-shutter-click-01.wav in Resources */ = {isa = PBXBuildFile; fileRef = B3180934170BCA22000EA567 /* camera-shutter-click-01.wav */; };
+		B31A20B317FD7036001FA542 /* toaster.png in Resources */ = {isa = PBXBuildFile; fileRef = B31A20B217FD7036001FA542 /* toaster.png */; };
+		B31A20B917FE0534001FA542 /* toaster-horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = B31A20B817FE0534001FA542 /* toaster-horizontal.png */; };
+		B31A20BC17FE0E1A001FA542 /* toaster2480x640.png in Resources */ = {isa = PBXBuildFile; fileRef = B31A20BA17FE0E1A001FA542 /* toaster2480x640.png */; };
+		B31A20BD17FE0E1A001FA542 /* toaster2640x480.png in Resources */ = {isa = PBXBuildFile; fileRef = B31A20BB17FE0E1A001FA542 /* toaster2640x480.png */; };
 		B32D1AAB16FE10060069B416 /* LoginNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = B32D1AAA16FE10060069B416 /* LoginNavController.m */; };
 		B32D1ABB16FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B32D1AB916FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.m */; };
 		B32D1ABC16FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B32D1ABA16FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.xib */; };
 		B3482C60176E6817001D8E81 /* TwitterHorizView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3482C5F176E6817001D8E81 /* TwitterHorizView.xib */; };
 		B3482C67176E751D001D8E81 /* FlickrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3482C65176E751D001D8E81 /* FlickrViewController.m */; };
 		B3482C68176E751D001D8E81 /* FlickrViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3482C66176E751D001D8E81 /* FlickrViewController.xib */; };
+		B34C340618150D7700D622FF /* GallerySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B34C340418150D7700D622FF /* GallerySettingsViewController.m */; };
+		B34C340718150D7700D622FF /* GallerySettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B34C340518150D7700D622FF /* GallerySettingsViewController.xib */; };
 		B373ECBC17795D4B00B1AEC1 /* enteremail.wav in Resources */ = {isa = PBXBuildFile; fileRef = B373ECBB17795D4B00B1AEC1 /* enteremail.wav */; };
 		B37460671778C05A00B4A32F /* countdown.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460631778C05A00B4A32F /* countdown.wav */; };
 		B37460681778C05A00B4A32F /* getready.wav in Resources */ = {isa = PBXBuildFile; fileRef = B37460641778C05A00B4A32F /* getready.wav */; };
@@ -192,6 +198,8 @@
 		B38FF842170B7EBF00D80409 /* icon_photoboothmode.png in Resources */ = {isa = PBXBuildFile; fileRef = B38FF83D170B7EBF00D80409 /* icon_photoboothmode.png */; };
 		B38FF843170B7EBF00D80409 /* icon_print.png in Resources */ = {isa = PBXBuildFile; fileRef = B38FF83E170B7EBF00D80409 /* icon_print.png */; };
 		B38FF844170B7EBF00D80409 /* icon_share.png in Resources */ = {isa = PBXBuildFile; fileRef = B38FF83F170B7EBF00D80409 /* icon_share.png */; };
+		B3920DAD1814989C00EF570A /* PrintSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3920DAB1814989C00EF570A /* PrintSettingsViewController.m */; };
+		B3920DAE1814989C00EF570A /* PrintSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3920DAC1814989C00EF570A /* PrintSettingsViewController.xib */; };
 		B3A1CC40170F837B00ADB2FB /* forephoto1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3A1CC3F170F837B00ADB2FB /* forephoto1.jpg */; };
 		B3A1CC421712251B00ADB2FB /* forephoto1_sm.png in Resources */ = {isa = PBXBuildFile; fileRef = B3A1CC411712251B00ADB2FB /* forephoto1_sm.png */; };
 		B3A1CC4417126F2900ADB2FB /* forephoto1_sm_rotleft.png in Resources */ = {isa = PBXBuildFile; fileRef = B3A1CC4317126F2900ADB2FB /* forephoto1_sm_rotleft.png */; };
@@ -211,6 +219,15 @@
 		B3AB0673174CB86D0068236B /* watermark600x400_vert.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AB0672174CB86D0068236B /* watermark600x400_vert.png */; };
 		B3AB069517588F400068236B /* YourPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AB069317588F400068236B /* YourPhotoViewController.m */; };
 		B3AB069617588F400068236B /* YourPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3AB069417588F400068236B /* YourPhotoViewController.xib */; };
+		B3B4FDED17FB5E6400043AE7 /* bw-horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B4FDE417FB5E6400043AE7 /* bw-horizontal.png */; };
+		B3B4FDEE17FB5E6400043AE7 /* colorphotonegative-horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B4FDE517FB5E6400043AE7 /* colorphotonegative-horizontal.png */; };
+		B3B4FDEF17FB5E6400043AE7 /* earlybird-horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B4FDE617FB5E6400043AE7 /* earlybird-horizontal.png */; };
+		B3B4FDF017FB5E6400043AE7 /* inkwell-horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B4FDE717FB5E6400043AE7 /* inkwell-horizontal.png */; };
+		B3B4FDF117FB5E6400043AE7 /* normal-horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B4FDE817FB5E6400043AE7 /* normal-horizontal.png */; };
+		B3B4FDF217FB5E6400043AE7 /* normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B4FDE917FB5E6400043AE7 /* normal.png */; };
+		B3B4FDF317FB5E6400043AE7 /* portrait-horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B4FDEA17FB5E6400043AE7 /* portrait-horizontal.png */; };
+		B3B4FDF417FB5E6400043AE7 /* rise-horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B4FDEB17FB5E6400043AE7 /* rise-horizontal.png */; };
+		B3B4FDF517FB5E6400043AE7 /* sepia-horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B4FDEC17FB5E6400043AE7 /* sepia-horizontal.png */; };
 		B3DB44461758C21E00C8A0F8 /* YourPhotoLandscapeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3DB44451758C21E00C8A0F8 /* YourPhotoLandscapeView.xib */; };
 		B3DB444D17595CFE00C8A0F8 /* EFXPortraitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3DB444C17595CFE00C8A0F8 /* EFXPortraitView.xib */; };
 		B3EB394C17792E7F005924BD /* developingpleasewait.wav in Resources */ = {isa = PBXBuildFile; fileRef = B3EB394B17792E7F005924BD /* developingpleasewait.wav */; };
@@ -295,6 +312,10 @@
 		B318092F170BC03D000EA567 /* btn_chromacapture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_chromacapture.png; sourceTree = "<group>"; };
 		B3180931170BC955000EA567 /* bgcurtain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgcurtain.png; sourceTree = "<group>"; };
 		B3180934170BCA22000EA567 /* camera-shutter-click-01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "camera-shutter-click-01.wav"; sourceTree = "<group>"; };
+		B31A20B217FD7036001FA542 /* toaster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toaster.png; sourceTree = "<group>"; };
+		B31A20B817FE0534001FA542 /* toaster-horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toaster-horizontal.png"; sourceTree = "<group>"; };
+		B31A20BA17FE0E1A001FA542 /* toaster2480x640.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toaster2480x640.png; sourceTree = "<group>"; };
+		B31A20BB17FE0E1A001FA542 /* toaster2640x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toaster2640x480.png; sourceTree = "<group>"; };
 		B32D1AA916FE10060069B416 /* LoginNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginNavController.h; sourceTree = "<group>"; };
 		B32D1AAA16FE10060069B416 /* LoginNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginNavController.m; sourceTree = "<group>"; };
 		B32D1AB816FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoSimulatedLandscapeViewController.h; sourceTree = "<group>"; };
@@ -304,6 +325,9 @@
 		B3482C64176E751D001D8E81 /* FlickrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrViewController.h; sourceTree = "<group>"; };
 		B3482C65176E751D001D8E81 /* FlickrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrViewController.m; sourceTree = "<group>"; };
 		B3482C66176E751D001D8E81 /* FlickrViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlickrViewController.xib; sourceTree = "<group>"; };
+		B34C340318150D7700D622FF /* GallerySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GallerySettingsViewController.h; sourceTree = "<group>"; };
+		B34C340418150D7700D622FF /* GallerySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GallerySettingsViewController.m; sourceTree = "<group>"; };
+		B34C340518150D7700D622FF /* GallerySettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GallerySettingsViewController.xib; sourceTree = "<group>"; };
 		B373ECBB17795D4B00B1AEC1 /* enteremail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = enteremail.wav; sourceTree = "<group>"; };
 		B37460631778C05A00B4A32F /* countdown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = countdown.wav; sourceTree = "<group>"; };
 		B37460641778C05A00B4A32F /* getready.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = getready.wav; sourceTree = "<group>"; };
@@ -553,6 +577,9 @@
 		B38FF83D170B7EBF00D80409 /* icon_photoboothmode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_photoboothmode.png; sourceTree = "<group>"; };
 		B38FF83E170B7EBF00D80409 /* icon_print.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_print.png; sourceTree = "<group>"; };
 		B38FF83F170B7EBF00D80409 /* icon_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_share.png; sourceTree = "<group>"; };
+		B3920DAA1814989C00EF570A /* PrintSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintSettingsViewController.h; sourceTree = "<group>"; };
+		B3920DAB1814989C00EF570A /* PrintSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintSettingsViewController.m; sourceTree = "<group>"; };
+		B3920DAC1814989C00EF570A /* PrintSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintSettingsViewController.xib; sourceTree = "<group>"; };
 		B3A1CC3F170F837B00ADB2FB /* forephoto1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = forephoto1.jpg; sourceTree = "<group>"; };
 		B3A1CC411712251B00ADB2FB /* forephoto1_sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forephoto1_sm.png; sourceTree = "<group>"; };
 		B3A1CC4317126F2900ADB2FB /* forephoto1_sm_rotleft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forephoto1_sm_rotleft.png; sourceTree = "<group>"; };
@@ -576,6 +603,15 @@
 		B3AB069217588F400068236B /* YourPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YourPhotoViewController.h; sourceTree = "<group>"; };
 		B3AB069317588F400068236B /* YourPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YourPhotoViewController.m; sourceTree = "<group>"; };
 		B3AB069417588F400068236B /* YourPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YourPhotoViewController.xib; sourceTree = "<group>"; };
+		B3B4FDE417FB5E6400043AE7 /* bw-horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bw-horizontal.png"; sourceTree = "<group>"; };
+		B3B4FDE517FB5E6400043AE7 /* colorphotonegative-horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "colorphotonegative-horizontal.png"; sourceTree = "<group>"; };
+		B3B4FDE617FB5E6400043AE7 /* earlybird-horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "earlybird-horizontal.png"; sourceTree = "<group>"; };
+		B3B4FDE717FB5E6400043AE7 /* inkwell-horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inkwell-horizontal.png"; sourceTree = "<group>"; };
+		B3B4FDE817FB5E6400043AE7 /* normal-horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "normal-horizontal.png"; sourceTree = "<group>"; };
+		B3B4FDE917FB5E6400043AE7 /* normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normal.png; sourceTree = "<group>"; };
+		B3B4FDEA17FB5E6400043AE7 /* portrait-horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "portrait-horizontal.png"; sourceTree = "<group>"; };
+		B3B4FDEB17FB5E6400043AE7 /* rise-horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rise-horizontal.png"; sourceTree = "<group>"; };
+		B3B4FDEC17FB5E6400043AE7 /* sepia-horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sepia-horizontal.png"; sourceTree = "<group>"; };
 		B3B9B891176BBE4E00DDA96A /* FBSessionManualTokenCachingStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBSessionManualTokenCachingStrategy.h; sourceTree = "<group>"; };
 		B3B9B892176BBE4E00DDA96A /* FBSessionManualTokenCachingStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBSessionManualTokenCachingStrategy.m; sourceTree = "<group>"; };
 		B3DB44451758C21E00C8A0F8 /* YourPhotoLandscapeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YourPhotoLandscapeView.xib; sourceTree = "<group>"; };
@@ -1025,6 +1061,16 @@
 			children = (
 			);
 			name = res;
+			sourceTree = "<group>";
+		};
+		B34C340218150D3F00D622FF /* gallery_settings_view */ = {
+			isa = PBXGroup;
+			children = (
+				B34C340318150D7700D622FF /* GallerySettingsViewController.h */,
+				B34C340418150D7700D622FF /* GallerySettingsViewController.m */,
+				B34C340518150D7700D622FF /* GallerySettingsViewController.xib */,
+			);
+			name = gallery_settings_view;
 			sourceTree = "<group>";
 		};
 		B36B15FA179E73040072D26F /* ASI */ = {
@@ -1577,6 +1623,8 @@
 		B38FF827170A874A00D80409 /* settings_view */ = {
 			isa = PBXGroup;
 			children = (
+				B34C340218150D3F00D622FF /* gallery_settings_view */,
+				B3920DA91814986F00EF570A /* print_settings_view */,
 				B38FF82F170AAA1300D80409 /* rightview */,
 				B38FF829170AA96F00D80409 /* leftview */,
 				B38FF828170AA65900D80409 /* splitview */,
@@ -1623,6 +1671,16 @@
 				B38FF83F170B7EBF00D80409 /* icon_share.png */,
 			);
 			name = icons;
+			sourceTree = "<group>";
+		};
+		B3920DA91814986F00EF570A /* print_settings_view */ = {
+			isa = PBXGroup;
+			children = (
+				B3920DAA1814989C00EF570A /* PrintSettingsViewController.h */,
+				B3920DAB1814989C00EF570A /* PrintSettingsViewController.m */,
+				B3920DAC1814989C00EF570A /* PrintSettingsViewController.xib */,
+			);
+			name = print_settings_view;
 			sourceTree = "<group>";
 		};
 		B3A1CC451715D38600ADB2FB /* chroma_video */ = {
@@ -1742,9 +1800,30 @@
 			name = res;
 			sourceTree = "<group>";
 		};
+		B3B4FDE317FB5E4E00043AE7 /* v2 */ = {
+			isa = PBXGroup;
+			children = (
+				B31A20BA17FE0E1A001FA542 /* toaster2480x640.png */,
+				B31A20BB17FE0E1A001FA542 /* toaster2640x480.png */,
+				B31A20B817FE0534001FA542 /* toaster-horizontal.png */,
+				B31A20B217FD7036001FA542 /* toaster.png */,
+				B3B4FDE417FB5E6400043AE7 /* bw-horizontal.png */,
+				B3B4FDE517FB5E6400043AE7 /* colorphotonegative-horizontal.png */,
+				B3B4FDE617FB5E6400043AE7 /* earlybird-horizontal.png */,
+				B3B4FDE717FB5E6400043AE7 /* inkwell-horizontal.png */,
+				B3B4FDE817FB5E6400043AE7 /* normal-horizontal.png */,
+				B3B4FDE917FB5E6400043AE7 /* normal.png */,
+				B3B4FDEA17FB5E6400043AE7 /* portrait-horizontal.png */,
+				B3B4FDEB17FB5E6400043AE7 /* rise-horizontal.png */,
+				B3B4FDEC17FB5E6400043AE7 /* sepia-horizontal.png */,
+			);
+			name = v2;
+			sourceTree = "<group>";
+		};
 		B3DB44411758C17C00C8A0F8 /* res */ = {
 			isa = PBXGroup;
 			children = (
+				B3B4FDE317FB5E4E00043AE7 /* v2 */,
 				B3F6CFA217F52AFA0037DC34 /* earlybird_border_alpha_480x640.png */,
 				B3F6CFA017F528F10037DC34 /* colorphotonegative.png */,
 				B38960F517D8155600557F5A /* portrait_border_alpha copy_640x480.png */,
@@ -1829,10 +1908,12 @@
 			files = (
 				05A4DF7B16EEA16C0000F470 /* InfoPlist.strings in Resources */,
 				05A4DF8316EEA16C0000F470 /* Default.png in Resources */,
+				B31A20B917FE0534001FA542 /* toaster-horizontal.png in Resources */,
 				05A4DF8516EEA16C0000F470 /* Default@2x.png in Resources */,
 				05A4DF8716EEA16C0000F470 /* Default-568h@2x.png in Resources */,
 				05A4DF9816EEA16C0000F470 /* SignupLoginViewController.xib in Resources */,
 				05A4DF9B16EEA16C0000F470 /* LoginViewController.xib in Resources */,
+				B3B4FDEE17FB5E6400043AE7 /* colorphotonegative-horizontal.png in Resources */,
 				05A4DFA616EEBB820000F470 /* Default-Portrait~ipad.png in Resources */,
 				05A4DFA816EEBB880000F470 /* Default-Portrait@2x~ipad.png in Resources */,
 				05A4DFAF16EEC27B0000F470 /* bg_signup_login_768_1004.png in Resources */,
@@ -1862,6 +1943,7 @@
 				05B6EF2916F7040400146842 /* GallerySelectedPhotoViewController.xib in Resources */,
 				05B6EF3816F71C0C00146842 /* SharePhotoViewController.xib in Resources */,
 				B32D1ABC16FE1AA30069B416 /* TakePhotoSimulatedLandscapeViewController.xib in Resources */,
+				B3B4FDF517FB5E6400043AE7 /* sepia-horizontal.png in Resources */,
 				B38FF826170A39FE00D80409 /* ChromaViewController.xib in Resources */,
 				B38FF82E170AA99800D80409 /* SettingsLeftViewController.xib in Resources */,
 				B38FF839170AC06C00D80409 /* RightViewController.xib in Resources */,
@@ -1876,8 +1958,11 @@
 				B3A1CC40170F837B00ADB2FB /* forephoto1.jpg in Resources */,
 				B3A1CC421712251B00ADB2FB /* forephoto1_sm.png in Resources */,
 				B3A1CC4417126F2900ADB2FB /* forephoto1_sm_rotleft.png in Resources */,
+				B3B4FDF317FB5E6400043AE7 /* portrait-horizontal.png in Resources */,
 				B3A1CC4F1722266800ADB2FB /* EFXViewController.xib in Resources */,
 				B38E10A517222CE400105971 /* email_vert_1200x1800.jpg in Resources */,
+				B3B4FDF417FB5E6400043AE7 /* rise-horizontal.png in Resources */,
+				B31A20B317FD7036001FA542 /* toaster.png in Resources */,
 				B38E10AB1722894900105971 /* testphoto640x480.png in Resources */,
 				B3885EB3172689A60018429B /* EmailViewController.xib in Resources */,
 				B3885EB91726916E0018429B /* PrintViewController.xib in Resources */,
@@ -1888,34 +1973,41 @@
 				B38ACB051743694D001AA678 /* TakePhotoManualViewController.xib in Resources */,
 				B38ACB0D17437F48001AA678 /* HorizPracticeView.xib in Resources */,
 				B38ACB1B1744C845001AA678 /* PrintHorizView.xib in Resources */,
+				B31A20BC17FE0E1A001FA542 /* toaster2480x640.png in Resources */,
 				B38ACB1E1744D93E001AA678 /* SelectedPhotoHorizView.xib in Resources */,
 				B3AB0659174B58A90068236B /* SharePhotoHorizView.xib in Resources */,
 				B3AB065E174B5F8D0068236B /* GalleryHorizView.xib in Resources */,
+				B3B4FDF217FB5E6400043AE7 /* normal.png in Resources */,
 				B3AB0663174B6FE50068236B /* GallerySingleHorizView.xib in Resources */,
 				B3AB0666174B952E0068236B /* watermark1200x1800.png in Resources */,
 				B3AB0667174B952E0068236B /* watermark1800x1200.png in Resources */,
 				B3AB066A174B961F0068236B /* watermark400x600.png in Resources */,
 				B3AB066B174B961F0068236B /* watermark600x400.png in Resources */,
 				B3AB066D174B9A1D0068236B /* watermark480x640.png in Resources */,
+				B31A20BD17FE0E1A001FA542 /* toaster2640x480.png in Resources */,
 				B3AB066F174C9FD30068236B /* email_horiz_1800x1200.png in Resources */,
 				B3AB0671174CB7B30068236B /* email_horiz_vert.png in Resources */,
 				B3AB0673174CB86D0068236B /* watermark600x400_vert.png in Resources */,
+				B3B4FDF017FB5E6400043AE7 /* inkwell-horizontal.png in Resources */,
 				B3AB069617588F400068236B /* YourPhotoViewController.xib in Resources */,
 				B3DB44461758C21E00C8A0F8 /* YourPhotoLandscapeView.xib in Resources */,
 				B3DB444D17595CFE00C8A0F8 /* EFXPortraitView.xib in Resources */,
 				B300154F1762C60A00B7E48D /* EmailHorizView.xib in Resources */,
 				B38D5A37176B1E4100DA3770 /* signinBullet1.png in Resources */,
+				B3B4FDF117FB5E6400043AE7 /* normal-horizontal.png in Resources */,
 				B38D5A38176B1E4100DA3770 /* signinBullet1@2x.png in Resources */,
 				B38D5A39176B1E4100DA3770 /* signinBullet2.png in Resources */,
 				B38D5A3A176B1E4100DA3770 /* signinBullet2@2x.png in Resources */,
 				B38D5A3B176B1E4100DA3770 /* signinButtonBg.png in Resources */,
 				B38D5A3C176B1E4100DA3770 /* signinButtonBg@2x.png in Resources */,
+				B34C340718150D7700D622FF /* GallerySettingsViewController.xib in Resources */,
 				B38D5A3D176B1E4100DA3770 /* signinHello.png in Resources */,
 				B38D5A3E176B1E4100DA3770 /* signinHello@2x.png in Resources */,
 				B38D5A3F176B1E4100DA3770 /* signinSeparator.png in Resources */,
 				B38D5A40176B1E4100DA3770 /* TwitterLoginCallbackFlow.xib in Resources */,
 				B38D5A42176B1E4100DA3770 /* TwitterLoginPopup.xib in Resources */,
 				B3482C60176E6817001D8E81 /* TwitterHorizView.xib in Resources */,
+				B3B4FDEF17FB5E6400043AE7 /* earlybird-horizontal.png in Resources */,
 				B3482C68176E751D001D8E81 /* FlickrViewController.xib in Resources */,
 				B382FB081777E44100F46DE2 /* ThanksViewController.xib in Resources */,
 				B382FB1F1777F0BB00F46DE2 /* StartViewController.xib in Resources */,
@@ -1935,6 +2027,7 @@
 				B38960EA17D7FFAF00557F5A /* bwv_inkwell.png in Resources */,
 				B38960EC17D7FFBC00557F5A /* sepiavb_earlybird.png in Resources */,
 				B38960EE17D7FFC900557F5A /* bwvb_portrait.png in Resources */,
+				B3B4FDED17FB5E6400043AE7 /* bw-horizontal.png in Resources */,
 				B38960F117D80CBB00557F5A /* earlybird_border_alpha.png in Resources */,
 				B38960F217D80CBB00557F5A /* portrait_border_alpha.png in Resources */,
 				B38960F417D813E700557F5A /* earlybird_border_alpha_640x480.png in Resources */,
@@ -1942,6 +2035,7 @@
 				B38960FC17D94CDC00557F5A /* CMSViewController.xib in Resources */,
 				B3F6CFA117F528F10037DC34 /* colorphotonegative.png in Resources */,
 				B3F6CFA317F52AFB0037DC34 /* earlybird_border_alpha_480x640.png in Resources */,
+				B3920DAE1814989C00EF570A /* PrintSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1962,6 +2056,7 @@
 				B3856AF1176BDAED0038FCDD /* Reachability.m in Sources */,
 				B3856ADE176BDA5A0038FCDD /* ASIFormDataRequest.m in Sources */,
 				B38D59DC176B14D500DA3770 /* OARequestParameter.m in Sources */,
+				B34C340618150D7700D622FF /* GallerySettingsViewController.m in Sources */,
 				B38D59DB176B14CB00DA3770 /* OAToken.m in Sources */,
 				B38D59D9176B149800DA3770 /* NSData+Base64.m in Sources */,
 				B38D59D8176B149200DA3770 /* NSString+UUID.m in Sources */,
@@ -2015,6 +2110,7 @@
 				B38D5A03176B1E2B00DA3770 /* SBJsonUTF8Stream.m in Sources */,
 				B38D5A04176B1E2B00DA3770 /* SBJsonWriter.m in Sources */,
 				B38D5A2F176B1E4100DA3770 /* Base64Transcoder.c in Sources */,
+				B3920DAD1814989C00EF570A /* PrintSettingsViewController.m in Sources */,
 				B38D5A30176B1E4100DA3770 /* hmac.c in Sources */,
 				B38D5A31176B1E4100DA3770 /* OAHMAC_SHA1SignatureProvider.m in Sources */,
 				B38D5A32176B1E4100DA3770 /* sha1.c in Sources */,

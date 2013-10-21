@@ -34,6 +34,7 @@
 -(IBAction) btn_cancel:(id)sender;
 
 //  class funcs...
-+(BOOL) postimage:(NSString *)email image:(UIImage *)image;
++(NSString *) postimage:(NSString *)email url:(NSString *)urlString image:(UIImage *)image;
 
++(BOOL) postimage_for_print:(NSString *)urlString image:(UIImage *)image;
 @end

@@ -134,7 +134,7 @@ UIInterfaceOrientation current_orientation;
     //
     //  Initialize the label...
     //
-    self.lbl_message.text = @"Contacting Facebook...";
+    //[self.lbl_message  setText: @"Contacting Facebook..."];
     self.lbl_message.hidden = NO;
 }
 
@@ -248,6 +248,14 @@ UIInterfaceOrientation current_orientation;
     
 }
 
+- (NSString *)urlEncodeValue:(NSString *)str
+{
+    
+    //            NSString *result = (NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)str, NULL, CFSTR(":/?#[]@!$&()*+,;="), kCFStringEncodingUTF8);
+    //            return [result autorelease];
+    return [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 -(void) postImageNow
 {
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
@@ -263,7 +271,50 @@ UIInterfaceOrientation current_orientation;
     
     //  Form path to file to upload....
     NSString *fullPath = nil;
+    fullPath = app.current_filtered_path;
+    if (app.active_photo_is_original)
+        fullPath = app.current_photo_path;
     
+    //NSLog(@"path %@",fullPath);
+    
+    NSData * data = [[NSData alloc] initWithContentsOfFile:fullPath];
+    UIImage *just_image = [UIImage imageWithData:data];
+    
+    float width = just_image.size.width;
+    float height = just_image.size.height;
+    
+    UIImage *image_email = nil;
+    if ( width > height )
+    {
+        image_email =  [ app processTemplateWatermark:just_image
+                                                      raw1:nil
+                                                      raw2:nil
+                                                  vertical:NO ];
+    }
+    else
+    {
+        image_email =  [ app processTemplateWatermark:just_image
+                                                      raw1:nil
+                                                      raw2:nil
+                                                  vertical:YES ];
+    }
+    
+    //  Create a file from the image...
+    NSString  *jpgPath = [NSHomeDirectory()
+                          stringByAppendingPathComponent:@"Documents/Email.jpg"];
+    //NSLog(@"path %@",jpgPath);
+    
+    // Write a UIImage to JPEG with minimum compression (best quality)
+    // The value 'image' must be a UIImage object
+    // The value '1.0' represents image compression quality as value from 0.0 to 1.0
+    [UIImageJPEGRepresentation(image_email, 1.0) writeToFile:jpgPath atomically:YES];
+    
+    //  done with image...
+    image_email = nil;
+    just_image = nil;
+    [ data release ];
+    
+        /*
     if ( app.current_photo_path && app.current_filtered_path )
     {
         fullPath = app.current_filtered_path;
@@ -272,21 +323,98 @@ UIInterfaceOrientation current_orientation;
     {
         fullPath = app.current_photo_path;
     }
+         */
     
+    NSString *link = [ self urlEncodeValue:@"http://www.google.com" ];
+    NSString *pic = [ self
+            urlEncodeValue:@"http://photomation.mmeink.com/favoritephoto.php?viewing=DoingourthingBoston_538732a52a6b4b67b2e4ab08121f2122"];
     
+    NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
+    self.asi_request = [ASIFormDataRequest requestWithURL:url];
+    //[self.asi_request  addFile:fullPath forKey:@"file"];
+    //[self.asi_request  addFile:jpgPath forKey:@"file"];
+    [self.asi_request  setPostValue:access_token forKey:@"access_token"];
+    [self.asi_request  setPostValue:pic forKey:@"pic"];
+    [self.asi_request  setPostValue:message forKey:@"message"];
+    [self.asi_request  setPostValue:@"a description" forKey:@"description"];
+    [self.asi_request  setPostValue:link forKey:@"link" ];
+    [self.asi_request  setPostValue:@"a caption" forKey:@"caption" ];
+    
+    [self.asi_request  setDidFinishSelector:@selector(sendToPhotosFinished:)];
+    [self.asi_request  setDelegate:self];
+
+    
+    /*
     //  Make a form request object...
     NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/photos"];
     self.asi_request = [ASIFormDataRequest requestWithURL:url];
-    [self.asi_request  addFile:fullPath forKey:@"file"];
+    //[self.asi_request  addFile:fullPath forKey:@"file"];
+    [self.asi_request  addFile:jpgPath forKey:@"file"];
     [self.asi_request  setPostValue:message forKey:@"message"];
     [self.asi_request  setPostValue:access_token forKey:@"access_token"];
     [self.asi_request  setDidFinishSelector:@selector(sendToPhotosFinished:)];
     [self.asi_request  setDelegate:self];
+    */
     
     //  Make the request...
     [self.asi_request  startSynchronous];
     
 }
+
+-(void) postLinkNow
+{
+    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    
+    //  get the access token...
+    NSString *access_token = self.accessToken;
+    
+    //  get the message...
+    //gw NSString *message = [NSString stringWithFormat:@"Photomation Rocks!"];
+    //NSString *message = app.config.facebook_post_message;
+    
+    NSString *message = [ app.cm get_setting_string: @"str_facebook_post_message"];
+    
+    NSString *link = app.landing_page;
+        //[ self urlEncodeValue:@"http://www.google.com" ];
+    
+    //NSString *pic = [ self
+    //                 urlEncodeValue:@"http://photomation.mmeink.com/favoritephoto.php?viewing=DoingourthingBoston_538732a52a6b4b67b2e4ab08121f2122"];
+    
+    NSString *pic = app.landing_page;
+    
+    NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
+    self.asi_request = [ASIFormDataRequest requestWithURL:url];
+    //[self.asi_request  addFile:fullPath forKey:@"file"];
+    //[self.asi_request  addFile:jpgPath forKey:@"file"];
+    [self.asi_request  setPostValue:access_token forKey:@"access_token"];
+    //[self.asi_request  setPostValue:pic forKey:@"pic"];
+    [self.asi_request  setPostValue:message forKey:@"message"];
+    [self.asi_request  setPostValue:@"a description" forKey:@"description"];
+    [self.asi_request  setPostValue:link forKey:@"link" ];
+    //[self.asi_request  setPostValue:@"a caption" forKey:@"caption" ];
+    
+    //[self.asi_request  setDidFinishSelector:@selector(sendToPhotosFinished:)];
+    //[self.asi_request  setDelegate:self];
+    
+    
+    /*
+     //  Make a form request object...
+     NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/photos"];
+     self.asi_request = [ASIFormDataRequest requestWithURL:url];
+     //[self.asi_request  addFile:fullPath forKey:@"file"];
+     [self.asi_request  addFile:jpgPath forKey:@"file"];
+     [self.asi_request  setPostValue:message forKey:@"message"];
+     [self.asi_request  setPostValue:access_token forKey:@"access_token"];
+     [self.asi_request  setDidFinishSelector:@selector(sendToPhotosFinished:)];
+     [self.asi_request  setDelegate:self];
+     */
+    
+    //  Make the request...
+    [self.asi_request  startSynchronous];
+    
+}
+
+
 
 -(void)sendToPhotosFinished
 {
@@ -335,8 +463,10 @@ UIInterfaceOrientation current_orientation;
         self.lbl_message.hidden = NO;
         
         //  Schedule posting of image...
-        [ self performSelector:@selector( postImageNow ) withObject:self afterDelay:0.01];
+        //[ self performSelector:@selector( postImageNow ) withObject:self afterDelay:0.01];
         
+        AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+        [ app goto_sharephoto: app.shareBack ];
     }
     
     return YES;

@@ -244,7 +244,11 @@ UIInterfaceOrientation current_orientation;
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     if ( app.config.mode==1) // experience
     {
-        [ app goto_efx:nil];
+        [ app share_go_back ];
+    }
+    else if ( app.config.mode==0) // manual
+    {
+        [app share_go_back];
     }
 }
 

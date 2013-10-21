@@ -75,6 +75,7 @@
 @property (strong, nonatomic, retain) UIViewController *flickrBack;
 @property (strong, nonatomic, retain) UIViewController *print_view;
 @property (strong, nonatomic, retain) UIViewController *printBack;
+@property (strong, nonatomic, retain) UIViewController *yourphotoBack;
 @property (strong, nonatomic, retain) UIViewController *facebook_view;
 @property (strong, nonatomic, retain) UIViewController *twitter_view;
 @property (strong, nonatomic, retain) UIPopoverController *settings_popover;
@@ -96,8 +97,11 @@
 @property (strong, nonatomic, retain) Configuration *config;
 @property (strong, nonatomic, retain) ChromaVideo  *chroma_video;
 @property (strong, nonatomic, retain) UIViewController *settings_right_view;
+@property (strong, nonatomic, retain) UIViewController *settings_print_view;
+@property (strong, nonatomic, retain) UIViewController *settings_gallery_view;
 @property (strong, nonatomic, retain) UINavigationController *detail_nav;
 @property (strong, nonatomic, retain) UIViewController *left;
+@property (strong, nonatomic, retain) NSString *landing_page;
 
 extern NSString *SRCallbackURLBaseString;
 extern NSString *SnapAndRunShouldUpdateAuthInfoNotification;
@@ -147,14 +151,18 @@ extern NSString *SnapAndRunShouldUpdateAuthInfoNotification;
 -(void)setAndStoreFlickrAuthToken:(NSString *)inAuthToken
                            secret:(NSString *)inSecret;
 +(BOOL) DeleteCurrentFilteredPhoto;
--(void) goto_yourphoto;
+-(void) goto_yourphoto:(UIViewController *)back;
 +(UIImage *) GetCurrentOriginalPhoto;
 +(NSString *) AddPhotoToGallery:(UIImage *)img;
 
 +(NSString *) GetCurrentOriginalPhotoPath;
 -(void) settings_done;
+-(void) yourphoto_go_back;
+- (void) share_go_back;
 
+-(void) post_link_to_facebook;
 
++(void) ClearGallery;
 
 /*
 

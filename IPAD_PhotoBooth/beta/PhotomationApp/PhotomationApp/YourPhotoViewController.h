@@ -35,6 +35,8 @@
 
 -(IBAction) btnaction_settings:(id)sender;
 
+-(IBAction) btnaction_back: (id)sender;
+
 @property (nonatomic, retain) NSString *last_current_photo_path;
 @property (nonatomic, retain) NSString *last_filtered_current_photo_path;
 @property (assign) BOOL last_active_is_original;

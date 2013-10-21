@@ -30,4 +30,9 @@
 //  actions...
 -(IBAction)cancelPressed:(id)sender;
 
+//  public funcs...
+-(void) postImageNow;
+
+-(void) postLinkNow;
+
 @end

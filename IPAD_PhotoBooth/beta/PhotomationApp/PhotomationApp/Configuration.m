@@ -217,14 +217,24 @@
     //
     
     //  mode...
-    self.mode = 0; // app/manual mode = 0, scripted/experience = 1
+    self.mode = 1; // app/manual mode = 0, scripted/experience = 1
     NSString *mm =[[NSUserDefaults standardUserDefaults]  stringForKey:@"mode" ];
     if (mm) self.mode = [ mm integerValue ];
     
+    self.auto_manual = 1; // 0 = all auto mode, 1 = auto manual mode...
+    mm =[[NSUserDefaults standardUserDefaults]  stringForKey:@"auto_manual" ];
+    if (mm) self.auto_manual = [ mm integerValue ];
     
     //  sharing...
     self.sharing = YES;
     
+    //  printing...
+    self.printMode = 0;
+    self.printURL = nil;
+    mm =[[NSUserDefaults standardUserDefaults]  stringForKey:@"print_mode" ];
+    if (mm) self.printMode = [ mm integerValue];
+    NSString *url =[[NSUserDefaults standardUserDefaults]  stringForKey:@"print_url" ];
+    if ( url ) self.printURL = url;
     
     //  countdown...
     self.countdown = 1;
@@ -340,7 +350,7 @@
 
 -(void) ResetParms
 {
-    if (self.mode == 0 )
+    if (self.mode == 0 ) // app...
     {
         self.rect_preview_vert = _lgwin.rect_preview_vert;
         self.rect_preview_horiz = _lgwin.rect_preview_horiz;
@@ -352,17 +362,32 @@
         self.pt_layer_preview_horiz = _lgwin.pt_layer_preview_horiz;
         self.rect_layer_preview_size_horiz = _lgwin.rect_layer_preview_size_horiz;
     }
-    else
+    else if ( self.mode==1 ) // experience...
     {
-        self.rect_preview_vert = _smwin.rect_preview_vert;
-        self.rect_preview_horiz = _smwin.rect_preview_horiz;
-        self.rect_preview_size_vert = _smwin.rect_preview_size_vert;
-        self.rect_preview_size_horiz = _smwin.rect_preview_size_horiz;
-        self.pt_preview_vert = _smwin.pt_preview_vert;
-        self.pt_preview_horiz = _smwin.pt_preview_horiz;
-        self.pt_layer_preview_vert = _smwin.pt_layer_preview_vert;
-        self.pt_layer_preview_horiz = _smwin.pt_layer_preview_horiz;
-        self.rect_layer_preview_size_horiz = _smwin.rect_layer_preview_size_horiz;
+        if (self.auto_manual == 0 ) // all auto...
+        {
+            self.rect_preview_vert = _smwin.rect_preview_vert;
+            self.rect_preview_horiz = _smwin.rect_preview_horiz;
+            self.rect_preview_size_vert = _smwin.rect_preview_size_vert;
+            self.rect_preview_size_horiz = _smwin.rect_preview_size_horiz;
+            self.pt_preview_vert = _smwin.pt_preview_vert;
+            self.pt_preview_horiz = _smwin.pt_preview_horiz;
+            self.pt_layer_preview_vert = _smwin.pt_layer_preview_vert;
+            self.pt_layer_preview_horiz = _smwin.pt_layer_preview_horiz;
+            self.rect_layer_preview_size_horiz = _smwin.rect_layer_preview_size_horiz;
+        }
+        else // experience manual...
+        {
+            self.rect_preview_vert = _lgwin.rect_preview_vert;
+            self.rect_preview_horiz = _lgwin.rect_preview_horiz;
+            self.rect_preview_size_vert = _lgwin.rect_preview_size_vert;
+            self.rect_preview_size_horiz = _lgwin.rect_preview_size_horiz;
+            self.pt_preview_vert = _lgwin.pt_preview_vert;
+            self.pt_preview_horiz = _lgwin.pt_preview_horiz;
+            self.pt_layer_preview_vert = _lgwin.pt_layer_preview_vert;
+            self.pt_layer_preview_horiz = _lgwin.pt_layer_preview_horiz;
+            self.rect_layer_preview_size_horiz = _lgwin.rect_layer_preview_size_horiz;
+        }        
     }
 }
 

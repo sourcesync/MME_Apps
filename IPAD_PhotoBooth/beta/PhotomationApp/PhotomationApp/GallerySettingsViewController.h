@@ -1,15 +1,17 @@
 //
-//  RightViewController.h
+//  GallerySettingsViewController.h
 //  PhotomationApp
 //
-//  Created by Cuong George Williams on 4/2/13.
+//  Created by Cuong George Williams on 10/21/13.
 //  Copyright (c) 2013 Dev Null Enterprises, LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+
 #import "SubstitutableDetailViewController.h"
 
-@interface RightViewController : UIViewController <SubstitutableDetailViewController>
+@interface GallerySettingsViewController : UIViewController <SubstitutableDetailViewController>
+
 
 
 /// Things for IB
@@ -23,10 +25,10 @@
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *flex;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
 
-@property (nonatomic, retain) IBOutlet UIButton *btn_launch;
-
+@property (nonatomic, retain) IBOutlet UIButton *btn_clear_gallery;
 
 -(IBAction) btn_action_launch: (id)sender;
+-(IBAction) btn_action_clear_gallery: (id)sender;
 
 -(void) changeView:(int)i;
 

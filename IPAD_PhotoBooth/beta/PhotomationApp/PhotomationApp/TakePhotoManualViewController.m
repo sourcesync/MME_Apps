@@ -278,8 +278,9 @@ UIInterfaceOrientation current_orientation;
     
     self.AutoNextScheduled = NO;
     
-    AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    [app goto_yourphoto ];
+    AppDelegate *app =
+        (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    [app goto_yourphoto: self ];
     
 }
 
