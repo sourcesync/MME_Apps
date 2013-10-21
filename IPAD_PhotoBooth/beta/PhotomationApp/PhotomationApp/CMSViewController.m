@@ -16,7 +16,11 @@
 
 @end
 
+
 @implementation CMSViewController
+
+//@dynamic navigationTitle;
+//@dynamic navigationPaneBarButtonItem;
 
 //@synthesize navigationTitle=_navigationItem;
 //@synthesize navigationPaneBarButtonItem=_navigationPaneBarButtonItem;

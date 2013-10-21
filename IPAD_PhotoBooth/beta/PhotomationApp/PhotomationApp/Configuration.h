@@ -48,7 +48,12 @@ typedef struct
 @property (nonatomic, assign) int downloadIDX;
 @property (nonatomic, assign) int downloadMode;
 @property (nonatomic, assign) int mode;
+@property (nonatomic, assign) int auto_manual;
+
 @property (nonatomic, assign) BOOL sharing;
+
+@property (nonatomic, assign) int printMode;
+@property (nonatomic, assign) NSString *printURL;
 
 @property (nonatomic, assign) int countdown;
 

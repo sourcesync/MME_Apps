@@ -1,3 +1,4 @@
+
 //
 //  EmailViewController.m
 //  PhotomationApp
@@ -185,7 +186,7 @@
     self.fld_email.text = @"george@devnullenterprises.com";
 }
 
-+(BOOL) postimage:(NSString *)email image:(UIImage *)image
++(NSString *) postimage:(NSString *)email url:(NSString *)urlString image:(UIImage *)image
 {
     //  Write out to file as png to preserve transparency...
     //NSData *imageData =
@@ -199,8 +200,8 @@
     }
     
     AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
-    ContentManager *cm = app.cm;
-    NSString *urlString = [ cm get_setting_string:@"str_email_send_url"];
+    //ContentManager *cm = app.cm;
+    //NSString *urlString = [ cm get_setting_string:@"str_email_send_url"];
     
     /*
     NSString *urlString = [NSString stringWithFormat:@"%@ipad_app_send.php", @"http://photomation.mmeink.com/"];
@@ -288,6 +289,142 @@
  
     NSLog( @"%@",returnString );
     
+    NSStringCompareOptions options = NSLiteralSearch;
+    NSRange st = [returnString rangeOfString:@"_url=" options:options];
+    NSRange end = [returnString rangeOfString:@"_RET" options:options];
+    if ( st.location == NSNotFound || end.location == NSNotFound )
+        return nil;
+    
+    NSRange rg;
+    rg.location = st.location + 5;
+    rg.length = ( end.location - st.location - 5 );
+    NSString *url = [ returnString substringWithRange:rg ];
+    NSLog(@"%@", url);
+    return url;
+    
+    /*
+    //  look for valid return string...
+    if ( [ returnString hasSuffix:@"1_3" ] )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+     */
+}
+
+
++(BOOL) postimage_for_print:(NSString *)urlString image:(UIImage *)image
+{
+    //  Write out to file as png to preserve transparency...
+    //NSData *imageData =
+    //    UIImageJPEGRepresentation(self.image_email, 1.0);
+    NSData *imageData =
+    UIImageJPEGRepresentation(image, 1.0);
+    if ( !imageData )
+    {
+        [ AppDelegate ErrorMessage:@"Cannot Get Image Data"];
+        return false;
+    }
+    
+    //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    //ContentManager *cm = app.cm;
+    //NSString *urlString = [ cm get_setting_string:@"str_email_send_url"];
+    
+    /*
+     NSString *urlString = [NSString stringWithFormat:@"%@ipad_app_send.php", @"http://photomation.mmeink.com/"];
+     */
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:urlString]];
+    [request setHTTPMethod:@"POST"];
+    
+    
+    NSString *boundary = //[NSString
+    //stringWithString:
+    @"---------------------------14737809831466499882746641449"
+    //]
+    ;
+    NSString *contentType = [NSString
+                             stringWithFormat:
+                             @"multipart/form-data; boundary=%@",boundary];
+    
+    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    NSMutableData *body = [NSMutableData data];
+    
+    /*
+    //  THE EVENT...
+    [body appendData:[[NSString
+                       stringWithFormat:@"\r\n--%@\r\n",boundary]
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString
+                       stringWithFormat:
+                       @"Content-Disposition: form-data; name=\"event\"\r\n\r\n"]
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    NSString *event = [ NSString stringWithFormat:@"ipad_%@", app.login_name];
+    [body appendData:[//[NSString
+                      //stringWithString:
+                      //@"Photomation"
+                      //@"ipad_mme"
+                      //]
+                      event
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    */
+    
+    /*
+    //  THE EMAIL...
+    [body appendData:[[NSString
+                       stringWithFormat:@"\r\n--%@\r\n",boundary]
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString
+                       stringWithFormat:
+                       @"Content-Disposition: form-data; name=\"email\"\r\n\r\n"]
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString
+                       stringWithString:email]
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    */
+     
+    //  Create a guid...
+    NSString *uid = [ AppDelegate GetUUID ];
+    
+    //  THE FILE...
+    [body appendData:[[NSString
+                       stringWithFormat:@"\r\n--%@--\r\n",boundary]
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString
+                       stringWithFormat:
+                       @"Content-Disposition: form-data; name=\"photo\"; filename=\"%@.jpg\"\r\n",
+                       uid]
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[//[NSString
+                      //stringWithString:
+                      @"Content-Type: application/octet-stream\r\n\r\n"
+                      //]
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[NSData dataWithData:imageData]];
+    
+    //int size = [ imageData length ];
+    
+    [body appendData:[[NSString
+                       stringWithFormat:@"\r\n--%@--\r\n",boundary]
+                      dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request setHTTPBody:body];
+    
+    NSData *returnData =
+    [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    
+    //gw analyze
+    [ request autorelease ];
+    
+    NSString *returnString = [ [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding] autorelease ];
+    
+    NSLog( @"%@",returnString );
+    
     //  look for valid return string...
     if ( [ returnString hasSuffix:@"1_3" ] )
     {
@@ -298,7 +435,7 @@
         return false;
     }
 }
- 
+
 
 -(IBAction) btn_cancel:(id)sender
 {
@@ -389,7 +526,7 @@
         //self.imageview_bg.image =
         //    [ UIImage imageNamed:@"03-Photomation-iPad-Entyer-Email-Horizontal.jpg"];
         self.imageview_bg.image =
-            [ app.config GetImage:@"email_p" ];
+            [ app.config GetImage:@"email_l" ];
         
         self.fld_email.frame = CGRectMake(76,345,727,44);
         self.btn_cancel.frame = CGRectMake(811, 345, 73, 44);
@@ -434,6 +571,16 @@
 
 #pragma text field stuff
 
+-(void) done
+{
+    
+    AppDelegate *app =
+    (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
+    self.imageview_selected.hidden = YES;
+    self.lbl_message.hidden = YES;
+    [ app email_go_back ];
+}
+
 - (void) doIt
 {
     AppDelegate *app =
@@ -448,15 +595,22 @@
     }
     else // In app/manual mode, send now...
     {
+        
+        ContentManager *cm = app.cm;
+        NSString *urlString = [ cm get_setting_string:@"str_email_send_url"];
 
-        if ( ![ EmailViewController postimage:email  image:self.image_email ] )
+        if ( ![ EmailViewController postimage:email  url:urlString image:self.image_email ] )
         {
             [ AppDelegate InfoMessage:@"Error Sending Email"];
         }
         else
         {
-            [ app email_go_back ];
+            //stay...
+            //[ app goto_takephoto ];
+            //[ app email_go_back ];
         }
+        
+        [ self performSelectorOnMainThread:@selector(done) withObject:self waitUntilDone:YES];
         
         self.btn_cancel.enabled = YES;
     }

@@ -35,6 +35,8 @@
 #import "StartViewController.h"
 #import "CMSViewController.h"
 #import "RightViewController.h"
+#import "PrintSettingsViewController.h"
+#import "GallerySettingsViewController.h"
 
 #import "ChromaVideo.h"
 
@@ -105,7 +107,11 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     self.config= nil;
     self.chroma_video= nil;
     self.settings_right_view = nil;
+    self.settings_print_view = nil;
+    self.settings_gallery_view = nil;
     self.detail_nav = nil;
+    self.left = nil;
+    self.landing_page = nil;
     
     //[_tabBarController release];
     [super dealloc];
@@ -146,11 +152,12 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     //  Never show status bar...
     [[ UIApplication sharedApplication ] setStatusBarHidden:YES ];
 
+    //  basic config...
+    self.config = [ [ [ Configuration alloc ] init ] autorelease ];
     
     //  Create the chroma video object...
-    //gw analyze
+    //  gw analyze
     self.chroma_video = [[ [ ChromaVideo alloc ] init ]autorelease];
-    
     
     // 
     //  Create the one and only window...
@@ -294,6 +301,16 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
         [[[RightViewController alloc ] initWithNibName:
           @"RightViewController" bundle:nil] autorelease];
     
+    //  Settings print
+    self.settings_print_view =
+        [[[PrintSettingsViewController alloc ] initWithNibName:
+          @"PrintSettingsViewController" bundle:nil] autorelease];
+    
+    //  Settings gallery
+    self.settings_gallery_view =
+        [[[GallerySettingsViewController alloc ] initWithNibName:
+          @"GallerySettingsViewController" bundle:nil] autorelease];
+    
     UINavigationController *rootNav =
         [[[UINavigationController alloc] initWithRootViewController:self.left] autorelease];
     
@@ -367,7 +384,10 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
 {
     if (self.config.mode==1) // experience mode
     {
-        self.window.rootViewController =self.takephoto_auto_view;
+        if ( self.config.auto_manual==0) // all experience
+            self.window.rootViewController =self.takephoto_auto_view;
+        else
+            self.window.rootViewController =self.takephoto_manual_view;
     }
     else // app/manual
     {
@@ -432,6 +452,8 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     }
 }
 
+
+
 - (void) goto_selectfavorite
 {
     SelectFavoriteViewController *s = (SelectFavoriteViewController *)self.selectfavorite_view;
@@ -463,9 +485,18 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     }
 }
 
-
--(void) goto_yourphoto
+-(void) yourphoto_go_back
 {
+    if (self.yourphotoBack)
+    {
+        self.window.rootViewController = self.yourphotoBack;
+        self.yourphotoBack = nil;
+    }
+}
+
+-(void) goto_yourphoto: (UIViewController *)back
+{
+    self.yourphotoBack = back;
     YourPhotoViewController *s = (YourPhotoViewController *)self.yourphoto_view;
     self.window.rootViewController = s;
 }
@@ -750,6 +781,43 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     return galleryPath;
 }
 
++(void) ClearGallery
+{
+    
+    NSString *gallery_dir = [ AppDelegate GetGalleryDir ];
+    
+    NSString *filtered_dir = [ AppDelegate GetFilterDir ];
+    
+    NSArray *pairs =  [ AppDelegate GetGalleryPairs ];
+    
+    int count = [ pairs count ];
+    for ( int i=0; i<count; i++)
+    {
+        NSArray *pair = (NSArray *)[ pairs objectAtIndex:i ];
+        
+        for ( int j=0;j<2;j++)
+        {
+            NSString *path = (NSString *)[ pair objectAtIndex:0];
+        
+            NSString *fullpath = nil;
+            if (j==0)
+                fullpath = [ NSString stringWithFormat:@"%@/%@", gallery_dir, path ];
+            else
+                fullpath = [ NSString stringWithFormat:@"%@/%@", filtered_dir, path ];
+            
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullpath];
+            if (fileExists)
+            {
+                NSError *error = nil;
+                BOOL deleted = [[NSFileManager defaultManager] removeItemAtPath:fullpath error:&error];
+                if (!deleted) NSLog(@"ERROR: Could not delete %@", fullpath);
+            }
+        }
+    }
+    
+    //[ pairs release ];
+}
+
 +(NSArray *) GetGalleryPhotos
 {
     NSError *error = nil;
@@ -978,14 +1046,24 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
     NSString *full_path = [ NSString stringWithFormat:@"%@/%@",
                            filtered_dir, file_name ];
     
-    //  Get image data...
-    NSData * data = UIImageJPEGRepresentation(img, 1.0f);
+    BOOL status = NO;
+    {
+            NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
-    app.active_photo_is_original = NO;
-    app.current_filtered_path = full_path;
+            //  Get image data...
+            NSData * data = UIImageJPEGRepresentation(img, 1.0f);
     
-    //  Save it out...
-    return [ data  writeToFile:full_path atomically:YES];
+            app.active_photo_is_original = NO;
+            app.current_filtered_path = full_path;
+    
+            //  Save it out...
+            status = [ data  writeToFile:full_path atomically:YES];
+        
+            [pool drain];
+            pool = nil;
+    }
+    
+    return status;
     
 }
 
@@ -1089,36 +1167,6 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
         return nil;
     }
     
-    /*
-    //  First try filtered photo...
-    NSString *docPath = app.current_filtered_path;
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:docPath];
-    if (fileExists)
-    {
-        UIImage *image =
-            [[[ UIImage alloc ] initWithContentsOfFile:docPath ] autorelease];
-        return image;
-    }
-    else // Next try the original photo...
-    {
-        app.current_filtered_path = nil;
-        
-        docPath = app.current_photo_path;
-        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:docPath];
-        if (fileExists)
-        {
-            UIImage *image =
-                [[[ UIImage alloc ] initWithContentsOfFile:docPath ] autorelease];
-            return image;
-        }
-        else
-        {
-            app.current_photo_path = nil;
-            
-            return nil;
-        }
-    }
-     */
 }
 
 
@@ -1241,6 +1289,16 @@ NSString *SRCallbackURLBaseString = @"photomation://auth" ; //@"snapnrun://auth"
         
         return watermarked_image;
     }
+}
+
+#pragma mark - facebook
+
+
+-(void) post_link_to_facebook
+{
+    FacebookViewController *fc = (FacebookViewController *)self.facebook_view;
+    if ( fc.accessToken )
+        [ fc postLinkNow ];
 }
 
 #pragma mark - auth / flickr

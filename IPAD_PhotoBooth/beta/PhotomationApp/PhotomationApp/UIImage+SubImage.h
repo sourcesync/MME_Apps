@@ -24,4 +24,7 @@
 
 - (UIImage *)filterImageOther;
 
+
+- (UIImage *)filterImageToaster;
+
 @end

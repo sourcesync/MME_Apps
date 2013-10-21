@@ -86,9 +86,9 @@
 }
  */
 
--(void) changeView
+-(void) changeView:(int)i
 {
-    [ AppDelegate InfoMessage:@"change"];
+    //[ AppDelegate InfoMessage:@"change"];
 }
 
 

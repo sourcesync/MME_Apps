@@ -1,15 +1,16 @@
 //
-//  RightViewController.h
+//  PrintSettingsViewController.h
 //  PhotomationApp
 //
-//  Created by Cuong George Williams on 4/2/13.
+//  Created by Cuong George Williams on 10/20/13.
 //  Copyright (c) 2013 Dev Null Enterprises, LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "SubstitutableDetailViewController.h"
 
-@interface RightViewController : UIViewController <SubstitutableDetailViewController>
+@interface PrintSettingsViewController : UIViewController <SubstitutableDetailViewController>
+
 
 
 /// Things for IB
@@ -25,6 +26,9 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *btn_launch;
 
+@property (nonatomic, retain) IBOutlet UISwitch *switch_onoff;
+
+@property (nonatomic, retain) IBOutlet UITextField *fld_url;
 
 -(IBAction) btn_action_launch: (id)sender;
 

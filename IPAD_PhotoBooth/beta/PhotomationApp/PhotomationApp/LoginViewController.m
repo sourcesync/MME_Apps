@@ -171,7 +171,10 @@
     {
         //gw analyze...
         app.config = [ [ [ Configuration alloc ] init ] autorelease ];
-        
+    }
+    
+    if ( app.cm == nil )
+    {
         //gw analyze...
         app.cm = [ [ [ ContentManager alloc ] init:app.login_name ] autorelease];
         app.cm.cmdel = self;

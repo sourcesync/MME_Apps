@@ -59,6 +59,8 @@ UIInterfaceOrientation current_orientation;
     AppDelegate *app = (AppDelegate *) [ [ UIApplication sharedApplication ] delegate ];
     self.use_original = app.active_photo_is_original;
     
+    self.img_taken.image = nil;
+    
     //  Display...
     if (self.use_original)
         self.img_taken.image = self.original_img;
@@ -155,6 +157,7 @@ UIInterfaceOrientation current_orientation;
     
     UIImage *rot = [ UIImage imageWithCGImage:result.CGImage scale:1.0 orientation:UIImageOrientationUp ];
     
+    self.img_taken.image = nil;
     self.img_taken.image = rot;
     
     return rot;
@@ -196,7 +199,7 @@ UIInterfaceOrientation current_orientation;
 {
     AppDelegate *app = (AppDelegate *)
         [ [ UIApplication sharedApplication ] delegate ];
-    [ app goto_yourphoto ];
+    [ app goto_yourphoto: self ];
 }
 
 
@@ -232,7 +235,7 @@ UIInterfaceOrientation current_orientation;
     }
     else
     {
-        [ app efx_go_back];
+        [ app goto_sharephoto:self ]; 
     }
 }
 
@@ -240,6 +243,7 @@ UIInterfaceOrientation current_orientation;
 -(IBAction) btnaction_one: (id)sender
 {
     //  Show original...
+    self.img_taken.image = nil;
     self.img_taken.image = self.original_img;
     
     //  Set it globally...
@@ -256,6 +260,7 @@ UIInterfaceOrientation current_orientation;
     UIImage *filtered = [ self.original_img filterImageBlackAndWhite ];
     
     //  Show the filtered image...
+    self.img_taken.image = nil;
     self.img_taken.image = filtered;
     
     //  Set it globally...
@@ -273,6 +278,7 @@ UIInterfaceOrientation current_orientation;
     UIImage *filtered = [ self.original_img filterImageSepia ];
     
     //  Show the filtered image...
+    self.img_taken.image = nil;
     self.img_taken.image = filtered;
     
     //  Set it globally...
@@ -312,6 +318,7 @@ UIInterfaceOrientation current_orientation;
         filtered = [ self.original_img filterImageSepiaBorderHoriz ];
     
     //  Show the filtered image...
+    self.img_taken.image = nil;
     self.img_taken.image = filtered;
     
     //  Set it globally...
@@ -325,6 +332,28 @@ UIInterfaceOrientation current_orientation;
 
 
 -(IBAction) btnaction_four: (id)sender
+{
+    
+    UIImage *filtered =  [ self.original_img filterImageToaster ];
+    
+    //  Show the filtered image...
+    //if ( self.img_taken.image!=nil) [ self.img_taken.image release];
+        
+    self.img_taken.image = nil;
+    self.img_taken.image = filtered;
+    
+    //  Set it globally...
+    [ AppDelegate SetCurrentFilteredPhoto:filtered];
+    self.use_original = NO;
+        AppDelegate *app = (AppDelegate *)
+    [ [ UIApplication sharedApplication ] delegate ];
+    app.active_photo_is_original = NO;
+}
+ 
+
+
+
+-(IBAction) btnaction_four_negative: (id)sender
 {
     //beginImage = [CIImage imageWithContentsOfURL:fileNameAndPath];
     CIImage *beginImage = [ CIImage imageWithCGImage:self.original_img.CGImage ];
@@ -345,6 +374,7 @@ UIInterfaceOrientation current_orientation;
     CGImageRef cgimg = [context createCGImage:outputImage
                                      fromRect:[outputImage extent]];
     UIImage *newImage = [UIImage imageWithCGImage:cgimg];
+    self.img_taken.image = nil;
     self.img_taken.image = newImage;
     
     //  Set it globally...
@@ -355,23 +385,22 @@ UIInterfaceOrientation current_orientation;
     app.active_photo_is_original = NO;
     
     /*
-    CIFilter *filter2 = [CIFilter filterWithName:@"CIColorInvert"
-                                  keysAndValues:kCIInputImageKey, outputImage,
-                        //@"inputEV",@5,
-                        //@"inputAmount", @0.5,
-                        //@"inputAngle", @"2.5",
-                        //@"inputIntensity",@0.8,
-                        nil];
-    outputImage = [filter2 outputImage];
-    */
+     CIFilter *filter2 = [CIFilter filterWithName:@"CIColorInvert"
+     keysAndValues:kCIInputImageKey, outputImage,
+     //@"inputEV",@5,
+     //@"inputAmount", @0.5,
+     //@"inputAngle", @"2.5",
+     //@"inputIntensity",@0.8,
+     nil];
+     outputImage = [filter2 outputImage];
+     */
     
     //newImage = [UIImage imageWithCGImage:cgimg];
     //self.img_taken.image = newImage;
     
-     
+    
     CGImageRelease(cgimg);
 }
- 
 
 
 
@@ -484,16 +513,17 @@ UIInterfaceOrientation current_orientation;
         self.img_four.frame = CGRectMake(435, 711, 73, 106);
         self.img_five.frame = CGRectMake(523, 711, 73, 106);
         
-        self.img_one.image = nil;
+        UIImage *img = [ UIImage imageNamed:@"normal.png"];
+        self.img_one.image = img;
         
-        UIImage *img = [ UIImage imageNamed:@"bwv_inkwell.png"];
+        img = [ UIImage imageNamed:@"bwv_inkwell.png"];
         self.img_two.image = img;
         
         img = [ UIImage imageNamed:@"sepiav_rise.png"];
         self.img_three.image = img;
         
         //img = [ UIImage imageNamed:@"bwvb_portrait.png"];
-        img = [ UIImage imageNamed:@"colorphotonegative.png"];
+        img = [ UIImage imageNamed:@"toaster.png" ]; //  imageNamed:@"colorphotonegative.png"];
         self.img_four.image = img;
         
         img = [ UIImage imageNamed:@"sepiavb_earlybird.png"];
@@ -531,11 +561,21 @@ UIInterfaceOrientation current_orientation;
         self.img_four.frame = CGRectMake(570, 505, 113, 83);
         self.img_five.frame = CGRectMake(683, 505, 113, 83);
         
-        self.img_one.image = nil;
-        self.img_two.image = nil;
-        self.img_three.image = nil;
-        self.img_four.image = nil;
-        self.img_five.image = nil;
+        UIImage *img = [ UIImage imageNamed:@"normal-horizontal.png"];
+        self.img_one.image = img;
+        
+        img = [ UIImage imageNamed:@"inkwell-horizontal.png"];
+        self.img_two.image = img;
+        
+        img = [ UIImage imageNamed:@"sepia-horizontal.png"];
+        self.img_three.image = img;
+        
+        //img = [ UIImage imageNamed:@"bwvb_portrait.png"];
+        img =  [ UIImage imageNamed:@"toaster-horizontal.png"];
+        self.img_four.image = img;
+        
+        img = [ UIImage imageNamed:@"earlybird-horizontal.png"];
+        self.img_five.image = img;
         
         self.btn_gallery.frame = CGRectMake(291,682,93,79);
         self.btn_photobooth.frame = CGRectMake(466,682,93,79);

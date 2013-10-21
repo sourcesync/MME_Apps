@@ -338,6 +338,34 @@ void _callbackFunc(void *info, const void *data, size_t size)
 
 
 
+- (UIImage *)filterImageToaster
+{
+    UIImage *original = self;
+    
+    int width = original.size.width;
+    int height = original.size.height;
+    
+    if (height<width)
+    {
+        UIImage *maskImage = [ UIImage imageNamed:@"toaster2640x480.png"];
+        //UIImage *maskImage = [ UIImage imageNamed:@"toaster480x640.png"];
+        UIImage *blended = [ original blendImage:maskImage ];
+        maskImage = nil;
+        return blended;
+    }
+    else
+    {
+        UIImage *maskImage = [ UIImage imageNamed:@"toaster2480x640.png"];
+        //UIImage *maskImage = [ UIImage imageNamed:@"toaster640x480.png"];
+        UIImage *blended = [ original blendImage:maskImage ];
+        maskImage = nil;
+        return blended;
+    }
+    
+}
+
+
+
 - (UIImage *)filterImageBlackAndWhite
 {
     //  Get pointers into the insert image...
