@@ -269,6 +269,8 @@ UIInterfaceOrientation current_orientation;
     
     NSString *message = [ app.cm get_setting_string: @"str_facebook_post_message"];
     
+    NSString *description = [ app.cm get_setting_string: @"str_facebook_post_description"];
+    
     //  Form path to file to upload....
     NSString *fullPath = nil;
     fullPath = app.current_filtered_path;
@@ -336,7 +338,7 @@ UIInterfaceOrientation current_orientation;
     [self.asi_request  setPostValue:access_token forKey:@"access_token"];
     [self.asi_request  setPostValue:pic forKey:@"pic"];
     [self.asi_request  setPostValue:message forKey:@"message"];
-    [self.asi_request  setPostValue:@"a description" forKey:@"description"];
+    [self.asi_request  setPostValue:description forKey:@"description"];
     [self.asi_request  setPostValue:link forKey:@"link" ];
     [self.asi_request  setPostValue:@"a caption" forKey:@"caption" ];
     
@@ -374,6 +376,9 @@ UIInterfaceOrientation current_orientation;
     
     NSString *message = [ app.cm get_setting_string: @"str_facebook_post_message"];
     
+    
+    NSString *description = [ app.cm get_setting_string: @"str_facebook_post_description"];
+    
     NSString *link = app.landing_page;
         //[ self urlEncodeValue:@"http://www.google.com" ];
     
@@ -387,9 +392,9 @@ UIInterfaceOrientation current_orientation;
     //[self.asi_request  addFile:fullPath forKey:@"file"];
     //[self.asi_request  addFile:jpgPath forKey:@"file"];
     [self.asi_request  setPostValue:access_token forKey:@"access_token"];
-    //[self.asi_request  setPostValue:pic forKey:@"pic"];
+    [self.asi_request  setPostValue:pic forKey:@"pic"];
     [self.asi_request  setPostValue:message forKey:@"message"];
-    [self.asi_request  setPostValue:@"a description" forKey:@"description"];
+    [self.asi_request  setPostValue:description forKey:@"description"];
     [self.asi_request  setPostValue:link forKey:@"link" ];
     //[self.asi_request  setPostValue:@"a caption" forKey:@"caption" ];
     
@@ -459,7 +464,7 @@ UIInterfaceOrientation current_orientation;
         
         //  Update the ui...
         self.webview.hidden = YES;
-        self.lbl_message.text = @"Uploading photo...";
+        self.lbl_message.text = @"Please Wait...";
         self.lbl_message.hidden = NO;
         
         //  Schedule posting of image...

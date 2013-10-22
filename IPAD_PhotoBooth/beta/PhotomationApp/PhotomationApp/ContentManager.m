@@ -6,6 +6,12 @@
 //  Copyright (c) 2013 Dev Null Enterprises, LLC. All rights reserved.
 //
 
+#include <assert.h>
+#include <stdbool.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/sysctl.h>
+
 #import <Foundation/NSJSONSerialization.h>
 #import <AVFoundation/AVAudioPlayer.h>
 #import <AVFoundation/AVFoundation.h>
@@ -231,6 +237,40 @@
 }
 
 
+static bool AmIBeingDebugged(void)
+// Returns true if the current process is being debugged (either
+// running under the debugger or has a debugger attached post facto).
+{
+    int                 junk;
+    int                 mib[4];
+    struct kinfo_proc   info;
+    size_t              size;
+    
+    // Initialize the flags so that, if sysctl fails for some bizarre
+    // reason, we get a predictable result.
+    
+    info.kp_proc.p_flag = 0;
+    
+    // Initialize mib, which tells sysctl the info we want, in this case
+    // we're looking for information about a specific process ID.
+    
+    mib[0] = CTL_KERN;
+    mib[1] = KERN_PROC;
+    mib[2] = KERN_PROC_PID;
+    mib[3] = getpid();
+    
+    // Call sysctl.
+    
+    size = sizeof(info);
+    junk = sysctl(mib, sizeof(mib) / sizeof(*mib), &info, &size, NULL, 0);
+    assert(junk == 0);
+    
+    // We're being debugged if the P_TRACED flag is set.
+    
+    return ( (info.kp_proc.p_flag & P_TRACED) != 0 );
+}
+
+
 -(id)init:(NSString *)name
 {
     
@@ -259,6 +299,13 @@
     if (obj.remote==nil)
     {
         NSString *model = [[UIDevice currentDevice] model];
+        /*
+        if (YES)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:@"http://photomation.mmeink.com/event"
+                                                      forKey:@"mainURL"];
+        }
+        else */
         if ([model isEqualToString:@"iPad Simulator"])
         {
             //device is simulator
@@ -268,6 +315,16 @@
             //[[NSUserDefaults standardUserDefaults]
             //    setObject:@"http://photomation.mmeink.com/event"
               //                                        forKey:@"mainURL"];
+        }
+        else if ( AmIBeingDebugged() )
+        {
+            //device is simulator
+            [[NSUserDefaults standardUserDefaults] setObject:@"http://10.0.0.3/events"
+                                                      forKey:@"mainURL"];
+            
+            //[[NSUserDefaults standardUserDefaults]
+            //    setObject:@"http://photomation.mmeink.com/event"
+            //                                        forKey:@"mainURL"];
         }
         else
         {
@@ -703,7 +760,8 @@
 -(bool) item_download: (NSURL *)url key:(NSString *)key
 {
     dispatch_async(kBgQueue, ^{
-        
+    
+        NSLog(@"DOWNLOADING->%@ = %@", key, url);
         NSData* data = [NSData dataWithContentsOfURL:url];
                 
         //  Create the download item...

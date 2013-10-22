@@ -51,6 +51,7 @@ settings = {\
 	"int_max_takephotos":4,\
 	"int_max_galleryphotos":16,\
 	"str_facebook_post_message":"Photomation",\
+	"str_facebook_post_description":"Event Description",\
 	"str_twitter_post_message":"Photomation Rocks!",\
 	"str_twitter_hastag":"PhotomationPhotobooth",\
 	"str_email_send_url":"http://photomation.mmeink.com/ipad_app_send.php" 
@@ -64,3 +65,4 @@ json.dump( config, f )
 
 f.close()
 
+print "Wrote File->",CONFIG_NAME
