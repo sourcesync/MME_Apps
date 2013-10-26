@@ -512,7 +512,7 @@
 		// form path to the config file...
 		//
 		event_top = events_top + "ipad_" + evt + "/";
-		config_path = event_top + evt + ".json";
+		config_path = event_top + evt + ".json?guid=" + gY.guid();
 
                 gY.io(config_path, cfg);
 	}
