@@ -1,0 +1,564 @@
+<html>
+
+<head>
+
+<script src="yui/3.10.1/build/yui/yui-min.js"></script>
+<script src="yui/gallery-base64.js" ></script>
+
+<link rel="stylesheet" href="yui/pure/0.1.0/pure-min.css">
+<link rel="stylesheet" href="css/purecss.io/combo/main.css">
+<link rel="stylesheet" href="css/purecss.io/combo/baby-blue.css">
+
+<link rel="stylesheet" href="css/my3.css">
+<link rel="stylesheet" href="css/my4.css">
+
+</head>
+
+<script>
+        //      initialize global YUI state...
+	var gY 			= null;
+	var datatable 		= null;
+	var uploaders 		= {};
+	var asset_viewer_panel 	= null;
+	var current_event 	= null;
+	var current_config 	= null;
+	var events_top 		= "http://localhost:8081/mmeroot/event/";
+	var cms_top 		= "http://localhost:8081/mmeroot/ipad_cms/";
+	var config_path 	= null;
+	var event_top		= null;
+	var stredit_panel	= null;
+
+	function yui_initialize( cb )
+	{
+        	YUI( {  filter:'raw',
+                
+		combine:false
+                //gallery: 'gallery-2012.12.19-21-23'
+                }).use( "io-xdr",
+                        "json-parse", "json-stringify",
+                        "node",
+                        'cssfonts', "cssbutton",
+                        "datatype",
+                        'event', 'event-custom', 'event-mouseenter','event-resize',"event-key",
+                        'tabview',
+                        'panel',
+                        'datatable-base', 'datatable-sort','gallery-datatable-selection',
+                        "datatable-scroll",
+                        "datatable-message",
+                        'dd-plugin',
+                        "event-valuechange",
+                        "uploader",
+                        "button",
+                        "gallery-base64",
+                        "datatype-date",
+                        "querystring-parse",
+                        "charts",
+        	function(Y)
+        	{
+                	common_Y = Y;
+                	cb(Y);
+        	});
+	}
+
+	function play(path)
+	{
+		var snd = new Audio(path);
+		snd.play();	
+	}
+
+	function stredit(key,val)
+	{
+		if ( stredit_panel )
+		{
+			stredit_panel.destroy();
+			stredit_panel = null;
+		}
+
+		html =   '<div id="stredit_panel">';
+		html +=  	'<div style="margin-left:20px;margin-top:10px;" >&quot;' + key + '&quot;:';
+                html += 		'<textarea id="stredit" style="margin-top:10px;margin-bottom:10px;margin-left:10px;width:300px;height:200px;" ';
+		html +=				' type="text" >' + val + '</textarea>';
+                //html += 		'<input id="stredit" style="margin-top:10px;margin-bottom:10px;margin-left:10px;width:300px;" type="text" value="' + val + '">';
+                html +=  	'</div>';
+                html +=  '</div>';
+		var el = gY.Node.create( html );
+
+        	//      add to body...
+        	var bodyNode = gY.one(document.body);
+		bodyNode.append(el);	
+
+		//      make the panel...
+        	stredit_panel = new gY.Panel({
+                        srcNode      : '#stredit_panel',
+                        headerContent: 'Update Setting',
+                        width        : 400,
+                        zIndex       : 10,
+                        centered     : true,
+                        modal        : true,
+                        visible      : false,
+                        render       : true,
+                        plugins      : [gY.Plugin.Drag]
+                });
+
+        	stredit_panel.addButton({
+                        value  : 'OK',
+                        section: gY.WidgetStdMod.FOOTER,
+                        action : function (e) 
+			{
+
+				var val = gY.Node('#stredit').get("value");
+				update_config( current_event, current_config, key, "string", val );
+
+                                stredit_panel.hide();
+				stredit_panel.destroy();
+				stredit_panel = null;
+                        }
+                });
+
+		stredit_panel.show();
+	}
+
+
+	function show(path)
+	{
+		if (asset_viewer_panel==null)
+		{
+
+		//      create the panel ancestry...
+        	var a = gY.Node.create('<div id="asset_viewer_panel"></div>');
+        	var b = gY.Node.create('<div class="yui3-widget-bd"></div>');
+        	a.append(b);
+        	var c = gY.Node.create('<img id="asset_viewer_img" style="max-width:100%;" src="' + path + '"></img>');
+        	b.append(c);
+
+        	//      add to body...
+        	var bodyNode = gY.one(document.body);
+        	bodyNode.append( a );
+
+        	//      make the panel...
+        	asset_viewer_panel = new gY.Panel({
+                                srcNode      : '#asset_viewer_panel',
+                                headerContent: 'Asset Viewer',
+                                width        : 500,
+                                zIndex       : 30,
+                                centered     : true,
+                                modal        : true,
+                                visible      : false,
+                                render       : true,
+                                plugins      : [gY.Plugin.Drag]
+                        });
+
+		 //      OK button...
+        	asset_viewer_panel.addButton({
+                                value  : 'OK',
+                                section: gY.WidgetStdMod.FOOTER,
+                                action : function (e) {
+                                                e.preventDefault();
+                                                asset_viewer_panel.hide();
+                                        }});
+
+		}
+
+		gY.Node('#asset_viewer_img').set("src","");	
+		gY.Node('#asset_viewer_img').set("src",path);	
+		asset_viewer_panel.show();
+
+	}
+
+	function update_config(evt, config, key, asset, val)
+	{
+		// modify the config with the new value...
+		if (asset=="string")
+			config.settings[key] = val;
+		else
+		{
+                	config.settings[key] = asset + "/" + val 
+		}
+
+
+                var data = gY.JSON.stringify( config );
+	
+		var handleSucc = function(id, o, a)
+        	{
+			console.log("upload config response", o.responseText);
+                	
+			var status = gY.JSON.parse(o.responseText);
+			if ( !status || !status['status'] ) 
+			{
+				alert('ERROR: Config update failed.');
+			}
+			else
+			{
+				// refresh page...
+				refresh_event(evt);
+			}
+        	}
+        	var cfg =
+        	{
+            		sync: true,
+            		method: "POST",
+            		xdr: { use:'native' },
+            		data: data,
+            		headers: { 'Content-Type': 'text/plain', },
+            		on: {
+                        	start: function(id,a) {},
+                        	success: handleSucc,
+                        	failure: function(id,o,a) { gY.log("ERROR",id,o,a); }
+                	}
+        	};
+
+        	gY.io.header('X-Requested-With');
+        	var obj = gY.io( "http://localhost:8081/mmeroot/ipad_cms/upload.php?event=" + evt, cfg );
+        	return true;
+	}
+
+
+	function show_event(evt, config)
+	{
+		if ( datatable )
+		{
+			datatable.destroy();
+			datatable = null;
+		}
+
+		var data = [];
+		for (var c in config.settings)
+		{
+			if (c.substring(0,3)=="img")
+			{
+				var path= config.settings[c];
+				path = event_top + path;
+				data.push( { 'k':c, 'type':"image", 'name':c, 'value': path } );
+			}
+			else if (c.substring(0,3)=="str")
+			{
+				var val = config.settings[c];
+				data.push( { 'k':c, 'type':'str', 'name':c, 'value':val  } );
+			}
+			else if (c.substring(0,3)=="snd")
+			{
+				var path = config.settings[c];
+				path = event_top + path;
+				data.push( { 'k':c, 'type':'sound', 'name':c, 'value':path } );
+			}
+		}
+
+		data.sort( 
+			function(a,b) { 
+				if ( a['k'] < b['k'] ) 
+					return -1; 
+				else 
+					return 1; 
+					} );
+
+		var valueFormatter = function(o) {
+			return o.data['value'];		
+		}
+
+		var showFormatter = function(o) {
+			var typ = o.data['type'];
+			if (typ=="image")
+			{
+				var path = 	o.data['value'];
+				var func = 	"show('" + path + "');";
+				return 		'<button onclick="' + func + '">show</button>';
+				//return '<img onclick="' + func + '" style="" src="' + o.data['path'] + '" ></img>';
+			}
+			else if (typ=="sound")
+                        {
+                                var path =      o.data['value'];
+                                var func =      "play('" + path + "');";
+                                return          '<button onclick="' + func + '">play</button>';
+                                //return '<img onclick="' + func + '" style="" src="' + o.data['path'] + '" ></img>';
+                        }
+			else return "<div></div>";
+		};
+
+		var changeFormatter = function(o) {
+                        var typ = o.data['type'];
+			if ( typ=="image")
+				return '<div id="uploader' + o.rowIndex + '"></div>';
+			else if ( typ=="sound")
+				return '<div id="uploader' + o.rowIndex + '"></div>';
+			else
+			{
+				var k = o.data['k'];
+				var v = o.data['value'];
+				var func = "stredit('" + k + "','" + v + "');";
+				var html = '<div id="uploader' + o.rowIndex + '"><button onclick="' + func + '" >change</button></div>';
+				return html;
+			}
+		};
+	
+		var infoFormatter = function(o) {
+                        var typ = o.data['type'];
+			var elid = "info" + o.rowIndex;	
+			if ( typ=="image")
+			{
+				var img = new Image();
+				img.src = o.data['value'];
+				img.onload = function(evt) { 
+					gY.Node('#'+elid).set("innerHTML", img.width + "x" + img.height);
+				};
+				return '<div id="' + elid + '"></div>';
+			}
+			else if (typ=="sound")
+			{
+				var aud = new Audio();
+				aud.src= o.data['value'];
+				aud.addEventListener('loadedmetadata', function() {
+					var dur = aud.duration;
+                                        gY.Node('#'+elid).set("innerHTML", dur + "s");
+                                });
+                                return '<div id="' + elid + '"></div>';
+			}
+			else
+			{
+				return "<div></div>";
+			}
+		};
+	
+		var cols = [	{'key':'name', 	'label':'setting'},
+				{'key':'value', 'label':'value'},
+				{'key':'info',	formatter:infoFormatter, allowHTML:true},
+				{'key':' ', 	formatter:showFormatter, allowHTML:true },
+				{'key':'change',formatter:changeFormatter, allowHTML:true } ];
+
+		datatable = new gY.DataTable({
+                	columns:	cols,
+                	data:		data,
+                	summary:	"Event",
+                	//width:	"100%",
+                	//highlightMode: 'row',
+                	//selectionMode: 'row',
+                	//selectionMulti: false
+
+                }).render("#cms_datatable");
+
+		var url = "http://localhost:8081/mmeroot/ipad_cms/upload.php?event=" + evt;
+
+		for ( var i=0;i< data.length;i++)
+		{
+			var typ = data[i]['type'];
+
+			//
+			//	augment url with asset type/subdir...
+			//
+			var asset = "";
+			if ( typ == "image" ) 
+				asset = "screens";
+			else if ( typ == "sound" )
+				asset = "sounds";	
+			else 
+				continue;
+			url += "&asset=" + asset;
+
+
+			var btnid = "selectButton" + i;
+			var elid = "uploader" + i;
+			//
+			// Create the file uploaders...
+			//
+			var uploader = new gY.Uploader({
+                		selectFilesButton: 	gY.Node.create('<button id="' + btnid + '" >browse</button>'),
+                        	//width: 		"60px",
+                        	//height: 		"25px",
+                        	multipleFiles: 		false,
+                        	swfURL: 		"http://yui.yahooapis.com/3.10.3/build/uploader/assets/flashuploader.swf?t=" + Math.random(),
+                        	uploadURL:		url,
+                        	simLimit: 		2,
+                        	withCredentials: 	false,
+                        	errorAction:		gY.Uploader.Queue.STOP
+                	});
+
+			uploader.addAttr("asset");
+			uploader.set("asset",asset);
+
+			var k = data[i]['k'];
+			uploader.addAttr("k");
+			uploader.set("k",k);
+
+			//uploader.addAttr("file");
+
+                        uploader.render('#' + elid);
+
+			// repair button style...
+			gY.Node('#' + btnid  ).setStyle("width","");
+			gY.Node('#' + btnid  ).setStyle("height","");
+
+			// repair the upload area...
+			var parent = gY.Node('#' + btnid).get("parentNode");
+			var w = gY.Node('#' + btnid  ).getStyle("width");
+			var h = gY.Node('#' + btnid  ).getStyle("height");
+
+			parent.setStyle("width","100px");
+			parent.setStyle("width",w);
+			parent.setStyle("height",h);
+
+			uploader.after("fileselect", function (event)
+                	{
+                        	var up = event.target;
+                        	var fileList = event.fileList;
+                        	if (fileList.length ==1)
+                        	{
+					try
+                                	{
+						//up.set("file", fileList);
+                                        	up.uploadAll();
+                                	}
+                                	catch (err)
+                                	{
+                                        	alert( err.toString() );
+                                	}
+				}
+			});
+
+			uploader.on("uploaderror", function (event)
+			{
+                        	var up = event.target;
+			});
+
+
+			uploader.on("uploadprogress", function (event)
+                	{
+                        	var up = event.target;
+			});
+
+			uploader.on("uploadcomplete", function (event)
+                        {
+                                var up = event.target;
+				var data = event.data;
+				console.log("file upload complete->", data);
+
+				// hopefully its json...
+				var status = gY.JSON.parse( data );
+				if ( !status || !status['status'] )
+				{
+					alert("ERROR: Invalid response from server.");
+				}
+				else
+				{	
+					//var file = up.get("file");
+	
+					//      clear state...
+                        		var fileList = [];
+                        		up.set("fileList", fileList);
+
+					var asset = up.get("asset");
+					var k = up.get("k");
+			
+					var fname = status['data'];
+	
+					console.log("updating config...");
+					update_config( current_event, current_config, k, asset, fname );
+				}
+                        });
+
+			uploader.on("uploadstart", function (event)
+                        {
+                                var up = event.target;
+                        });
+
+			uploader.on("totaluploadprogress", function (event)
+                	{
+                                var up = event.target;
+                        	console.log("total upload progress");
+                	});
+
+                	uploader.on("alluploadscomplete", function (event)
+                	{
+				var up = event.target;
+                        	console.log("all uploads complete");
+                	});
+
+			uploaders[elid] = uploader;
+		}
+	}
+
+	function refresh_event(evt)
+	{
+		var handleSuccess = function(id, o, a)
+                {
+			console.log("upload config result=>", o.responseText);
+			current_event = evt;
+                
+			// better be json...	
+			var resp = gY.JSON.parse(o.responseText);
+                        current_config = resp;
+
+			// show the event as a page...
+                        show_event(evt, current_config);
+                };
+		
+		var handleFail = function()
+		{
+			alert("ERROR: Failed to get event configuration->" + evt);
+		}
+
+                var cfg =
+                {
+                	sync: true,
+                        method: "GET",
+                        xdr: { use:'native' },
+                        on: 
+			{
+                        	start: function(id,a) { },
+                                success: handleSuccess,
+                                failure: function(id,o,a) { handleFail(); }
+                        }
+               	};
+
+		//
+		// form path to the config file...
+		//
+		event_top = events_top + "ipad_" + evt + "/";
+		config_path = event_top + evt + ".json";
+
+                gY.io(config_path, cfg);
+	}
+
+        function loadall()
+        {
+		yui_initialize( function(Y)
+		{
+			gY = Y;
+
+			//
+			// figure out if this is login, events management, or event management...
+			//
+
+			// parse args into a dictionary...	
+			var args = window.location.search;
+			if (args.substring(0,1)=="?") args = args.substring( 1, args.length );
+			var dct = Y.QueryString.parse( args );
+
+			if ( dct['event'] )  // an event...
+			{	
+				var str = dct['event'];
+				if ( str.substring(0,5)=="ipad_" )
+				{
+					var evt = str.substring(5, str.length);
+					refresh_event(evt);
+				}
+				else
+				{
+					alert("ERROR: Invalid event->" +  dct['event']);
+				}
+			}
+			else
+			{
+				alert("ERROR: Unknown operation");
+			}
+		});
+	}
+
+
+</script>
+
+<body class="yui3-skin-mine" onload="loadall();" >
+
+<div id="cms_datatable"></div>
+
+
+</body>
+</html>
