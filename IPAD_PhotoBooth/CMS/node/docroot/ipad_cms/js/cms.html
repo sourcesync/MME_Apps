@@ -22,8 +22,12 @@
 	var asset_viewer_panel 	= null;
 	var current_event 	= null;
 	var current_config 	= null;
-	var events_top 		= "http://localhost:8081/mmeroot/event/";
-	var cms_top 		= "http://localhost:8081/mmeroot/ipad_cms/";
+	//var events_top        = "http://localhost:8081/mmeroot/event/";
+        //var cms_top           = "http://localhost:8081/mmeroot/ipad_cms/";
+        //var events_top          = "http://photomation.mmeink.com/event/";
+        //var cms_top             = "http://photomation.mmeink.com/ipad_cms/";
+	var events_top		= "../../event/";
+	var cms_top		= "";	
 	var config_path 	= null;
 	var event_top		= null;
 	var stredit_panel	= null;
@@ -208,12 +212,31 @@
         	};
 
         	gY.io.header('X-Requested-With');
-        	var obj = gY.io( cms_top + "upload.php?event=" + evt, cfg );
+        	var obj = gY.io( cms_top + "../upload.php?event=" + evt, cfg );
         	return true;
+	}
+
+	function refresh_login()
+        {
+		gY.Node('#cms_title').set("innerHTML","MME IPAD App Portal Login");
+		gY.Node('#cms_login').setStyle("display","block");
+
+		gY.Node('#centering').setStyle("margin-top","150px");
+		gY.Node('#centering').setStyle("margin-left","auto");
+		gY.Node('#centering').setStyle("margin-right","auto");
+		
 	}
 
         function refresh_events(evt)
         {
+		//window.location.href = cms_top + "cms.html?events=true";
+
+                gY.Node('#cms_login').setStyle("display","none");
+		gY.Node('#centering').set("style","");
+                gY.Node('#centering').setStyle("margin-top","");
+                gY.Node('#centering').setStyle("margin-left","");
+                gY.Node('#centering').setStyle("margin-right","");
+
                 var handleSuccess = function(id, o, a)
                 {
                         console.log("events=>", o.responseText);
@@ -254,7 +277,7 @@
 		//
                 // form path to the config file...
                 //
-                var url = cms_top + "events.php";
+                var url = cms_top + "../events.php";
 
                 gY.io(url, cfg);
 
@@ -271,7 +294,7 @@
                 var eventFormatter = function(o)
                 {
                         var evt = o.data['name'];
-                        var link = cms_top + "js/cms.html?event=" + evt;
+                        var link = cms_top + "cms.html?event=" + evt;
                         return '<div><a href="' + link + '">' + evt + '</a></div>';
                 }
 
@@ -424,7 +447,7 @@
 
                 gY.Node('#cms_title').set("innerHTML", "IPAD Event: " + evt );
 
-		var url = cms_top + "upload.php?event=" + evt;
+		var url = cms_top + "../upload.php?event=" + evt;
 
 		for ( var i=0;i< data.length;i++)
 		{
@@ -566,6 +589,11 @@
 
 	function refresh_event(evt)
 	{
+	        gY.Node('#cms_login').setStyle("display","none");
+                gY.Node('#centering').setStyle("margin-top","");
+                gY.Node('#centering').setStyle("margin-left","");
+                gY.Node('#centering').setStyle("margin-right","");
+
 		var handleSuccess = function(id, o, a)
                 {
 			console.log("upload config result=>", o.responseText);
@@ -637,14 +665,20 @@
 			else if ( dct['events'] )
                         {
                                 refresh_events();
+				//show_events();
                         }
 			else
-			{
-				alert("ERROR: Unknown operation");
-			}
+                        {
+                                refresh_login();
+                        }
 		});
 	}
 
+	function login()
+	{
+		window.location.href = cms_top + "cms.html?events=true";
+		//refresh_events();
+	}
 
 </script>
 
@@ -652,10 +686,21 @@
 
 <div>
 
-	<h1 id="cms_title" style="margin-left:20px;margin-top:20px;"></h1>
+	<div id="centering" style="width:500px;">
 
+	<h1 id="cms_title" style="margin-left:20px;margin-top:20px;"></h1>
+	
 	<div style="margin-top:20px;margin-left:20px;" id="cms_datatable"></div>
 
+	<div id="cms_login" style="width:300px;padding:20px;display:none;margin-top:20px;margin-left:20px;" class="yui3-widget-bd">
+		<input type="text" style="width:200px;margin-top:10px;margin-left:10px;" placeHolder="username"/><br>
+		<input type="password" style="width:200px;margin-top:10px;margin-left:10px;" placeHolder="password" /><br>
+		<div style="width:200px;margin-left:10px;margin-top:10px;">
+			<button style="float:right;" onclick="login();" >Login</button>
+		</div>
+	</div>
+
+	</div>
 </div>
 
 </body>
