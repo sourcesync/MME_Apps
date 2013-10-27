@@ -1,0 +1,894 @@
+
+
+
+/*****************  this is only to layout abstract color space and Tool UI ****************/
+.yui3-loading .mega{
+    visibility: hidden;
+    opacity: 0;
+}
+.mega {
+    opacity: 1;
+    transition: opacity 1.5s;
+}
+.splash {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+.yui3-loading .splash {
+    display: block;
+}
+.hero h1, .hero h2 {
+    font-family: "omnes-pro",sans-serif;
+}
+.hero h1 {
+    color: #9EADD6;
+    font-size: 800%;
+    font-weight: 100;
+    margin: 0;
+    padding: 0;
+}.hero h2 {
+    color: #666666;
+    font-size: 260%;
+    font-weight: 100;
+    margin: 0.02em 0 0.8em;
+}
+#spinner {
+    margin: 25px auto 0;
+    background: url(assets/images/spinner.gif);
+    width: 60px;
+    height: 60px;
+}
+body {
+    margin: 0;
+    width: 100%;
+    font-family: arial;
+    color: #444;
+}
+.rotate {   
+    -webkit-transform: rotate(-90deg);/* Safari */
+    -moz-transform: rotate(-90deg);/* Firefox */
+    -ms-transform: rotate(-90deg);/* IE */
+    -o-transform: rotate(-90deg);/* Opera */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=-90);/* Internet Explorer */
+}
+
+#headerMenu {
+    z-index: 6;
+    background-color: #111111;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-family: "proxima-nova",sans-serif;
+}
+#headerMenu .heading-main-ui {
+    cursor: default;
+    padding: 0 20px;
+    margin: 6px 0 0;
+    font-size: 154%;
+    vertical-align: top;
+}
+#headerMenu .heading-main-ui:hover {
+    background-color: inherit;
+}
+#headerMenu ul {
+    list-style: none;
+    margin:0;
+    padding: 0;
+}
+#headerMenu li {
+    display: inline-block;
+    vertical-align: top;
+    *display: inline;
+    *zoom: 1;
+    color: #fff;
+}
+#headerMenu li a{
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    color: #fff;
+    text-decoration: none;
+    padding: 9px 20px;
+}
+#headerMenu li a:hover{
+    background-color: #222222;
+}
+
+#headerMenu .tag-line {
+    color: #6F6F6F;
+    margin-right: 3em;
+    cursor: default;
+}
+#headerMenu .tag-line:hover {
+    background-color: inherit;
+}
+
+#skin-preview-header {
+    font-family: "omnes-pro",sans-serif;
+    font-weight: 100;
+    position: absolute;
+    width: 400px;
+    font-size: 336%;
+    text-align: right;
+    bottom: -295px;
+    right: -183px;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+}
+#widget-container{
+    margin: 267px 0 1em 1em;
+    padding: 0;
+}
+.show-hide-all {
+    font-size: 70%;
+    margin-left: 2em;
+}
+#tabview-controls .yui3-tabview-panel{
+    background-color: transparent;
+    min-height: 166px;
+    padding: 0.3em 1em;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 5px 5px;    
+}
+#tabview-controls-container { /*needed a container to be 100% fixed so the tabview-controls could have left and right margin*/
+    padding-top: 13px;
+    position: fixed;
+    top: 34px;
+    width: 100%;
+    z-index: 10;
+}
+#preview-palette {
+    position: absolute;
+    right: 19px;
+    top: 8px;
+    cursor: pointer;
+}
+#preview-palette label {
+    display:inline;
+    cursor: pointer;
+}
+#preview-palette label:hover {
+    text-decoration: underline;
+}
+#preview-palette ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    vertical-align: middle;
+}
+#preview-palette li {
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    width: 40px;
+    height: 10px;
+    border: none;
+}
+#preview-palette li:hover {
+    background-color: inherit;
+}
+#tabview-controls{
+    margin: 0 20px;
+    position: relative;
+    font-size: 90%;
+}
+#tabview-controls .yui3-tab-label {
+    padding: 0.5em 1.5em;  /* override the widget skin padding */
+}
+#tabview-controls h4 {
+    margin: 0.3em 0 0;
+    padding:0;
+}
+#tabview-controls label {
+    display: inline;
+}
+#tabview-controls input {
+    padding: 0;
+}
+#tabview-controls a img {
+    vertical-align: top;
+    margin-right: 0.3em;
+}
+#tab-controls {
+    padding-left: 10px;
+}
+#tab-controls .yui3-u {
+    margin-right: 25px;
+}
+#slider-padding-vert {
+    margin-top: 8px;
+    position: relative;
+}
+#tab-code .contents {
+    padding: 0.3em;
+}
+#tab-code .inp-skin-name {
+    width: 4em;
+}
+#tab-code .inp-skin-prefix {
+    width: 4em;
+    text-align: right;
+    border: none;
+    background-color: transparent;
+}
+#tab-code .skin-name-label {
+    margin-left: 5px;
+}
+#tab-code #btn-get-url {
+    border-radius: 4px;
+    margin: 21px 0.5em 0.5em 0;
+    padding: 0.5em 0.9em 0.4em;
+}
+.color-space {
+    position: relative;
+}
+.widget-container-show-inline {
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;        
+    vertical-align: top;
+    margin: 0.5em;
+    width: 300px;
+}
+.widget-container-hide-me {
+    display: none;    
+}
+/*#widget-container>li{
+    display: inline-block;
+    *display: inline;  IE inline block hack 
+    *zoom: 1;    
+    vertical-align: top;
+    margin: 0.5em;
+    width: 300px;
+}*/
+.double-wide {   /*#widget-container>*/
+    width: 620px;
+}
+#tab-palette .contents {
+    margin-right: 2em;
+}
+#tab-palette .contents-middle {
+    width: 268px;
+}
+#tab-palette .contents-right {
+    width: 137px;
+}
+
+h1 {
+    font-size: 145%;
+    margin: 1em 0 0.3em 20px;
+}
+.color-space .label-block, .color-space .rule, .color-space .label-grad, .color-space .label-master {
+    font-family: arial;
+/*    font-size: 11px;*/
+}
+.color-space .text {
+/*    font-size: 17px;*/
+}
+.color-space ul {
+    margin: 0;
+    padding: 0;
+}
+.color-space > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    vertical-align: top;
+}
+.block {
+    position: relative;
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    vertical-align: top;
+    padding: 0.5em 1.5em 0.5em 0.5em;
+    border-width: 3px !important;
+    border-radius: 4px;
+    margin: 4px;
+}
+.rule {
+    margin-top: 1em;
+}
+.rule {
+    margin-right: 35px;
+}
+/*just to move labels of gradients so they are readable*/
+.color-space .g-master,
+.color-space .g-l,
+.color-space .g-n,
+.color-space .g-h,
+.color-space .b-l-g-l,
+.color-space .b-l-g-n,
+.color-space .b-l-g-h,
+
+.color-space .b-n-g-l,
+.color-space .b-n-g-n,
+.color-space .b-n-g-h,
+
+.color-space .b-h-g-l,
+.color-space .b-h-g-n,
+.color-space .b-h-g-h {
+    text-indent: -1.5em;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.5em;
+    overflow-x: visible;
+}
+
+.gradient{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1em;
+    height: 100%;
+}
+
+.label-grad {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.bucket {
+    position: absolute;
+    right: 19px;
+    top: 71px;
+    background: url(assets/images/picker_icon.png) no-repeat;
+    width: 28px;
+    height: 28px;
+/*    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);*/
+    cursor: pointer;
+    /*opacity: 0.3;*/    
+
+    transition: opacity 0.2s;
+    -moz-transition: opacity 0.2s; /* Firefox 4 */
+    -webkit-transition: opacity 0.2s; /* Safari and Chrome */
+    -o-transition: opacity 0.2s; /* Opera */
+}
+#tab-palette .bucket {
+    background-image: none;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    height: 32px;
+    line-height: 2.3em;
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 175px;
+}
+#tab-palette .bucket img {
+    vertical-align: middle;
+    margin: -1px 0 0 9px;
+}
+
+.bucket div {
+    position: absolute;
+    left: 30px;
+    top: 2px;
+}
+.bucket-scheme {
+    background: url(assets/images/scheme_icon.png) no-repeat;
+}
+.bucket:hover {
+    opacity:1;         
+}
+.bucket-background {
+    display: none;
+}
+.bucket-scheme-hidden {
+    visibility: hidden;
+}
+.bucket-selected {
+    opacity: 1;
+}
+.bucket-deselected {
+    opacity: 0.3;
+    alpha(opacity=30);
+}
+/************* Scheme choosing radios *************/
+.scheme-radios {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.scheme-radios label {
+    cursor: pointer;
+}
+.scheme-radios .swatches {
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    margin: 0;
+    padding: 5px;
+    background-color: #fff;
+}
+.scheme-radios .swatches-dark {
+    background-color: #000;
+}
+.scheme-radios .swatches li {
+    width: 15px;
+    height: 20px;
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    margin: 0;
+    vertical-align: top;
+}
+.scheme-radios .swatches li:first-child {
+    width: 30px;
+}
+
+.scheme-radios .custom {
+    position: absolute;
+    top: 0;
+    left: 20em;
+}
+
+/********************   which modules to skin ************/
+#tab-modules ul {
+    list-style: none;
+    margin: 0 0 0.5em;
+    padding: 0;
+    
+}
+#tab-modules li {
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    width: 17em;
+}
+/* special case for only showing yuicss/pure items */
+.items-yuicss #checkboxes-yui-widgets-group {
+    display: none;
+}
+.items-yuicss #checkboxes-yuicss-group {
+    display: block;
+}
+.items-yuicss .link-skin-builder-for-yuicss {
+    display: none;
+}
+.items-yuicss .link-skin-builder-for-yui3 {
+    display: block;
+}
+
+/* items tab default show/hide objects */
+#checkboxes-yuicss-group {
+    display: none;
+}
+.query-mode-change a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.link-skin-builder-for-yui3 {
+    display: none;
+}
+.link-skin-builder-for-yuicss {
+    display: block;
+}
+
+
+.rule .label, .block .label-block {
+    display: none;
+}
+.rule, .gradient {
+
+}
+
+.block .text-normal,
+.block .block-highest-text-normal,
+.block .block-high-text-normal,
+.block .block-normal-text-normal,
+.block .block-low-text-normal,
+.block .block-page-text-normal
+{
+    display: block;
+}
+
+/* color picker styles*/
+.yui3-overlay {
+    z-index: 10;
+}
+.yui3-overlay #picker-outer {
+    border: 1px solid #CCCCCC;
+    background-color: #eee;
+    height: 194px;
+    padding: 1.3em 1em;
+    position: absolute;
+    width: 306px;
+    box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+#palette-outer .grip,
+.yui3-overlay #picker-outer .grip {
+    background: url(assets/images/picker_grip.png);
+    position: absolute;
+    height: 11px;
+    left: 16px;
+    top: 5px;
+    width: 284px;
+    cursor: pointer;
+}
+#palette-outer .grip {
+    width: 685px;
+}
+#picker {
+    position: relative;
+    height: 180px;
+    width: 200px;
+}
+#hs-dot {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    cursor: pointer;
+    width: 2px;
+    height: 2px;
+}
+#hs-dot div {
+    position: absolute;
+    left: -4px;
+    top: -9px;
+    width: 2px;
+    height: 2px;
+    cursor: pointer;
+    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9);
+}
+#sliderL-line {
+    position: absolute;
+    top: 90px;
+    left: -3px;
+    width: 25px;
+    height: 0px;
+    border: solid 1px;
+    border-color: #fff #fff #000 #fff;
+    cursor: pointer;
+    font-size: 1px;
+}
+#hs {
+    position: absolute;
+    top: 11px;
+    left: 0;
+    width: 180px;
+    height: 180px;
+    cursor: pointer;
+}
+#sliderL {
+    position: absolute;
+    top: 11px;
+    left: 193px;
+    width: 20px;
+    height: 180px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.picker-swatch {
+    position: absolute;
+    left: 243px;
+    top: 59px;
+    width: 50px;
+    height: 50px;
+    border: solid 1px #ccc;
+    background-color: #BB3E3E;
+}
+.picker-input {
+    position: absolute;
+    bottom: -26px;
+    left: 0;
+    width: 57px;
+    font-size: 80%;
+}
+.close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+/* scheme overlay styles ********************************/
+#schemer-outer .yui3-g {
+    margin-top: 0.3em;
+}
+#schemer-outer .schemer-hint {
+    color: #9D9D9D;
+    font-size: 92%;
+}
+.yui3-overlay #schemer-outer {
+    border: 1px solid #CCCCCC;
+    background-color: #eee;
+    width: 245px; /*245px;*/
+    height: 295px;
+    padding: 1.3em 1em;
+    position: absolute;
+    box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+.yui3-overlay #schemer-outer .grip {
+    background: url(assets/images/picker_grip.png);
+    position: absolute;
+    height: 11px;
+    left: 16px;
+    top: 5px;
+    width: 225px;
+    cursor: pointer;
+}
+#schemer-outer .content-controls {
+    text-align: center;
+}
+#schemer-outer #dial-scheme-hue .yui3-dial-content{
+    text-align: left;
+}
+#schemer-outer .arrow-stem {
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    background-color: #D6D6D6;
+    width: 9px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+#schemer-outer .content-arrow {
+    text-align: center;
+    padding-top: 73px;
+}
+#schemer-outer .yui3-u-1-2 .content {
+    /*text-align: center;*/
+}
+*html #schemer-outer .arrow-head {
+    border-color: pink;
+    filter: chroma(color=pink); /* for IE. creates transparency for all pink borders */
+    border-left-color: #D6D6D6;
+}
+#schemer-outer .arrow-head {
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    border-color: transparent; 
+    border-left-color: #D6D6D6;
+    border-style: solid;
+    border-width: 40px 0 40px 20px;
+    width: 1px;
+    height: 1px;
+    font-size: 1px;
+}
+.schemer-key .icon-label,
+.schemer-swatch .icon-label {
+    margin: 5px 0 0 15px;
+    width: 28px;
+    height: 28px;
+    opacity: 0.7;
+    background: url(assets/images/picker_icon.png);
+}
+.schemer-swatch .icon-label{
+    margin: 5px 0 0 -15px;
+    background: url(assets/images/scheme_icon.png);
+}
+#schemer-outer .schemer-key,
+#schemer-outer .schemer-swatch {
+    width: 95%;
+    height: 240px;
+    border: solid 1px #ccc;
+    background-color: #BB3E3E;
+}
+#schemer-outer .slider-markup {
+    position: relative;
+    margin-top: 0.4em;
+}
+#schemer-outer .slider-markup a{
+    position: absolute;
+    top: 17px;
+    left: 112px;
+}
+.color-space .slider-markup-text-contrast .reset-text-contrast{
+    left: auto;
+    top: 0;
+    right: 0;
+}
+#schemer-outer .yui3-slider-rail-cap-left {
+    background-color: #D9D9D9;
+    border-color: #ccc transparent #fff #ccc;
+}
+#schemer-outer .yui3-slider-rail-cap-right {
+    background-color: #D9D9D9;
+    border-color: #ccc #ccc #fff transparent;
+}
+#schemer-outer .yui3-dial-ring{
+    /*background-color: #ddd;*/
+}
+#schemer-outer .yui3-dial-center-button{
+    /*background-color: #CFCFCF;*/
+}
+#schemer-outer .yui3-slider-x .yui3-slider-thumb {
+    background-color: #D5D5D5;
+    border-color: #EFEFEF #B4B4B4 #B3B3B3 #EFEFEF;
+    border-radius: 50% 50% 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(0, 0, 0, 0.15) inset;
+    height: 18px;
+    margin-top: 5px;
+    width: 12px;
+}
+/* end scheme overlay styles */
+/* previw palette styles **********************/
+#palette-outer {
+    border: 1px solid #CCCCCC;
+    background-color: #eee;
+    padding: 1.3em 1em;
+    box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+/* END previw palette styles **********************/
+.help {
+    width: 1.2em;
+    height: 1.2em;
+    line-height: 1.25em;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background-color: #aabbcc;
+    color: #fff;
+    border-radius: 11px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+#help-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #CCCCCC;
+    background-color: #eee;
+    padding: 1.3em 1em;
+    box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    font-size: 90%;
+    margin: 0 6px;
+}
+.help-schemes {
+    left: 590px;
+    position: absolute;
+    top: 5px;
+}
+.help-code, .help-settings, .help-items, .help-detailed-preview {
+    margin-left: 0.5em;
+}
+.help-style {
+    margin-top: 11px;
+}
+.tab-code-textarea-label {
+    display: block;
+}
+#textarea-style,
+#textarea-scheme {
+    width: 98%;
+    height: 126px;
+    z-index: 10;
+    padding: 0.3em;
+    border: solid 1px rgba(0,0,0, 0.3);
+    background-color: rgba(255,255,255, 0.2);
+
+}
+#tabview-controls #inp-url-link {
+    height: inherit;
+    padding: 0.3em;
+    width: 98%;
+}
+.markup {
+    margin: 8px 0;
+    position: relative;
+}
+.markup .reset {
+    position: absolute;
+    top: 20px;
+    left: 215px;
+    cursor: pointer;
+}
+.markup .reset-padding-vert {
+    left: 92px;
+}
+.markup .reset:hover {
+    text-decoration: underline;
+}
+
+/***** skin preview of YUICSS/pure *****/
+
+
+/***** scrollview horizontal widget ******************************/
+/* To layout horizontal LIs */
+#scrollview-content-horiz {
+    white-space:nowrap;
+}
+
+#scrollview-content-horiz li {
+    display: inline-block;
+    padding: 3em 0;
+    text-align: center;
+    width: 64px;
+    border-bottom-style: none;
+}
+
+/* For IE 6/7 - needs inline block hack (and the background color mentioned above) */
+#scrollview-content-horiz li {
+    *display:inline;
+    *zoom:1;
+}
+
+/*****  this is only to layout calendar display on UI tool page ****/
+/*************************  CSS for Overlay and Panel placement in UI of tool *************/
+#anchorOverlay {
+    margin-top: 0em;
+    width: 200px;
+    height: 89px;
+}
+#overlayContent{
+    /*opacity: 0; */
+}
+#anchorPanel {
+    margin-top: 0px;
+    height: 218px;
+    width: 200px;
+}
+#panelContent p{
+    margin: 0;
+}
+#panelContent label{
+    display: block;
+}
+#node-menunav-split {
+}
+/******* widget preview of yui3-menu-fixed *******/
+.sb-preview-list .yui3-menu-fixed {
+    top: 400px;
+    left: 0;
+    z-index: 1000;
+    display: none;
+}
+.sb-preview-list .yui3-menu-fixed ul {
+    top: 0;
+    left: 0;
+    visibility: visible;
+}
+.sb-preview-form .yui3-form-aligned fieldset .yui3-control-group label {
+    width: 8em;
+}
+.sb-preview-form .yui3-form-aligned fieldset .yui3-controls {
+    margin-left: 8.2em;
+}
+/******* allow menus to display on top of panel and overlay *******/
+#actors {
+    z-index: 10;
+}
+#answers-options {
+    z-index: 10;
+}
+.sb-preview-list a {
+    cursor: pointer;
+}
+/****** test-console style ******/
+.yui3-testconsole {
+    background-color: #F7F4EE;
+    position: fixed;
+    top: 2px;
+    right: 2px;
+    z-index: 21;
+    box-shadow: 0 0 22px rgba(0,0,0, 0.4);    
+}
+.yui3-testconsole .yui3-console-filter-label {
+    display: inline;
+    margin-right: 2em;
+}
