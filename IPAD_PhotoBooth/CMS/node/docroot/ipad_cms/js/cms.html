@@ -283,6 +283,11 @@
 
         }
 
+	function manage(url)
+	{
+		window.location.href = url;
+	}
+
 	function show_events(data)
         {
                 if ( datatable )
@@ -298,6 +303,15 @@
                         return '<div><a href="' + link + '">' + evt + '</a></div>';
                 }
 
+		var manageFormatter = function(o)
+                {
+                        var evt = o.data['name'];
+                        var link = cms_top + "cms.html?event=" + evt;
+			var func = "manage('" + link + "');";
+                        //return '<div><a href="' + link + '">' + evt + '</a></div>';
+			return '<div><button onclick="' + func + '">manage</button></div>';
+                }
+
                 var removeFormatter = function(o)
                 {
 			var func = "alert('Please delete this event at the server.');";
@@ -305,6 +319,7 @@
                 }
 
                 var cols = [    {'key':'name',  'label':'event', formatter:eventFormatter, allowHTML:true },
+                                {'key':'manage','label':' ',formatter:manageFormatter, allowHTML:true },
                                 {'key':'remove','label':' ',formatter:removeFormatter, allowHTML:true }
                 ];
 
