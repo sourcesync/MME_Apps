@@ -46,22 +46,28 @@
 {
     [ super viewWillAppear:animated];
     
+    UIImage *image_to_use = nil;
+    AppDelegate *app = (AppDelegate *) [ [ UIApplication sharedApplication ] delegate ];
+    BOOL use_original = app.active_photo_is_original;
+    if (use_original) image_to_use = [ AppDelegate GetCurrentOriginalPhoto ];
+    else image_to_use = [ AppDelegate GetCurrentFilteredPhoto ];
     
     //  Is active image original or filtered ?...
-    UIImage *filtered_img = [ AppDelegate GetCurrentFilteredPhoto ];
-    AppDelegate *app = (AppDelegate *) [ [ UIApplication sharedApplication ] delegate ];
-    //BOOL use_original = app.active_photo_is_original;
+    //UIImage *filtered_img = [ AppDelegate GetCurrentFilteredPhoto ];
+    //
     
     //  Get the file/image to display...
     //AppDelegate *app = (AppDelegate *)[ [ UIApplication sharedApplication ] delegate ];
     //NSString *fullPath = app.current_photo_path;
     //BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
     //if (fileExists)
-    if (filtered_img)
+    //if (filtered_img)
+    if (image_to_use)
     {
         //UIImage *image =
         //    [[[ UIImage alloc ] initWithContentsOfFile:fullPath ] autorelease];
-        UIImage *image=filtered_img;
+        //UIImage *image=filtered_img;
+        UIImage *image=image_to_use;
         float width = image.size.width;
         float height = image.size.height;
         

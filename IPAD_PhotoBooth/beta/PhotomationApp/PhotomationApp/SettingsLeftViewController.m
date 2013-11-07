@@ -357,7 +357,7 @@
     
     
     NSString *str = [ NSString stringWithFormat:@"%d", app.config.printMode ];
-    [[NSUserDefaults standardUserDefaults] setObject:str forKey:@"print_mode"];
+    [[NSUserDefaults standardUserDefaults] setObject:str forKey:@"printer_mode"];
 }
 
 #pragma mark - Table view delegate
@@ -456,7 +456,7 @@
     
     self.current_page = row;
     
-    if (row!=5)
+    if (row!=6)
     {
     if (self.navigationPopoverController)
     {

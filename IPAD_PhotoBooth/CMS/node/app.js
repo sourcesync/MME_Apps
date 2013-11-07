@@ -20,7 +20,8 @@ app.use(express.methodOverride());
 app.use(app.router);
 
 var oneYear = 31557600000;
-app.use("/events",express.static( "docroot" ));
+app.use("/events",express.static( "docroot/event" ));
+app.use("/ipad_cms",express.static( "docroot/ipad_cms" ));
 //app.use("/assets",express.static('assets',{maxAge: oneYear }) );
 //app.use("/js",express.static('js',{maxAge:oneYear}));
 

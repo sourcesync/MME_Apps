@@ -31,6 +31,7 @@
 	var config_path 	= null;
 	var event_top		= null;
 	var stredit_panel	= null;
+	var newevent_panel	= null;
 
 	function yui_initialize( cb )
 	{
@@ -69,6 +70,61 @@
 		var snd = new Audio(path);
 		snd.play();	
 	}
+
+	function new_event()
+	{
+		if ( newevent_panel )
+		{
+			newevent_panel.destroy();
+			newevent_panel = null;
+		}
+
+		html =   '<div id="newevent_panel">';
+                html +=         '<div style="margin-left:20px;margin-top:10px;" >Event Name:';
+                html +=                 '<textarea id="newevent" style="margin-top:10px;margin-bottom:10px;margin-left:10px;width:300px;height:200px;" ';
+                html +=                         ' type="text" ></textarea>';
+                html +=         '</div>';
+                html +=  '</div>';
+                var el = gY.Node.create( html );
+
+                //      add to body...
+                var bodyNode = gY.one(document.body);
+                bodyNode.append(el);
+
+		 //      make the panel...
+                newevent_panel = new gY.Panel({
+                        srcNode      : '#newevent_panel',
+                        headerContent: 'New Event',
+                        width        : 400,
+                        zIndex       : 10,
+                        centered     : true,
+                        modal        : true,
+                        visible      : false,
+                        render       : true,
+                        plugins      : [gY.Plugin.Drag]
+                });
+
+                newevent_panel.addButton({
+                        value  : 'OK',
+                        section: gY.WidgetStdMod.FOOTER,
+                        action : function (e)
+                        {
+                                var val = gY.Node('#newevent').get("value");
+				if ( !val || (val=="") ) { alert("Invalid name"); return; };
+				if ( val.indexOf(" ")>=0 ) { alert("Invalid character"); return; };
+
+				create_event( val );	
+                                //update_config( current_event, current_config, key, "string", val );
+
+                                newevent_panel.hide();
+                                newevent_panel.destroy();
+                                newevent_panel = null;
+                        }
+                });
+
+                newevent_panel.show();
+	}
+
 
 	function stredit(key,val)
 	{
@@ -169,6 +225,43 @@
 
 	}
 
+
+        function create_event(evt)
+        {
+                var handleSucc = function(id, o, a)
+                {
+                        console.log("new event response", o.responseText);
+                        var status = gY.JSON.parse(o.responseText);
+                        if ( status && status['status'] )
+                        {
+				newevent_panel.hide();
+                                // refresh page...
+                                refresh_events();
+                        }
+			else
+			{
+				alert('ERROR: new event failed->' + status['message']);
+			}	
+                }
+                var cfg =
+                {
+                        sync: true,
+                        method: "GET",
+                        xdr: { use:'native' },
+                        headers: { 'Content-Type': 'text/plain', },
+                        on: {
+                                start: function(id,a) {},
+                                success: handleSucc,
+                                failure: function(id,o,a) { gY.log("ERROR",id,o,a); }
+                        }
+                };
+
+                gY.io.header('X-Requested-With');
+                var obj = gY.io( cms_top + "../create_event.php?event=" + evt, cfg );
+                return true;
+        }
+
+
 	function update_config(evt, config, key, asset, val)
 	{
 		// modify the config with the new value...
@@ -178,19 +271,13 @@
 		{
                 	config.settings[key] = asset + "/" + val 
 		}
-
-
                 var data = gY.JSON.stringify( config );
 	
 		var handleSucc = function(id, o, a)
         	{
 			console.log("upload config response", o.responseText);
-                	
 			var status = gY.JSON.parse(o.responseText);
-			if ( !status || !status['status'] ) 
-			{
-				alert('ERROR: Config update failed.');
-			}
+			if ( !status || !status['status'] ) alert('ERROR: Config update failed.');
 			else
 			{
 				// refresh page...
@@ -227,7 +314,7 @@
 		
 	}
 
-        function refresh_events(evt)
+        function refresh_events()
         {
 		//window.location.href = cms_top + "cms.html?events=true";
 
@@ -336,6 +423,8 @@
                 }).render("#cms_datatable");
 
 		gY.Node('#cms_title').set("innerHTML", "IPAD App Events" );
+		
+		gY.Node('#cms_create').setStyle("display","block");
         }
 
 	function show_event(evt, config)
@@ -461,6 +550,8 @@
                 }).render("#cms_datatable");
 
                 gY.Node('#cms_title').set("innerHTML", "IPAD Event: " + evt );
+
+		gY.Node('#cms_create').setStyle("display","none");
 
 		var url = cms_top + "../upload.php?event=" + evt;
 
@@ -680,7 +771,6 @@
 			else if ( dct['events'] )
                         {
                                 refresh_events();
-				//show_events();
                         }
 			else
                         {
@@ -695,6 +785,11 @@
 		//refresh_events();
 	}
 
+	function cms_create_cb()
+	{
+		new_event();
+	}
+
 </script>
 
 <body class="yui3-skin-mine" onload="loadall();" >
@@ -706,6 +801,10 @@
 	<h1 id="cms_title" style="margin-left:20px;margin-top:20px;"></h1>
 	
 	<div style="margin-top:20px;margin-left:20px;" id="cms_datatable"></div>
+
+	<div style="margin-top:10px;margin-left:20px;display:none;" id="cms_create">
+		<button id="cms_create_event" onclick="cms_create_cb();" >Create Event</button>
+	</div>
 
 	<div id="cms_login" style="width:300px;padding:20px;display:none;margin-top:20px;margin-left:20px;" class="yui3-widget-bd">
 		<input type="text" style="width:200px;margin-top:10px;margin-left:10px;" placeHolder="username"/><br>

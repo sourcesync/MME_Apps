@@ -231,7 +231,7 @@
     //  printing...
     self.printMode = 0;
     self.printURL = nil;
-    mm =[[NSUserDefaults standardUserDefaults]  stringForKey:@"print_mode" ];
+    mm =[[NSUserDefaults standardUserDefaults]  stringForKey:@"printer_mode" ];
     if (mm) self.printMode = [ mm integerValue];
     NSString *url =[[NSUserDefaults standardUserDefaults]  stringForKey:@"print_url" ];
     if ( url ) self.printURL = url;
